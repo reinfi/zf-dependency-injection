@@ -53,6 +53,45 @@ Also in addition there a several annotations to inject from plugin managers.
 
 * InjectDoctrineRepository
 
+It is only constructor injection supported, if you need di from setters you need to use delegator factories.
+
+You can add the annotations at properties or at the __construct method.
+
+```
+/**
+     * @Inject("Namespace\MyService")
+     *
+     * @var MyService
+     */
+    private $service;
+
+    /**
+     * @param MyService $service
+     */
+    public function __construct(
+        MyService $service,
+    ) {
+        $this->service = $service;
+    }
+```
+
+or
+
+```
+    /**
+     * @Inject("Namespace\MyService")
+     *
+     * @param MyService $service
+     */
+    public function __construct(
+        MyService $service,
+    ) {
+        $this->service = $service;
+    }
+```
+
+The order is important and you should decide between constructor or property annotations.
+
 ### Caching
 
 Parsing mapping sources is very heavy. You *should* enable the cache on production servers.
