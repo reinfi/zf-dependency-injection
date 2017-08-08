@@ -9,7 +9,7 @@ Heavily inspired by https://github.com/mikemix/mxdiModule.
 
 ### Installation
 
-1. Install with Composer: `composer require reinfi/zf-dependency-inject`.
+1. Install with Composer: `composer require reinfi/zf-dependency-injection`.
 
 2. Enable the module via ZF2 config in `appliation.config.php` under `modules` key:
 
