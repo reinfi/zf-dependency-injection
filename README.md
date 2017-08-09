@@ -92,6 +92,13 @@ or
 
 The order is important and you should decide between constructor or property annotations.
 
+### Changing mapping driver
+
+The default mapping driver is `AnnotationExtractor` as source of mapping information for the module. You can change it however to other. Available extractors are:
+
+* `YamlExtractor` which uses a yml file. See the [YAML](docs/Yaml.md) docs for examples.
+
+There's **no difference** between choosing annotation driver or YAML or XML driver, because the mapping information in the end is converted to **plain php** and stored **inside the cache**.
 ### Caching
 
 Parsing mapping sources is very heavy. You *should* enable the cache on production servers.

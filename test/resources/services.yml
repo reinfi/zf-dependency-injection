@@ -1,0 +1,3 @@
+Reinfi\DependencyInjection\Service\InjectionService:
+  - {type: Inject, value: Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface}
+  - {type: Inject, value: Reinfi\DependencyInjection\Service\CacheService}

@@ -5,6 +5,7 @@ return [
         'factories'          => [
             \Reinfi\DependencyInjection\Config\ModuleConfig::class                   => \Reinfi\DependencyInjection\Config\Factory\ModuleConfigFactory::class,
             \Reinfi\DependencyInjection\Service\Extractor\AnnotationExtractor::class => \Reinfi\DependencyInjection\Service\Extractor\Factory\AnnotationExtractorFactory::class,
+            \Reinfi\DependencyInjection\Service\Extractor\YamlExtractor::class       => \Reinfi\DependencyInjection\Service\Extractor\Factory\YamlExtractorFactory::class,
             \Reinfi\DependencyInjection\Service\InjectionService::class              => \Reinfi\DependencyInjection\Service\Factory\InjectionServiceFactory::class,
             \Reinfi\DependencyInjection\Service\CacheService::class                  => \Reinfi\DependencyInjection\Service\Factory\CacheServiceFactory::class,
             \Reinfi\DependencyInjection\Service\ConfigService::class                 => \Reinfi\DependencyInjection\Service\Factory\ConfigServiceFactory::class,
