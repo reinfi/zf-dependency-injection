@@ -4,6 +4,7 @@ namespace Reinfi\DependencyInjection\Controller\Factory;
 
 use Reinfi\DependencyInjection\Controller\CacheWarmupController;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
+use Reinfi\DependencyInjection\Service\AutoWiringService;
 use Reinfi\DependencyInjection\Service\CacheService;
 use Reinfi\DependencyInjection\Service\Extractor\AnnotationExtractor;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
@@ -29,12 +30,16 @@ class CacheWarmupControllerFactory
         /** @var ExtractorInterface $extractor */
         $extractor = $container->get(ExtractorInterface::class);
 
+        /** @var AutoWiringService $autoWiringService */
+        $autoWiringService = $container->get(AutoWiringService::class);
+
         /** @var CacheService $cache */
         $cache = $container->get(CacheService::class);
 
         return new CacheWarmupController(
             $serviceManagerConfig,
             $extractor,
+            $autoWiringService,
             $cache
         );
     }

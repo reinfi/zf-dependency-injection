@@ -21,9 +21,6 @@ class InjectionServiceFactory
      */
     public function __invoke(ContainerInterface $container): InjectionService
     {
-        /** @var Config $config */
-        $config = $container->get(ModuleConfig::class);
-
         /** @var ExtractorInterface $extractor */
         $extractor = $container->get(ExtractorInterface::class);
 

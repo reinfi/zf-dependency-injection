@@ -9,6 +9,7 @@ return [
             \Reinfi\DependencyInjection\Service\InjectionService::class              => \Reinfi\DependencyInjection\Service\Factory\InjectionServiceFactory::class,
             \Reinfi\DependencyInjection\Service\CacheService::class                  => \Reinfi\DependencyInjection\Service\Factory\CacheServiceFactory::class,
             \Reinfi\DependencyInjection\Service\ConfigService::class                 => \Reinfi\DependencyInjection\Service\Factory\ConfigServiceFactory::class,
+            \Reinfi\DependencyInjection\Service\AutoWiringService::class             => \Reinfi\DependencyInjection\Service\Factory\AutoWiringServiceFactory::class,
             \Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface::class  => \Reinfi\DependencyInjection\Service\Extractor\Factory\ExtractorFactory::class,
         ],
         'abstract_factories' => [
