@@ -1,6 +1,6 @@
 # Configuring YAML driver
 
-In the `mxdimodule.local.php` file, you can uncomment the `extractor` and `extractor_options` keys to change the default extractor to Yaml as mapping source.
+In the `reinfi-di.local.php` file, you can uncomment the `extractor` and `extractor_options` keys to change the default extractor to Yaml as mapping source.
 
 Make sure the `file` key under `extractor_options` points to a valid yml file with mapping information. Example configuration can look as follows:
 
@@ -18,7 +18,7 @@ Make sure the `file` key under `extractor_options` points to a valid yml file wi
 # identifier of the service class
 \App\Service\MyService:
     - { type: Inject, value: Zend\EventManager\EventManager }
-    - { type: Inject, value: application}
+    - { type: Inject, value: application }
 
 # Place here another mappings
 
