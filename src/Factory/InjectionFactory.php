@@ -110,6 +110,10 @@ final class InjectionFactory implements FactoryInterface
             return;
         }
 
+        if ($container instanceof AbstractPluginManager) {
+            $container = $container->getServiceLocator();
+        }
+
         $serviceManagerConfig = $container->get('config')['service_manager'];
 
         self::$injectionConfig = $serviceManagerConfig['injections'] ?? [];
