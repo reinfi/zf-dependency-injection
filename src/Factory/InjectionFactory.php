@@ -127,6 +127,10 @@ final class InjectionFactory implements FactoryInterface
     ): array {
         $injections = self::$injectionConfig[$requestedName];
 
+        if ($container instanceof AbstractPluginManager) {
+            $container = $container->getServiceLocator();
+        }
+
         return array_map([$container, 'get'], $injections);
     }
 

@@ -129,3 +129,5 @@ There is a second way to add injections. You can specify a injection list within
     ],
 ]
 ```
+
+This actually only supports native service locator calls.
