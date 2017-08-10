@@ -4,7 +4,6 @@ namespace Reinfi\DependencyInjection\Factory;
 
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\AutoWiringService;
-use Reinfi\DependencyInjection\Service\InjectionService;
 use Traversable;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;
@@ -16,6 +15,27 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 final class AutoWiringFactory implements FactoryInterface
 {
+    /**
+     * Options to pass to the constructor (when used in v2), if any.
+     *
+     * @param null|array
+     */
+    private $creationOptions;
+
+    /**
+     * @param null|array|Traversable $creationOptions
+     * @throws InvalidServiceException if $creationOptions cannot be coerced to
+     *     an array.
+     */
+    public function __construct($creationOptions = null)
+    {
+        if (null === $creationOptions) {
+            return;
+        }
+
+        $this->creationOptions = $creationOptions;
+    }
+
     /**
      * Create an instance of the requested class name.
      *
