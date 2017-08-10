@@ -1,33 +1,40 @@
 {
-    "name": "reinfi/zf-dependency-injection",
-    "type": "library",
-    "description": "A Zend Framework module for loading dependencies via annotation or config entries.",
-    "keywords": ["zend","dependency", "injection", "annotation"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Reinfi"
-        }
-    ],
-    "require": {
-        "php": ">=7.0",
-        "doctrine/annotations": "~1.2",
-        "zendframework/zend-servicemanager": "~2.7",
-        "zendframework/zend-modulemanager": "~2.7",
-        "zendframework/zend-mvc": "~2.7",
-        "zendframework/zend-console": "~2.6",
-        "zendframework/zend-cache": "~2.5",
-        "symfony/yaml": "^3.3"
-    },
-    "autoload": {
-        "psr-4": {
-            "Reinfi\\DependencyInjection\\": [
-                "src/",
-                "test/"
-            ]
-        }
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^6.3"
+  "name": "reinfi/zf-dependency-injection",
+  "type": "library",
+  "description": "A Zend Framework module for loading dependencies via annotation or config entries.",
+  "keywords": [
+    "zend",
+    "dependency",
+    "injection",
+    "annotation",
+    "yaml",
+    "autowiring"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Reinfi"
     }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "doctrine/annotations": "~1.2",
+    "zendframework/zend-servicemanager": "~2.7",
+    "zendframework/zend-modulemanager": "~2.7",
+    "zendframework/zend-mvc": "~2.7",
+    "zendframework/zend-console": "~2.6",
+    "zendframework/zend-cache": "~2.5",
+    "symfony/yaml": "^3.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Reinfi\\DependencyInjection\\": [
+        "src/",
+        "test/"
+      ]
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.3"
+  }
 }

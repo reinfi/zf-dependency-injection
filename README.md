@@ -3,9 +3,11 @@ Configure dependency injection in Zend Framework 2 using annotations.
 Heavily inspired by https://github.com/mikemix/mxdiModule.
 
 1. [Installation](#installation)
-2. [How to use it](#howtouseit)
-3. [Caching](#caching)
-4. [Console commands](#console-commands)
+2. [How to use it](#how-to-use-it)
+3. [Change the ](#caching)
+4. [Changing mapping driver](#changing-mapping-driver)
+5. [AutoWiring](#autowiring)
+6. [Console commands](#console-commands)
 
 ### Installation
 
@@ -13,7 +15,7 @@ Heavily inspired by https://github.com/mikemix/mxdiModule.
 
 2. Enable the module via ZF2 config in `appliation.config.php` under `modules` key:
 
-    ```php
+```php
     return [
         //
         //
@@ -24,11 +26,11 @@ Heavily inspired by https://github.com/mikemix/mxdiModule.
         //
         //
     ];
-    ```
+```
 ### How to use it
 
 You need to register your services under the factories key within the service manager
-```
+```php
 'service_manager' => [
     'factories' => [
         YourService::class => \Reinfi\DependencyInjection\Factory\InjectionFactory::class,
@@ -50,6 +52,7 @@ Also in addition there a several annotations to inject from plugin managers.
 * InjectInputFilter
 * InjectValidator
 * InjectHydrator
+* InjectFormElement
 
 * InjectDoctrineRepository
 
@@ -57,7 +60,7 @@ It is only constructor injection supported, if you need di from setters you need
 
 You can add the annotations at properties or at the __construct method.
 
-```
+```php
 /**
      * @Inject("Namespace\MyService")
      *
@@ -77,7 +80,7 @@ You can add the annotations at properties or at the __construct method.
 
 or
 
-```
+```php
     /**
      * @Inject("Namespace\MyService")
      *
@@ -98,7 +101,23 @@ The default mapping driver is `AnnotationExtractor` as source of mapping informa
 
 * `YamlExtractor` which uses a yml file. See the [YAML](docs/Yaml.md) docs for examples.
 
-There's **no difference** between choosing annotation driver or YAML or XML driver, because the mapping information in the end is converted to **plain php** and stored **inside the cache**.
+There's **no difference** between choosing annotation driver or YAML driver, because the mapping information in the end is converted to **plain php** and stored **inside the cache**.
+
+### AutoWiring
+
+Their is an additional factory for auto wiring.
+
+```php
+'service_manager' => [
+    'factories' => [
+        YourService::class => \Reinfi\DependencyInjection\Factory\AutoWiringFactory::class,
+    ],
+]
+```
+
+When used it the factory reads all constructor typehints and tries to find a suitable class within the service locator.
+You can't inject a service from a plugin manager with auto wiring.
+
 ### Caching
 
 Parsing mapping sources is very heavy. You *should* enable the cache on production servers.
@@ -119,6 +138,7 @@ You can find more information about available out-of-the-box adapters at the [ZF
 * Warmup cache: `php public/index.php reinfi:di cache warmup`
 
   Fills the cache with every injection required by a class.
+  It also fills the cache with every auto wiring dependency.
 
 ### Additional Notes
 
