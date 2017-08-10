@@ -10,7 +10,7 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuite name="Reinfi Dependency Injection Tests">
-        <directory>./test</directory>
+        <directory>test</directory>
     </testsuite>
     <filter>
         <whitelist>
