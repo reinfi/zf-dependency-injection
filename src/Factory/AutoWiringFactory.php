@@ -43,7 +43,11 @@ final class AutoWiringFactory implements FactoryInterface
             return new $requestedName;
         }
 
-        return new $requestedName($injections);
+        $reflClass = new \ReflectionClass($requestedName);
+
+        $instance = $reflClass->newInstanceArgs($injections);
+
+        return $instance;
     }
 
     /**

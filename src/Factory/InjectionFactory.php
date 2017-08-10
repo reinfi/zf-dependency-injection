@@ -75,7 +75,11 @@ final class InjectionFactory implements FactoryInterface
             $injections = $this->buildDependencies($container, $requestedName);
         }
 
-        return new $requestedName($injections);
+        $reflClass = new \ReflectionClass($requestedName);
+
+        $instance = $reflClass->newInstanceArgs($injections);
+
+        return $instance;
     }
 
     /**
