@@ -6,14 +6,20 @@ php:
   - hhvm
 
 matrix:
+  fast_finish: true
   allow_failures:
     - php: nightly
     - php: hhvm
 
-before_script:
+before_install:
   - phpenv config-rm xdebug.ini
-  - travis_retry composer self-update
-  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-source
+  - composer self-update
+
+install:
+  - composer update --no-interaction --prefer-dist --no-suggest
 
 script:
   - phpunit
+
+notifications:
+  email: false
