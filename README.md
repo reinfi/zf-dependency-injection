@@ -1,3 +1,5 @@
+https://travis-ci.org/reinfi/zf-dependency-injection.svg?branch=master
+
 Configure dependency injection in Zend Framework 2 using annotations.
 
 Heavily inspired by https://github.com/mikemix/mxdiModule.
