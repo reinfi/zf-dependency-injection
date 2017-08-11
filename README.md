@@ -1,4 +1,4 @@
-https://travis-ci.org/reinfi/zf-dependency-injection.svg?branch=master
+[![Build Status](https://travis-ci.org/reinfi/zf-dependency-injection.svg?branch=master)](https://travis-ci.org/reinfi/zf-dependency-injection)
 
 Configure dependency injection in Zend Framework 2 using annotations.
 
