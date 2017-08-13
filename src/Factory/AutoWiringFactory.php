@@ -4,7 +4,6 @@ namespace Reinfi\DependencyInjection\Factory;
 
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\AutoWiringService;
-use Traversable;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;
 use Zend\ServiceManager\FactoryInterface;
@@ -16,36 +15,14 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 final class AutoWiringFactory implements FactoryInterface
 {
     /**
-     * Options to pass to the constructor (when used in v2), if any.
-     *
-     * @param null|array
-     */
-    private $creationOptions;
-
-    /**
-     * @param null|array|Traversable $creationOptions
-     * @throws InvalidServiceException if $creationOptions cannot be coerced to
-     *     an array.
-     */
-    public function __construct($creationOptions = null)
-    {
-        if (null === $creationOptions) {
-            return;
-        }
-
-        $this->creationOptions = $creationOptions;
-    }
-
-    /**
      * Create an instance of the requested class name.
      *
      * @param ContainerInterface $container
      * @param string             $requestedName
-     * @param null|array         $options
      *
      * @return object
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName)
     {
         /** @var AutoWiringService $autoWiringService */
         if ($container instanceof AbstractPluginManager) {
@@ -76,11 +53,11 @@ final class AutoWiringFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator, $canonicalName = null, $requestedName = null)
     {
         if (is_string($requestedName) && class_exists($requestedName)) {
-            return $this($serviceLocator, $requestedName, $this->creationOptions);
+            return $this($serviceLocator, $requestedName);
         }
 
         if (class_exists($canonicalName)) {
-            return $this($serviceLocator, $canonicalName, $this->creationOptions);
+            return $this($serviceLocator, $canonicalName);
         }
 
         throw new InvalidServiceException(sprintf(
