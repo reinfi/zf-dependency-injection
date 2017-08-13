@@ -7,6 +7,7 @@ use ReflectionClass;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
+use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Traits\CacheKeyTrait;
 use Zend\Cache\Storage\StorageInterface;
 
@@ -18,15 +19,24 @@ class AutoWiringService
     use CacheKeyTrait;
 
     /**
+     * @var ResolverService
+     */
+    private $resolverService;
+
+    /**
      * @var StorageInterface
      */
     private $cache;
 
     /**
+     * @param ResolverService  $resolverService
      * @param StorageInterface $cache
      */
-    public function __construct(StorageInterface $cache)
-    {
+    public function __construct(
+        ResolverService $resolverService,
+        StorageInterface $cache
+    ) {
+        $this->resolverService = $resolverService;
         $this->cache = $cache;
     }
 
@@ -46,7 +56,7 @@ class AutoWiringService
         if ($this->cache->hasItem($cacheKey)) {
             $injections = $this->cache->getItem($cacheKey);
         } else {
-            $injections = $this->findInjections($className);
+            $injections = $this->resolverService->resolve($className);
             $this->cache->setItem($cacheKey, $injections);
         }
 
@@ -59,36 +69,5 @@ class AutoWiringService
         }
 
         return $injections;
-    }
-
-    /**
-     * @param string $className
-     *
-     * @return array
-     */
-    public function findInjections(string $className): array
-    {
-        $reflClass = new ReflectionClass($className);
-
-        $constructor = $reflClass->getConstructor();
-
-        if ($constructor === null) {
-            return [];
-        }
-
-        $parameters = $constructor->getParameters();
-
-        return array_map([$this, 'retrieveInjection'], $parameters);
-    }
-
-    /**
-     * @param ReflectionParameter $parameter
-     *
-     * @return AutoWiring
-     */
-    protected function retrieveInjection(
-        ReflectionParameter $parameter
-    ): AutoWiring {
-        return new AutoWiring($parameter->getClass()->getName());
     }
 }

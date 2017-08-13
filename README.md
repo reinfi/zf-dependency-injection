@@ -117,8 +117,8 @@ Their is an additional factory for auto wiring.
 ]
 ```
 
-When used it the factory reads all constructor typehints and tries to find a suitable class within the service locator.
-You can't inject a service from a plugin manager with auto wiring.
+When used it the factory reads all constructor typehints and tries to find a suitable class within the service locator
+or if class implements an interface registered within the pluginmanagers.
 
 ### Caching
 
@@ -141,22 +141,3 @@ You can find more information about available out-of-the-box adapters at the [ZF
 
   Fills the cache with every injection required by a class.
   It also fills the cache with every auto wiring dependency.
-
-### Additional Notes
-
-There is a second way to add injections. You can specify a injection list within the service_manager configuration.
-
-```
-'service_manager' => [
-    'factories' => [
-        YourService::class => \Reinfi\DependencyInjection\Factory\InjectionFactory::class,
-    ],
-    'injections' => [
-        YourClass:class => [
-            YourDependencyClass::class,
-        ],
-    ],
-]
-```
-
-This actually only supports native service locator calls.

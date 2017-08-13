@@ -4,7 +4,7 @@ namespace Reinfi\DependencyInjection\Controller;
 
 use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
 use Reinfi\DependencyInjection\Factory\InjectionFactory;
-use Reinfi\DependencyInjection\Service\AutoWiringService;
+use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
 use Reinfi\DependencyInjection\Traits\CacheKeyTrait;
 use Zend\Cache\Storage\StorageInterface;
@@ -28,9 +28,9 @@ class CacheWarmupController extends AbstractConsoleController
     private $extractor;
 
     /**
-     * @var AutoWiringService
+     * @var ResolverService
      */
-    private $autoWiringService;
+    private $resolverService;
 
     /**
      * @var StorageInterface
@@ -40,19 +40,19 @@ class CacheWarmupController extends AbstractConsoleController
     /**
      * @param array              $serviceManagerConfig
      * @param ExtractorInterface $extractor
-     * @param AutoWiringService  $autoWiringService
+     * @param ResolverService    $resolverService
      * @param StorageInterface   $cache
      */
     public function __construct(
         array $serviceManagerConfig,
         ExtractorInterface $extractor,
-        AutoWiringService $autoWiringService,
+        ResolverService $resolverService,
         StorageInterface $cache
     ) {
         $this->serviceManagerConfig = $serviceManagerConfig;
         $this->extractor = $extractor;
         $this->cache = $cache;
-        $this->autoWiringService = $autoWiringService;
+        $this->resolverService = $resolverService;
     }
 
     /**
@@ -78,7 +78,7 @@ class CacheWarmupController extends AbstractConsoleController
             }
 
             if ($factoryClass === AutoWiringFactory::class) {
-                $injections = $this->autoWiringService->findInjections($className);
+                $injections = $this->resolverService->resolve($className);
 
                 $this->cache->setItem(
                     $this->buildCacheKey($className),
