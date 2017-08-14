@@ -27,7 +27,9 @@ class CacheService implements StorageInterface
      */
     public function setOptions($options)
     {
-        return $this->cache->setOptions($options);
+        $this->cache->setOptions($options);
+
+        return $this;
     }
 
     /**
@@ -123,7 +125,7 @@ class CacheService implements StorageInterface
      */
     public function replaceItem($key, $value)
     {
-        $this->cache->replaceItem($key, $value);
+        return $this->cache->replaceItem($key, $value);
     }
 
     /**

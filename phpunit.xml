@@ -1,20 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="vendor/autoload.php"
-         backupGlobals="false"
-         backupStaticAttributes="false"
+<phpunit backupStaticAttributes="false"
          colors="true"
-         verbose="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
-         stopOnFailure="false">
-    <testsuite name="Reinfi Dependency Injection Tests">
-        <directory>test</directory>
+         stopOnFailure="false"
+         syntaxCheck="true">
+    <testsuite name='unit'>
+        <directory suffix='.php'>test/Unit</directory>
+    </testsuite>
+    <testsuite name='integration'>
+        <directory suffix='.php'>test/Integration</directory>
     </testsuite>
     <filter>
-        <whitelist>
-            <directory suffix=".php">src/</directory>
+        <whitelist processUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">config</directory>
+            <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
 </phpunit>
+
+ 
