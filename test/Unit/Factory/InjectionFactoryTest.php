@@ -9,6 +9,7 @@ use Reinfi\DependencyInjection\Factory\InjectionFactory;
 use Reinfi\DependencyInjection\Service\InjectionService;
 use Reinfi\DependencyInjection\Service\Service1;
 use Reinfi\DependencyInjection\Service\Service2;
+use Reinfi\DependencyInjection\Service\Service3;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -27,7 +28,7 @@ class InjectionFactoryTest extends TestCase
         $service->resolveConstructorInjection(
             Argument::type(ContainerInterface::class),
             Service1::class
-        )->willReturn([new Service2()]);
+        )->willReturn([new Service2(), new Service3()]);
 
         $container = $this->prophesize(ServiceLocatorInterface::class);
         $container->get(InjectionService::class)
@@ -56,7 +57,7 @@ class InjectionFactoryTest extends TestCase
         $service->resolveConstructorInjection(
             Argument::type(ContainerInterface::class),
             Service1::class
-        )->willReturn([new Service2()]);
+        )->willReturn([new Service2(), new Service3()]);
 
         $container = $this->prophesize(ServiceLocatorInterface::class);
         $container->get(InjectionService::class)
@@ -84,7 +85,7 @@ class InjectionFactoryTest extends TestCase
         $service->resolveConstructorInjection(
             Argument::type(ContainerInterface::class),
             Service1::class
-        )->willReturn([new Service2()]);
+        )->willReturn([new Service2(), new Service3()]);
 
         $container = $this->prophesize(ServiceLocatorInterface::class);
         $container->get(InjectionService::class)

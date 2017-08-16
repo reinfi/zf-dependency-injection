@@ -4,14 +4,11 @@ namespace Reinfi\DependencyInjection\Unit\Service\AutoWiring;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use Prophecy\Prophecy\MethodProphecy;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResolverInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
-use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
-use Reinfi\DependencyInjection\Service\InjectionService;
 use Reinfi\DependencyInjection\Service\Service1;
 use Reinfi\DependencyInjection\Service\Service2;
 
@@ -35,7 +32,7 @@ class ResolverServiceTest extends TestCase
 
         $injections = $service->resolve(Service1::class);
 
-        $this->assertCount(1, $injections);
+        $this->assertCount(2, $injections);
         $this->assertContainsOnlyInstancesOf(InjectionInterface::class, $injections);
     }
 
