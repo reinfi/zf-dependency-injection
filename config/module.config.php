@@ -18,11 +18,6 @@ return [
         'abstract_factories' => [
             \Reinfi\DependencyInjection\AbstractFactory\Config\InjectConfigAbstractFactory::class,
         ],
-        'delegators'         => [
-            'Application' => [
-                \Reinfi\DependencyInjection\Factory\Application\ApplicationFactory::class,
-            ],
-        ],
     ],
     'console'         => [
         'router' => [
