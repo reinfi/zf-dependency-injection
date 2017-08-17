@@ -62,4 +62,25 @@ class ContainerResolverTest extends TestCase
             $property->getValue($injection)
         );
     }
+
+    /**
+     * @test
+     */
+    public function itReturnsNullIfServiceNotFound()
+    {
+        $container = $this->prophesize(ContainerInterface::class);
+        $container->has(Service1::class)
+            ->willReturn(false);
+
+        $resolver = new ContainerResolver($container->reveal());
+
+        $class = $this->prophesize(\ReflectionClass::class);
+        $class->getName()->willReturn(Service1::class);
+        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter->getClass()->willReturn($class->reveal());
+
+        $injection = $resolver->resolve($parameter->reveal());
+
+        $this->assertNull($injection);
+    }
 }
