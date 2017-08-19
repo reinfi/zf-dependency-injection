@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Reinfi\DependencyInjection\Injection;
 
 use Psr\Container\ContainerInterface;
