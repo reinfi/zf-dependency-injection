@@ -11,10 +11,14 @@ before_install:
   - composer self-update
 
 install:
-  - composer update --no-interaction --prefer-dist --no-suggest
+  - composer install --dev --no-interaction --prefer-dist --no-suggest
 
 script:
+  - mkdir -p build/logs
   - vendor/phpunit/phpunit/phpunit -c phpunit.xml
+
+after_success:
+  - travis_retry php vendor/bin/coveralls
 
 notifications:
   email: false
