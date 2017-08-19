@@ -12,7 +12,7 @@ before_install:
   - phpenv config-rm xdebug.ini
 
 install:
-  - composer install --no-interaction --prefer-dist --no-suggest
+  - composer install --no-progress --no-interaction --prefer-dist --no-suggest
 
 script:
   - phpenv config-add /tmp/xdebug.ini
@@ -21,6 +21,10 @@ script:
 
 after_success:
   - travis_retry php vendor/bin/coveralls -v
+
+cache:
+    directories:
+        - $HOME/.composer/cache
 
 notifications:
   email: false
