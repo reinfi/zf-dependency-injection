@@ -3,6 +3,7 @@
 namespace Reinfi\DependencyInjection\Service;
 
 use Reinfi\DependencyInjection\Annotation\Inject;
+use Reinfi\DependencyInjection\Annotation\InjectConfig;
 
 /**
  * @package Reinfi\DependencyInjection\Service
@@ -17,12 +18,19 @@ class ServiceAnnotation
     protected $service2;
 
     /**
-     * @Inject("Reinfi\DependencyInjection\Service\Service2")
+     * @InjectConfig("test.value")
      *
-     * @param Service2 $service2
+     * @var int
      */
-    public function __construct(Service2 $service2)
+    protected $value;
+
+    /**
+     * @param Service2 $service2
+     * @param int      $value
+     */
+    public function __construct(Service2 $service2, int $value)
     {
         $this->service2 = $service2;
+        $this->value = $value;
     }
 }

@@ -28,13 +28,13 @@ class AnnotationExtractorTest extends TestCase
             Argument::type(\ReflectionProperty::class),
             Argument::exact(AnnotationInterface::class)
         )->willReturn($annotation->reveal())
-        ->shouldBeCalledTimes(1);
+        ->shouldBeCalledTimes(2);
 
         $extractor = new AnnotationExtractor($reader->reveal());
 
         $injections = $extractor->getPropertiesInjections(ServiceAnnotation::class);
 
-        $this->assertCount(1, $injections);
+        $this->assertCount(2, $injections);
         $this->assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
     }
 

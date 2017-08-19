@@ -10,4 +10,7 @@ return [
             \Reinfi\DependencyInjection\Service\ServiceContainer::class  => \Reinfi\DependencyInjection\Factory\AutoWiringFactory::class,
         ],
     ],
+    'test' => [
+        'value' => 1,
+    ],
 ];
