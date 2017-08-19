@@ -2,6 +2,7 @@ language: php
 
 php:
   - 7.0
+  - 7.1
 
 matrix:
   fast_finish: true
@@ -9,7 +10,6 @@ matrix:
 before_install:
   - cp $HOME/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini /tmp
   - phpenv config-rm xdebug.ini
-  - composer self-update
 
 install:
   - composer install --no-interaction --prefer-dist --no-suggest
@@ -17,7 +17,7 @@ install:
 script:
   - phpenv config-add /tmp/xdebug.ini
   - mkdir -p build/logs
-  - vendor/phpunit/phpunit/phpunit -c phpunit.xml
+  - vendor/phpunit/phpunit/phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml
 
 after_success:
   - travis_retry php vendor/bin/coveralls -v
