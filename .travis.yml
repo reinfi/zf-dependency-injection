@@ -14,7 +14,7 @@ install:
   - composer install --no-interaction --prefer-dist --no-suggest
 
 script:
-  - phpenv global 7.0
+  - phpenv config-add xdebug.ini
   - php -v
   - mkdir -p build/logs
   - vendor/phpunit/phpunit/phpunit -c phpunit.xml
