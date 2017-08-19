@@ -16,12 +16,11 @@ install:
 
 script:
   - phpenv config-add /tmp/xdebug.ini
-  - php -v
   - mkdir -p build/logs
   - vendor/phpunit/phpunit/phpunit -c phpunit.xml
 
 after_success:
-  - travis_retry php vendor/bin/coveralls
+  - travis_retry php vendor/bin/coveralls -v
 
 notifications:
   email: false
