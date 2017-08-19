@@ -11,9 +11,11 @@ before_install:
   - composer self-update
 
 install:
-  - composer install --dev --no-interaction --prefer-dist --no-suggest
+  - composer install --no-interaction --prefer-dist --no-suggest
 
 script:
+  - phpenv global 7.0
+  - php -v
   - mkdir -p build/logs
   - vendor/phpunit/phpunit/phpunit -c phpunit.xml
 
