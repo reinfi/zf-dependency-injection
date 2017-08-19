@@ -25,20 +25,25 @@ class ResolverServiceFactory
         /** @var Config $config */
         $config = $container->get(ModuleConfig::class);
 
-        $resolverStack = $config->get('autowire_resolver');
-        if ($resolverStack === null) {
-            $resolverStack = new Config(
-                [
-                    ContainerResolver::class,
-                    PluginManagerResolver::class,
-                    ContainerInterfaceResolver::class,
-                ]
-            );
+        $defaultResolverStackConfig = new Config(
+            [
+                ContainerResolver::class,
+                PluginManagerResolver::class,
+                ContainerInterfaceResolver::class,
+            ]
+        );
+
+        /** @var Config $resolverStackConfig */
+        $resolverStackConfig = $config->get('autowire_resolver');
+        if ($resolverStackConfig === null) {
+            $resolverStackConfig = $defaultResolverStackConfig;
+        } else {
+            $resolverStackConfig = $defaultResolverStackConfig->merge($resolverStackConfig);
         }
 
         $resolverStack = array_map(
             [$container, 'get'],
-            $resolverStack->toArray()
+            $resolverStackConfig->toArray()
         );
 
         return new ResolverService($resolverStack);
