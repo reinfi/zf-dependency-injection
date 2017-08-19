@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/reinfi/zf-dependency-injection.svg?branch=master)](https://travis-ci.org/reinfi/zf-dependency-injection)
 [![Coverage Status](https://coveralls.io/repos/github/reinfi/zf-dependency-injection/badge.svg?branch=master)](https://coveralls.io/github/reinfi/zf-dependency-injection?branch=master)
+
 Configure dependency injection in Zend Framework 2 using annotations.
+
 Heavily inspired by https://github.com/mikemix/mxdiModule.
 
 1. [Installation](#installation)
