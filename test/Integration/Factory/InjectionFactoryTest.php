@@ -4,11 +4,14 @@ namespace Reinfi\DependencyInjection\Integration\Factory;
 
 use Reinfi\DependencyInjection\Factory\InjectionFactory;
 use Reinfi\DependencyInjection\Integration\AbstractIntegrationTest;
+use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
 use Reinfi\DependencyInjection\Service\PluginService;
+use Reinfi\DependencyInjection\Service\Service1;
 use Reinfi\DependencyInjection\Service\Service3;
 use Reinfi\DependencyInjection\Service\ServiceAnnotation;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * @package Reinfi\DependencyInjection\Integration\Factory
@@ -125,6 +128,38 @@ class InjectionFactoryTest extends AbstractIntegrationTest
             $container,
             'NoServiceClass',
             'NoServiceClass'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itResolvesYamlInjections()
+    {
+        $config = ArrayUtils::merge(
+            require __DIR__ . '/../../resources/config.php',
+            [
+                'reinfi.dependencyInjection' => [
+                    'extractor' => YamlExtractor::class,
+                    'extractor_options' => [
+                        'file' => __DIR__ . '/../../resources/services.yml',
+                    ],
+                ],
+            ]
+        );
+        $container = $this->getServiceManager($config);
+
+        $factory = new InjectionFactory();
+
+        $instance = $factory->createService(
+            $container,
+            Service1::class,
+            Service1::class
+        );
+
+        $this->assertInstanceOf(
+            Service1::class,
+            $instance
         );
     }
 }
