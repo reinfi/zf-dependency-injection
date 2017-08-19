@@ -3,6 +3,8 @@
 namespace Reinfi\DependencyInjection\Integration;
 
 use PHPUnit\Framework\TestCase;
+use Reinfi\DependencyInjection\Annotation\Inject;
+use Reinfi\DependencyInjection\Annotation\InjectParent;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Stdlib\ArrayUtils;
@@ -12,6 +14,19 @@ use Zend\Stdlib\ArrayUtils;
  */
 abstract class AbstractIntegrationTest extends TestCase
 {
+    /**
+     * @inheritDoc
+     */
+    public static function setUpBeforeClass()
+    {
+        parent::setUpBeforeClass();
+
+        // Needed to find annotations through reader
+        class_exists(Inject::class);
+        class_exists(InjectParent::class);
+    }
+
+
     /**
      * @param array $config
      *
