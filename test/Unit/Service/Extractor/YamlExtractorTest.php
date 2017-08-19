@@ -4,6 +4,7 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor;
 
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Annotation\AnnotationInterface;
+use Reinfi\DependencyInjection\Exception\InjectionTypeUnknownException;
 use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
 use Reinfi\DependencyInjection\Service\Service1;
 use Reinfi\DependencyInjection\Service\Service2;
@@ -14,6 +15,22 @@ use Symfony\Component\Yaml\Yaml;
  */
 class YamlExtractorTest extends TestCase
 {
+    /**
+     * @test
+     */
+    public function itShouldReturnEmptyArrayForPropertyInjections()
+    {
+        $extractor = new YamlExtractor(
+            new Yaml(),
+            __DIR__ . '/../../../resources/services.yml',
+            'Reinfi\DependencyInjection\Annotation'
+        );
+
+        $injections = $extractor->getPropertiesInjections(Service1::class);
+
+        $this->assertCount(0, $injections);
+    }
+
     /**
      * @test
      */
@@ -33,6 +50,22 @@ class YamlExtractorTest extends TestCase
     /**
      * @test
      */
+    public function itShouldReturnInjectionsIfTypeHasContructorArguments()
+    {
+        $extractor = new YamlExtractor(
+            new Yaml(),
+            __DIR__ . '/../../../resources/services.yml',
+            'Reinfi\DependencyInjection\Annotation'
+        );
+
+        $injections = $extractor->getConstructorInjections('Reinfi\DependencyInjection\Service\ServiceDoctrine');
+
+        $this->assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
+    }
+
+    /**
+     * @test
+     */
     public function itShouldReturnNoInjectionsIfNotDefined()
     {
         $extractor = new YamlExtractor(
@@ -44,5 +77,37 @@ class YamlExtractorTest extends TestCase
         $injections = $extractor->getConstructorInjections(Service2::class);
 
         $this->assertCount(0, $injections);
+    }
+
+    /**
+     * @test
+     */
+    public function itThrowsExceptionIfConfigurationKeyTypeMisses()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $extractor = new YamlExtractor(
+            new Yaml(),
+            __DIR__ . '/../../../resources/bad_services.yml',
+            'Reinfi\DependencyInjection\Annotation'
+        );
+
+        $extractor->getConstructorInjections(Service1::class);
+    }
+
+    /**
+     * @test
+     */
+    public function itThrowsExceptionIfTypeIsUnknown()
+    {
+        $this->expectException(InjectionTypeUnknownException::class);
+
+        $extractor = new YamlExtractor(
+            new Yaml(),
+            __DIR__ . '/../../../resources/bad_services.yml',
+            'Reinfi\DependencyInjection\Annotation'
+        );
+
+        $extractor->getConstructorInjections(Service2::class);
     }
 }

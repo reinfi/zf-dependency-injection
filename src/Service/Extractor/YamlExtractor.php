@@ -3,6 +3,7 @@
 namespace Reinfi\DependencyInjection\Service\Extractor;
 
 use InvalidArgumentException;
+use Reinfi\DependencyInjection\Exception\InjectionTypeUnknownException;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Symfony\Component\Yaml\Yaml;
 
@@ -105,7 +106,7 @@ class YamlExtractor implements ExtractorInterface
      * @param array  $spec
      *
      * @return InjectionInterface|object
-     * @throws InvalidArgumentException
+     * @throws InjectionTypeUnknownException
      */
     protected function buildInjection(
         string $type,
@@ -114,7 +115,7 @@ class YamlExtractor implements ExtractorInterface
         $injectionClass = $this->injectionNamespace . '\\' . $type;
 
         if (!class_exists($injectionClass)) {
-            throw new \InvalidArgumentException('Invalid injection type ' . $type);
+            throw new InjectionTypeUnknownException('Invalid injection type ' . $type);
         }
 
         $reflectionClass = new \ReflectionClass($injectionClass);

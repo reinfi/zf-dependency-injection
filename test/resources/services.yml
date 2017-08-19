@@ -5,3 +5,6 @@ Reinfi\DependencyInjection\Service\InjectionService:
 Reinfi\DependencyInjection\Service\Service1:
   - {type: Inject, value: Reinfi\DependencyInjection\Service\Service2}
   - {type: Inject, value: Reinfi\DependencyInjection\Service\Service3}
+
+Reinfi\DependencyInjection\Service\ServiceDoctrine:
+  - {type: InjectDoctrineRepository, value: Reinfi\DependencyInjection\Service\Service2}

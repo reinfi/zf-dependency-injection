@@ -1,0 +1,5 @@
+Reinfi\DependencyInjection\Service\Service1:
+  - {value: Reinfi\DependencyInjection\Service\Service2}
+
+Reinfi\DependencyInjection\Service\Service2:
+  - {type: InjectCoffee, value: Reinfi\DependencyInjection\Service\Service2}
