@@ -21,12 +21,7 @@ final class AutoWiringFactory extends AbstractFactory
      */
     public function __invoke(ContainerInterface $container, string $requestedName)
     {
-        /** @var AutoWiringService $autoWiringService */
-        if ($container instanceof AbstractPluginManager) {
-            $autoWiringService = $container->getServiceLocator()->get(AutoWiringService::class);
-        } else {
-            $autoWiringService = $container->get(AutoWiringService::class);
-        }
+        $autoWiringService = $this->getAutoWiringService($container);
 
         $injections = $autoWiringService->resolveConstructorInjection(
             $container,
@@ -42,5 +37,19 @@ final class AutoWiringFactory extends AbstractFactory
         $instance = $reflClass->newInstanceArgs($injections);
 
         return $instance;
+    }
+
+    /**
+     * @param ContainerInterface $container
+     *
+     * @return AutoWiringService
+     */
+    private function getAutoWiringService(ContainerInterface $container): AutoWiringService
+    {
+        if ($container instanceof AbstractPluginManager) {
+            $container = $container->getServiceLocator();
+        }
+
+        return $container->get(AutoWiringService::class);
     }
 }

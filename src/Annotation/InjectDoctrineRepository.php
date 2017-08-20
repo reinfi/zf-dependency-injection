@@ -34,9 +34,12 @@ final class InjectDoctrineRepository implements AnnotationInterface
             }
 
             $this->entity = $values['entity'];
-        } else {
-            $this->entity = $values['value'];
+
+            return;
         }
+
+
+        $this->entity = $values['value'];
     }
 
     /**

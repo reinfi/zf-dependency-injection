@@ -12,11 +12,9 @@ use Reinfi\DependencyInjection\Service\Extractor\AnnotationExtractor;
 class AnnotationExtractorFactory
 {
     /**
-     * @param ContainerInterface $container
-     *
      * @return AnnotationExtractor
      */
-    public function __invoke(ContainerInterface $container): AnnotationExtractor
+    public function __invoke(): AnnotationExtractor
     {
         return new AnnotationExtractor(
             new AnnotationReader()

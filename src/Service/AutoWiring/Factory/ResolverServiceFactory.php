@@ -25,6 +25,23 @@ class ResolverServiceFactory
         /** @var Config $config */
         $config = $container->get(ModuleConfig::class);
 
+        $resolverStackConfig = $this->getResolverStack($config);
+
+        $resolverStack = array_map(
+            [$container, 'get'],
+            $resolverStackConfig->toArray()
+        );
+
+        return new ResolverService($resolverStack);
+    }
+
+    /**
+     * @param Config $config
+     *
+     * @return Config
+     */
+    protected function getResolverStack(Config $config): Config
+    {
         $defaultResolverStackConfig = new Config(
             [
                 ContainerResolver::class,
@@ -36,16 +53,13 @@ class ResolverServiceFactory
         /** @var Config $resolverStackConfig */
         $resolverStackConfig = $config->get('autowire_resolver');
         if ($resolverStackConfig === null) {
-            $resolverStackConfig = $defaultResolverStackConfig;
-        } else {
-            $resolverStackConfig = $defaultResolverStackConfig->merge($resolverStackConfig);
+            return $defaultResolverStackConfig;
         }
 
-        $resolverStack = array_map(
-            [$container, 'get'],
-            $resolverStackConfig->toArray()
+        $resolverStackConfig = $defaultResolverStackConfig->merge(
+            $resolverStackConfig
         );
 
-        return new ResolverService($resolverStack);
+        return $resolverStackConfig;
     }
 }

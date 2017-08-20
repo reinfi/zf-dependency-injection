@@ -47,18 +47,7 @@ class InjectionService
         ContainerInterface $container,
         string $className
     ) {
-        $cacheKey = $this->buildCacheKey($className);
-
-        /** @var InjectionInterface[] $injections */
-        if ($this->cache->hasItem($cacheKey)) {
-            $injections = $this->cache->getItem($cacheKey);
-        } else {
-            $injections = array_merge(
-                $this->extractor->getPropertiesInjections($className),
-                $this->extractor->getConstructorInjections($className)
-            );
-            $this->cache->setItem($cacheKey, $injections);
-        }
+        $injections = $this->getInjections($className);
 
         if (count($injections) === 0) {
             return false;
@@ -67,6 +56,28 @@ class InjectionService
         foreach ($injections as $index => $injection) {
             $injections[$index] = $injection($container);
         }
+
+        return $injections;
+    }
+
+    /**
+     * @param string $className
+     *
+     * @return InjectionInterface[]
+     */
+    protected function getInjections(string $className): array
+    {
+        $cacheKey = $this->buildCacheKey($className);
+
+        if ($this->cache->hasItem($cacheKey)) {
+            return $this->cache->getItem($cacheKey);
+        }
+
+        $injections = array_merge(
+            $this->extractor->getPropertiesInjections($className),
+            $this->extractor->getConstructorInjections($className)
+        );
+        $this->cache->setItem($cacheKey, $injections);
 
         return $injections;
     }

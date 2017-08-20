@@ -21,12 +21,7 @@ final class InjectionFactory extends AbstractFactory
      */
     public function __invoke(ContainerInterface $container, string $requestedName)
     {
-        /** @var InjectionService $injectionService */
-        if ($container instanceof AbstractPluginManager) {
-            $injectionService = $container->getServiceLocator()->get(InjectionService::class);
-        } else {
-            $injectionService = $container->get(InjectionService::class);
-        }
+        $injectionService = $this->getInjectionService($container);
 
         $injections = $injectionService->resolveConstructorInjection(
             $container,
@@ -42,5 +37,19 @@ final class InjectionFactory extends AbstractFactory
         $instance = $reflClass->newInstanceArgs($injections);
 
         return $instance;
+    }
+
+    /**
+     * @param ContainerInterface $container
+     *
+     * @return InjectionService
+     */
+    private function getInjectionService(ContainerInterface $container): InjectionService
+    {
+        if ($container instanceof AbstractPluginManager) {
+            $container = $container->getServiceLocator();
+        }
+
+        return $container->get(InjectionService::class);
     }
 }
