@@ -42,4 +42,19 @@ abstract class AbstractFactory implements FactoryInterface
             )
         );
     }
+
+    /**
+     * @param string $className
+     * @param array  $injections
+     *
+     * @return object
+     */
+    protected function buildInstance(string $className, array $injections)
+    {
+        $reflClass = new \ReflectionClass($className);
+
+        $instance = $reflClass->newInstanceArgs($injections);
+
+        return $instance;
+    }
 }

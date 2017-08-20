@@ -32,11 +32,7 @@ final class AutoWiringFactory extends AbstractFactory
             return new $requestedName;
         }
 
-        $reflClass = new \ReflectionClass($requestedName);
-
-        $instance = $reflClass->newInstanceArgs($injections);
-
-        return $instance;
+        return $this->buildInstance($requestedName, $injections);
     }
 
     /**
