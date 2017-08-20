@@ -2,34 +2,16 @@
 
 namespace Reinfi\DependencyInjection\Annotation;
 
-use Psr\Container\ContainerInterface;
-use Zend\ServiceManager\AbstractPluginManager;
-
 /**
  * @package Reinfi\DependencyInjection\Annotation
  *
  * @Annotation
  * @Target({"PROPERTY", "METHOD"})
  */
-final class InjectViewHelper implements AnnotationInterface
+final class InjectViewHelper extends AbstractInjectPluginManager
 {
     /**
      * @var string
      */
-    public $value;
-
-    /**
-     * @inheritDoc
-     */
-    public function __invoke(ContainerInterface $container)
-    {
-        if ($container instanceof AbstractPluginManager) {
-            return $container
-                ->getServiceLocator()
-                ->get('ViewHelperManager')
-                ->get($this->value);
-        }
-
-        return $container->get('ViewHelperManager')->get($this->value);
-    }
+    const PLUGIN_MANAGER = 'ViewHelperManager';
 }
