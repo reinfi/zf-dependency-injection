@@ -5,14 +5,11 @@ namespace Reinfi\DependencyInjection\Factory;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\InjectionService;
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Exception\InvalidServiceException;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Factory
  */
-final class InjectionFactory implements FactoryInterface
+final class InjectionFactory extends AbstractFactory
 {
     /**
      * Create an instance of the requested class name.
@@ -22,7 +19,7 @@ final class InjectionFactory implements FactoryInterface
      *
      * @return object
      */
-    public function __invoke(ContainerInterface $container, $requestedName)
+    public function __invoke(ContainerInterface $container, string $requestedName)
     {
         /** @var InjectionService $injectionService */
         if ($container instanceof AbstractPluginManager) {
@@ -45,24 +42,5 @@ final class InjectionFactory implements FactoryInterface
         $instance = $reflClass->newInstanceArgs($injections);
 
         return $instance;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator, $canonicalName = null, $requestedName = null)
-    {
-        if (is_string($requestedName) && class_exists($requestedName)) {
-            return $this($serviceLocator, $requestedName);
-        }
-
-        if (class_exists($canonicalName)) {
-            return $this($serviceLocator, $canonicalName);
-        }
-
-        throw new InvalidServiceException(sprintf(
-          '%s requires that the requested name is provided on invocation; please update your tests or consuming container',
-          __CLASS__
-      ));
     }
 }
