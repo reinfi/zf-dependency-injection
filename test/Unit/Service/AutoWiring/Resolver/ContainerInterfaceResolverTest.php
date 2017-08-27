@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerInterfaceResolver;
+use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -48,6 +49,24 @@ class ContainerInterfaceResolverTest extends TestCase
         $injection = $resolver->resolve($parameter->reveal());
 
         $this->assertInstanceOf(InjectionInterface::class, $injection);
+    }
+
+    /**
+     * @test
+     */
+    public function itReturnsNullIfIsAbstractPluginManager()
+    {
+        $resolver = new ContainerInterfaceResolver();
+        $class = $this->prophesize(\ReflectionClass::class);
+        $class->isInterface()->willReturn(false);
+        $class->getInterfaceNames()->willReturn([]);
+        $class->getName()->willReturn(AbstractPluginManager::class);
+        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter->getClass()->willReturn($class->reveal());
+
+        $injection = $resolver->resolve($parameter->reveal());
+
+        $this->assertNull($injection);
     }
 
     /**
