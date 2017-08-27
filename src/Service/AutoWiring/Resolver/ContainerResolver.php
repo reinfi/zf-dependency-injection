@@ -32,6 +32,10 @@ class ContainerResolver implements ResolverInterface
      */
     public function resolve(ReflectionParameter $parameter)
     {
+        if ($parameter->getClass() === null) {
+            return null;
+        }
+
         if ($this->container->has($parameter->getClass()->getName())) {
             return new AutoWiring($parameter->getClass()->getName());
         }

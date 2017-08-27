@@ -87,4 +87,19 @@ class ContainerInterfaceResolverTest extends TestCase
 
         $this->assertNull($injection);
     }
+
+    /**
+     * @test
+     */
+    public function itReturnsNullIfParameterHasNoClass()
+    {
+        $resolver = new ContainerInterfaceResolver();
+
+        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter->getClass()->willReturn(null);
+
+        $injection = $resolver->resolve($parameter->reveal());
+
+        $this->assertNull($injection);
+    }
 }

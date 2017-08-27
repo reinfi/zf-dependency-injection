@@ -159,6 +159,23 @@ class PluginManagerResolverTest extends TestCase
     }
 
     /**
+     * @test
+     */
+    public function itReturnsNullIfParameterHasNoClass()
+    {
+        $container = $this->prophesize(ContainerInterface::class);
+
+        $resolver = new PluginManagerResolver($container->reveal());
+
+        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter->getClass()->willReturn(null);
+
+        $injection = $resolver->resolve($parameter->reveal());
+
+        $this->assertNull($injection);
+    }
+
+    /**
      * @return array
      */
     public function getPluginManagerData(): array

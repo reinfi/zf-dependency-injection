@@ -45,6 +45,10 @@ class PluginManagerResolver implements ResolverInterface
      */
     public function resolve(ReflectionParameter $parameter)
     {
+        if ($parameter->getClass() === null) {
+            return null;
+        }
+
         $reflectionClass = $parameter->getClass();
         $serviceName = $reflectionClass->getName();
 

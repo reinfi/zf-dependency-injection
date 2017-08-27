@@ -17,6 +17,10 @@ class ContainerInterfaceResolver implements ResolverInterface
      */
     public function resolve(ReflectionParameter $parameter)
     {
+        if ($parameter->getClass() === null) {
+            return null;
+        }
+
         $reflClass = $parameter->getClass();
 
         if ($reflClass->isInterface()) {
