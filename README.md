@@ -2,7 +2,7 @@
 [![Code Climate](https://codeclimate.com/github/reinfi/zf-dependency-injection/badges/gpa.svg)](https://codeclimate.com/github/reinfi/zf-dependency-injection)
 [![Coverage Status](https://coveralls.io/repos/github/reinfi/zf-dependency-injection/badge.svg?branch=master)](https://coveralls.io/github/reinfi/zf-dependency-injection?branch=master)
 
-Configure dependency injection in Zend Framework 2 using annotations.
+Configure dependency injection in Zend Framework 2 using annotations, yaml or autowiring.
 
 Heavily inspired by https://github.com/mikemix/mxdiModule.
 
@@ -42,6 +42,8 @@ Plugins within the plugin manager can also be autowired. If you need to register
 PluginManagerResolver::addMapping('MyInterfaceClass', 'MyPluginManager');
 ```
 If your service needs the container as dependecy this can also be autowired.
+
+Entity Repositories from the default entity manager class are also autowired.
 ##### Add another resolver
 If you like to add another resolver you can simply add one through the configuration.
 ```php
