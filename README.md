@@ -42,8 +42,6 @@ Plugins within the plugin manager can also be autowired. If you need to register
 PluginManagerResolver::addMapping('MyInterfaceClass', 'MyPluginManager');
 ```
 If your service needs the container as dependecy this can also be autowired.
-
-Entity Repositories from the default entity manager class are also autowired.
 ##### Add another resolver
 If you like to add another resolver you can simply add one through the configuration.
 ```php

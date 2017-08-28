@@ -15,7 +15,6 @@ return [
             \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerResolver::class          => \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\ContainerResolverFactory::class,
             \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerInterfaceResolver::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
             \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\PluginManagerResolver::class      => \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\PluginManagerResolverFactory::class,
-            \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\DoctrineRepositoryResolver::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
         ],
         'abstract_factories' => [
             \Reinfi\DependencyInjection\AbstractFactory\Config\InjectConfigAbstractFactory::class,
