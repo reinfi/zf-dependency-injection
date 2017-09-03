@@ -69,4 +69,20 @@ class ModuleConfigFactoryTest extends TestCase
             'Config should be empty'
         );
     }
+
+    /**
+     * @test
+     */
+    public function itThrowsExceptionIfModuleConfigIsNotArray()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $factory = new ModuleConfigFactory();
+
+        $container = $this->prophesize(ContainerInterface::class);
+        $container->get('config')
+            ->willReturn([ ModuleConfig::CONFIG_KEY => true ]);
+
+        $factory($container->reveal());
+    }
 }
