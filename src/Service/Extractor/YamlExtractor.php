@@ -2,7 +2,6 @@
 
 namespace Reinfi\DependencyInjection\Service\Extractor;
 
-use InvalidArgumentException;
 use Reinfi\DependencyInjection\Exception\InjectionTypeUnknownException;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Symfony\Component\Yaml\Yaml;
@@ -92,7 +91,7 @@ class YamlExtractor implements ExtractorInterface
      */
     protected function getConfig(string $className): array
     {
-        if (!$this->config) {
+        if (!is_array($this->config)) {
             $this->config = $this->yaml::parse(
                 file_get_contents($this->filePath)
             );
