@@ -8,7 +8,7 @@ use Zend\ServiceManager\AbstractPluginManager;
 /**
  * @package Reinfi\DependencyInjection\Annotation
  */
-abstract class AbstractInjectPluginManager implements AnnotationInterface
+abstract class AbstractInjectPluginManager extends AbstractAnnotation
 {
     /**
      * @var string
@@ -25,12 +25,7 @@ abstract class AbstractInjectPluginManager implements AnnotationInterface
      */
     public function __invoke(ContainerInterface $container)
     {
-        if ($container instanceof AbstractPluginManager) {
-            return $container
-                ->getServiceLocator()
-                ->get(static::PLUGIN_MANAGER)
-                ->get($this->value);
-        }
+        $container = $this->determineContainer($container);
 
         return $container->get(static::PLUGIN_MANAGER)->get($this->value);
     }

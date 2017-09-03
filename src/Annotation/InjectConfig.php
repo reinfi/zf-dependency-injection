@@ -12,7 +12,7 @@ use Zend\ServiceManager\AbstractPluginManager;
  * @Annotation
  * @Target({"PROPERTY", "METHOD"})
  */
-final class InjectConfig implements AnnotationInterface
+final class InjectConfig extends AbstractAnnotation
 {
     /**
      * @var string
@@ -24,12 +24,7 @@ final class InjectConfig implements AnnotationInterface
      */
     public function __invoke(ContainerInterface $container)
     {
-        if ($container instanceof AbstractPluginManager) {
-            return $container
-                ->getServiceLocator()
-                ->get(ConfigService::class)
-                ->resolve($this->value);
-        }
+        $container = $this->determineContainer($container);
 
         return $container->get(ConfigService::class)->resolve($this->value);
     }

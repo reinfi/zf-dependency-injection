@@ -11,7 +11,7 @@ use Zend\ServiceManager\AbstractPluginManager;
  * @Annotation
  * @Target({"PROPERTY", "METHOD"})
  */
-final class InjectDoctrineRepository implements AnnotationInterface
+final class InjectDoctrineRepository extends AbstractAnnotation
 {
     /**
      * @var string
@@ -47,12 +47,7 @@ final class InjectDoctrineRepository implements AnnotationInterface
      */
     public function __invoke(ContainerInterface $container)
     {
-        if ($container instanceof AbstractPluginManager) {
-            return $container
-                ->getServiceLocator()
-                ->get($this->entityManager)
-                ->getRepository($this->entity);
-        }
+        $container = $this->determineContainer($container);
 
         return $container->get($this->entityManager)->getRepository($this->entity);
     }
