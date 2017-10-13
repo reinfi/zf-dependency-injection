@@ -8,6 +8,7 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerInterfaceRes
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\PluginManagerResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\RequestResolver;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResponseResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Zend\Config\Config;
 
@@ -49,6 +50,7 @@ class ResolverServiceFactory
                 PluginManagerResolver::class,
                 ContainerInterfaceResolver::class,
                 RequestResolver::class,
+                ResponseResolver::class,
             ]
         );
 
