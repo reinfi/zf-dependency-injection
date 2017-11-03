@@ -24,16 +24,26 @@ class CacheServiceFactory
         /** @var Config $config */
         $config = $container->get(ModuleConfig::class);
 
-
         $cacheAdapter = $config->get('cache', Memory::class);
+
         $cacheOptions = $config->get('cache_options', []);
         if ($cacheOptions instanceof Config) {
             $cacheOptions = $cacheOptions->toArray();
         }
 
-        $cache = StorageFactory::adapterFactory(
-            $cacheAdapter,
-            $cacheOptions
+        $cachePlugins = $config->get('cache_plugins', []);
+        if ($cachePlugins instanceof Config) {
+            $cachePlugins = $cachePlugins->toArray();
+        }
+
+        $cache = StorageFactory::factory(
+            [
+                'adapter' => [
+                    'name'    => $cacheAdapter,
+                    'options' => $cacheOptions,
+                ],
+                'plugins' => $cachePlugins,
+            ]
         );
         
         return new CacheService($cache);
