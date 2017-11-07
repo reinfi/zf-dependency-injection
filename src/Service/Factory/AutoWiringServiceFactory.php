@@ -3,7 +3,7 @@
 namespace Reinfi\DependencyInjection\Service\Factory;
 
 use Psr\Container\ContainerInterface;
-use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
+use Reinfi\DependencyInjection\Service\AutoWiring\LazyResolverService;
 use Reinfi\DependencyInjection\Service\AutoWiringService;
 use Reinfi\DependencyInjection\Service\CacheService;
 
@@ -19,8 +19,8 @@ class AutoWiringServiceFactory
      */
     public function __invoke(ContainerInterface $container): AutoWiringService
     {
-        /** @var ResolverService $resolverService */
-        $resolverService = $container->get(ResolverService::class);
+        /** @var LazyResolverService $resolverService */
+        $resolverService = $container->get(LazyResolverService::class);
 
         /** @var CacheService $cache */
         $cache = $container->get(CacheService::class);

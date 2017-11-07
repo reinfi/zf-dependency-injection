@@ -10,7 +10,7 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResolverInterface;
 /**
  * @package Reinfi\DependencyInjection\Service\AutoWiring
  */
-class ResolverService
+class ResolverService implements ResolverServiceInterface
 {
     /**
      * @var ResolverInterface[]
