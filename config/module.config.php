@@ -12,6 +12,7 @@ return [
             \Reinfi\DependencyInjection\Service\AutoWiringService::class                              => \Reinfi\DependencyInjection\Service\Factory\AutoWiringServiceFactory::class,
             \Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface::class                   => \Reinfi\DependencyInjection\Service\Extractor\Factory\ExtractorFactory::class,
             \Reinfi\DependencyInjection\Service\AutoWiring\ResolverService::class                     => \Reinfi\DependencyInjection\Service\AutoWiring\Factory\ResolverServiceFactory::class,
+            \Reinfi\DependencyInjection\Service\AutoWiring\LazyResolverService::class                 => \Reinfi\DependencyInjection\Service\AutoWiring\Factory\LazyResolverServiceFactory::class,
             \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerResolver::class          => \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\ContainerResolverFactory::class,
             \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerInterfaceResolver::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
             \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\PluginManagerResolver::class      => \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\PluginManagerResolverFactory::class,

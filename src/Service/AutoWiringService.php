@@ -4,7 +4,7 @@ namespace Reinfi\DependencyInjection\Service;
 
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
-use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
+use Reinfi\DependencyInjection\Service\AutoWiring\ResolverServiceInterface;
 use Reinfi\DependencyInjection\Traits\CacheKeyTrait;
 use Zend\Cache\Storage\StorageInterface;
 
@@ -16,7 +16,7 @@ class AutoWiringService
     use CacheKeyTrait;
 
     /**
-     * @var ResolverService
+     * @var ResolverServiceInterface
      */
     private $resolverService;
 
@@ -26,11 +26,11 @@ class AutoWiringService
     private $cache;
 
     /**
-     * @param ResolverService  $resolverService
-     * @param StorageInterface $cache
+     * @param ResolverServiceInterface $resolverService
+     * @param StorageInterface         $cache
      */
     public function __construct(
-        ResolverService $resolverService,
+        ResolverServiceInterface $resolverService,
         StorageInterface $cache
     ) {
         $this->resolverService = $resolverService;
