@@ -10,7 +10,6 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\PluginManagerResolver
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\RequestResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResponseResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
-use Zend\Config\Config;
 
 /**
  * @package Reinfi\DependencyInjection\Service\AutoWiring\Factory
@@ -24,46 +23,42 @@ class ResolverServiceFactory
      */
     public function __invoke(ContainerInterface $container): ResolverService
     {
-        /** @var Config $config */
+        /** @var array $config */
         $config = $container->get(ModuleConfig::class);
 
         $resolverStackConfig = $this->getResolverStack($config);
 
         $resolverStack = array_map(
             [$container, 'get'],
-            $resolverStackConfig->toArray()
+            $resolverStackConfig
         );
 
         return new ResolverService($resolverStack);
     }
 
     /**
-     * @param Config $config
+     * @param array $config
      *
-     * @return Config
+     * @return array
      */
-    protected function getResolverStack(Config $config): Config
+    protected function getResolverStack(array $config): array
     {
-        $defaultResolverStackConfig = new Config(
-            [
-                ContainerResolver::class,
-                PluginManagerResolver::class,
-                ContainerInterfaceResolver::class,
-                RequestResolver::class,
-                ResponseResolver::class,
-            ]
-        );
+        $defaultResolverStackConfig = [
+            ContainerResolver::class,
+            PluginManagerResolver::class,
+            ContainerInterfaceResolver::class,
+            RequestResolver::class,
+            ResponseResolver::class,
+        ];
 
-        /** @var Config $resolverStackConfig */
-        $resolverStackConfig = $config->get('autowire_resolver');
+        $resolverStackConfig = $config['autowire_resolver'] ?? null;
         if ($resolverStackConfig === null) {
             return $defaultResolverStackConfig;
         }
 
-        $resolverStackConfig = $defaultResolverStackConfig->merge(
+        return array_merge(
+            $defaultResolverStackConfig,
             $resolverStackConfig
         );
-
-        return $resolverStackConfig;
     }
 }

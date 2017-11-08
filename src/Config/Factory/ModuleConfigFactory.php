@@ -4,7 +4,6 @@ namespace Reinfi\DependencyInjection\Config\Factory;
 
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
-use Zend\Config\Config;
 
 /**
  * @package Reinfi\DependencyInjection\Config\Factory
@@ -14,23 +13,20 @@ class ModuleConfigFactory
     /**
      * @param ContainerInterface $container
      *
-     * @return Config
+     * @return array
      * @throws \InvalidArgumentException
      */
-    public function __invoke(ContainerInterface $container): Config
+    public function __invoke(ContainerInterface $container): array
     {
-        $config = new Config($container->get('config'));
+        /** @var array $config */
+        $config = $container->get('config');
 
-        if ($config->offsetExists(ModuleConfig::CONFIG_KEY)) {
-            $moduleConfig = $config->get(ModuleConfig::CONFIG_KEY);
+        $moduleConfig = $config[ModuleConfig::CONFIG_KEY] ?? [];
 
-            if (!$moduleConfig instanceof Config) {
-                throw new \InvalidArgumentException('Module config must be type of ' . Config::class);
-            }
-
-            return $moduleConfig;
+        if (!is_array($moduleConfig)) {
+            throw new \InvalidArgumentException('Module config must be type of array');
         }
 
-        return new Config([]);
+        return $moduleConfig;
     }
 }
