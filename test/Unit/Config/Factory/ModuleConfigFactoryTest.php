@@ -24,10 +24,10 @@ class ModuleConfigFactoryTest extends TestCase
         $container->get('config')
             ->willReturn([ ModuleConfig::CONFIG_KEY => [] ]);
 
-        $this->assertInstanceOf(
-            Config::class,
+        $this->assertInternalType(
+            'array',
             $factory($container->reveal()),
-            'Factory should return config class'
+            'Factory should return array'
         );
     }
 
@@ -44,9 +44,10 @@ class ModuleConfigFactoryTest extends TestCase
 
         $config = $factory($container->reveal());
 
-        $this->assertTrue(
-            $config->offsetExists('extractor'),
-            'Config should container extractor key'
+        $this->assertArrayHasKey(
+            'extractor',
+            $config,
+            'Config should contain extractor key'
         );
     }
 
@@ -65,7 +66,7 @@ class ModuleConfigFactoryTest extends TestCase
 
         $this->assertCount(
             0,
-            $config->toArray(),
+            $config,
             'Config should be empty'
         );
     }

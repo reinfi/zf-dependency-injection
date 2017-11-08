@@ -7,7 +7,6 @@ use Reinfi\DependencyInjection\Annotation\AnnotationInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
 use Symfony\Component\Yaml\Yaml;
-use Zend\Config\Config;
 
 /**
  * @package Reinfi\DependencyInjection\Service\Extractor\Factory
@@ -23,14 +22,14 @@ class YamlExtractorFactory
     {
         $yaml = new Yaml();
 
-        /** @var Config $config */
+        /** @var array $config */
         $config = $container->get(ModuleConfig::class);
 
         $reflClass = new \ReflectionClass(AnnotationInterface::class);
 
         return new YamlExtractor(
             $yaml,
-            $config->extractor_options->file,
+            $config['extractor_options']['file'],
             $reflClass->getNamespaceName()
         );
     }

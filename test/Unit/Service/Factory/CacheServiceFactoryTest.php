@@ -8,7 +8,6 @@ use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\CacheService;
 use Reinfi\DependencyInjection\Service\Factory\CacheServiceFactory;
 use Zend\Cache\Storage\Adapter\Memory;
-use Zend\Config\Config;
 
 /**
  * @package Reinfi\DependencyInjection\Unit\Service\Factory
@@ -23,7 +22,7 @@ class CacheServiceFactoryTest extends TestCase
      */
     public function itInstancesCacheService(array $options)
     {
-        $moduleConfig = new Config($options);
+        $moduleConfig = $options;
 
         $container = $this->prophesize(ContainerInterface::class);
 

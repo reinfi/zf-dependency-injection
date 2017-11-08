@@ -7,7 +7,6 @@ use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\CacheService;
 use Zend\Cache\Storage\Adapter\Memory;
 use Zend\Cache\StorageFactory;
-use Zend\Config\Config;
 
 /**
  * @package Reinfi\DependencyInjection\Service\Factory
@@ -21,20 +20,14 @@ class CacheServiceFactory
      */
     public function __invoke(ContainerInterface $container): CacheService
     {
-        /** @var Config $config */
+        /** @var array $config */
         $config = $container->get(ModuleConfig::class);
 
-        $cacheAdapter = $config->get('cache', Memory::class);
+        $cacheAdapter = $config['cache'] ?? Memory::class;
 
-        $cacheOptions = $config->get('cache_options', []);
-        if ($cacheOptions instanceof Config) {
-            $cacheOptions = $cacheOptions->toArray();
-        }
+        $cacheOptions = $config['cache_options'] ?? [];
 
-        $cachePlugins = $config->get('cache_plugins', []);
-        if ($cachePlugins instanceof Config) {
-            $cachePlugins = $cachePlugins->toArray();
-        }
+        $cachePlugins = $config['cache_plugins'] ?? [];
 
         $cache = StorageFactory::factory(
             [
