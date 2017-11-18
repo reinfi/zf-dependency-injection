@@ -3,7 +3,6 @@
 namespace Reinfi\DependencyInjection\Annotation;
 
 use Psr\Container\ContainerInterface;
-use Zend\ServiceManager\AbstractPluginManager;
 
 /**
  * @package Reinfi\DependencyInjection\Annotation
@@ -18,7 +17,31 @@ abstract class AbstractInjectPluginManager extends AbstractAnnotation
     /**
      * @var string
      */
-    public $value;
+    private $name;
+
+    /**
+     * @var array
+     */
+    private $options;
+
+    /**
+     * @param $values
+     */
+    public function __construct(array $values)
+    {
+        if (!isset($values['value'])) {
+            if (isset($values['options'])) {
+                $this->options = $values['options'];
+            }
+
+            $this->name = $values['name'];
+
+            return;
+        }
+
+
+        $this->name = $values['value'];
+    }
 
     /**
      * @inheritDoc
@@ -27,6 +50,12 @@ abstract class AbstractInjectPluginManager extends AbstractAnnotation
     {
         $container = $this->determineContainer($container);
 
-        return $container->get(static::PLUGIN_MANAGER)->get($this->value);
+        if (is_array($this->options)) {
+            return $container->get(static::PLUGIN_MANAGER)
+                ->get($this->name, $this->options);
+        }
+
+        return $container->get(static::PLUGIN_MANAGER)
+            ->get($this->name);
     }
 }
