@@ -41,7 +41,7 @@ Plugins within the plugin manager can also be autowired. If you need to register
 ```php
 PluginManagerResolver::addMapping('MyInterfaceClass', 'MyPluginManager');
 ```
-If your service needs the container as dependecy this can also be autowired.
+If your service needs the container as dependency this can also be autowired.
 ##### Add another resolver
 If you like to add another resolver you can simply add one through the configuration.
 ```php
@@ -74,6 +74,11 @@ Also in addition there a several annotations to inject from plugin managers.
 * InjectValidator
 * InjectHydrator
 * InjectFormElement
+
+You can either pass directly the required service name or if you need options you can pass them as following:
+```php
+@InjectFormElement(name="Service", options={"field": "value"})
+```
 
 If you need a doctrine repository there is also an annotation.
 * InjectDoctrineRepository
