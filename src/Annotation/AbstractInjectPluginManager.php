@@ -39,7 +39,6 @@ abstract class AbstractInjectPluginManager extends AbstractAnnotation
             return;
         }
 
-
         $this->name = $values['value'];
     }
 
