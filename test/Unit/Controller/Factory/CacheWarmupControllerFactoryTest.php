@@ -21,6 +21,10 @@ class CacheWarmupControllerFactoryTest extends TestCase
      */
     public function itCreatesController()
     {
+        if (!class_exists('Zend\Mvc\Controller\AbstractConsoleController')) {
+            $this->markTestSkipped('Skipped because zend console is removed within zend version 3');
+        }
+
         $controllerManager = $this->prophesize(ControllerManager::class);
 
         $container = $this->prophesize(ContainerInterface::class);

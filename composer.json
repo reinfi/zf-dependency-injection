@@ -21,7 +21,7 @@
     "doctrine/annotations": "~1.2",
     "zendframework/zend-servicemanager": "^2.7 | ^3.0",
     "zendframework/zend-modulemanager": "^2.7",
-    "zendframework/zend-mvc": "^2.7",
+    "zendframework/zend-mvc": "^2.7 | ^3.0",
     "zendframework/zend-console": "^2.6",
     "zendframework/zend-cache": "^2.5",
     "symfony/yaml": "^3.3"
