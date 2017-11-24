@@ -2,15 +2,12 @@
 
 namespace Reinfi\DependencyInjection\Controller\Factory;
 
+use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Controller\CacheWarmupController;
-use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
-use Reinfi\DependencyInjection\Service\AutoWiringService;
 use Reinfi\DependencyInjection\Service\CacheService;
-use Reinfi\DependencyInjection\Service\Extractor\AnnotationExtractor;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
-use Zend\Config\Config;
-use Zend\Mvc\Controller\ControllerManager;
+use Zend\ServiceManager\AbstractPluginManager;
 
 /**
  * @package Reinfi\DependencyInjection\Controller\Factory
@@ -18,13 +15,15 @@ use Zend\Mvc\Controller\ControllerManager;
 class CacheWarmupControllerFactory
 {
     /**
-     * @param ControllerManager $controllerManager
+     * @param ContainerInterface $container
      *
      * @return CacheWarmupController
      */
-    public function __invoke(ControllerManager $controllerManager): CacheWarmupController
+    public function __invoke(ContainerInterface $container): CacheWarmupController
     {
-        $container = $controllerManager->getServiceLocator();
+        if ($container instanceof AbstractPluginManager) {
+            $container = $container->getServiceLocator();
+        }
 
         $serviceManagerConfig = $container->get('config')['service_manager'];
 
