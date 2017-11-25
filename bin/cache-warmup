@@ -2,6 +2,7 @@
 <?php
 
 use Reinfi\DependencyInjection\Command\CacheWarmupCommand;
+use Reinfi\DependencyInjection\Command\ExpressiveCacheWarmupCommand;
 use Symfony\Component\Console\Application;
 
 if (is_dir($vendor = __DIR__ . '/../vendor')) {
@@ -25,5 +26,11 @@ if (!class_exists('Symfony\Component\Console\Application')) {
 }
 
 $app = new Application();
-$app->add(new CacheWarmupCommand());
+
+if (class_exists('Zend\Expressive\Application')) {
+    $app->add(new ExpressiveCacheWarmupCommand());
+} else {
+    $app->add(new CacheWarmupCommand());
+}
+
 $app->run();

@@ -5,12 +5,13 @@ namespace Reinfi\DependencyInjection\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Zend\Mvc\Application;
+use Zend\ServiceManager\Config;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * @package Reinfi\DependencyInjection\Command
  */
-class CacheWarmupCommand extends AbstractWarmupCommand
+class ExpressiveCacheWarmupCommand extends AbstractWarmupCommand
 {
     /**
      * {@inheritDoc}
@@ -21,9 +22,9 @@ class CacheWarmupCommand extends AbstractWarmupCommand
 
         $this
             ->addArgument(
-                'applicationConfig',
+                'config',
                 InputArgument::REQUIRED,
-                'Path to application config which includes services'
+                'Path to config which includes services'
             );
     }
 
@@ -34,18 +35,14 @@ class CacheWarmupCommand extends AbstractWarmupCommand
     {
         $output->writeln('Start up application with supplied config...');
 
-        $config = $input->getArgument('applicationConfig');
-        $path   = stream_resolve_include_path($config);
-        if (!is_readable($path)) {
-            throw new \InvalidArgumentException("Invalid loader path: {$config}");
-        }
+        $config = $input->getArgument('config');
 
-        $container = Application::init(include $path)
-            ->getServiceManager();
+        $container = new ServiceManager();
+        (new Config($config['dependencies']))->configureServiceManager($container);
 
-        $serviceManagerConfig = $container->get('config')['service_manager'];
+        $dependenciesConfig = $container->get('config')['dependencies'];
 
-        $this->warmupConfig($container, $serviceManagerConfig);
+        $this->warmupConfig($container, $dependenciesConfig);
 
         $output->writeln('Finished cache warmup');
     }
