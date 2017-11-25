@@ -10,6 +10,8 @@ use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @package Reinfi\DependencyInjection\Controller\Factory
  */
 class CacheWarmupControllerFactory
