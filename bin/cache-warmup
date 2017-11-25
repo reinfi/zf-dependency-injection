@@ -27,10 +27,5 @@ if (!class_exists('Symfony\Component\Console\Application')) {
 
 $app = new Application();
 
-if (class_exists('Zend\Expressive\Application')) {
-    $app->add(new ExpressiveCacheWarmupCommand());
-} else {
-    $app->add(new CacheWarmupCommand());
-}
-
+$app->add(new CacheWarmupCommand());
 $app->run();
