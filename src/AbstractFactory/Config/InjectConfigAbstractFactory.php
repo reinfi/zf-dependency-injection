@@ -2,6 +2,7 @@
 
 namespace Reinfi\DependencyInjection\AbstractFactory\Config;
 
+use Interop\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\ConfigService;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -21,12 +22,32 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
     /**
      * @inheritDoc
      */
+    public function canCreate(ContainerInterface $container, $requestedName)
+    {
+        return preg_match(static::MATCH_PATTERN, $requestedName, $this->matches) === 1;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function canCreateServiceWithName(
         ServiceLocatorInterface $serviceLocator,
         $name,
         $requestedName
     ) {
-        return preg_match(static::MATCH_PATTERN, $requestedName, $this->matches) === 1;
+        return $this->canCreate($serviceLocator, $requestedName);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function __invoke(
+        ContainerInterface $container, $requestedName, array $options = null
+    ) {
+        /** @var ConfigService $configService */
+        $configService = $container->get(ConfigService::class);
+
+        return $configService->resolve($this->matches[1]);
     }
 
     /**
@@ -37,9 +58,6 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
         $name,
         $requestedName
     ) {
-        /** @var ConfigService $configService */
-        $configService = $serviceLocator->get(ConfigService::class);
-
-        return $configService->resolve($this->matches[1]);
+        return $this($serviceLocator, $requestedName);
     }
 }

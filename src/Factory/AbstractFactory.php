@@ -2,7 +2,6 @@
 
 namespace Reinfi\DependencyInjection\Factory;
 
-use Psr\Container\ContainerInterface;
 use Zend\ServiceManager\Exception\InvalidServiceException;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -12,16 +11,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 abstract class AbstractFactory implements FactoryInterface
 {
-    /**
-     * Create an instance of the requested class name.
-     *
-     * @param ContainerInterface $container
-     * @param string             $requestedName
-     *
-     * @return object
-     */
-    abstract public function __invoke(ContainerInterface $container, string $requestedName);
-
     /**
      * @inheritDoc
      */

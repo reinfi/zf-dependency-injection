@@ -41,8 +41,16 @@ abstract class AbstractIntegrationTest extends TestCase
             $moduleServices['service_manager'] ?? [],
             $config['service_manager'] ?? []
         );
-        $smConfig = new ServiceManagerConfig($services);
-        $container = new ServiceManager($smConfig);
+
+        $reflectionClass = new \ReflectionClass(ServiceManager::class);
+        $reflConstructor = $reflectionClass->getConstructor();
+        $constructorParameter = $reflConstructor->getParameters()[0];
+
+        if ($constructorParameter->getType()->isBuiltin()) {
+            $container = new ServiceManager($services);
+        } else {
+            $container = new ServiceManager(new ServiceManagerConfig($services));
+        }
 
         $container->setService('config', $config);
 

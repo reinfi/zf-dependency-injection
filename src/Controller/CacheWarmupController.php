@@ -11,6 +11,8 @@ use Zend\Cache\Storage\StorageInterface;
 use Zend\Mvc\Controller\AbstractConsoleController;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @package Reinfi\DependencyInjection\Controller
  */
 class CacheWarmupController extends AbstractConsoleController

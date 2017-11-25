@@ -22,7 +22,7 @@ class Module implements ConfigProviderInterface, ConsoleUsageProviderInterface
     /**
      * @inheritDoc
      */
-    public function getConsoleUsage(AdapterInterface $console)
+    public function getConsoleUsage(AdapterInterface $console): array
     {
         return [
             'reinfi:di cache warmup - fills the cache with injections',

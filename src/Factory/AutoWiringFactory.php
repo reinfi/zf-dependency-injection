@@ -12,15 +12,13 @@ use Zend\ServiceManager\AbstractPluginManager;
 final class AutoWiringFactory extends AbstractFactory
 {
     /**
-     * Create an instance of the requested class name.
-     *
-     * @param ContainerInterface $container
-     * @param string             $requestedName
-     *
-     * @return object
+     * @inheritDoc
      */
-    public function __invoke(ContainerInterface $container, string $requestedName)
-    {
+    public function __invoke(
+        \Interop\Container\ContainerInterface $container,
+        $requestedName,
+        array $options = null
+    ) {
         $autoWiringService = $this->getAutoWiringService($container);
 
         $injections = $autoWiringService->resolveConstructorInjection(
