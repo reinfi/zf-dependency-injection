@@ -43,4 +43,25 @@ class ExpressiveWarmupCommandTest extends TestCase
         $command = new ExpressiveCacheWarmupCommand();
         $command->run($input, $output->reveal());
     }
+
+    /**
+     * @test
+     */
+    public function itThrowsExceptionIfPathNotValid()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $config = __DIR__ . '/../resources/expressive_config.php';
+
+        $input = new ArgvInput(
+            [
+                'command' => 'reinfi:di:cache',
+                'config'  => $config,
+            ]
+        );
+        $output = $this->prophesize(OutputInterface::class);
+
+        $command = new ExpressiveCacheWarmupCommand();
+        $command->run($input, $output->reveal());
+    }
 }

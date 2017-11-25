@@ -43,4 +43,25 @@ class CacheWarmupCommandTest extends TestCase
         $command = new CacheWarmupCommand();
         $command->run($input, $output->reveal());
     }
+
+    /**
+     * @test
+     */
+    public function itThrowsExceptionIfPathNotValid()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $config = __DIR__ . '/../resources/application_config.php';
+
+        $input = new ArgvInput(
+            [
+                'command'           => 'reinfi:di:cache',
+                'applicationConfig' => $config,
+            ]
+        );
+        $output = $this->prophesize(OutputInterface::class);
+
+        $command = new CacheWarmupCommand();
+        $command->run($input, $output->reveal());
+    }
 }
