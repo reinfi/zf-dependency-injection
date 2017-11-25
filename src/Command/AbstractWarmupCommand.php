@@ -24,7 +24,7 @@ abstract class AbstractWarmupCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('reinfi:di cache warmup')
+            ->setName('reinfi:di:cache')
             ->setDescription('Warm up the cache');
     }
 
