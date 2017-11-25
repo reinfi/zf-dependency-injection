@@ -2,7 +2,7 @@
 [![Code Climate](https://codeclimate.com/github/reinfi/zf-dependency-injection/badges/gpa.svg)](https://codeclimate.com/github/reinfi/zf-dependency-injection)
 [![Coverage Status](https://coveralls.io/repos/github/reinfi/zf-dependency-injection/badge.svg?branch=master)](https://coveralls.io/github/reinfi/zf-dependency-injection?branch=master)
 
-Configure dependency injection in Zend Framework 2 using annotations, yaml or autowiring.
+Configure dependency injection in Zend Framework 2 or Zend Framework 3 using annotations, yaml or autowiring.
 
 Heavily inspired by https://github.com/mikemix/mxdiModule.
 
@@ -16,7 +16,7 @@ Heavily inspired by https://github.com/mikemix/mxdiModule.
 ### Installation
 
 1. Install with Composer: `composer require reinfi/zf-dependency-injection`.
-2. Enable the module via ZF2 config in `appliation.config.php` under `modules` key:
+2. Enable the module via config in `appliation.config.php` under `modules` key:
 
 ```php
     return [
