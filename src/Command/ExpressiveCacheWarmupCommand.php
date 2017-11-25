@@ -37,10 +37,6 @@ class ExpressiveCacheWarmupCommand extends AbstractWarmupCommand
 
         $config = $input->getArgument('config');
 
-        $container = new ServiceManager();
-        (new Config($config['dependencies']))->configureServiceManager($container);
-        $config = $input->getArgument('config');
-
         $path = stream_resolve_include_path($config);
         if (!is_readable($path)) {
             throw new \InvalidArgumentException("Invalid loader path: {$config}");
