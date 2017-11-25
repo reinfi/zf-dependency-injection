@@ -2,12 +2,9 @@
 
 namespace Reinfi\DependencyInjection\Factory;
 
-use Interop\Container\Exception\ContainerException;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\AutoWiringService;
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
 
 /**
  * @package Reinfi\DependencyInjection\Factory

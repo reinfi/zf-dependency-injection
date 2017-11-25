@@ -3,11 +3,8 @@
 namespace Reinfi\DependencyInjection\AbstractFactory\Config;
 
 use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
 use Reinfi\DependencyInjection\Service\ConfigService;
 use Zend\ServiceManager\AbstractFactoryInterface;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
