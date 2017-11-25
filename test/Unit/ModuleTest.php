@@ -24,6 +24,7 @@ class ModuleTest extends TestCase
             'Modules config should be of type array'
         );
     }
+
     /**
      * @test
      */
