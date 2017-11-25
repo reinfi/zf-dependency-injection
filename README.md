@@ -149,7 +149,10 @@ You can set up caching easily with any custom or pre-existing ZF2 cache adapter.
 You can find more information about available out-of-the-box adapters at the [ZF2 docs site](http://framework.zend.com/manual/current/en/modules/zend.cache.storage.adapter.html).
 
 ### Console commands
-* Warmup cache: `php public/index.php reinfi:di cache warmup`
+* Warmup cache for ZF2: `php public/index.php reinfi:di cache warmup`
+  Fills the cache with every injection required by a class.
+  This can either be via AutoWiringFactory or InjectionFactory.
+* Warmup script for ZF2 or ZF3: php bin/cache-warmup
   Fills the cache with every injection required by a class.
   This can either be via AutoWiringFactory or InjectionFactory.
 
