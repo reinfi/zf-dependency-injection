@@ -63,6 +63,16 @@ class ResolverService implements ResolverServiceInterface
             }
         }
 
-        throw new AutoWiringNotPossibleException($parameter->getClass()->getName());
+        $type = $parameter->getType();
+
+        if (!$parameter->hasType()) {
+            throw AutoWiringNotPossibleException::fromMissingTypeHint($parameter);
+        }
+
+        if ($parameter->getType()->isBuiltin()) {
+            throw AutoWiringNotPossibleException::fromBuildInType($parameter);
+        }
+
+        throw AutoWiringNotPossibleException::fromClassName($parameter->getClass());
     }
 }
