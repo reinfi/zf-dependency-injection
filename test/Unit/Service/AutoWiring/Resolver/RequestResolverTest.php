@@ -21,6 +21,7 @@ class RequestResolverTest extends TestCase
         $resolver = new RequestResolver();
 
         $class = $this->prophesize(\ReflectionClass::class);
+        $class->getName()->willReturn(Request::class);
         $class->getInterfaceNames()->willReturn([ RequestInterface::class ]);
         $parameter = $this->prophesize(\ReflectionParameter::class);
         $parameter->getClass()->willReturn($class->reveal());
@@ -49,11 +50,28 @@ class RequestResolverTest extends TestCase
     /**
      * @test
      */
+    public function itReturnsInjectionInterfaceForRequestInterfaceAsTypehint()
+    {
+        $resolver = new RequestResolver();
+
+        $class = new \ReflectionClass(RequestInterface::class);
+        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter->getClass()->willReturn($class);
+
+        $injection = $resolver->resolve($parameter->reveal());
+
+        $this->assertInstanceOf(AutoWiring::class, $injection);
+    }
+
+    /**
+     * @test
+     */
     public function itReturnsNullIfNoRequest()
     {
         $resolver = new RequestResolver();
 
         $class = $this->prophesize(\ReflectionClass::class);
+        $class->getName()->willReturn('');
         $class->getInterfaceNames()->willReturn([]);
         $parameter = $this->prophesize(\ReflectionParameter::class);
         $parameter->getClass()->willReturn($class->reveal());
