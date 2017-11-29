@@ -1,6 +1,7 @@
 <?php
 
 namespace Reinfi\DependencyInjection\Service\AutoWiring\Resolver;
+
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Zend\Stdlib\RequestInterface;
@@ -22,7 +23,10 @@ class RequestResolver implements ResolverInterface
         $reflectionClass = $parameter->getClass();
         $interfaceNames = $reflectionClass->getInterfaceNames();
 
-        if (!in_array(RequestInterface::class, $interfaceNames)) {
+        if (
+            $reflectionClass->getName() !== RequestInterface::class
+            && !in_array(RequestInterface::class, $interfaceNames)
+        ) {
             return null;
         }
 
