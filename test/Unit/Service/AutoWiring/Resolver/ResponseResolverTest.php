@@ -21,6 +21,7 @@ class ResponseResolverTest extends TestCase
         $resolver = new ResponseResolver();
 
         $class = $this->prophesize(\ReflectionClass::class);
+        $class->getName()->willReturn(Response::class);
         $class->getInterfaceNames()->willReturn([ ResponseInterface::class ]);
         $parameter = $this->prophesize(\ReflectionParameter::class);
         $parameter->getClass()->willReturn($class->reveal());
@@ -49,11 +50,28 @@ class ResponseResolverTest extends TestCase
     /**
      * @test
      */
+    public function itReturnsInjectionInterfaceForResponseInterfaceAsTypeHint()
+    {
+        $resolver = new ResponseResolver();
+
+        $class = new \ReflectionClass(ResponseInterface::class);
+        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter->getClass()->willReturn($class);
+
+        $injection = $resolver->resolve($parameter->reveal());
+
+        $this->assertInstanceOf(AutoWiring::class, $injection);
+    }
+
+    /**
+     * @test
+     */
     public function itReturnsNullIfNoResponse()
     {
         $resolver = new ResponseResolver();
 
         $class = $this->prophesize(\ReflectionClass::class);
+        $class->getName()->willReturn('');
         $class->getInterfaceNames()->willReturn([]);
         $parameter = $this->prophesize(\ReflectionParameter::class);
         $parameter->getClass()->willReturn($class->reveal());
