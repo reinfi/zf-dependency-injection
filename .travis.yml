@@ -18,8 +18,8 @@ before_install:
 
 install:
   - composer install --no-progress --no-interaction --prefer-dist --no-suggest
-  - if [ "$ZF_VERSION" = "2" ]; then rm composer.lock; composer remove zendframework/zend-mvc zendframework/zend-servicemanager; fi
-  - if [ "$ZF_VERSION" = "2" ]; then composer require zendframework/zend-mvc:^2.7 zendframework/zend-servicemanager:^2.7; fi
+  - if [ "$ZF_VERSION" = "2" ]; then composer remove zendframework/zend-mvc zendframework/zend-servicemanager; fi
+  - if [ "$ZF_VERSION" = "2" ]; then rm composer.lock; composer require zendframework/zend-mvc:^2.7 zendframework/zend-servicemanager:^2.7; fi
 
 script:
   - phpenv config-add /tmp/xdebug.ini
