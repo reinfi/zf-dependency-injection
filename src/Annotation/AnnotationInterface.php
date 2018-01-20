@@ -10,5 +10,4 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
  */
 interface AnnotationInterface extends InjectionInterface
 {
-
 }

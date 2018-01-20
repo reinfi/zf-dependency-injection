@@ -119,7 +119,7 @@ class YamlExtractor implements ExtractorInterface
 
         $reflectionClass = new \ReflectionClass($injectionClass);
         if ($reflectionClass->getConstructor() !== null) {
-           return $reflectionClass->newInstance($spec);
+            return $reflectionClass->newInstance($spec);
         }
 
         $injection = new $injectionClass();

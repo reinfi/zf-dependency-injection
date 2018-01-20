@@ -38,7 +38,8 @@ class AnnotationExtractor implements ExtractorInterface
             );
 
             $inject = $this->reader->getPropertyAnnotation(
-                $reflectionProperty, AnnotationInterface::class
+                $reflectionProperty,
+                AnnotationInterface::class
             );
 
             if (null !== $inject) {

@@ -7,5 +7,4 @@ namespace Reinfi\DependencyInjection\Exception;
  */
 class InjectionTypeUnknownException extends \Exception
 {
-
 }
