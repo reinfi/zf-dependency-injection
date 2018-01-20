@@ -55,7 +55,7 @@ class AnnotationExtractor implements ExtractorInterface
      */
     public function getConstructorInjections(string $className): array
     {
-        if (! in_array('__construct', get_class_methods($className))) {
+        if (!in_array('__construct', get_class_methods($className))) {
             return [];
         }
 
