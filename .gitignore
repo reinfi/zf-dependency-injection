@@ -3,9 +3,6 @@ composer.phar
 vendor/
 composer.lock
 
-# Local configs
-config/autoload/*.local.php
-
 # PHP CS Fixer
 .php_cs.cache
 
