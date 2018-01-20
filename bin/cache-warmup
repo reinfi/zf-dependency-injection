@@ -2,7 +2,6 @@
 <?php
 
 use Reinfi\DependencyInjection\Command\CacheWarmupCommand;
-use Reinfi\DependencyInjection\Command\ExpressiveCacheWarmupCommand;
 use Symfony\Component\Console\Application;
 
 if (is_dir($vendor = __DIR__ . '/../vendor')) {
