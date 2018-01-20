@@ -17,6 +17,15 @@ class TranslatorResolver implements ResolverInterface
     const TRANSLATOR_INTERFACE = 'Zend\I18n\Translator\TranslatorInterface';
 
     /**
+     * possible names for translator service within container
+     */
+    const TRANSLATOR_CONTAINER_SERVICE_NAME = [
+        'MvcTranslator',
+        self::TRANSLATOR_INTERFACE,
+        'Translator'
+    ];
+
+    /**
      * @var ContainerInterface
      */
     private $container;
@@ -38,16 +47,10 @@ class TranslatorResolver implements ResolverInterface
             return null;
         }
 
-        if ($this->container->has('MvcTranslator')) {
-            return new AutoWiring('MvcTranslator');
-        }
-
-        if ($this->container->has(self::TRANSLATOR_INTERFACE)) {
-            return new AutoWiring(self::TRANSLATOR_INTERFACE);
-        }
-
-        if ($this->container->has('Translator')) {
-            return new AutoWiring('Translator');
+        foreach (self::TRANSLATOR_CONTAINER_SERVICE_NAME as $serviceName) {
+            if ($this->container->has($serviceName)) {
+                return new AutoWiring($serviceName);
+            }
         }
 
         return null;
