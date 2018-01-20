@@ -34,17 +34,7 @@ class TranslatorResolver implements ResolverInterface
      */
     public function resolve(ReflectionParameter $parameter)
     {
-        if ($parameter->getClass() === null) {
-            return null;
-        }
-
-        $reflectionClass = $parameter->getClass();
-        $interfaceNames = $reflectionClass->getInterfaceNames();
-
-        if (
-            $reflectionClass->getName() !== self::TRANSLATOR_INTERFACE
-            && !in_array(self::TRANSLATOR_INTERFACE, $interfaceNames)
-        ) {
+        if (!$this->isValid($parameter)) {
             return null;
         }
 
@@ -61,5 +51,25 @@ class TranslatorResolver implements ResolverInterface
         }
 
         return null;
+    }
+
+    /**
+     * @param ReflectionParameter $parameter
+     *
+     * @return bool
+     */
+    private function isValid(ReflectionParameter $parameter): bool
+    {
+        if ($parameter->getClass() === null) {
+            return false;
+        }
+
+        $reflectionClass = $parameter->getClass();
+        $interfaceNames = $reflectionClass->getInterfaceNames();
+
+        return (
+            $reflectionClass->getName() === self::TRANSLATOR_INTERFACE
+            || in_array(self::TRANSLATOR_INTERFACE, $interfaceNames)
+        );
     }
 }
