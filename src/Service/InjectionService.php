@@ -81,5 +81,4 @@ class InjectionService
 
         return $injections;
     }
-
 }

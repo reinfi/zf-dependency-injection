@@ -42,7 +42,9 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
      * @inheritDoc
      */
     public function __invoke(
-        ContainerInterface $container, $requestedName, array $options = null
+        ContainerInterface $container,
+        $requestedName,
+        array $options = null
     ) {
         /** @var ConfigService $configService */
         $configService = $container->get(ConfigService::class);
