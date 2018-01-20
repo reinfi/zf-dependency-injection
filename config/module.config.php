@@ -18,6 +18,7 @@ return [
             \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\PluginManagerResolver::class      => \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\PluginManagerResolverFactory::class,
             \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\RequestResolver::class            => \Zend\ServiceManager\Factory\InvokableFactory::class,
             \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResponseResolver::class           => \Zend\ServiceManager\Factory\InvokableFactory::class,
+            \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver::class         => \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\TranslatorResolverFactory::class,
         ],
         'abstract_factories' => [
             \Reinfi\DependencyInjection\AbstractFactory\Config\InjectConfigAbstractFactory::class,
