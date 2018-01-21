@@ -27,26 +27,55 @@ trait WarmupTrait
         ResolverServiceInterface $resolverService,
         StorageInterface $cache
     ) {
-        foreach ($factoriesConfig as $className => $factoryClass) {
-            if ($factoryClass === InjectionFactory::class) {
-                $this->warmupInjection(
+        array_walk(
+            $factoriesConfig,
+            function (
+                $className,
+                $factoryClass
+            ) use ($extractor, $resolverService, $cache) {
+                $this->handleService(
+                    $className,
+                    $factoryClass,
                     $extractor,
-                    $cache,
-                    $className
-                );
-
-                continue;
-            }
-
-            if ($factoryClass === AutoWiringFactory::class) {
-                $this->warmupAutoWiring(
                     $resolverService,
-                    $cache,
-                    $className
+                    $cache
                 );
-
-                continue;
             }
+        );
+    }
+
+    /**
+     * @param string                   $className
+     * @param string                   $factoryClass
+     * @param ExtractorInterface       $extractor
+     * @param ResolverServiceInterface $resolverService
+     * @param StorageInterface         $cache
+     */
+    private function handleService(
+        string $className,
+        string $factoryClass,
+        ExtractorInterface $extractor,
+        ResolverServiceInterface $resolverService,
+        StorageInterface $cache
+    ) {
+        if ($factoryClass === InjectionFactory::class) {
+            $this->warmupInjection(
+                $extractor,
+                $cache,
+                $className
+            );
+
+            return;
+        }
+
+        if ($factoryClass === AutoWiringFactory::class) {
+            $this->warmupAutoWiring(
+                $resolverService,
+                $cache,
+                $className
+            );
+
+            return;
         }
     }
 
