@@ -53,15 +53,12 @@ class CacheWarmupCommand extends Command
             ->getServiceManager();
 
         $serviceManagerConfig = $container->get('config')['service_manager'];
-        $extractor = $container->get(ExtractorInterface::class);
-        $resolverService = $container->get(ResolverService::class);
-        $cache = $container->get(CacheService::class);
 
         $this->warmupConfig(
             $serviceManagerConfig['factories'] ?? [],
-            $extractor,
-            $resolverService,
-            $cache
+            $container->get(ExtractorInterface::class),
+            $container->get(ResolverService::class),
+            $container->get(CacheService::class)
         );
 
         $output->writeln('Finished cache warmup');
