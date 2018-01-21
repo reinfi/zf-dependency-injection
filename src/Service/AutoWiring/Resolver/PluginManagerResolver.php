@@ -5,7 +5,6 @@ namespace Reinfi\DependencyInjection\Service\AutoWiring\Resolver;
 use Psr\Container\ContainerInterface;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiringPluginManager;
-use Reinfi\DependencyInjection\Injection\InjectionInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Service\AutoWiring\Resolver
@@ -39,9 +38,7 @@ class PluginManagerResolver implements ResolverInterface
     }
 
     /**
-     * @param ReflectionParameter $parameter
-     *
-     * @return InjectionInterface|null
+     * @inheritdoc
      */
     public function resolve(ReflectionParameter $parameter)
     {
@@ -55,10 +52,11 @@ class PluginManagerResolver implements ResolverInterface
         $interfaceNames = $reflectionClass->getInterfaceNames();
 
         foreach (self::$pluginManagerMapping as $interfaceName => $pluginManager) {
-            if (in_array($interfaceName, $interfaceNames)) {
-                if ($this->container->get($pluginManager)->has($serviceName)) {
-                    return new AutoWiringPluginManager($pluginManager, $serviceName);
-                }
+            if (
+                in_array($interfaceName, $interfaceNames)
+                && $this->container->get($pluginManager)->has($serviceName)
+            ) {
+                return new AutoWiringPluginManager($pluginManager, $serviceName);
             }
         }
 
