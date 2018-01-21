@@ -6,7 +6,7 @@ use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
 use Reinfi\DependencyInjection\Factory\InjectionFactory;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
-use Reinfi\DependencyInjection\Traits\CacheKeyTrait;
+use Reinfi\DependencyInjection\Traits\WarmupTrait;
 use Zend\Cache\Storage\StorageInterface;
 use Zend\Mvc\Controller\AbstractConsoleController;
 
@@ -17,7 +17,7 @@ use Zend\Mvc\Controller\AbstractConsoleController;
  */
 class CacheWarmupController extends AbstractConsoleController
 {
-    use CacheKeyTrait;
+    use WarmupTrait;
 
     /**
      * @var array
@@ -64,32 +64,12 @@ class CacheWarmupController extends AbstractConsoleController
     {
         $factoriesConfig = $this->serviceManagerConfig['factories'];
 
-        foreach ($factoriesConfig as $className => $factoryClass) {
-            if ($factoryClass === InjectionFactory::class) {
-                $injections = array_merge(
-                    $this->extractor->getPropertiesInjections($className),
-                    $this->extractor->getConstructorInjections($className)
-                );
-
-                $this->cache->setItem(
-                    $this->buildCacheKey($className),
-                    $injections
-                );
-
-                continue;
-            }
-
-            if ($factoryClass === AutoWiringFactory::class) {
-                $injections = $this->resolverService->resolve($className);
-
-                $this->cache->setItem(
-                    $this->buildCacheKey($className),
-                    $injections
-                );
-
-                continue;
-            }
-        }
+        $this->warmupConfig(
+            $factoriesConfig,
+            $this->extractor,
+            $this->resolverService,
+            $this->cache
+        );
 
         $this->console->writeLine('Finished cache warmup');
     }

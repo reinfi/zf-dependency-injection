@@ -22,11 +22,11 @@ class ContainerInterfaceResolver implements ResolverInterface
         }
 
         $reflClass = $parameter->getClass();
-
-        if ($reflClass->isInterface()) {
-            if ($reflClass->getName() === ContainerInterface::class) {
-                return new AutoWiringContainer();
-            }
+        if (
+            $reflClass->isInterface()
+            && $reflClass->getName() === ContainerInterface::class
+        ) {
+            return new AutoWiringContainer();
         }
 
         if ($reflClass->getName() === AbstractPluginManager::class) {
