@@ -30,8 +30,8 @@ trait WarmupTrait
         array_walk(
             $factoriesConfig,
             function (
-                $className,
-                $factoryClass
+                $factoryClass,
+                $className
             ) use ($extractor, $resolverService, $cache) {
                 $injections = $this->handleService(
                     $className,
