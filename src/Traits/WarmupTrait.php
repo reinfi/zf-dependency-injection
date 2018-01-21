@@ -21,7 +21,7 @@ trait WarmupTrait
      * @param ResolverServiceInterface $resolverService
      * @param StorageInterface         $cache
      */
-    protected function warmupConfig(
+    private function warmupConfig(
         array $factoriesConfig,
         ExtractorInterface $extractor,
         ResolverServiceInterface $resolverService,
@@ -33,13 +33,19 @@ trait WarmupTrait
                 $className,
                 $factoryClass
             ) use ($extractor, $resolverService, $cache) {
-                $this->handleService(
+                $injections = $this->handleService(
                     $className,
                     $factoryClass,
                     $extractor,
-                    $resolverService,
-                    $cache
+                    $resolverService
                 );
+
+                if (count($injections) > 0) {
+                    $cache->setItem(
+                        $this->buildCacheKey($className),
+                        $injections
+                    );
+                }
             }
         );
     }
@@ -49,72 +55,52 @@ trait WarmupTrait
      * @param string                   $factoryClass
      * @param ExtractorInterface       $extractor
      * @param ResolverServiceInterface $resolverService
-     * @param StorageInterface         $cache
      */
     private function handleService(
         string $className,
         string $factoryClass,
         ExtractorInterface $extractor,
-        ResolverServiceInterface $resolverService,
-        StorageInterface $cache
-    ) {
+        ResolverServiceInterface $resolverService
+    ): array {
         if ($factoryClass === InjectionFactory::class) {
-            $this->warmupInjection(
+            return $this->warmupInjection(
                 $extractor,
-                $cache,
                 $className
             );
-
-            return;
         }
 
         if ($factoryClass === AutoWiringFactory::class) {
-            $this->warmupAutoWiring(
+            return $this->warmupAutoWiring(
                 $resolverService,
-                $cache,
                 $className
             );
-
-            return;
         }
+
+        return [];
     }
 
     /**
      * @param ExtractorInterface $extractor
-     * @param StorageInterface   $cache
      * @param string             $className
      */
     private function warmupInjection(
         ExtractorInterface $extractor,
-        StorageInterface $cache,
         string $className
     ) {
-        $injections = array_merge(
+        return array_merge(
             $extractor->getPropertiesInjections($className),
             $extractor->getConstructorInjections($className)
-        );
-
-        $cache->setItem(
-            $this->buildCacheKey($className),
-            $injections
         );
     }
 
     /**
      * @param ResolverServiceInterface $resolverService
-     * @param StorageInterface         $cache
      * @param string                   $className
      */
     private function warmupAutoWiring(
         ResolverServiceInterface $resolverService,
-        StorageInterface $cache,
         string $className
     ) {
-        $injections = $resolverService->resolve($className);
-
-        $cache->setItem(
-            $this->buildCacheKey($className),
-            $injections
-        );
+        return $resolverService->resolve($className);
     }
 }
