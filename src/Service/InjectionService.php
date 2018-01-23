@@ -70,7 +70,11 @@ class InjectionService
         $cacheKey = $this->buildCacheKey($className);
 
         if ($this->cache->hasItem($cacheKey)) {
-            return $this->cache->getItem($cacheKey);
+            $cachedItem = $this->cache->getItem($cacheKey);
+
+            if (is_array($cachedItem)) {
+                return $cachedItem;
+            }
         }
 
         $injections = array_merge(
