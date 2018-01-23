@@ -97,6 +97,43 @@ class AutoWiringServiceTest extends TestCase
     /**
      * @test
      */
+    public function itUsesResolverWhenCacheItemIsNotAnArray()
+    {
+        $cacheKey = $this->buildCacheKey(Service1::class);
+        $resolverService = $this->prophesize(ResolverService::class);
+
+        $injection = $this->prophesize(InjectionInterface::class);
+        $injection->addMethodProphecy(
+            (new MethodProphecy($injection, '__invoke', [Argument::type(ContainerInterface::class)]))
+            ->willReturn(new Service2())
+        );
+
+        $resolverService->resolve(Service1::class)
+            ->willReturn([$injection->reveal()]);
+
+        $cache = $this->prophesize(CacheService::class);
+        $cache->hasItem($cacheKey)->willReturn(true)->shouldBeCalled();
+        $cache->getItem($cacheKey)->willReturn(null)->shouldBeCalled();
+        $cache->setItem($cacheKey, Argument::type('array'))->willReturn(true);
+
+        $service = new AutoWiringService(
+            $resolverService->reveal(),
+            $cache->reveal()
+        );
+
+        $container = $this->prophesize(ContainerInterface::class);
+
+        $injections = $service->resolveConstructorInjection(
+            $container->reveal(),
+            Service1::class
+        );
+
+        $this->assertCount(1, $injections);
+    }
+
+    /**
+     * @test
+     */
     public function itReturnsFalseWhenNoInjectionsAvaible()
     {
         $cacheKey = $this->buildCacheKey(Service2::class);
