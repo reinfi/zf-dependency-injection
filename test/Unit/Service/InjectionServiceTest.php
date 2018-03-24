@@ -34,6 +34,7 @@ class InjectionServiceTest extends TestCase
         $injection->addMethodProphecy(
             (new MethodProphecy($injection, '__invoke', [Argument::type(ContainerInterface::class)]))
                 ->willReturn(new Service2())
+                ->shouldBeCalled()
         );
 
         $extractor->getPropertiesInjections(Service1::class)

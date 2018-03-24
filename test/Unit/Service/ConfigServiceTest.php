@@ -54,9 +54,17 @@ class ConfigServiceTest extends TestCase
     {
         $this->expectException(ConfigPathNotFoundException::class);
 
-        $config = new Config(require __DIR__ . '/../../resources/config.php');
+        $config = $this->prophesize(Config::class);
+        $config->offsetExists('test')
+            ->willReturn(true)
+            ->shouldBeCalled();
+        $config->offsetExists('valueMustExist')
+            ->willReturn(false)
+            ->shouldBeCalled();
+        $config->get('test')
+            ->willReturn($config->reveal());
 
-        $service = new ConfigService($config);
+        $service = new ConfigService($config->reveal());
 
         $service->resolve('test.valueMustExist!');
     }

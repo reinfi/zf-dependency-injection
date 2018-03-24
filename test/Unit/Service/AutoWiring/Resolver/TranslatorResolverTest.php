@@ -31,6 +31,7 @@ class TranslatorResolverTest extends TestCase
             $container->addMethodProphecy(
                 (new MethodProphecy($container, 'has', [ Argument::exact($serviceName) ]))
                 ->willReturn($result)
+                ->shouldBeCalled()
             );
         }
 
@@ -73,7 +74,6 @@ class TranslatorResolverTest extends TestCase
         $this->assertInstanceOf(AutoWiring::class, $injection);
     }
 
-
     /**
      * @test
      */
@@ -94,6 +94,26 @@ class TranslatorResolverTest extends TestCase
         $this->assertNull(
             $resolver->resolve($parameter->reveal()),
             'return value should be null if not found'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itReturnsNullIfReflectionParameterHasNoClass()
+    {
+        $container = $this->prophesize(ContainerInterface::class);
+
+        $container->has(TranslatorInterface::class)->willReturn(false)->shouldNotBeCalled();
+
+        $resolver = new TranslatorResolver($container->reveal());
+
+        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter->getClass()->willReturn(null);
+
+        $this->assertNull(
+            $resolver->resolve($parameter->reveal()),
+            'return value should be null parameter has no class'
         );
     }
 

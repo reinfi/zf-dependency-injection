@@ -8,7 +8,6 @@ use Psr\Container\ContainerInterface;
  * Class LazyResolverService
  *
  * @package Reinfi\DependencyInjection\Service\AutoWiring
- * @author Martin Rintelen <martin.rintelen@check24.de>
  */
 class LazyResolverService implements ResolverServiceInterface
 {

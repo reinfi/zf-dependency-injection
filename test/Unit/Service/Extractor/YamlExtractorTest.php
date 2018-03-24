@@ -50,6 +50,26 @@ class YamlExtractorTest extends TestCase
     /**
      * @test
      */
+    public function itShouldSetRequiredInjectionProperties()
+    {
+        $extractor = new YamlExtractor(
+            new Yaml(),
+            __DIR__ . '/../../../resources/services.yml',
+            'Reinfi\DependencyInjection\Annotation'
+        );
+
+        $injections = $extractor->getConstructorInjections(Service1::class);
+
+        $this->assertEquals(
+            Service2::class,
+            $injections[0]->value,
+            'First injection should be of type ' . Service2::class
+        );
+    }
+
+    /**
+     * @test
+     */
     public function itShouldReturnInjectionsIfTypeHasContructorArguments()
     {
         $extractor = new YamlExtractor(

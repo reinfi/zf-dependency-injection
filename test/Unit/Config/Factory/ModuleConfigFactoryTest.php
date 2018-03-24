@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\Factory\ModuleConfigFactory;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
-use Zend\Config\Config;
 
 /**
  * @package Reinfi\DependencyInjection\Unit\Config\Factory

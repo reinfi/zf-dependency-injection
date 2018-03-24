@@ -41,7 +41,7 @@ class ResolverServiceFactory
      *
      * @return array
      */
-    protected function getResolverStack(array $config): array
+    private function getResolverStack(array $config): array
     {
         $defaultResolverStackConfig = [
             ContainerResolver::class,

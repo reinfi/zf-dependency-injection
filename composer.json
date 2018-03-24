@@ -49,5 +49,8 @@
     "symfony/yaml": "^3.3",
     "phpunit/phpcov": "^3.0",
     "friendsofphp/php-cs-fixer": "^2.10"
+  },
+  "scripts": {
+    "infection": "infection --test-framework-options=\" --exclude-group integration\" --threads=4"
   }
 }

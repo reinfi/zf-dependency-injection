@@ -12,6 +12,8 @@ use Zend\Console\Adapter\AdapterInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Integration\Controller
+ *
+ * @group integration
  */
 class CacheWarmupControllerTest extends AbstractIntegrationTest
 {
