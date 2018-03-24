@@ -14,6 +14,8 @@ use Zend\ServiceManager\Exception\InvalidServiceException;
 
 /**
  * @package Reinfi\DependencyInjection\Integration\Factory
+ *
+ * @group integration
  */
 class AutoWiringFactoryTest extends AbstractIntegrationTest
 {

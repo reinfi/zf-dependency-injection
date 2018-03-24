@@ -11,6 +11,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Integration\Command
+ *
+ * @group integration
  */
 class CacheWarmupCommandTest extends TestCase
 {

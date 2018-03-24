@@ -15,6 +15,8 @@ use Zend\Stdlib\ArrayUtils;
 
 /**
  * @package Reinfi\DependencyInjection\Integration\Factory
+ *
+ * @group integration
  */
 class InjectionFactoryTest extends AbstractIntegrationTest
 {
