@@ -4,9 +4,10 @@
       "src"
     ],
     "excludes": [
-      "src/Module.php",
-      "src/Command/CacheWarmupCommand.php",
-      "src/Traits/WarmupTrait.php"
+      "./src/Module.php",
+      "./src/Command/CacheWarmupCommand.php",
+      "./src/Controller/CacheWarmupController.php",
+      "./src/Traits/WarmupTrait.php"
     ]
   },
   "timeout": 10,

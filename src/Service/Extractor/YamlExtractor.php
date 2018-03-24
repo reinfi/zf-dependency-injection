@@ -89,7 +89,7 @@ class YamlExtractor implements ExtractorInterface
      *
      * @return array
      */
-    protected function getConfig(string $className): array
+    private function getConfig(string $className): array
     {
         if (!is_array($this->config)) {
             $this->config = $this->yaml::parse(
@@ -107,7 +107,7 @@ class YamlExtractor implements ExtractorInterface
      * @return InjectionInterface|object
      * @throws InjectionTypeUnknownException
      */
-    protected function buildInjection(
+    private function buildInjection(
         string $type,
         array $spec
     ): InjectionInterface {
