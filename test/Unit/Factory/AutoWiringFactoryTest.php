@@ -139,7 +139,7 @@ class AutoWiringFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfClassNotFound()
+    public function itThrowsExceptionIfClassNotSet()
     {
         $this->expectException(InvalidServiceException::class);
 
@@ -149,6 +149,24 @@ class AutoWiringFactoryTest extends TestCase
 
         $factory->createService(
             $container->reveal()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itThrowsExceptionIfClassNotFound()
+    {
+        $this->expectException(InvalidServiceException::class);
+
+        $container = $this->prophesize(ServiceLocatorInterface::class);
+
+        $factory = new AutoWiringFactory();
+
+        $factory->createService(
+            $container->reveal(),
+            'No\Existing\ClassName',
+            'No\Existing\ClassName'
         );
     }
 }

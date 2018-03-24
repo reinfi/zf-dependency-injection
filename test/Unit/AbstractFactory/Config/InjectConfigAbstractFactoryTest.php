@@ -32,6 +32,14 @@ class InjectConfigAbstractFactoryTest extends TestCase
             ),
             'factory should be able to create service'
         );
+
+        $this->assertTrue(
+            $factory->canCreate(
+                $container,
+                'Config.reinfi.di.test'
+            ),
+            'factory should be able to create service'
+        );
     }
 
     /**
@@ -50,6 +58,14 @@ class InjectConfigAbstractFactoryTest extends TestCase
             $factory->canCreateServiceWithName(
                 $container,
                 'service.reinfi.di.test',
+                'service.reinfi.di.test'
+            ),
+            'factory should not be able to create service'
+        );
+
+        $this->assertFalse(
+            $factory->canCreate(
+                $container,
                 'service.reinfi.di.test'
             ),
             'factory should not be able to create service'
@@ -78,7 +94,6 @@ class InjectConfigAbstractFactoryTest extends TestCase
             'config.reinfi.di.test',
             'Config.reinfi.di.test'
         );
-
 
         $this->assertTrue(
             $factory->createServiceWithName(

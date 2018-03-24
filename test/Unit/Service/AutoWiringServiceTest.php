@@ -33,6 +33,7 @@ class AutoWiringServiceTest extends TestCase
         $injection->addMethodProphecy(
             (new MethodProphecy($injection, '__invoke', [Argument::type(ContainerInterface::class)]))
                 ->willReturn(new Service2())
+                ->shouldBeCalled()
         );
 
         $resolver->resolve(Service1::class)
