@@ -52,7 +52,7 @@ class ResolverService implements ResolverServiceInterface
      * @return InjectionInterface
      * @throws AutoWiringNotPossibleException
      */
-    protected function resolveParameter(
+    private function resolveParameter(
         \ReflectionParameter $parameter
     ): InjectionInterface {
         foreach ($this->resolverStack as $resolver) {

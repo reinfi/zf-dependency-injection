@@ -65,7 +65,7 @@ class AutoWiringService
      *
      * @return InjectionInterface[]
      */
-    protected function getInjections(string $className): array
+    private function getInjections(string $className): array
     {
         $cacheKey = $this->buildCacheKey($className);
 

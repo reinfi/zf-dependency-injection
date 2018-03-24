@@ -8,3 +8,7 @@ composer.lock
 
 # IDE
 .idea/
+
+# Infection
+infection.json
+infection-log.txt
