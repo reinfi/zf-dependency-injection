@@ -58,9 +58,9 @@ class CacheWarmupController extends AbstractConsoleController
     }
 
     /**
-     *
+     * @return void
      */
-    public function indexAction()
+    public function indexAction(): void
     {
         $factoriesConfig = $this->serviceManagerConfig['factories'];
 

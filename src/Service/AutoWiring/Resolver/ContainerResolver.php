@@ -30,7 +30,7 @@ class ContainerResolver implements ResolverInterface
      *
      * @return InjectionInterface|null
      */
-    public function resolve(ReflectionParameter $parameter)
+    public function resolve(ReflectionParameter $parameter): ?InjectionInterface
     {
         if ($parameter->getClass() === null) {
             return null;

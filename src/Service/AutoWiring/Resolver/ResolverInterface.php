@@ -14,7 +14,7 @@ interface ResolverInterface
     /**
      * @param ReflectionParameter $parameter
      *
-     * @return InjectionInterface
+     * @return InjectionInterface|null
      */
-    public function resolve(ReflectionParameter $parameter);
+    public function resolve(ReflectionParameter $parameter): ?InjectionInterface;
 }

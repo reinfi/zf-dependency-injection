@@ -4,6 +4,7 @@ namespace Reinfi\DependencyInjection\Service\AutoWiring\Resolver;
 
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
+use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Zend\Stdlib\RequestInterface;
 
 /**
@@ -14,7 +15,7 @@ class RequestResolver implements ResolverInterface
     /**
      * @inheritDoc
      */
-    public function resolve(ReflectionParameter $parameter)
+    public function resolve(ReflectionParameter $parameter): ?InjectionInterface
     {
         if ($parameter->getClass() === null) {
             return null;

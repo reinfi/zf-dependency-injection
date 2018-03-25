@@ -17,7 +17,7 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
+    "php": ">=7.1",
     "zendframework/zend-servicemanager": "^2.7 | ^3.0",
     "zendframework/zend-modulemanager": "^2.7",
     "zendframework/zend-cache": "^2.5"

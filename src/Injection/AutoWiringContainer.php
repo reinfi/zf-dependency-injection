@@ -12,7 +12,7 @@ class AutoWiringContainer implements InjectionInterface
     /**
      * @inheritDoc
      */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): ContainerInterface
     {
         return $container;
     }
