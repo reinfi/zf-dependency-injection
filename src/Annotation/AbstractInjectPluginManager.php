@@ -25,7 +25,7 @@ abstract class AbstractInjectPluginManager extends AbstractAnnotation
     private $options;
 
     /**
-     * @param $values
+     * @param array $values
      */
     public function __construct(array $values)
     {

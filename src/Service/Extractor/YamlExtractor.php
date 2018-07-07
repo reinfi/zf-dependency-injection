@@ -104,7 +104,7 @@ class YamlExtractor implements ExtractorInterface
      * @param string $type
      * @param array  $spec
      *
-     * @return InjectionInterface|object
+     * @return InjectionInterface
      * @throws InjectionTypeUnknownException
      */
     private function buildInjection(
@@ -119,7 +119,13 @@ class YamlExtractor implements ExtractorInterface
 
         $reflectionClass = new \ReflectionClass($injectionClass);
         if ($reflectionClass->getConstructor() !== null) {
-            return $reflectionClass->newInstance($spec);
+            $injection = $reflectionClass->newInstance($spec);
+
+            if (!$injection instanceof InjectionInterface) {
+                throw new InjectionTypeUnknownException('Invalid class of type ' . get_class($injection));
+            }
+
+            return $injection;
         }
 
         $injection = new $injectionClass();

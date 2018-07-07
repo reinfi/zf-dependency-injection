@@ -24,7 +24,7 @@ final class InjectDoctrineRepository extends AbstractAnnotation
     private $entity;
 
     /**
-     * @param $values
+     * @param array $values
      */
     public function __construct(array $values)
     {
