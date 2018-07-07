@@ -52,6 +52,7 @@
     "phpstan/phpstan": "^0.10.1"
   },
   "scripts": {
+    "phpunit": "./vendor/bin/phpunit -c phpunit.xml",
     "infection": "infection --test-framework-options=\" --exclude-group integration\" --threads=4",
     "phpstan": "./vendor/bin/phpstan analyse"
   }

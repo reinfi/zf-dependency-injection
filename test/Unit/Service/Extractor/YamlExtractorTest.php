@@ -8,6 +8,7 @@ use Reinfi\DependencyInjection\Exception\InjectionTypeUnknownException;
 use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
 use Reinfi\DependencyInjection\Service\Service1;
 use Reinfi\DependencyInjection\Service\Service2;
+use Reinfi\DependencyInjection\Service\ServiceAnnotation;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -129,5 +130,21 @@ class YamlExtractorTest extends TestCase
         );
 
         $extractor->getConstructorInjections(Service2::class);
+    }
+
+    /**
+     * @test
+     */
+    public function itThrowsExceptionIfTypeIsNotOfTypeInjectionInterface()
+    {
+        $this->expectException(InjectionTypeUnknownException::class);
+
+        $extractor = new YamlExtractor(
+            new Yaml(),
+            __DIR__ . '/../../../resources/bad_services.yml',
+            'Reinfi\DependencyInjection\Service'
+        );
+
+        $extractor->getConstructorInjections(ServiceAnnotation::class);
     }
 }
