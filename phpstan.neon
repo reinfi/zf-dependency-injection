@@ -2,3 +2,5 @@ parameters:
     level: 4
     paths:
         - src
+    excludes_analyse:
+        - %currentWorkingDirectory%/src/Controller*
