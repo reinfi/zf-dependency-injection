@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Service\AutoWiring;
 
 use ReflectionClass;
@@ -62,8 +64,6 @@ class ResolverService implements ResolverServiceInterface
                 return $injection;
             }
         }
-
-        $type = $parameter->getType();
 
         if (!$parameter->hasType()) {
             throw AutoWiringNotPossibleException::fromMissingTypeHint($parameter);

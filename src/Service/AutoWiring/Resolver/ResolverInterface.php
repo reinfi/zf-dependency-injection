@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Service\AutoWiring\Resolver;
 
@@ -14,7 +15,7 @@ interface ResolverInterface
     /**
      * @param ReflectionParameter $parameter
      *
-     * @return InjectionInterface
+     * @return InjectionInterface|null
      */
-    public function resolve(ReflectionParameter $parameter);
+    public function resolve(ReflectionParameter $parameter): ?InjectionInterface;
 }

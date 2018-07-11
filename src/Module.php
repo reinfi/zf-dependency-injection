@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection;
 
 use Zend\Console\Adapter\AdapterInterface;

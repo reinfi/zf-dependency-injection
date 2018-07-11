@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Service\AutoWiring\Resolver;
 
 use Psr\Container\ContainerInterface;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiringPluginManager;
+use Reinfi\DependencyInjection\Injection\InjectionInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Service\AutoWiring\Resolver
@@ -40,7 +43,7 @@ class PluginManagerResolver implements ResolverInterface
     /**
      * @inheritdoc
      */
-    public function resolve(ReflectionParameter $parameter)
+    public function resolve(ReflectionParameter $parameter): ?InjectionInterface
     {
         if ($parameter->getClass() === null) {
             return null;
@@ -67,7 +70,7 @@ class PluginManagerResolver implements ResolverInterface
      * @param string $className
      * @param string $pluginManager
      */
-    public static function addMapping(string $className, string $pluginManager)
+    public static function addMapping(string $className, string $pluginManager): void
     {
         static::$pluginManagerMapping[$className] = $pluginManager;
     }
