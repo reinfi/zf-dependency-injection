@@ -3,7 +3,6 @@
 namespace Reinfi\DependencyInjection\Annotation;
 
 use Psr\Container\ContainerInterface;
-use Zend\ServiceManager\AbstractPluginManager;
 
 /**
  * @package Reinfi\DependencyInjection\Annotation

@@ -22,7 +22,7 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
     /**
      * @inheritDoc
      */
-    public function canCreate(ContainerInterface $container, $requestedName)
+    public function canCreate(ContainerInterface $container, $requestedName): bool
     {
         return preg_match(static::MATCH_PATTERN, $requestedName, $this->matches) === 1;
     }
@@ -34,7 +34,7 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
         ServiceLocatorInterface $serviceLocator,
         $name,
         $requestedName
-    ) {
+    ): bool {
         return $this->canCreate($serviceLocator, $requestedName);
     }
 

@@ -68,7 +68,7 @@ class PluginManagerResolver implements ResolverInterface
      * @param string $className
      * @param string $pluginManager
      */
-    public static function addMapping(string $className, string $pluginManager)
+    public static function addMapping(string $className, string $pluginManager): void
     {
         static::$pluginManagerMapping[$className] = $pluginManager;
     }

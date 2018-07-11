@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Reinfi\DependencyInjection\Service\AutoWiring\Resolver;
 
 use ReflectionParameter;

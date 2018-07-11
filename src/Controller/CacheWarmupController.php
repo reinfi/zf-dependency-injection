@@ -2,8 +2,6 @@
 
 namespace Reinfi\DependencyInjection\Controller;
 
-use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
-use Reinfi\DependencyInjection\Factory\InjectionFactory;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
 use Reinfi\DependencyInjection\Traits\WarmupTrait;

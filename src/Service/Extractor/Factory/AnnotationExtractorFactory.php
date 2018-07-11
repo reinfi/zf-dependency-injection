@@ -3,7 +3,6 @@
 namespace Reinfi\DependencyInjection\Service\Extractor\Factory;
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\Extractor\AnnotationExtractor;
 
 /**
