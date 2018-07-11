@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\AbstractFactory\Config;
 
 use Interop\Container\ContainerInterface;

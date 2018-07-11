@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Config\Factory;
 
 use Psr\Container\ContainerInterface;

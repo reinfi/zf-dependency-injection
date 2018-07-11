@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Command;
 
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
@@ -44,8 +46,8 @@ class CacheWarmupCommand extends Command
         $output->writeln('Start up application with supplied config...');
 
         $config = $input->getArgument('applicationConfig');
-        $path   = stream_resolve_include_path($config);
-        if (!is_readable($path)) {
+        $path = stream_resolve_include_path($config);
+        if ($path === false || !is_readable($path)) {
             throw new \InvalidArgumentException("Invalid loader path: {$config}");
         }
 
