@@ -3,6 +3,7 @@
 namespace Reinfi\DependencyInjection\Integration\Command;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Reinfi\DependencyInjection\Annotation\Inject;
 use Reinfi\DependencyInjection\Annotation\InjectConfig;
 use Reinfi\DependencyInjection\Command\CacheWarmupCommand;
@@ -41,6 +42,7 @@ class CacheWarmupCommandTest extends TestCase
             ]
         );
         $output = $this->prophesize(OutputInterface::class);
+        $output->writeln(Argument::type('string'))->shouldBeCalled();
 
         $command = new CacheWarmupCommand();
         $command->run($input, $output->reveal());
