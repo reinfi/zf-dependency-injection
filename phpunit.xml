@@ -1,17 +1,19 @@
-<phpunit backupStaticAttributes="false"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         syntaxCheck="true">
-    <testsuite name='unit'>
-        <directory suffix='.php'>test/Unit</directory>
-    </testsuite>
-    <testsuite name='integration'>
-        <directory suffix='.php'>test/Integration</directory>
-    </testsuite>
+<phpunit
+        backupStaticAttributes="false"
+        colors="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        processIsolation="false"
+        stopOnFailure="false">
+    <testsuites>
+        <testsuite name='unit'>
+            <directory suffix='.php'>test/Unit</directory>
+        </testsuite>
+        <testsuite name='integration'>
+            <directory suffix='.php'>test/Integration</directory>
+        </testsuite>
+    </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="false">
             <directory suffix=".php">config</directory>
@@ -20,4 +22,4 @@
     </filter>
 </phpunit>
 
- 
+
