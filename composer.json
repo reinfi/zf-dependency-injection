@@ -17,7 +17,7 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
+    "php": ">=7.1",
     "zendframework/zend-servicemanager": "^2.7 | ^3.0",
     "zendframework/zend-modulemanager": "^2.7",
     "zendframework/zend-cache": "^2.5"
@@ -48,11 +48,11 @@
     "php-coveralls/php-coveralls": "^2.0",
     "symfony/yaml": "^3.3",
     "friendsofphp/php-cs-fixer": "^2.10",
-    "phpstan/phpstan": "^0.9.2"
+    "phpstan/phpstan": "^0.10.0"
   },
   "scripts": {
     "phpunit": "./vendor/bin/phpunit -c phpunit.xml",
     "infection": "infection --test-framework-options=\" --exclude-group integration\" --threads=4",
-    "phpstan": "./vendor/bin/phpstan analyse -l 4 -c phpstan.neon src"
+    "phpstan": "./vendor/bin/phpstan analyse -c phpstan.neon"
   }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Factory;
 
 use Zend\ServiceManager\Exception\InvalidServiceException;
@@ -20,7 +22,7 @@ abstract class AbstractFactory implements FactoryInterface
             return $this($serviceLocator, $requestedName);
         }
 
-        if (class_exists($canonicalName)) {
+        if (is_string($canonicalName) && class_exists($canonicalName)) {
             return $this($serviceLocator, $canonicalName);
         }
 

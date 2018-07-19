@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Controller;
 
-use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
-use Reinfi\DependencyInjection\Factory\InjectionFactory;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
 use Reinfi\DependencyInjection\Traits\WarmupTrait;
@@ -58,9 +58,9 @@ class CacheWarmupController extends AbstractConsoleController
     }
 
     /**
-     *
+     * @return void
      */
-    public function indexAction()
+    public function indexAction(): void
     {
         $factoriesConfig = $this->serviceManagerConfig['factories'];
 

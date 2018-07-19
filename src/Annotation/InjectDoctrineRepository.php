@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Annotation;
 
 use Psr\Container\ContainerInterface;
-use Zend\ServiceManager\AbstractPluginManager;
 
 /**
  * @package Reinfi\DependencyInjection\Annotation
