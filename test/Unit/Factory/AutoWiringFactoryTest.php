@@ -117,7 +117,7 @@ class AutoWiringFactoryTest extends TestCase
         $service->resolveConstructorInjection(
             Argument::type(ContainerInterface::class),
             Service2::class
-        )->willReturn([]);
+        )->willReturn(null);
 
         $container = $this->prophesize(ServiceLocatorInterface::class);
         $container->get(AutoWiringService::class)
