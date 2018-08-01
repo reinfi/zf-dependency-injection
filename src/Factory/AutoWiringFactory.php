@@ -28,7 +28,7 @@ final class AutoWiringFactory extends AbstractFactory
             $requestedName
         );
 
-        if ($injections === false) {
+        if (count($injections) === 0) {
             return new $requestedName;
         }
 
