@@ -43,16 +43,16 @@ class AutoWiringService
      * @param ContainerInterface $container
      * @param string             $className
      *
-     * @return array|bool
+     * @return InjectionInterface[]|null
      */
     public function resolveConstructorInjection(
         ContainerInterface $container,
         string $className
-    ) {
+    ): ?array {
         $injections = $this->getInjections($className);
 
         if (count($injections) === 0) {
-            return false;
+            return null;
         }
 
         foreach ($injections as $index => $injection) {

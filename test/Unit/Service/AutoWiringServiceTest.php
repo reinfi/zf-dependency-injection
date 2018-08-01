@@ -158,6 +158,9 @@ class AutoWiringServiceTest extends TestCase
             Service2::class
         );
 
-        $this->assertFalse($injections);
+        $this->assertNull(
+            $injections,
+            'Return value should be null if service has no injections'
+        );
     }
 }
