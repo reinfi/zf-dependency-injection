@@ -54,7 +54,7 @@ class CacheWarmupCommand extends Command
         $container = Application::init(include $path)
             ->getServiceManager();
 
-        $serviceManagerConfig = $container->get('config')['service_manager'];
+        $serviceManagerConfig = ($container->get('config'))['service_manager'];
 
         $this->warmupConfig(
             $serviceManagerConfig['factories'] ?? [],
