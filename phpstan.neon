@@ -4,5 +4,3 @@ parameters:
         - src
     excludes_analyse:
         - %currentWorkingDirectory%/src/Controller*
-    ignoreErrors:
-            - '#Strict comparison using === between string and false will always evaluate to false.#'
