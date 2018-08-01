@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Command;
 
+use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\CacheService;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
@@ -54,7 +55,7 @@ class CacheWarmupCommand extends Command
         $container = Application::init(include $path)
             ->getServiceManager();
 
-        $serviceManagerConfig = ($container->get('config'))['service_manager'];
+        $serviceManagerConfig = $this->getServiceManagerConfig($container);
 
         $this->warmupConfig(
             $serviceManagerConfig['factories'] ?? [],
@@ -64,5 +65,17 @@ class CacheWarmupCommand extends Command
         );
 
         $output->writeln('Finished cache warmup');
+    }
+
+    /**
+     * @param ContainerInterface $container
+     *
+     * @return array
+     */
+    private function getServiceManagerConfig(ContainerInterface $container): array
+    {
+        $configuration = $container->get('config');
+
+        return $configuration['service_manager'] ?? [];
     }
 }
