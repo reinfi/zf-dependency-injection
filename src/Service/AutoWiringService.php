@@ -43,7 +43,7 @@ class AutoWiringService
      * @param ContainerInterface $container
      * @param string             $className
      *
-     * @return array
+     * @return InjectionInterface[]
      */
     public function resolveConstructorInjection(
         ContainerInterface $container,
