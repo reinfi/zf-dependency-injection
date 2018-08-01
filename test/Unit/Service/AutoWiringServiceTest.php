@@ -158,6 +158,10 @@ class AutoWiringServiceTest extends TestCase
             Service2::class
         );
 
-        $this->assertFalse($injections);
+        $this->assertCount(
+            0,
+            $injections,
+            'Array should be empty if service has no injections'
+        );
     }
 }
