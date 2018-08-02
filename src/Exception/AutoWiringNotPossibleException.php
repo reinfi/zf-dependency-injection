@@ -11,7 +11,6 @@ class AutoWiringNotPossibleException extends \Exception
 {
     /**
      * @param \ReflectionClass $reflClass
-     *
      * @param \ReflectionClass $constructedClass
      *
      * @return AutoWiringNotPossibleException
@@ -30,19 +29,16 @@ class AutoWiringNotPossibleException extends \Exception
     /**
      * @param \ReflectionParameter $reflParameter
      *
-     * @param \ReflectionClass     $constructedClass
-     *
      * @return AutoWiringNotPossibleException
      */
     public static function fromMissingTypeHint(
-        \ReflectionParameter $reflParameter,
-        \ReflectionClass $constructedClass
+        \ReflectionParameter $reflParameter
     ): self {
         return new self(
             sprintf(
                 'Could not resolve variable %s as it is missing a typehint to inject into class %s',
                 $reflParameter->getName(),
-                $constructedClass->getName()
+                $reflParameter->getDeclaringClass()->getName()
             )
         );
     }
@@ -50,19 +46,15 @@ class AutoWiringNotPossibleException extends \Exception
     /**
      * @param \ReflectionParameter $reflParameter
      *
-     * @param \ReflectionClass     $constructedClass
-     *
      * @return AutoWiringNotPossibleException
      */
-    public static function fromBuildInType(
-        \ReflectionParameter $reflParameter,
-        \ReflectionClass $constructedClass
-    ): self {
+    public static function fromBuildInType(\ReflectionParameter $reflParameter): self
+    {
         return new self(
             sprintf(
                 'Could not resolve variable %s as it is of a buildin type to inject into class %s',
                 $reflParameter->getName(),
-                $constructedClass->getName()
+                $reflParameter->getDeclaringClass()->getName()
             )
         );
     }

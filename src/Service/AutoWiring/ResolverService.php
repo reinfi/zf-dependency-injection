@@ -45,9 +45,7 @@ class ResolverService implements ResolverServiceInterface
 
         $parameters = $constructor->getParameters();
 
-        return array_map(function(\ReflectionParameter $parameter) use ($reflClass) {
-            return $this->resolveParameter($reflClass, $parameter);
-        }, $parameters);
+        return array_map([$this, 'resolveParameter'], $parameters);
     }
 
     /**
@@ -57,7 +55,6 @@ class ResolverService implements ResolverServiceInterface
      * @throws AutoWiringNotPossibleException
      */
     private function resolveParameter(
-        ReflectionClass $constructedClass,
         \ReflectionParameter $parameter
     ): InjectionInterface {
         foreach ($this->resolverStack as $resolver) {
@@ -69,14 +66,13 @@ class ResolverService implements ResolverServiceInterface
         }
 
         if (!$parameter->hasType()) {
-            throw AutoWiringNotPossibleException::fromMissingTypeHint($parameter, $constructedClass);
+            throw AutoWiringNotPossibleException::fromMissingTypeHint($parameter);
         }
 
         if ($parameter->getType()->isBuiltin()) {
-            throw AutoWiringNotPossibleException::fromBuildInType($parameter, $constructedClass);
+            throw AutoWiringNotPossibleException::fromBuildInType($parameter);
         }
 
-
-        throw AutoWiringNotPossibleException::fromClassName($parameter->getClass(), $constructedClass);
+        throw AutoWiringNotPossibleException::fromClassName($parameter->getClass(), $parameter->getDeclaringClass());
     }
 }
