@@ -75,6 +75,26 @@ class ResolverServiceTest extends TestCase
     }
 
     /**
+     * @test
+     *
+     * @dataProvider exceptionServiceDataProvider
+     *
+     * @param string $serviceName
+     */
+    public function itShouldAddTheResolveClassToExceptionIfDependencyCouldNotResolved(string $serviceName)
+    {
+        $this->expectExceptionMessage($serviceName);
+
+        $resolver = $this->prophesize(ResolverInterface::class);
+        $resolver->resolve(Argument::type(\ReflectionParameter::class))
+                 ->willReturn(null);
+
+        $service = new ResolverService([ $resolver->reveal() ]);
+
+        $service->resolve($serviceName);
+    }
+
+    /**
      * @return array
      */
     public function exceptionServiceDataProvider()
