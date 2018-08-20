@@ -6,6 +6,7 @@ namespace Reinfi\DependencyInjection\Service\AutoWiring\Factory;
 
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\BuildInTypeWithDefaultResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerInterfaceResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\PluginManagerResolver;
@@ -51,6 +52,7 @@ class ResolverServiceFactory
             ContainerInterfaceResolver::class,
             RequestResolver::class,
             ResponseResolver::class,
+            BuildInTypeWithDefaultResolver::class,
         ];
 
         $resolverStackConfig = $config['autowire_resolver'] ?? null;
