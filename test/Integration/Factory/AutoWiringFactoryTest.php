@@ -8,6 +8,8 @@ use Reinfi\DependencyInjection\Service\PluginService;
 use Reinfi\DependencyInjection\Service\Service1;
 use Reinfi\DependencyInjection\Service\Service2;
 use Reinfi\DependencyInjection\Service\Service3;
+use Reinfi\DependencyInjection\Service\ServiceBuildInTypeWithDefault;
+use Reinfi\DependencyInjection\Service\ServiceBuildInTypeWithDefaultUsingConstant;
 use Reinfi\DependencyInjection\Service\ServiceContainer;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;
@@ -61,7 +63,6 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
         );
     }
 
-
     /**
      * @test
      */
@@ -79,6 +80,48 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
 
         $this->assertInstanceOf(
             Service3::class,
+            $instance
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itCreatesServiceWithBuiltInType()
+    {
+        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+
+        $factory = new AutoWiringFactory();
+
+        $instance = $factory->createService(
+            $container,
+            ServiceBuildInTypeWithDefault::class,
+            ServiceBuildInTypeWithDefault::class
+        );
+
+        $this->assertInstanceOf(
+            ServiceBuildInTypeWithDefault::class,
+            $instance
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itCreatesServiceWithBuiltInTypeUsingConstantAsDefault()
+    {
+        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+
+        $factory = new AutoWiringFactory();
+
+        $instance = $factory->createService(
+            $container,
+            ServiceBuildInTypeWithDefaultUsingConstant::class,
+            ServiceBuildInTypeWithDefaultUsingConstant::class
+        );
+
+        $this->assertInstanceOf(
+            ServiceBuildInTypeWithDefaultUsingConstant::class,
             $instance
         );
     }
