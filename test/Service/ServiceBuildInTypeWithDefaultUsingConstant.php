@@ -5,17 +5,19 @@ namespace Reinfi\DependencyInjection\Service;
 /**
  * @package Reinfi\DependencyInjection\Service
  */
-class ServiceBuildInTypeWithDefault
+class ServiceBuildInTypeWithDefaultUsingConstant
 {
-    public const FOREIGN_DEFAULT = 5;
+    private const DEFAULT = 1;
 
     /**
      * @param Service1 $service1
      * @param int      $service2
+     * @param int      $service3
      */
     public function __construct(
         Service1 $service1,
-        int $service2 = 0
+        int $service2 = self::DEFAULT,
+        int $service3 = ServiceBuildInTypeWithDefault::FOREIGN_DEFAULT
     ) {
     }
 }

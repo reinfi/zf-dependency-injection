@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Service\AutoWiring\Resolver;
 
 use ReflectionParameter;
@@ -23,8 +25,6 @@ class BuildInTypeWithDefaultResolver implements ResolverInterface
         if (!$parameter->isDefaultValueAvailable()) {
             return null;
         }
-
-        // @TODO Constant Value check
 
         return new Value($parameter->getDefaultValue());
     }
