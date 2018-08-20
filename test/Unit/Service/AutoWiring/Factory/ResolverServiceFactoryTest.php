@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\AutoWiring\Factory\ResolverServiceFactory;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\BuildInTypeWithDefaultResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerInterfaceResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\PluginManagerResolver;
@@ -35,6 +36,7 @@ class ResolverServiceFactoryTest extends TestCase
         $container->get(ContainerInterfaceResolver::class)->shouldBeCalled();
         $container->get(RequestResolver::class)->shouldBeCalled();
         $container->get(ResponseResolver::class)->shouldBeCalled();
+        $container->get(BuildInTypeWithDefaultResolver::class)->shouldBeCalled();
 
         $factory = new ResolverServiceFactory();
 
@@ -61,6 +63,7 @@ class ResolverServiceFactoryTest extends TestCase
         $container->get(ContainerInterfaceResolver::class)->shouldBeCalled();
         $container->get(RequestResolver::class)->shouldBeCalled();
         $container->get(ResponseResolver::class)->shouldBeCalled();
+        $container->get(BuildInTypeWithDefaultResolver::class)->shouldBeCalled();
         $container->get(TestResolver::class)->shouldBeCalled();
 
         $factory = new ResolverServiceFactory();
