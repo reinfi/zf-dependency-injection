@@ -1,5 +1,7 @@
 <?php
 
+use Zend\ServiceManager\ServiceLocatorInterface;
+
 return [
     'service_manager' => [
         'factories' => [
@@ -10,6 +12,7 @@ return [
             \Reinfi\DependencyInjection\Service\ServiceContainer::class                           => \Reinfi\DependencyInjection\Factory\AutoWiringFactory::class,
             \Reinfi\DependencyInjection\Service\ServiceBuildInTypeWithDefault::class              => \Reinfi\DependencyInjection\Factory\AutoWiringFactory::class,
             \Reinfi\DependencyInjection\Service\ServiceBuildInTypeWithDefaultUsingConstant::class => \Reinfi\DependencyInjection\Factory\AutoWiringFactory::class,
+            'service_with_closure_as_factory'                                                     => function (ServiceLocatorInterface $locator) { return new \stdClass();},
         ],
     ],
     'test'            => [
