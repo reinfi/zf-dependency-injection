@@ -33,6 +33,9 @@ trait WarmupTrait
                 $factoryClass,
                 $className
             ) use ($extractor, $resolverService, $cache) {
+                if (! is_string($factoryClass)) {
+                    return;
+                }
                 $injections = $this->handleService(
                     $className,
                     $factoryClass,
