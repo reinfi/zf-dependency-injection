@@ -154,7 +154,7 @@ You can find more information about available out-of-the-box adapters at the [ZF
 * Warmup cache for ZF2: `php public/index.php reinfi:di cache warmup`
   Fills the cache with every injection required by a class.
   This can either be via AutoWiringFactory or InjectionFactory.
-* Warmup script for ZF2 or ZF3: php bin/cache-warmup
+* Warmup script for ZF2 or ZF3: php bin/zf-dependency-injection-cache-warmup
   Fills the cache with every injection required by a class.
   This can either be via AutoWiringFactory or InjectionFactory.
 

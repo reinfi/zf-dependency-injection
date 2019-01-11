@@ -16,6 +16,9 @@
       "name": "Reinfi"
     }
   ],
+  "bin": [
+    "bin/zf-dependency-injection-cache-warmup"
+  ],
   "require": {
     "php": ">=7.1",
     "zendframework/zend-servicemanager": "^2.7 | ^3.0",
