@@ -69,8 +69,12 @@ class ResolverService implements ResolverServiceInterface
             throw AutoWiringNotPossibleException::fromMissingTypeHint($parameter);
         }
 
-        if ($parameter->getType()->isBuiltin()) {
+        if ($parameter->getType() !== null && $parameter->getType()->isBuiltin()) {
             throw AutoWiringNotPossibleException::fromBuildInType($parameter);
+        }
+
+        if ($parameter->getClass() === null) {
+            throw AutoWiringNotPossibleException::fromParameterName($parameter);
         }
 
         throw AutoWiringNotPossibleException::fromClassName($parameter->getClass(), $parameter->getDeclaringClass());
