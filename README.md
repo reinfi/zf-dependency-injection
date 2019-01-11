@@ -2,7 +2,9 @@
 [![Code Climate](https://codeclimate.com/github/reinfi/zf-dependency-injection/badges/gpa.svg)](https://codeclimate.com/github/reinfi/zf-dependency-injection)
 [![Coverage Status](https://coveralls.io/repos/github/reinfi/zf-dependency-injection/badge.svg?branch=master)](https://coveralls.io/github/reinfi/zf-dependency-injection?branch=master)
 
-Configure dependency injection in Zend Framework 2 or Zend Framework 3 using annotations, yaml or autowiring.
+Configure dependency injection in Zend Framework 3 using annotations, yaml or autowiring.
+
+For Zend Framework 2 you need to use version 2.x of this package.
 
 Heavily inspired by https://github.com/mikemix/mxdiModule.
 
@@ -152,7 +154,7 @@ You can find more information about available out-of-the-box adapters at the [ZF
 * Warmup cache for ZF2: `php public/index.php reinfi:di cache warmup`
   Fills the cache with every injection required by a class.
   This can either be via AutoWiringFactory or InjectionFactory.
-* Warmup script for ZF2 or ZF3: php bin/cache-warmup
+* Warmup script for ZF2 or ZF3: php bin/zf-dependency-injection-cache-warmup
   Fills the cache with every injection required by a class.
   This can either be via AutoWiringFactory or InjectionFactory.
 

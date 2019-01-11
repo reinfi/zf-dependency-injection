@@ -22,8 +22,8 @@ class CacheWarmupControllerTest extends AbstractIntegrationTest
      */
     public function itWarmsupCacheEntries()
     {
-        if (!class_exists('Zend\Mvc\Controller\AbstractConsoleController')) {
-            $this->markTestSkipped('Skipped because zend console is removed within zend version 3');
+        if (!class_exists('Zend\Mvc\Console\Controller\AbstractConsoleController')) {
+            $this->markTestSkipped('Skipped because zend console for zend version 3 is not installed');
         }
 
         $config = require __DIR__ . '/../../resources/config.php';
