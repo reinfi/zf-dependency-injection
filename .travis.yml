@@ -3,19 +3,11 @@ language: php
 php:
   - 7.1
   - 7.2
-
-matrix:
-  include:
-    - php: 7.1
-      env: ZF_VERSION=2
-    - php: 7.2
-      env: ZF_VERSION=2
-  fast_finish: true
+  - 7.3
 
 before_install:
   - cp $HOME/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini /tmp
   - phpenv config-rm xdebug.ini
-  - if [ "$ZF_VERSION" = "2" ]; then sed 's/ | ^3.0//g' composer.json > composer_v27.json; rm composer.json; mv composer_v27.json composer.json; fi
 
 install:
   - composer install --no-progress --no-interaction --prefer-dist --no-suggest
