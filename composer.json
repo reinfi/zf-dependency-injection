@@ -32,13 +32,14 @@
   },
   "suggests": {
     "doctrine/annotations": "To use annotation injections",
-    "symfony/console": "To use console warmup command",
+    "zendframework/zend-mvc-console": "To use console warmup command route",
+    "symfony/console": "To use console warmup command script",
     "symfony/yaml": "To use the yaml dependency definition"
   },
   "require-dev": {
     "zendframework/zend-config-aggregator": "^1.0",
-    "zendframework/zend-console": "^2.6",
     "zendframework/zend-mvc": "^2.7 | ^3.0",
+    "zendframework/zend-mvc-console": "^1.2",
     "zendframework/zend-view": "^2.6",
     "zendframework/zend-serializer": "^2.6",
     "zendframework/zend-log": "^2.9",
