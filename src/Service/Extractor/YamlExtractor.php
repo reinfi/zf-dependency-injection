@@ -94,8 +94,14 @@ class YamlExtractor implements ExtractorInterface
     private function getConfig(string $className): array
     {
         if (!is_array($this->config)) {
+            $fileContents = file_get_contents($this->filePath);
+
+            if ($fileContents === false) {
+                throw new \RuntimeException('could not read config from path ' . $this->filePath);
+            }
+
             $this->config = $this->yaml::parse(
-                file_get_contents($this->filePath)
+                $fileContents
             );
         }
 
