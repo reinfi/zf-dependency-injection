@@ -47,9 +47,14 @@ class CacheWarmupCommand extends Command
         $output->writeln('Start up application with supplied config...');
 
         $config = $input->getArgument('applicationConfig');
+
+        if (!is_string($config)) {
+            throw new \InvalidArgumentException('Invalid config path provided');
+        }
+
         $path = stream_resolve_include_path($config);
         if ($path === false || !is_readable($path)) {
-            throw new \InvalidArgumentException("Invalid loader path: {$config}");
+            throw new \InvalidArgumentException("Invalid config path: {$config}");
         }
 
         $container = Application::init(include $path)

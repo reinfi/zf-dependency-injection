@@ -18,7 +18,11 @@ class BuildInTypeWithDefaultResolver implements ResolverInterface
      */
     public function resolve(ReflectionParameter $parameter): ?InjectionInterface
     {
-        if (!$parameter->hasType() || !$parameter->getType()->isBuiltin()) {
+        if (
+            !$parameter->hasType()
+            || $parameter->getType() === null
+            || !$parameter->getType()->isBuiltin()
+        ) {
             return null;
         }
 
