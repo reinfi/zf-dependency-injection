@@ -37,7 +37,6 @@ class FallbackAutowireFactory implements AbstractFactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-
         $reflection = static::$reflectionCache[$requestedName] ?? new \ReflectionClass($requestedName);
 
         $constructor = $reflection->getConstructor();
@@ -51,7 +50,6 @@ class FallbackAutowireFactory implements AbstractFactoryInterface
         $arguments = [];
 
         foreach ($parameters as $parameter) {
-
             if (isset($options[$parameter->getName()])) {
                 $arguments[] = $options[$parameter->getName()];
                 continue;
@@ -68,11 +66,9 @@ class FallbackAutowireFactory implements AbstractFactoryInterface
             }
 
             $arguments[] = $container->get($type->getName());
-
         }
 
         return new $requestedName(...$arguments);
-
     }
 
 }
