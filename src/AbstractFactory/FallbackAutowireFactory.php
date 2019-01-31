@@ -73,6 +73,7 @@ class FallbackAutowireFactory implements AbstractFactoryInterface
                 continue;
             }
 
+            /** @var \ReflectionType $type */
             $type = $parameter->getType();
 
             if ($type->isBuiltin()) {
