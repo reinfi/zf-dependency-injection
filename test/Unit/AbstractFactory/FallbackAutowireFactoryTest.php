@@ -9,6 +9,7 @@ use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\AbstractFactory\FallbackAutowireFactory;
+use Reinfi\DependencyInjection\Unit\AbstractFactory\Stub\TestClassWithoutConstructor;
 use Reinfi\DependencyInjection\Unit\AbstractFactory\Stub\TestService;
 use Reinfi\DependencyInjection\Unit\AbstractFactory\Stub\TestClass;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
@@ -60,6 +61,23 @@ class FallbackAutowireFactoryTest extends TestCase
         Assert::assertInstanceOf(TestClass::class, $instance);
         Assert::assertSame($testServiceMock, $instance->testService);
         Assert::assertSame($foo, $instance->foo);
+    }
+
+    /**
+     * Test if a service without a constructor can be created
+     *
+     * @return void
+     */
+    public function test__invokeWithoutConstructor(): void
+    {
+
+        $subject = new FallbackAutowireFactory();
+
+        /** @var TestClassWithoutConstructor $instance */
+        $instance = $subject($this->containerMock, TestClassWithoutConstructor::class);
+
+        Assert::assertInstanceOf(TestClassWithoutConstructor::class, $instance);
+
     }
 
     /**

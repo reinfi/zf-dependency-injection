@@ -22,15 +22,22 @@ class TestClass
     public $foo;
 
     /**
+     * @var string
+     */
+    public $untyped;
+
+    /**
      * The test_class constructor.
      *
      * @param TestService $testService
      * @param string $foo
+     * @param string $untyped
      */
-    public function __construct(TestService $testService, string $foo)
+    public function __construct(TestService $testService, string $foo, $untyped = '')
     {
         $this->testService = $testService;
         $this->foo = $foo;
+        $this->untyped = $untyped;
     }
 
 }
