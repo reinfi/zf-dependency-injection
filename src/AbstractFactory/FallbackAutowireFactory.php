@@ -46,7 +46,21 @@ class FallbackAutowireFactory implements AbstractFactoryInterface
         }
 
         $parameters = $constructor->getParameters();
+        $arguments = $this->resolveParameters($container, $options ?? [], $parameters);
 
+        return new $requestedName(...$arguments);
+    }
+
+    /**
+     * Try to resolve a list of parameters
+     *
+     * @param ContainerInterface $container
+     * @param array $options
+     * @param \ReflectionParameter[] $parameters
+     * @return mixed[]
+     */
+    private function resolveParameters(ContainerInterface $container, array $options, array $parameters): array
+    {
         $arguments = [];
 
         foreach ($parameters as $parameter) {
@@ -68,7 +82,7 @@ class FallbackAutowireFactory implements AbstractFactoryInterface
             $arguments[] = $container->get($type->getName());
         }
 
-        return new $requestedName(...$arguments);
+        return $arguments;
     }
 
 }
