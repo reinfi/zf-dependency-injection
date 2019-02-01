@@ -37,6 +37,20 @@ To use autowiring for your service you need to specify the 'AutoWiringFactory' w
     ],
 ]
 ```
+
+#### Fallback AutoWiring
+If you are migrating your existing project to use zend service manager and don't want to register all autowired services by hand, you can register the abstract `FallbackAutoWiringFactory` factory.
+
+Please make sure that you don't use the fallback mechanism for everything. You should try to write and register explicit factories for your services.
+
+```php
+'service_manager' => [
+    'abstract_factories' => [
+        \Reinfi\DependencyInjection\AbstractFactory\FallbackAutoWiringFactory::class,
+    ],
+]
+```
+
 ##### What can be autowired?
 Every service registered within the service manager can be autowired.
 Plugins within the plugin manager can also be autowired. If you need to register another mapping you can simply add the following:
