@@ -30,11 +30,12 @@ class ResolverService implements ResolverServiceInterface
     }
 
     /**
-     * @param string $className
+     * @param string     $className
+     * @param null|array $options
      *
      * @return InjectionInterface[]
      */
-    public function resolve(string $className): array
+    public function resolve(string $className, ?array $options = null): array
     {
         $reflClass = new ReflectionClass($className);
 
@@ -44,7 +45,12 @@ class ResolverService implements ResolverServiceInterface
             return [];
         }
 
-        $parameters = $constructor->getParameters();
+        $parameters = array_filter(
+            $constructor->getParameters(),
+            function (\ReflectionParameter $parameter) use ($options) {
+                return !array_key_exists($parameter->getName(), $options ?? []);
+            }
+        );
 
         return array_map([ $this, 'resolveParameter' ], $parameters);
     }

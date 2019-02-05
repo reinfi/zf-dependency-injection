@@ -27,7 +27,8 @@ class AutoWiringFactoryTest extends TestCase
         $service = $this->prophesize(AutoWiringService::class);
         $service->resolveConstructorInjection(
             Argument::type(ContainerInterface::class),
-            Service1::class
+            Service1::class,
+            null
         )->willReturn([new Service2(), new Service3()]);
 
         $container = $this->prophesize(ServiceLocatorInterface::class);
@@ -51,12 +52,40 @@ class AutoWiringFactoryTest extends TestCase
     /**
      * @test
      */
+    public function itCreatesServiceWithInjectionsWithOptions()
+    {
+        $options = ['foo' => 'bar'];
+        $service = $this->prophesize(AutoWiringService::class);
+        $service->resolveConstructorInjection(
+            Argument::type(ContainerInterface::class),
+            Service1::class,
+            $options
+        )->willReturn([new Service2(), new Service3()]);
+
+        $container = $this->prophesize(ServiceLocatorInterface::class);
+        $container->get(AutoWiringService::class)
+            ->willReturn($service->reveal());
+
+        $factory = new AutoWiringFactory();
+
+        $instance = $factory($container->reveal(), Service1::class, $options);
+
+        $this->assertInstanceOf(
+            Service1::class,
+            $instance
+        );
+    }
+
+    /**
+     * @test
+     */
     public function itCreatesServiceFromCanonicalName()
     {
         $service = $this->prophesize(AutoWiringService::class);
         $service->resolveConstructorInjection(
             Argument::type(ContainerInterface::class),
-            Service1::class
+            Service1::class,
+            null
         )->willReturn([new Service2(), new Service3()]);
 
         $container = $this->prophesize(ServiceLocatorInterface::class);
@@ -84,7 +113,8 @@ class AutoWiringFactoryTest extends TestCase
         $service = $this->prophesize(AutoWiringService::class);
         $service->resolveConstructorInjection(
             Argument::type(ContainerInterface::class),
-            Service1::class
+            Service1::class,
+            null
         )->willReturn([new Service2(), new Service3()]);
 
         $container = $this->prophesize(ServiceLocatorInterface::class);
@@ -116,7 +146,8 @@ class AutoWiringFactoryTest extends TestCase
         $service = $this->prophesize(AutoWiringService::class);
         $service->resolveConstructorInjection(
             Argument::type(ContainerInterface::class),
-            Service2::class
+            Service2::class,
+            null
         )->willReturn(null);
 
         $container = $this->prophesize(ServiceLocatorInterface::class);

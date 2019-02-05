@@ -42,16 +42,18 @@ class AutoWiringService
     /**
      * @param ContainerInterface $container
      * @param string             $className
+     * @param null|array         $options
      *
      * @return InjectionInterface[]|null
      */
     public function resolveConstructorInjection(
         ContainerInterface $container,
-        string $className
+        string $className,
+        ?array $options = null
     ): ?array {
-        $injections = $this->getInjections($className);
+        $injections = $this->getInjections($className, $options);
 
-        if (count($injections) === 0) {
+        if (empty($injections) && $options === null) {
             return null;
         }
 
@@ -59,7 +61,7 @@ class AutoWiringService
             $injections[$index] = $injection($container);
         }
 
-        return $injections;
+        return array_merge($injections, $options ?? []);
     }
 
     /**
@@ -67,7 +69,7 @@ class AutoWiringService
      *
      * @return InjectionInterface[]
      */
-    private function getInjections(string $className): array
+    private function getInjections(string $className, ?array $options = null): array
     {
         $cacheKey = $this->buildCacheKey($className);
 
@@ -79,7 +81,7 @@ class AutoWiringService
             }
         }
 
-        $injections = $this->resolverService->resolve($className);
+        $injections = $this->resolverService->resolve($className, $options);
         $this->cache->setItem($cacheKey, $injections);
 
         return $injections;
