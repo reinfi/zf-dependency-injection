@@ -53,7 +53,7 @@ class AutoWiringService
     ): ?array {
         $injections = $this->getInjections($className, $options);
 
-        if (empty($injections) && $options === null) {
+        if (count($injections) === 0 && $options === null) {
             return null;
         }
 
