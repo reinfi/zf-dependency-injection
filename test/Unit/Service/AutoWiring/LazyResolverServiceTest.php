@@ -21,7 +21,7 @@ class LazyResolverServiceTest extends TestCase
     public function itResolvesResolverServiceLazy()
     {
         $resolverService = $this->prophesize(ResolverServiceInterface::class);
-        $resolverService->resolve('test')
+        $resolverService->resolve('test', null)
             ->willReturn([]);
 
         $container = $this->prophesize(ContainerInterface::class);
@@ -37,12 +37,33 @@ class LazyResolverServiceTest extends TestCase
     /**
      * @test
      */
+    public function itResolvesResolverServiceLazyWithOptions()
+    {
+        $options = ['foo' => 'bar'];
+
+        $resolverService = $this->prophesize(ResolverServiceInterface::class);
+        $resolverService->resolve('test', $options)
+                        ->willReturn([]);
+
+        $container = $this->prophesize(ContainerInterface::class);
+        $container->get(ResolverService::class)
+                  ->willReturn($resolverService->reveal())
+                  ->shouldBeCalled();
+
+        $service = new LazyResolverService($container->reveal());
+
+        $service->resolve('test', $options);
+    }
+
+    /**
+     * @test
+     */
     public function itResolvesResolverServiceOnlyOnce()
     {
         $resolverService = $this->prophesize(ResolverServiceInterface::class);
-        $resolverService->resolve('test')
+        $resolverService->resolve('test', null)
             ->willReturn([]);
-        $resolverService->resolve('test2')
+        $resolverService->resolve('test2', null)
             ->willReturn([]);
 
         $container = $this->prophesize(ContainerInterface::class);
