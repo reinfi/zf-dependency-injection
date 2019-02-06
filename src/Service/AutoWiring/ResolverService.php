@@ -45,6 +45,7 @@ class ResolverService implements ResolverServiceInterface
             return [];
         }
 
+	// Filter out constructor parameters that are already provided inside the $options array
         $parameters = array_filter(
             $constructor->getParameters(),
             function (\ReflectionParameter $parameter) use ($options) {
