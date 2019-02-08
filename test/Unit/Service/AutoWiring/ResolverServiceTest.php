@@ -2,6 +2,7 @@
 
 namespace Reinfi\DependencyInjection\Unit\Service\AutoWiring;
 
+use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
@@ -34,9 +35,34 @@ class ResolverServiceTest extends TestCase
 
         $injections = $service->resolve(Service1::class);
 
-        $this->assertCount(2, $injections);
+        $this->assertCount(3, $injections);
         $this->assertContainsOnlyInstancesOf(
             InjectionInterface::class, $injections
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itResolvesConstructorArgumentsWithOptionsParameter()
+    {
+        $resolver = $this->prophesize(ResolverInterface::class);
+        $resolver->resolve(Argument::type(\ReflectionParameter::class))
+            ->willReturn(
+                new AutoWiring(Service2::class)
+            );
+
+        $service = new ResolverService([ $resolver->reveal() ]);
+
+        $injections = $service->resolve(Service1::class, ['foo' => 'bar']);
+
+        $this->assertCount(3, $injections);
+        $this->assertContainsOnlyInstancesOf(
+            InjectionInterface::class, $injections
+        );
+        $this->assertSame(
+            'bar',
+            $injections[2]($this->prophesize(ContainerInterface::class)->reveal())
         );
     }
 

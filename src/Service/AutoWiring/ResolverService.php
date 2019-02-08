@@ -8,6 +8,7 @@ use ReflectionClass;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
+use Reinfi\DependencyInjection\Injection\Value;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResolverInterface;
 
 /**
@@ -45,26 +46,31 @@ class ResolverService implements ResolverServiceInterface
             return [];
         }
 
-	// Filter out constructor parameters that are already provided inside the $options array
-        $parameters = array_filter(
-            $constructor->getParameters(),
-            function (\ReflectionParameter $parameter) use ($options) {
-                return !array_key_exists($parameter->getName(), $options ?? []);
-            }
+        return array_map(
+            function (ReflectionParameter $parameter) use ($options) {
+                return $this->resolveParameter($parameter, $options);
+            },
+            $constructor->getParameters()
         );
-
-        return array_map([ $this, 'resolveParameter' ], $parameters);
     }
 
     /**
      * @param ReflectionParameter $parameter
+     * @param null|array $options
      *
      * @return InjectionInterface
      * @throws AutoWiringNotPossibleException
      */
     private function resolveParameter(
-        ReflectionParameter $parameter
+        ReflectionParameter $parameter,
+        ?array $options = null
     ): InjectionInterface {
+
+        // Don't try to resolve parameters present in the options array using reflections
+        if (array_key_exists($parameter->getName(), $options ?? [])) {
+            return new Value($options[$parameter->getName()]);
+        }
+
         foreach ($this->resolverStack as $resolver) {
             $injection = $resolver->resolve($parameter);
 

@@ -61,7 +61,7 @@ class AutoWiringService
             $injections[$index] = $injection($container);
         }
 
-        return array_merge($injections, $options ?? []);
+        return $injections;
     }
 
     /**
@@ -73,7 +73,7 @@ class AutoWiringService
     {
         $cacheKey = $this->buildCacheKey($className);
 
-        if ($this->cache->hasItem($cacheKey)) {
+        if ($options === null && $this->cache->hasItem($cacheKey)) {
             $cachedItem = $this->cache->getItem($cacheKey);
 
             if (is_array($cachedItem)) {
