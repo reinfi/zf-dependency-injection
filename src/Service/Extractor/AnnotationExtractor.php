@@ -61,15 +61,17 @@ class AnnotationExtractor implements ExtractorInterface
             return [];
         }
 
-        $injection = $this->reader->getMethodAnnotation(
-            new ReflectionMethod($className, '__construct'),
-            AnnotationInterface::class
+        $injections = $this->reader->getMethodAnnotations(
+            new ReflectionMethod($className, '__construct')
         );
 
-        if ($injection === null) {
-            return [];
-        }
+        $injections = array_filter(
+            $injections,
+            function ($annotation) {
+                return $annotation instanceof AnnotationInterface;
+            }
+        );
 
-        return [$injection];
+        return $injections;
     }
 }

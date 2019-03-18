@@ -9,6 +9,7 @@ use Reinfi\DependencyInjection\Service\PluginService;
 use Reinfi\DependencyInjection\Service\Service1;
 use Reinfi\DependencyInjection\Service\Service3;
 use Reinfi\DependencyInjection\Service\ServiceAnnotation;
+use Reinfi\DependencyInjection\Service\ServiceAnnotationConstructor;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;
 use Zend\Stdlib\ArrayUtils;
@@ -37,6 +38,27 @@ class InjectionFactoryTest extends AbstractIntegrationTest
 
         $this->assertInstanceOf(
             ServiceAnnotation::class,
+            $instance
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itCreatesServiceWithDependenciesFromConstructor()
+    {
+        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+
+        $factory = new InjectionFactory();
+
+        $instance = $factory->createService(
+            $container,
+            ServiceAnnotationConstructor::class,
+            ServiceAnnotationConstructor::class
+        );
+
+        $this->assertInstanceOf(
+            ServiceAnnotationConstructor::class,
             $instance
         );
     }
