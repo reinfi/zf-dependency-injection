@@ -82,6 +82,7 @@ Following annotations are supported:
 * Inject (directly injects a service from the service locator)
 * InjectParent (must be used if you inject a service from a plugin manager)
 * InjectConfig (dot separated path to a config value, e.g. service_manager.factories)
+* InjectContainer (directly inject container interface)
 
 Also in addition there a several annotations to inject from plugin managers.
 * InjectViewHelper
