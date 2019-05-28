@@ -82,7 +82,10 @@ class AutoWiringService
         }
 
         $injections = $this->resolverService->resolve($className, $options);
-        $this->cache->setItem($cacheKey, $injections);
+
+        if ($options === null) {
+            $this->cache->setItem($cacheKey, $injections);
+        }
 
         return $injections;
     }

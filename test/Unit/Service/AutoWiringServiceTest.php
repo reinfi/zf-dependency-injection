@@ -173,7 +173,7 @@ class AutoWiringServiceTest extends TestCase
             ]);
 
         $cache = $this->prophesize(CacheService::class);
-        $cache->setItem($cacheKey, Argument::type('array'))->willReturn(true);
+        $cache->setItem($cacheKey, Argument::type('array'))->shouldNotBeCalled();
         $cache->hasItem($cacheKey)->shouldNotBeCalled();
         $cache->getItem($cacheKey)->shouldNotBeCalled();
 
