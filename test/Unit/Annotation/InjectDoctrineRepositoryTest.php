@@ -144,6 +144,14 @@ class InjectDoctrineRepositoryTest extends TestCase
                 'doctrine.entityManager',
                 EntityRepository::class,
             ],
+            [
+                [
+                    'entity'        => EntityRepository::class,
+                    'entityManager' => 'doctrine.entityManager',
+                ],
+                'doctrine.entityManager',
+                EntityRepository::class,
+            ],
         ];
     }
 }
