@@ -30,8 +30,8 @@ final class InjectDoctrineRepository extends AbstractAnnotation
     public function __construct(array $values)
     {
         if (!isset($values['value'])) {
-            if (isset($values['em'])) {
-                $this->entityManager = $values['em'];
+            if (isset($values['em']) || isset($values['entityManager'])) {
+                $this->entityManager = $values['entityManager'] ?? $values['em'];
             }
 
             $this->entity = $values['entity'];
