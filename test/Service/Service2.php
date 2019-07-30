@@ -7,5 +7,5 @@ namespace Reinfi\DependencyInjection\Service;
  */
 class Service2
 {
-
+    public const CONSTANT = 'test';
 }
