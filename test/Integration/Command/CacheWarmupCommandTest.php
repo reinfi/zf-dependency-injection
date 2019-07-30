@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Reinfi\DependencyInjection\Annotation\Inject;
 use Reinfi\DependencyInjection\Annotation\InjectConfig;
+use Reinfi\DependencyInjection\Annotation\InjectConstant;
 use Reinfi\DependencyInjection\Command\CacheWarmupCommand;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -26,6 +27,7 @@ class CacheWarmupCommandTest extends TestCase
 
         class_exists(Inject::class);
         class_exists(InjectConfig::class);
+        class_exists(InjectConstant::class);
     }
 
     /**

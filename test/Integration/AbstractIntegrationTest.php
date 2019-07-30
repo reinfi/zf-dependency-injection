@@ -5,6 +5,7 @@ namespace Reinfi\DependencyInjection\Integration;
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Annotation\Inject;
 use Reinfi\DependencyInjection\Annotation\InjectConfig;
+use Reinfi\DependencyInjection\Annotation\InjectConstant;
 use Reinfi\DependencyInjection\Annotation\InjectParent;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
@@ -26,6 +27,7 @@ abstract class AbstractIntegrationTest extends TestCase
         class_exists(Inject::class);
         class_exists(InjectParent::class);
         class_exists(InjectConfig::class);
+        class_exists(InjectConstant::class);
     }
 
 
