@@ -54,6 +54,12 @@
     "friendsofphp/php-cs-fixer": "^2.10",
     "phpstan/phpstan": "^0.10.0"
   },
+  "extra": {
+    "zf": {
+      "component": "Reinfi\\DependencyInjection",
+      "config-provider": "Reinfi\\DependencyInjection\\ConfigProvider"
+    }
+  },
   "scripts": {
     "phpunit": "./vendor/bin/phpunit -c phpunit.xml",
     "infection": "infection --test-framework-options=\" --exclude-group integration\" --threads=4",
