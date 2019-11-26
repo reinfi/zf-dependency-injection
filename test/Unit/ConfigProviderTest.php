@@ -19,7 +19,7 @@ class ConfigProviderTest extends TestCase
         $this->assertArrayHasKey(
             'dependencies',
             $configProvider(),
-            'Config provider should contain dependencies',
+            'Config provider should contain dependencies'
         );
     }
 }
