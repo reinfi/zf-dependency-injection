@@ -2,7 +2,7 @@
 [![Code Climate](https://codeclimate.com/github/reinfi/zf-dependency-injection/badges/gpa.svg)](https://codeclimate.com/github/reinfi/zf-dependency-injection)
 [![Coverage Status](https://coveralls.io/repos/github/reinfi/zf-dependency-injection/badge.svg?branch=master)](https://coveralls.io/github/reinfi/zf-dependency-injection?branch=master)
 
-Configure dependency injection in Zend Framework 3 using annotations, yaml or autowiring.
+Configure dependency injection in Zend Framework 3 or Zend Expressive using annotations, yaml or autowiring.
 
 For Zend Framework 2 you need to use version 2.x of this package.
 
