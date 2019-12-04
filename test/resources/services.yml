@@ -2,9 +2,9 @@ Reinfi\DependencyInjection\Service\InjectionService:
   - {type: Inject, value: Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface}
   - {type: Inject, value: Reinfi\DependencyInjection\Service\CacheService}
 
-Reinfi\DependencyInjection\Service\Service1:
-  - {type: Inject, value: Reinfi\DependencyInjection\Service\Service2}
-  - {type: Inject, value: Reinfi\DependencyInjection\Service\Service3}
+Reinfi\DependencyInjection\Test\Service\Service1:
+  - {type: Inject, value: Reinfi\DependencyInjection\Test\Service\Service2}
+  - {type: Inject, value: Reinfi\DependencyInjection\Test\Service\Service3}
 
 Reinfi\DependencyInjection\Service\ServiceDoctrine:
-  - {type: InjectDoctrineRepository, value: Reinfi\DependencyInjection\Service\Service2}
+  - {type: InjectDoctrineRepository, value: Reinfi\DependencyInjection\Test\Service\Service2}

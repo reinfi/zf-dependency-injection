@@ -1,14 +1,14 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Service\AutoWiring\Resolver\Factory;
+namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver\Factory;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
-use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\TranslatorResolverFactory;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Service\AutoWiring\Resolver\Factory
+ * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver\Factory
  */
 class TranslatorResolverFactoryTest extends TestCase
 {

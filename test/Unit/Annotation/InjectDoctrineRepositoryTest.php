@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Annotation;
+namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -10,7 +10,7 @@ use Reinfi\DependencyInjection\Annotation\InjectDoctrineRepository;
 use Zend\ServiceManager\AbstractPluginManager;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Annotation
+ * @package Reinfi\DependencyInjection\Test\Unit\Annotation
  */
 class InjectDoctrineRepositoryTest extends TestCase
 {

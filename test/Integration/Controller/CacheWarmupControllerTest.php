@@ -1,17 +1,17 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Integration\Controller;
+namespace Reinfi\DependencyInjection\Test\Integration\Controller;
 
 use Prophecy\Argument;
 use Reinfi\DependencyInjection\Controller\CacheWarmupController;
-use Reinfi\DependencyInjection\Integration\AbstractIntegrationTest;
+use Reinfi\DependencyInjection\Test\Integration\AbstractIntegrationTest;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
 use Zend\Cache\Storage\StorageInterface;
 use Zend\Console\Adapter\AdapterInterface;
 
 /**
- * @package Reinfi\DependencyInjection\Integration\Controller
+ * @package Reinfi\DependencyInjection\Test\Integration\Controller
  *
  * @group integration
  */

@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Service\Factory;
+namespace Reinfi\DependencyInjection\Test\Unit\Service\Factory;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -10,7 +10,7 @@ use Reinfi\DependencyInjection\Service\Factory\CacheServiceFactory;
 use Zend\Cache\Storage\Adapter\Memory;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Service\Factory
+ * @package Reinfi\DependencyInjection\Test\Unit\Service\Factory
  */
 class CacheServiceFactoryTest extends TestCase
 {

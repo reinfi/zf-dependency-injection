@@ -1,9 +1,9 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Service;
+namespace Reinfi\DependencyInjection\Test\Service;
 
 /**
- * @package Reinfi\DependencyInjection\Service
+ * @package Reinfi\DependencyInjection\Test\Service
  */
 class Service3
 {

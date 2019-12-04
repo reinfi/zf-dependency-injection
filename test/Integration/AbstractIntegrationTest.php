@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Integration;
+namespace Reinfi\DependencyInjection\Test\Integration;
 
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Annotation\Inject;
@@ -12,7 +12,7 @@ use Zend\ServiceManager\ServiceManager;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * @package Reinfi\DependencyInjection\Integration
+ * @package Reinfi\DependencyInjection\Test\Integration
  */
 abstract class AbstractIntegrationTest extends TestCase
 {

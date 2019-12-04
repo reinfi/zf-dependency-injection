@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Service\Extractor\Factory;
+namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -8,7 +8,7 @@ use Reinfi\DependencyInjection\Service\Extractor\AnnotationExtractor;
 use Reinfi\DependencyInjection\Service\Extractor\Factory\AnnotationExtractorFactory;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Service\Extractor\Factory
+ * @package Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory
  */
 class AnnotationExtractorFactoryTest extends TestCase
 {

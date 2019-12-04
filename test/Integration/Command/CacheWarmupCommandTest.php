@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Integration\Command;
+namespace Reinfi\DependencyInjection\Test\Integration\Command;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @package Reinfi\DependencyInjection\Integration\Command
+ * @package Reinfi\DependencyInjection\Test\Integration\Command
  *
  * @group integration
  */

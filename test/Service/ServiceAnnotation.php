@@ -1,17 +1,17 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Service;
+namespace Reinfi\DependencyInjection\Test\Service;
 
 use Reinfi\DependencyInjection\Annotation\Inject;
 use Reinfi\DependencyInjection\Annotation\InjectConfig;
 
 /**
- * @package Reinfi\DependencyInjection\Service
+ * @package Reinfi\DependencyInjection\Test\Service
  */
 class ServiceAnnotation
 {
     /**
-     * @Inject("Reinfi\DependencyInjection\Service\Service2")
+     * @Inject("Reinfi\DependencyInjection\Test\Service\Service2")
      *
      * @var Service2
      */

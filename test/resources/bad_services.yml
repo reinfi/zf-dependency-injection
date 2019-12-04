@@ -1,8 +1,8 @@
-Reinfi\DependencyInjection\Service\Service1:
-  - {value: Reinfi\DependencyInjection\Service\Service2}
+Reinfi\DependencyInjection\Test\Service\Service1:
+  - {value: Reinfi\DependencyInjection\Test\Service\Service2}
 
-Reinfi\DependencyInjection\Service\Service2:
-  - {type: InjectCoffee, value: Reinfi\DependencyInjection\Service\Service2}
+Reinfi\DependencyInjection\Test\Service\Service2:
+  - {type: InjectCoffee, value: Reinfi\DependencyInjection\Test\Service\Service2}
 
-Reinfi\DependencyInjection\Service\ServiceAnnotation:
-  - {type: BadInjectionClass, value: Reinfi\DependencyInjection\Service\Service1}
+Reinfi\DependencyInjection\Test\Service\ServiceAnnotation:
+  - {type: BadInjectionClass, value: Reinfi\DependencyInjection\Test\Service\Service1}

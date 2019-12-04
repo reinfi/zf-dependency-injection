@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Config\Factory;
+namespace Reinfi\DependencyInjection\Test\Unit\Config\Factory;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -8,7 +8,7 @@ use Reinfi\DependencyInjection\Config\Factory\ModuleConfigFactory;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Config\Factory
+ * @package Reinfi\DependencyInjection\Test\Unit\Config\Factory
  */
 class ModuleConfigFactoryTest extends TestCase
 {

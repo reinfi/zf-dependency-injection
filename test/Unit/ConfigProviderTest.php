@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Reinfi\DependencyInjection\Unit;
+namespace Reinfi\DependencyInjection\Test\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\ConfigProvider;

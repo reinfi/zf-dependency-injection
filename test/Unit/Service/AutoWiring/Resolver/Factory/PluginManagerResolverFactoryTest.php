@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Service\AutoWiring\Resolver\Factory;
+namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver\Factory;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -8,7 +8,7 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\PluginManager
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\PluginManagerResolver;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Service\AutoWiring\Resolver\Factory
+ * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver\Factory
  */
 class PluginManagerResolverFactoryTest extends TestCase
 {

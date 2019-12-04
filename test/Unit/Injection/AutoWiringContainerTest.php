@@ -1,13 +1,13 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Injection;
+namespace Reinfi\DependencyInjection\Test\Unit\Injection;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Injection\AutoWiringContainer;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Injection
+ * @package Reinfi\DependencyInjection\Test\Unit\Injection
  */
 class AutoWiringContainerTest extends TestCase
 {

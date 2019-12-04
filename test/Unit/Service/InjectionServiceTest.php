@@ -7,16 +7,15 @@ use Prophecy\Argument;
 use Prophecy\Prophecy\MethodProphecy;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
-use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\CacheService;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
 use Reinfi\DependencyInjection\Service\InjectionService;
-use Reinfi\DependencyInjection\Service\Service1;
-use Reinfi\DependencyInjection\Service\Service2;
+use Reinfi\DependencyInjection\Test\Service\Service1;
+use Reinfi\DependencyInjection\Test\Service\Service2;
 use Reinfi\DependencyInjection\Traits\CacheKeyTrait;
 
 /**
- * @package Reinfi\DependencyInjection\Test\Unit\Service
+ * @package Reinfi\DependencyInjection\Test\Test\Unit\Service
  */
 class InjectionServiceTest extends TestCase
 {

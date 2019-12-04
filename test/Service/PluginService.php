@@ -1,16 +1,16 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Service;
+namespace Reinfi\DependencyInjection\Test\Service;
 
 use Reinfi\DependencyInjection\Annotation\InjectParent;
 
 /**
- * @package Reinfi\DependencyInjection\Service
+ * @package Reinfi\DependencyInjection\Test\Service
  */
 class PluginService
 {
     /**
-     * @InjectParent("Reinfi\DependencyInjection\Service\Service2")
+     * @InjectParent("Reinfi\DependencyInjection\Test\Service\Service2")
      *
      * @var Service2
      */

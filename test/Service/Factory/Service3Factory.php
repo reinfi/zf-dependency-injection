@@ -1,12 +1,12 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Service\Factory;
+namespace Reinfi\DependencyInjection\Test\Service\Factory;
 
 use Interop\Container\ContainerInterface;
-use Reinfi\DependencyInjection\Service\Service3;
+use Reinfi\DependencyInjection\Test\Service\Service3;
 
 /**
- * @package Reinfi\DependencyInjection\Service\Factory
+ * @package Reinfi\DependencyInjection\Test\Service\Factory
  */
 class Service3Factory
 {

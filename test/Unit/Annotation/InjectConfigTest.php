@@ -1,16 +1,15 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Annotation;
+namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Annotation\InjectConfig;
 use Reinfi\DependencyInjection\Service\ConfigService;
-use Reinfi\DependencyInjection\Service\InjectionService;
 use Zend\ServiceManager\AbstractPluginManager;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Annotation
+ * @package Reinfi\DependencyInjection\Test\Unit\Annotation
  */
 class InjectConfigTest extends TestCase
 {

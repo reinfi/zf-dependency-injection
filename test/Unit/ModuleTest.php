@@ -1,13 +1,13 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit;
+namespace Reinfi\DependencyInjection\Test\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Module;
 use Zend\Console\Adapter\AdapterInterface;
 
 /**
- * @package Reinfi\DependencyInjection\Unit
+ * @package Reinfi\DependencyInjection\Test\Unit
  */
 class ModuleTest extends TestCase
 {
