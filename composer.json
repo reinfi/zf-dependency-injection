@@ -27,10 +27,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Reinfi\\DependencyInjection\\": [
-        "src/",
-        "test/"
-      ]
+      "Reinfi\\DependencyInjection\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Reinfi\\DependencyInjection\\Test\\": "test/"
     }
   },
   "suggests": {
