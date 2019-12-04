@@ -35,7 +35,7 @@
       "Reinfi\\DependencyInjection\\Test\\": "test/"
     }
   },
-  "suggests": {
+  "suggest": {
     "doctrine/annotations": "To use annotation injections",
     "zendframework/zend-mvc-console": "To use console warmup command route",
     "symfony/console": "To use console warmup command script",
