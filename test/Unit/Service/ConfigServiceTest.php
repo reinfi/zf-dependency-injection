@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Service;
+namespace Reinfi\DependencyInjection\Test\Unit\Service;
 
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Exception\ConfigPathNotFoundException;
@@ -8,7 +8,7 @@ use Reinfi\DependencyInjection\Service\ConfigService;
 use Zend\Config\Config;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Service
+ * @package Reinfi\DependencyInjection\Test\Unit\Service
  */
 class ConfigServiceTest extends TestCase
 {

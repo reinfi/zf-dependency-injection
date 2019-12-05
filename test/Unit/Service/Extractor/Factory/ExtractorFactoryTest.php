@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Service\Extractor\Factory;
+namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -11,7 +11,7 @@ use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
 use Zend\Config\Config;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Service\Extractor\Factory
+ * @package Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory
  */
 class ExtractorFactoryTest extends TestCase
 {

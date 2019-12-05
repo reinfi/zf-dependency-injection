@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Service\AutoWiring;
+namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring;
 
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
@@ -10,13 +10,13 @@ use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResolverInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
-use Reinfi\DependencyInjection\Service\Service1;
-use Reinfi\DependencyInjection\Service\Service2;
-use Reinfi\DependencyInjection\Service\ServiceBuildInType;
-use Reinfi\DependencyInjection\Service\ServiceNoTypeHint;
+use Reinfi\DependencyInjection\Test\Service\Service1;
+use Reinfi\DependencyInjection\Test\Service\Service2;
+use Reinfi\DependencyInjection\Test\Service\ServiceBuildInType;
+use Reinfi\DependencyInjection\Test\Service\ServiceNoTypeHint;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Service\AutoWiring
+ * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring
  */
 class ResolverServiceTest extends TestCase
 {

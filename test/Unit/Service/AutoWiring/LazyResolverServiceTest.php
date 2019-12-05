@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Service\AutoWiring;
+namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring;
 
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
@@ -9,7 +9,7 @@ use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverServiceInterface;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Service\AutoWiring
+ * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring
  *
  * @group unit
  */

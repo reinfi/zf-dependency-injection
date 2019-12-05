@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Annotation;
+namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -8,7 +8,7 @@ use Reinfi\DependencyInjection\Annotation\Inject;
 use Reinfi\DependencyInjection\Service\InjectionService;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Annotation
+ * @package Reinfi\DependencyInjection\Test\Unit\Annotation
  */
 class InjectTest extends TestCase
 {

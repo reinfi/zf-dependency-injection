@@ -6,13 +6,13 @@ use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Annotation\AnnotationInterface;
 use Reinfi\DependencyInjection\Exception\InjectionTypeUnknownException;
 use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
-use Reinfi\DependencyInjection\Service\Service1;
-use Reinfi\DependencyInjection\Service\Service2;
-use Reinfi\DependencyInjection\Service\ServiceAnnotation;
+use Reinfi\DependencyInjection\Test\Service\Service1;
+use Reinfi\DependencyInjection\Test\Service\Service2;
+use Reinfi\DependencyInjection\Test\Service\ServiceAnnotation;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * @package Reinfi\DependencyInjection\Test\Unit\Service\Extractor
+ * @package Reinfi\DependencyInjection\Test\Test\Unit\Service\Extractor
  */
 class YamlExtractorTest extends TestCase
 {
@@ -142,7 +142,7 @@ class YamlExtractorTest extends TestCase
         $extractor = new YamlExtractor(
             new Yaml(),
             __DIR__ . '/../../../resources/bad_services.yml',
-            'Reinfi\DependencyInjection\Service'
+            'Reinfi\DependencyInjection\Test\Service'
         );
 
         $extractor->getConstructorInjections(ServiceAnnotation::class);

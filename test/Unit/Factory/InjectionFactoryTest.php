@@ -1,21 +1,21 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Factory;
+namespace Reinfi\DependencyInjection\Test\Unit\Factory;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Factory\InjectionFactory;
 use Reinfi\DependencyInjection\Service\InjectionService;
-use Reinfi\DependencyInjection\Service\Service1;
-use Reinfi\DependencyInjection\Service\Service2;
-use Reinfi\DependencyInjection\Service\Service3;
+use Reinfi\DependencyInjection\Test\Service\Service1;
+use Reinfi\DependencyInjection\Test\Service\Service2;
+use Reinfi\DependencyInjection\Test\Service\Service3;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Factory
+ * @package Reinfi\DependencyInjection\Test\Unit\Factory
  */
 class InjectionFactoryTest extends TestCase
 {

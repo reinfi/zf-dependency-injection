@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Service\AutoWiring\Resolver;
+namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
@@ -12,7 +12,7 @@ use Zend\I18n\Translator\Translator;
 use Zend\I18n\Translator\TranslatorInterface;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Service\AutoWiring\Resolver
+ * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver
  */
 class TranslatorResolverTest extends TestCase
 {

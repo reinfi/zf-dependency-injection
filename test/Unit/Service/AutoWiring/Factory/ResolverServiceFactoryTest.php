@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Service\AutoWiring\Factory;
+namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Factory;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -13,11 +13,10 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\PluginManagerResolver
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\RequestResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResponseResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
-use Reinfi\DependencyInjection\Service\Resolver\TestResolver;
-use Zend\Config\Config;
+use Reinfi\DependencyInjection\Test\Service\Resolver\TestResolver;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Service\AutoWiring\Factory
+ * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Factory
  */
 class ResolverServiceFactoryTest extends TestCase
 {

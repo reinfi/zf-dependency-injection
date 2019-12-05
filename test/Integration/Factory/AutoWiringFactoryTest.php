@@ -1,21 +1,21 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Integration\Factory;
+namespace Reinfi\DependencyInjection\Test\Integration\Factory;
 
 use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
-use Reinfi\DependencyInjection\Integration\AbstractIntegrationTest;
-use Reinfi\DependencyInjection\Service\PluginService;
-use Reinfi\DependencyInjection\Service\Service1;
-use Reinfi\DependencyInjection\Service\Service2;
-use Reinfi\DependencyInjection\Service\Service3;
-use Reinfi\DependencyInjection\Service\ServiceBuildInTypeWithDefault;
-use Reinfi\DependencyInjection\Service\ServiceBuildInTypeWithDefaultUsingConstant;
-use Reinfi\DependencyInjection\Service\ServiceContainer;
+use Reinfi\DependencyInjection\Test\Integration\AbstractIntegrationTest;
+use Reinfi\DependencyInjection\Test\Service\PluginService;
+use Reinfi\DependencyInjection\Test\Service\Service1;
+use Reinfi\DependencyInjection\Test\Service\Service2;
+use Reinfi\DependencyInjection\Test\Service\Service3;
+use Reinfi\DependencyInjection\Test\Service\ServiceBuildInTypeWithDefault;
+use Reinfi\DependencyInjection\Test\Service\ServiceBuildInTypeWithDefaultUsingConstant;
+use Reinfi\DependencyInjection\Test\Service\ServiceContainer;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;
 
 /**
- * @package Reinfi\DependencyInjection\Integration\Factory
+ * @package Reinfi\DependencyInjection\Test\Integration\Factory
  *
  * @group integration
  */

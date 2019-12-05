@@ -1,18 +1,18 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Service\Extractor;
+namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Reinfi\DependencyInjection\Annotation\AnnotationInterface;
 use Reinfi\DependencyInjection\Service\Extractor\AnnotationExtractor;
-use Reinfi\DependencyInjection\Service\Service1;
-use Reinfi\DependencyInjection\Service\Service2;
-use Reinfi\DependencyInjection\Service\ServiceAnnotation;
+use Reinfi\DependencyInjection\Test\Service\Service1;
+use Reinfi\DependencyInjection\Test\Service\Service2;
+use Reinfi\DependencyInjection\Test\Service\ServiceAnnotation;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Service\Extractor
+ * @package Reinfi\DependencyInjection\Test\Unit\Service\Extractor
  */
 class AnnotationExtractorTest extends TestCase
 {

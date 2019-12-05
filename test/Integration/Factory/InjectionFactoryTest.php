@@ -1,21 +1,21 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Integration\Factory;
+namespace Reinfi\DependencyInjection\Test\Integration\Factory;
 
 use Reinfi\DependencyInjection\Factory\InjectionFactory;
-use Reinfi\DependencyInjection\Integration\AbstractIntegrationTest;
+use Reinfi\DependencyInjection\Test\Integration\AbstractIntegrationTest;
 use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
-use Reinfi\DependencyInjection\Service\PluginService;
-use Reinfi\DependencyInjection\Service\Service1;
-use Reinfi\DependencyInjection\Service\Service3;
-use Reinfi\DependencyInjection\Service\ServiceAnnotation;
-use Reinfi\DependencyInjection\Service\ServiceAnnotationConstructor;
+use Reinfi\DependencyInjection\Test\Service\PluginService;
+use Reinfi\DependencyInjection\Test\Service\Service1;
+use Reinfi\DependencyInjection\Test\Service\Service3;
+use Reinfi\DependencyInjection\Test\Service\ServiceAnnotation;
+use Reinfi\DependencyInjection\Test\Service\ServiceAnnotationConstructor;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * @package Reinfi\DependencyInjection\Integration\Factory
+ * @package Reinfi\DependencyInjection\Test\Integration\Factory
  *
  * @group integration
  */

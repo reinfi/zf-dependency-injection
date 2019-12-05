@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Service;
+namespace Reinfi\DependencyInjection\Test\Unit\Service;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ use Reinfi\DependencyInjection\Service\CacheService;
 use Zend\Cache\Storage\StorageInterface;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Service
+ * @package Reinfi\DependencyInjection\Test\Unit\Service
  */
 class CacheServiceTest extends TestCase
 {

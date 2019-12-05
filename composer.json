@@ -27,13 +27,15 @@
   },
   "autoload": {
     "psr-4": {
-      "Reinfi\\DependencyInjection\\": [
-        "src/",
-        "test/"
-      ]
+      "Reinfi\\DependencyInjection\\": "src/"
     }
   },
-  "suggests": {
+  "autoload-dev": {
+    "psr-4": {
+      "Reinfi\\DependencyInjection\\Test\\": "test/"
+    }
+  },
+  "suggest": {
     "doctrine/annotations": "To use annotation injections",
     "zendframework/zend-mvc-console": "To use console warmup command route",
     "symfony/console": "To use console warmup command script",

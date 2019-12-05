@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Service\AutoWiring\Resolver;
+namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
@@ -9,7 +9,7 @@ use Zend\Http\Response;
 use Zend\Stdlib\ResponseInterface;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Service\AutoWiring\Resolver
+ * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver
  */
 class ResponseResolverTest extends TestCase
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Service;
+namespace Reinfi\DependencyInjection\Test\Service;
 
 /**
  * Does not implements InjectionInterface.
  *
- * @package Reinfi\DependencyInjection\Service
+ * @package Reinfi\DependencyInjection\Test\Service
  */
 class BadInjectionClass
 {

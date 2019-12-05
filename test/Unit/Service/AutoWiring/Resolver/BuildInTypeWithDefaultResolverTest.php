@@ -1,13 +1,13 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Service\AutoWiring\Resolver;
+namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\BuildInTypeWithDefaultResolver;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Service\AutoWiring\Resolver
+ * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver
  */
 class BuildInTypeWithDefaultResolverTest extends TestCase
 {

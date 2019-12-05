@@ -1,11 +1,11 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Service;
+namespace Reinfi\DependencyInjection\Test\Service;
 
 use Psr\Container\ContainerInterface;
 
 /**
- * @package Reinfi\DependencyInjection\Service
+ * @package Reinfi\DependencyInjection\Test\Service
  */
 class ServiceContainer
 {

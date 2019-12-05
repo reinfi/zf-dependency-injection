@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Controller\Factory;
+namespace Reinfi\DependencyInjection\Test\Unit\Controller\Factory;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -12,7 +12,7 @@ use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
 use Zend\Mvc\Controller\ControllerManager;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Controller\Factory
+ * @package Reinfi\DependencyInjection\Test\Unit\Controller\Factory
  */
 class CacheWarmupControllerFactoryTest extends TestCase
 {

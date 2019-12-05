@@ -1,6 +1,6 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\AbstractFactory\Config;
+namespace Reinfi\DependencyInjection\Test\Unit\AbstractFactory\Config;
 
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\AbstractFactory\Config\InjectConfigAbstractFactory;
@@ -8,7 +8,7 @@ use Reinfi\DependencyInjection\Service\ConfigService;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\AbstractFactory\Config
+ * @package Reinfi\DependencyInjection\Test\Unit\AbstractFactory\Config
  */
 class InjectConfigAbstractFactoryTest extends TestCase
 {

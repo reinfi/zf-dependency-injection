@@ -1,19 +1,20 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Service\Resolver;
+namespace Reinfi\DependencyInjection\Test\Service\Resolver;
 
 use ReflectionParameter;
+use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResolverInterface;
 
 /**
- * @package Reinfi\DependencyInjection\Service\Resolver
+ * @package Reinfi\DependencyInjection\Test\Service\Resolver
  */
 class TestResolver implements ResolverInterface
 {
     /**
      * @inheritDoc
      */
-    public function resolve(ReflectionParameter $parameter)
+    public function resolve(ReflectionParameter $parameter): ?InjectionInterface
     {
         return null;
     }

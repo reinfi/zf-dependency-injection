@@ -1,17 +1,16 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Unit\Injection;
+namespace Reinfi\DependencyInjection\Test\Unit\Injection;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
-use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Injection\AutoWiringPluginManager;
-use Reinfi\DependencyInjection\Service\Service1;
+use Reinfi\DependencyInjection\Test\Service\Service1;
 use Zend\ServiceManager\AbstractPluginManager;
 
 /**
- * @package Reinfi\DependencyInjection\Unit\Injection
+ * @package Reinfi\DependencyInjection\Test\Unit\Injection
  */
 class AutoWiringPluginManagerTest extends TestCase
 {

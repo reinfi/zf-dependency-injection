@@ -1,13 +1,13 @@
 <?php
 
-namespace Reinfi\DependencyInjection\Service;
+namespace Reinfi\DependencyInjection\Test\Service;
 
 use Reinfi\DependencyInjection\Annotation\Inject;
 use Reinfi\DependencyInjection\Annotation\InjectConfig;
 use Reinfi\DependencyInjection\Annotation\InjectConstant;
 
 /**
- * @package Reinfi\DependencyInjection\Service
+ * @package Reinfi\DependencyInjection\Test\Service
  */
 class ServiceAnnotationConstructor
 {
@@ -27,9 +27,9 @@ class ServiceAnnotationConstructor
     protected $constant;
 
     /**
-     * @Inject("Reinfi\DependencyInjection\Service\Service2")
+     * @Inject("Reinfi\DependencyInjection\Test\Service\Service2")
      * @InjectConfig("test.value")
-     * @InjectConstant("Reinfi\DependencyInjection\Service\Service2::CONSTANT")
+     * @InjectConstant("Reinfi\DependencyInjection\Test\Service\Service2::CONSTANT")
      *
      * @param Service2 $service2
      * @param int      $value
