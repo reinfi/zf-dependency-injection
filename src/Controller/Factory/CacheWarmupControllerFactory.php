@@ -9,7 +9,7 @@ use Reinfi\DependencyInjection\Controller\CacheWarmupController;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\CacheService;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
-use Zend\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * @codeCoverageIgnore

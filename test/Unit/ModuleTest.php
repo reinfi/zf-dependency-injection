@@ -4,7 +4,7 @@ namespace Reinfi\DependencyInjection\Test\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Module;
-use Zend\Console\Adapter\AdapterInterface;
+use Laminas\Console\Adapter\AdapterInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit

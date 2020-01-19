@@ -8,7 +8,7 @@ use Psr\Container\ContainerInterface;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiringContainer;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
-use Zend\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * @package Reinfi\DependencyInjection\Service\AutoWiring\Resolver

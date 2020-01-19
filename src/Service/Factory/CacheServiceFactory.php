@@ -7,8 +7,8 @@ namespace Reinfi\DependencyInjection\Service\Factory;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\CacheService;
-use Zend\Cache\Storage\Adapter\Memory;
-use Zend\Cache\StorageFactory;
+use Laminas\Cache\Storage\Adapter\Memory;
+use Laminas\Cache\StorageFactory;
 
 /**
  * @package Reinfi\DependencyInjection\Service\Factory

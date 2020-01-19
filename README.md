@@ -157,7 +157,7 @@ Parsing mapping sources is very heavy. You *should* enable the cache on producti
 You can set up caching easily with any custom or pre-existing ZF2 cache adapter.
 ```
 'reinfi.dependencyInjection' => [
-    'cache'         => \Zend\Cache\Storage\Adapter\Memory::class,
+    'cache'         => \Laminas\Cache\Storage\Adapter\Memory::class,
     'cache_options' => [],
     'cache_plugins' => [],
 ]

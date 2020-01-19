@@ -8,8 +8,8 @@ use Prophecy\Prophecy\MethodProphecy;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver;
-use Zend\I18n\Translator\Translator;
-use Zend\I18n\Translator\TranslatorInterface;
+use Laminas\I18n\Translator\Translator;
+use Laminas\I18n\Translator\TranslatorInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver
@@ -170,13 +170,13 @@ class TranslatorResolverTest extends TestCase
             [
                 [
                     'MvcTranslator'                            => false,
-                    'Zend\I18n\Translator\TranslatorInterface' => true,
+                    'Laminas\I18n\Translator\TranslatorInterface' => true,
                 ],
             ],
             [
                 [
                     'MvcTranslator'                            => false,
-                    'Zend\I18n\Translator\TranslatorInterface' => false,
+                    'Laminas\I18n\Translator\TranslatorInterface' => false,
                     'Translator'                               => true,
                 ],
             ],

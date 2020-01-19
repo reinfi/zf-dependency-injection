@@ -7,7 +7,7 @@ use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\CacheService;
 use Reinfi\DependencyInjection\Service\Factory\CacheServiceFactory;
-use Zend\Cache\Storage\Adapter\Memory;
+use Laminas\Cache\Storage\Adapter\Memory;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\Factory

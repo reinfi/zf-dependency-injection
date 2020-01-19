@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\MethodProphecy;
 use Reinfi\DependencyInjection\Service\CacheService;
-use Zend\Cache\Storage\StorageInterface;
+use Laminas\Cache\Storage\StorageInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service

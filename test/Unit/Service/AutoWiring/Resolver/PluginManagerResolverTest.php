@@ -183,37 +183,37 @@ class PluginManagerResolverTest extends TestCase
         return [
             [
                 ExtractorInterface::class,
-                'Zend\Hydrator\HydratorInterface',
+                'Laminas\Hydrator\HydratorInterface',
                 'HydratorManager',
             ],
             [
                 ExtractorInterface::class,
-                'Zend\View\Helper\HelperInterface',
+                'Laminas\View\Helper\HelperInterface',
                 'ViewHelperManager',
             ],
             [
                 ExtractorInterface::class,
-                'Zend\Validator\ValidatorInterface',
+                'Laminas\Validator\ValidatorInterface',
                 'ValidatorManager',
             ],
             [
                 ExtractorInterface::class,
-                'Zend\Filter\FilterInterface',
+                'Laminas\Filter\FilterInterface',
                 'FilterManager',
             ],
             [
                 ExtractorInterface::class,
-                'Zend\InputFilter\InputFilterInterface',
+                'Laminas\InputFilter\InputFilterInterface',
                 'InputFilterManager',
             ],
             [
                 ExtractorInterface::class,
-                'Zend\InputFilter\InputInterface',
+                'Laminas\InputFilter\InputInterface',
                 'InputFilterManager',
             ],
             [
                 ExtractorInterface::class,
-                'Zend\Form\ElementInterface',
+                'Laminas\Form\ElementInterface',
                 'FormElementManager',
             ],
         ];

@@ -17,7 +17,7 @@ Make sure the `file` key under `extractor_options` points to a valid yml file wi
 ```yml
 # identifier of the service class
 \App\Service\MyService:
-    - { type: Inject, value: Zend\EventManager\EventManager }
+    - { type: Inject, value: Laminas\EventManager\EventManager }
     - { type: Inject, value: application }
 
 # Place here another mappings

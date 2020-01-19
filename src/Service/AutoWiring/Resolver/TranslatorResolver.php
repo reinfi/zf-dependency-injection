@@ -15,9 +15,9 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
 class TranslatorResolver implements ResolverInterface
 {
     /**
-     * used to avoid requirement of zendframework/zend-i18n module
+     * used to avoid requirement of laminas/laminas-i18n module
      */
-    const TRANSLATOR_INTERFACE = 'Zend\I18n\Translator\TranslatorInterface';
+    const TRANSLATOR_INTERFACE = 'Laminas\I18n\Translator\TranslatorInterface';
 
     /**
      * possible names for translator service within container

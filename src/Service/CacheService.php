@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Service;
 
-use Zend\Cache\Storage\StorageInterface;
+use Laminas\Cache\Storage\StorageInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Service

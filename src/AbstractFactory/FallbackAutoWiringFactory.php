@@ -5,9 +5,7 @@ namespace Reinfi\DependencyInjection\AbstractFactory;
 
 use Interop\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
-use Zend\ServiceManager\Factory\AbstractFactoryInterface;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 
 /**
  * Class FallbackAutoWiringFactory

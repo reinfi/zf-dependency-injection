@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Service;
 
 use Reinfi\DependencyInjection\Exception\ConfigPathNotFoundException;
-use Zend\Config\Config;
+use Laminas\Config\Config;
 
 /**
  * @package Reinfi\DependencyInjection\Service

@@ -7,7 +7,7 @@ namespace Reinfi\DependencyInjection\Service\AutoWiring\Resolver;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
-use Zend\Stdlib\ResponseInterface;
+use Laminas\Stdlib\ResponseInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Service\AutoWiring\Resolver

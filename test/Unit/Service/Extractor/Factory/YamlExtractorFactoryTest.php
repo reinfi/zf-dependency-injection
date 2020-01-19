@@ -7,7 +7,7 @@ use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\Extractor\Factory\YamlExtractorFactory;
 use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
-use Zend\Config\Config;
+use Laminas\Config\Config;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory

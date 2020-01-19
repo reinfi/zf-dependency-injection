@@ -4,8 +4,8 @@ $modules = [
     \Reinfi\DependencyInjection\Module::class,
 ];
 
-if (class_exists('Zend\Router\Module')) {
-    $modules[] = 'Zend\Router\Module';
+if (class_exists('Laminas\Router\Module')) {
+    $modules[] = 'Laminas\Router\Module';
 }
 
 return [

@@ -11,8 +11,8 @@ use Reinfi\DependencyInjection\Test\Service\Service3;
 use Reinfi\DependencyInjection\Test\Service\ServiceBuildInTypeWithDefault;
 use Reinfi\DependencyInjection\Test\Service\ServiceBuildInTypeWithDefaultUsingConstant;
 use Reinfi\DependencyInjection\Test\Service\ServiceContainer;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Integration\Factory

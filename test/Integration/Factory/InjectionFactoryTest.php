@@ -10,9 +10,9 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
 use Reinfi\DependencyInjection\Test\Service\Service3;
 use Reinfi\DependencyInjection\Test\Service\ServiceAnnotation;
 use Reinfi\DependencyInjection\Test\Service\ServiceAnnotationConstructor;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Exception\InvalidServiceException;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\Stdlib\ArrayUtils;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Integration\Factory

@@ -6,7 +6,7 @@ namespace Reinfi\DependencyInjection\Factory;
 
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\AutoWiringService;
-use Zend\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * @package Reinfi\DependencyInjection\Factory

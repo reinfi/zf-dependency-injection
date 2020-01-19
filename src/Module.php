@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection;
 
-use Zend\Console\Adapter\AdapterInterface;
-use Zend\ModuleManager\Feature\ConfigProviderInterface;
-use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
+use Laminas\Console\Adapter\AdapterInterface;
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\ModuleManager\Feature\ConsoleUsageProviderInterface;
 
 /**
  * @package Reinfi\DependencyInjection

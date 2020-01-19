@@ -6,7 +6,7 @@ use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
 use Reinfi\DependencyInjection\Factory\InjectionFactory;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverServiceInterface;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
-use Zend\Cache\Storage\StorageInterface;
+use Laminas\Cache\Storage\StorageInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Traits
