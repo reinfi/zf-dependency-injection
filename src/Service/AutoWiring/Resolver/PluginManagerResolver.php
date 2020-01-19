@@ -18,13 +18,13 @@ class PluginManagerResolver implements ResolverInterface
      * @var array
      */
     protected static $pluginManagerMapping = [
-        'Zend\Hydrator\HydratorInterface'       => 'HydratorManager',
-        'Zend\View\Helper\HelperInterface'      => 'ViewHelperManager',
-        'Zend\Validator\ValidatorInterface'     => 'ValidatorManager',
-        'Zend\Filter\FilterInterface'           => 'FilterManager',
-        'Zend\InputFilter\InputFilterInterface' => 'InputFilterManager',
-        'Zend\InputFilter\InputInterface'       => 'InputFilterManager',
-        'Zend\Form\ElementInterface'            => 'FormElementManager',
+        'Laminas\Hydrator\HydratorInterface'       => 'HydratorManager',
+        'Laminas\View\Helper\HelperInterface'      => 'ViewHelperManager',
+        'Laminas\Validator\ValidatorInterface'     => 'ValidatorManager',
+        'Laminas\Filter\FilterInterface'           => 'FilterManager',
+        'Laminas\InputFilter\InputFilterInterface' => 'InputFilterManager',
+        'Laminas\InputFilter\InputInterface'       => 'InputFilterManager',
+        'Laminas\Form\ElementInterface'            => 'FormElementManager',
     ];
 
     /**

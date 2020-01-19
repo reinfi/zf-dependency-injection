@@ -7,8 +7,8 @@ use Reinfi\DependencyInjection\Controller\CacheWarmupController;
 use Reinfi\DependencyInjection\Test\Integration\AbstractIntegrationTest;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
-use Zend\Cache\Storage\StorageInterface;
-use Zend\Console\Adapter\AdapterInterface;
+use Laminas\Cache\Storage\StorageInterface;
+use Laminas\Console\Adapter\AdapterInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Integration\Controller
@@ -22,7 +22,7 @@ class CacheWarmupControllerTest extends AbstractIntegrationTest
      */
     public function itWarmsupCacheEntries()
     {
-        if (!class_exists('Zend\Mvc\Console\Controller\AbstractConsoleController')) {
+        if (!class_exists('Laminas\Mvc\Console\Controller\AbstractConsoleController')) {
             $this->markTestSkipped('Skipped because zend console for zend version 3 is not installed');
         }
 

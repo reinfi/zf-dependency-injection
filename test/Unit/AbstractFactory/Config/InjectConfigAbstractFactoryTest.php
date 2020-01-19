@@ -5,7 +5,7 @@ namespace Reinfi\DependencyInjection\Test\Unit\AbstractFactory\Config;
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\AbstractFactory\Config\InjectConfigAbstractFactory;
 use Reinfi\DependencyInjection\Service\ConfigService;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\AbstractFactory\Config

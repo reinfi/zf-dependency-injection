@@ -7,8 +7,8 @@ namespace Reinfi\DependencyInjection\Controller;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
 use Reinfi\DependencyInjection\Traits\WarmupTrait;
-use Zend\Cache\Storage\StorageInterface;
-use Zend\Mvc\Console\Controller\AbstractConsoleController;
+use Laminas\Cache\Storage\StorageInterface;
+use Laminas\Mvc\Console\Controller\AbstractConsoleController;
 
 /**
  * @codeCoverageIgnore

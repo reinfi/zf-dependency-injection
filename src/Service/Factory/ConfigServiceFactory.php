@@ -6,7 +6,7 @@ namespace Reinfi\DependencyInjection\Service\Factory;
 
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\ConfigService;
-use Zend\Config\Config;
+use Laminas\Config\Config;
 
 /**
  * @package Reinfi\DependencyInjection\Service\Factory

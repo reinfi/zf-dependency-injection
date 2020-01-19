@@ -9,7 +9,7 @@ use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\CacheService;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
 use Reinfi\DependencyInjection\Service\InjectionService;
-use Zend\Config\Config;
+use Laminas\Config\Config;
 
 /**
  * @package Reinfi\DependencyInjection\Service\Factory

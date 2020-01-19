@@ -9,7 +9,7 @@ use Reinfi\DependencyInjection\Controller\Factory\CacheWarmupControllerFactory;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\CacheService;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
-use Zend\Mvc\Controller\ControllerManager;
+use Laminas\Mvc\Controller\ControllerManager;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Controller\Factory
@@ -21,7 +21,7 @@ class CacheWarmupControllerFactoryTest extends TestCase
      */
     public function itCreatesController()
     {
-        if (!class_exists('Zend\Mvc\Console\Controller\AbstractConsoleController')) {
+        if (!class_exists('Laminas\Mvc\Console\Controller\AbstractConsoleController')) {
             $this->markTestSkipped('Skipped because zend console for zend version 3 is not installed');
         }
 

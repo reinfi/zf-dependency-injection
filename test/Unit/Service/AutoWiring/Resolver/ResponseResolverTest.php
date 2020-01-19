@@ -5,8 +5,8 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResponseResolver;
-use Zend\Http\Response;
-use Zend\Stdlib\ResponseInterface;
+use Laminas\Http\Response;
+use Laminas\Stdlib\ResponseInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver

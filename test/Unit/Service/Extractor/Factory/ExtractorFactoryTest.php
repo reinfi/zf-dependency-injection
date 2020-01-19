@@ -8,7 +8,7 @@ use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\Extractor\AnnotationExtractor;
 use Reinfi\DependencyInjection\Service\Extractor\Factory\ExtractorFactory;
 use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
-use Zend\Config\Config;
+use Laminas\Config\Config;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory
