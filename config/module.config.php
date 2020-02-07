@@ -20,6 +20,8 @@ return [
             \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResponseResolver::class               => \Zend\ServiceManager\Factory\InvokableFactory::class,
             \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver::class             => \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\TranslatorResolverFactory::class,
             \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\BuildInTypeWithDefaultResolver::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+
+            \Reinfi\DependencyInjection\Command\CacheWarmupCommand::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
         ],
         'abstract_factories' => [
             \Reinfi\DependencyInjection\AbstractFactory\Config\InjectConfigAbstractFactory::class,
