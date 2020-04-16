@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Annotation;
 
+use Laminas\Config\Config;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\ConfigService;
 
@@ -18,8 +19,24 @@ final class InjectConfig extends AbstractAnnotation
     /**
      * @var string
      */
-    public $value;
+    private $configPath;
 
+    /**
+     * @var bool
+     */
+    private $asArray = false;
+
+    /**
+     * @param array $values
+     */
+    public function __construct(array $values)
+    {
+        if (isset($values['asArray'])) {
+            $this->asArray = (bool) $values['asArray'];
+        }
+
+        $this->configPath = $values['value'];
+    }
     /**
      * @inheritDoc
      */
@@ -27,6 +44,12 @@ final class InjectConfig extends AbstractAnnotation
     {
         $container = $this->determineContainer($container);
 
-        return $container->get(ConfigService::class)->resolve($this->value);
+        $resolvedConfig = $container->get(ConfigService::class)->resolve($this->configPath);
+
+        if ($this->asArray && $resolvedConfig instanceof Config) {
+            return $resolvedConfig->toArray();
+        }
+
+        return $resolvedConfig;
     }
 }
