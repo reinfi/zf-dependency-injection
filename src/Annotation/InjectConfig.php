@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Annotation;
 
-use Laminas\Config\Config;
+use Zend\Config\Config;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\ConfigService;
 

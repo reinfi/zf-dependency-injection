@@ -2,7 +2,7 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
-use Laminas\Config\Config;
+use Zend\Config\Config;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Annotation\InjectConfig;
