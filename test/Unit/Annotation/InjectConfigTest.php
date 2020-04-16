@@ -2,6 +2,7 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
+use Laminas\Config\Config;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Annotation\InjectConfig;
@@ -18,9 +19,7 @@ class InjectConfigTest extends TestCase
      */
     public function itCallsConfigServiceFromContainerWithValue()
     {
-        $inject = new InjectConfig();
-
-        $inject->value = 'reinfi.di.test';
+        $inject = new InjectConfig(['value' => 'reinfi.di.test']);
 
         $configService = $this->prophesize(ConfigService::class);
         $configService->resolve('reinfi.di.test')
@@ -41,9 +40,7 @@ class InjectConfigTest extends TestCase
      */
     public function itCallsConfigServiceFromPluginManagerWithValue()
     {
-        $inject = new InjectConfig();
-
-        $inject->value = 'reinfi.di.test';
+        $inject = new InjectConfig(['value' => 'reinfi.di.test']);
 
         $configService = $this->prophesize(ConfigService::class);
         $configService->resolve('reinfi.di.test')
@@ -62,4 +59,30 @@ class InjectConfigTest extends TestCase
             'Invoke should return true'
         );
     }
+
+    /**
+     * @test
+     */
+    public function itReturnsArrayIfPropertyIsSet()
+    {
+        $inject = new InjectConfig(['value' => 'reinfi.di.test', 'asArray' => true]);
+
+        $config = $this->prophesize(Config::class);
+        $config->toArray()->shouldBeCalled()->willReturn([ true ]);
+
+        $configService = $this->prophesize(ConfigService::class);
+        $configService->resolve('reinfi.di.test')
+            ->willReturn($config->reveal());
+
+        $container = $this->prophesize(ContainerInterface::class);
+        $container->get(ConfigService::class)
+            ->willReturn($configService->reveal());
+
+        $this->assertEquals(
+            [ true ],
+            $inject($container->reveal()),
+            'Invoke should return array containing true'
+        );
+    }
+
 }

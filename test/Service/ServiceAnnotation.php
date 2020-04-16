@@ -25,12 +25,21 @@ class ServiceAnnotation
     protected $value;
 
     /**
+     * @InjectConfig("test", asArray=true)
+     *
+     * @var array
+     */
+    protected $valueAsArray;
+
+    /**
      * @param Service2 $service2
      * @param int      $value
+     * @param array    $valueAsArray
      */
-    public function __construct(Service2 $service2, int $value)
+    public function __construct(Service2 $service2, int $value, array $valueAsArray)
     {
         $this->service2 = $service2;
         $this->value = $value;
+        $this->valueAsArray = $valueAsArray;
     }
 }
