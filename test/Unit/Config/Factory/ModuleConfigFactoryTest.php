@@ -23,8 +23,7 @@ class ModuleConfigFactoryTest extends TestCase
         $container->get('config')
             ->willReturn([ ModuleConfig::CONFIG_KEY => [] ]);
 
-        $this->assertInternalType(
-            'array',
+        $this->assertIsArray(
             $factory($container->reveal()),
             'Factory should return array'
         );
