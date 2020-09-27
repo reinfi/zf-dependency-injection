@@ -20,7 +20,7 @@
         "bin/zf-dependency-injection-cache-warmup"
     ],
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "laminas/laminas-servicemanager": "^2.7 | ^3.0",
         "laminas/laminas-modulemanager": "^2.7",
         "laminas/laminas-cache": "^2.5"
@@ -49,7 +49,7 @@
         "laminas/laminas-serializer": "^2.6",
         "laminas/laminas-log": "^2.9",
         "laminas/laminas-i18n": "^2.7",
-        "phpunit/phpunit": "^7.0",
+        "phpunit/phpunit": "^8.5",
         "doctrine/orm": "^2.5",
         "php-coveralls/php-coveralls": "^2.0",
         "symfony/yaml": "^3.3",
