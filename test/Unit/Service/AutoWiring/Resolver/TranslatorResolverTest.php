@@ -2,23 +2,25 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
-use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\Prophecy\MethodProphecy;
-use Psr\Container\ContainerInterface;
-use Reinfi\DependencyInjection\Injection\AutoWiring;
-use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver;
 use Laminas\I18n\Translator\Translator;
 use Laminas\I18n\Translator\TranslatorInterface;
+use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\MethodProphecy;
+use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use ReflectionParameter;
+use Reinfi\DependencyInjection\Injection\AutoWiring;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver
  */
 class TranslatorResolverTest extends TestCase
 {
-    use \Prophecy\PhpUnit\ProphecyTrait;
+    use ProphecyTrait;
+
     /**
      * @test
      * @dataProvider containerHasCallsProvider

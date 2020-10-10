@@ -3,6 +3,7 @@
 namespace Reinfi\DependencyInjection\Test\Unit\Injection;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Injection\AutoWiringContainer;
 
@@ -11,7 +12,8 @@ use Reinfi\DependencyInjection\Injection\AutoWiringContainer;
  */
 class AutoWiringContainerTest extends TestCase
 {
-    use \Prophecy\PhpUnit\ProphecyTrait;
+    use ProphecyTrait;
+
     /**
      * @test
      */

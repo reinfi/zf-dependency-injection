@@ -2,15 +2,15 @@
 
 namespace Reinfi\DependencyInjection\Test\Integration;
 
+use Laminas\Mvc\Service\ServiceManagerConfig;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\Stdlib\ArrayUtils;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 use Reinfi\DependencyInjection\Annotation\Inject;
 use Reinfi\DependencyInjection\Annotation\InjectConfig;
 use Reinfi\DependencyInjection\Annotation\InjectConstant;
 use Reinfi\DependencyInjection\Annotation\InjectParent;
-use Laminas\Mvc\Service\ServiceManagerConfig;
-use Laminas\ServiceManager\ServiceManager;
-use Laminas\Stdlib\ArrayUtils;
-use ReflectionClass;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Integration
@@ -30,7 +30,6 @@ abstract class AbstractIntegrationTest extends TestCase
         class_exists(InjectConfig::class);
         class_exists(InjectConstant::class);
     }
-
 
     /**
      * @param array $config

@@ -5,6 +5,8 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
+use ReflectionParameter;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
@@ -14,14 +16,14 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
 use Reinfi\DependencyInjection\Test\Service\Service2;
 use Reinfi\DependencyInjection\Test\Service\ServiceBuildInType;
 use Reinfi\DependencyInjection\Test\Service\ServiceNoTypeHint;
-use ReflectionParameter;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring
  */
 class ResolverServiceTest extends TestCase
 {
-    use \Prophecy\PhpUnit\ProphecyTrait;
+    use ProphecyTrait;
+
     /**
      * @test
      */

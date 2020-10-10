@@ -2,6 +2,7 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Annotation\AnnotationInterface;
 use Reinfi\DependencyInjection\Exception\InjectionTypeUnknownException;
@@ -10,7 +11,6 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
 use Reinfi\DependencyInjection\Test\Service\Service2;
 use Reinfi\DependencyInjection\Test\Service\ServiceAnnotation;
 use Symfony\Component\Yaml\Yaml;
-use InvalidArgumentException;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Test\Unit\Service\Extractor

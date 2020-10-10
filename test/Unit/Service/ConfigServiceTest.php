@@ -2,17 +2,19 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service;
 
+use Laminas\Config\Config;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Reinfi\DependencyInjection\Exception\ConfigPathNotFoundException;
 use Reinfi\DependencyInjection\Service\ConfigService;
-use Laminas\Config\Config;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service
  */
 class ConfigServiceTest extends TestCase
 {
-    use \Prophecy\PhpUnit\ProphecyTrait;
+    use ProphecyTrait;
+
     /**
      * @test
      */

@@ -2,18 +2,20 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Config\Factory;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\Factory\ModuleConfigFactory;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
-use InvalidArgumentException;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Config\Factory
  */
 class ModuleConfigFactoryTest extends TestCase
 {
-    use \Prophecy\PhpUnit\ProphecyTrait;
+    use ProphecyTrait;
+
     /**
      * @test
      */

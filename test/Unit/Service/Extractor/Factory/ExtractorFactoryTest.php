@@ -2,20 +2,22 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory;
 
+use Laminas\Config\Config;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\Extractor\AnnotationExtractor;
 use Reinfi\DependencyInjection\Service\Extractor\Factory\ExtractorFactory;
 use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
-use Laminas\Config\Config;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory
  */
 class ExtractorFactoryTest extends TestCase
 {
-    use \Prophecy\PhpUnit\ProphecyTrait;
+    use ProphecyTrait;
+
     /**
      * @test
      */

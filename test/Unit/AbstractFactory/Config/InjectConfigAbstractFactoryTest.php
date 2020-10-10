@@ -2,17 +2,19 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\AbstractFactory\Config;
 
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Reinfi\DependencyInjection\AbstractFactory\Config\InjectConfigAbstractFactory;
 use Reinfi\DependencyInjection\Service\ConfigService;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\AbstractFactory\Config
  */
 class InjectConfigAbstractFactoryTest extends TestCase
 {
-    use \Prophecy\PhpUnit\ProphecyTrait;
+    use ProphecyTrait;
+
     /**
      * @test
      */

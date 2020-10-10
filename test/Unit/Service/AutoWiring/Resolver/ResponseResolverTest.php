@@ -2,20 +2,22 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
-use PHPUnit\Framework\TestCase;
-use Reinfi\DependencyInjection\Injection\AutoWiring;
-use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResponseResolver;
 use Laminas\Http\Response;
 use Laminas\Stdlib\ResponseInterface;
+use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use ReflectionClass;
 use ReflectionParameter;
+use Reinfi\DependencyInjection\Injection\AutoWiring;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResponseResolver;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver
  */
 class ResponseResolverTest extends TestCase
 {
-    use \Prophecy\PhpUnit\ProphecyTrait;
+    use ProphecyTrait;
+
     /**
      * @test
      */

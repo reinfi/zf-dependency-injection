@@ -2,18 +2,20 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service;
 
+use Laminas\Cache\Storage\StorageInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\MethodProphecy;
 use Reinfi\DependencyInjection\Service\CacheService;
-use Laminas\Cache\Storage\StorageInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service
  */
 class CacheServiceTest extends TestCase
 {
-    use \Prophecy\PhpUnit\ProphecyTrait;
+    use ProphecyTrait;
+
     /**
      * @test
      *

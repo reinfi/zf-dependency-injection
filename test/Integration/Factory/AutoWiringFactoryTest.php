@@ -2,6 +2,9 @@
 
 namespace Reinfi\DependencyInjection\Test\Integration\Factory;
 
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
 use Reinfi\DependencyInjection\Test\Integration\AbstractIntegrationTest;
 use Reinfi\DependencyInjection\Test\Service\PluginService;
@@ -11,8 +14,6 @@ use Reinfi\DependencyInjection\Test\Service\Service3;
 use Reinfi\DependencyInjection\Test\Service\ServiceBuildInTypeWithDefault;
 use Reinfi\DependencyInjection\Test\Service\ServiceBuildInTypeWithDefaultUsingConstant;
 use Reinfi\DependencyInjection\Test\Service\ServiceContainer;
-use Laminas\ServiceManager\AbstractPluginManager;
-use Laminas\ServiceManager\Exception\InvalidServiceException;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Integration\Factory
@@ -21,7 +22,8 @@ use Laminas\ServiceManager\Exception\InvalidServiceException;
  */
 class AutoWiringFactoryTest extends AbstractIntegrationTest
 {
-    use \Prophecy\PhpUnit\ProphecyTrait;
+    use ProphecyTrait;
+
     /**
      * @test
      */

@@ -3,6 +3,7 @@
 namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Annotation\InjectConstant;
 use Reinfi\DependencyInjection\Service\InjectionService;
@@ -13,7 +14,8 @@ use Reinfi\DependencyInjection\Test\Service\Service2;
  */
 class InjectConstantTest extends TestCase
 {
-    use \Prophecy\PhpUnit\ProphecyTrait;
+    use ProphecyTrait;
+
     /**
      * @test
      */

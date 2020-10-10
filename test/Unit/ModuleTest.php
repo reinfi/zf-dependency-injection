@@ -2,16 +2,18 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit;
 
-use PHPUnit\Framework\TestCase;
-use Reinfi\DependencyInjection\Module;
 use Laminas\Console\Adapter\AdapterInterface;
+use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
+use Reinfi\DependencyInjection\Module;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit
  */
 class ModuleTest extends TestCase
 {
-    use \Prophecy\PhpUnit\ProphecyTrait;
+    use ProphecyTrait;
+
     /**
      * @test
      */

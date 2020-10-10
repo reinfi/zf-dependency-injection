@@ -3,6 +3,7 @@
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Factory;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\AutoWiring\Factory\ResolverServiceFactory;
@@ -20,7 +21,8 @@ use Reinfi\DependencyInjection\Test\Service\Resolver\TestResolver;
  */
 class ResolverServiceFactoryTest extends TestCase
 {
-    use \Prophecy\PhpUnit\ProphecyTrait;
+    use ProphecyTrait;
+
     /**
      * @test
      */
