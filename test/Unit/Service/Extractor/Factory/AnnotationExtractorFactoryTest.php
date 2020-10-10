@@ -12,6 +12,7 @@ use Reinfi\DependencyInjection\Service\Extractor\Factory\AnnotationExtractorFact
  */
 class AnnotationExtractorFactoryTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

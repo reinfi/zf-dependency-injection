@@ -12,6 +12,7 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
  */
 class InjectConfigAbstractFactoryTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

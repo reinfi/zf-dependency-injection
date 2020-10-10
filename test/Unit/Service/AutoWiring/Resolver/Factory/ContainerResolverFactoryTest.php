@@ -12,6 +12,7 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\ContainerReso
  */
 class ContainerResolverFactoryTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

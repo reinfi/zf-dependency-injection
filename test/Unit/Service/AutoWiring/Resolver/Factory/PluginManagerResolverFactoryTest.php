@@ -12,6 +12,7 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\PluginManagerResolver
  */
 class PluginManagerResolverFactoryTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

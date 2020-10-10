@@ -11,6 +11,7 @@ use Laminas\Console\Adapter\AdapterInterface;
  */
 class ModuleTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

@@ -10,12 +10,15 @@ use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver;
 use Laminas\I18n\Translator\Translator;
 use Laminas\I18n\Translator\TranslatorInterface;
+use ReflectionClass;
+use ReflectionParameter;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver
  */
 class TranslatorResolverTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      * @dataProvider containerHasCallsProvider
@@ -37,8 +40,8 @@ class TranslatorResolverTest extends TestCase
 
         $resolver = new TranslatorResolver($container->reveal());
 
-        $class = new \ReflectionClass(TranslatorInterface::class);
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $class = new ReflectionClass(TranslatorInterface::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getClass()->willReturn($class);
 
         $injection = $resolver->resolve($parameter->reveal());
@@ -65,8 +68,8 @@ class TranslatorResolverTest extends TestCase
         }
         $resolver = new TranslatorResolver($container->reveal());
 
-        $class = new \ReflectionClass(Translator::class);
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $class = new ReflectionClass(Translator::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getClass()->willReturn($class);
 
         $injection = $resolver->resolve($parameter->reveal());
@@ -87,8 +90,8 @@ class TranslatorResolverTest extends TestCase
 
         $resolver = new TranslatorResolver($container->reveal());
 
-        $class = new \ReflectionClass(Translator::class);
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $class = new ReflectionClass(Translator::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getClass()->willReturn($class);
 
         $this->assertNull(
@@ -108,7 +111,7 @@ class TranslatorResolverTest extends TestCase
 
         $resolver = new TranslatorResolver($container->reveal());
 
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getClass()->willReturn(null);
 
         $this->assertNull(
@@ -126,10 +129,10 @@ class TranslatorResolverTest extends TestCase
 
         $resolver = new TranslatorResolver($container->reveal());
 
-        $class = $this->prophesize(\ReflectionClass::class);
+        $class = $this->prophesize(ReflectionClass::class);
         $class->getName()->willReturn('');
         $class->getInterfaceNames()->willReturn([]);
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getClass()->willReturn($class->reveal());
 
         $this->assertNull(
@@ -147,7 +150,7 @@ class TranslatorResolverTest extends TestCase
 
         $resolver = new TranslatorResolver($container->reveal());
 
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getClass()->willReturn(null);
 
         $this->assertNull(

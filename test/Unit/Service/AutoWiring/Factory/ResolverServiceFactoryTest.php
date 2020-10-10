@@ -20,6 +20,7 @@ use Reinfi\DependencyInjection\Test\Service\Resolver\TestResolver;
  */
 class ResolverServiceFactoryTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

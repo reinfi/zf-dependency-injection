@@ -21,6 +21,7 @@ use Laminas\ServiceManager\Exception\InvalidServiceException;
  */
 class AutoWiringFactoryTest extends AbstractIntegrationTest
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

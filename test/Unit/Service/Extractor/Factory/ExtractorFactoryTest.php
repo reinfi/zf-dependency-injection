@@ -15,6 +15,7 @@ use Laminas\Config\Config;
  */
 class ExtractorFactoryTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

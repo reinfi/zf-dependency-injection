@@ -16,6 +16,7 @@ use Laminas\Mvc\Controller\ControllerManager;
  */
 class CacheWarmupControllerFactoryTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

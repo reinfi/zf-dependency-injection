@@ -13,6 +13,7 @@ use Laminas\Cache\Storage\StorageInterface;
  */
 class CacheServiceTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      *

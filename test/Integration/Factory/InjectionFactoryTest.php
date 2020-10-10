@@ -21,6 +21,7 @@ use Laminas\Stdlib\ArrayUtils;
  */
 class InjectionFactoryTest extends AbstractIntegrationTest
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

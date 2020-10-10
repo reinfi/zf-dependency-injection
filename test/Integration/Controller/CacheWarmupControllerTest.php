@@ -17,6 +17,7 @@ use Laminas\Console\Adapter\AdapterInterface;
  */
 class CacheWarmupControllerTest extends AbstractIntegrationTest
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

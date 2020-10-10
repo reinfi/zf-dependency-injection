@@ -14,19 +14,21 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
 use Reinfi\DependencyInjection\Test\Service\Service2;
 use Reinfi\DependencyInjection\Test\Service\ServiceBuildInType;
 use Reinfi\DependencyInjection\Test\Service\ServiceNoTypeHint;
+use ReflectionParameter;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring
  */
 class ResolverServiceTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */
     public function itResolvesConstructorArguments()
     {
         $resolver = $this->prophesize(ResolverInterface::class);
-        $resolver->resolve(Argument::type(\ReflectionParameter::class))
+        $resolver->resolve(Argument::type(ReflectionParameter::class))
             ->willReturn(
                 new AutoWiring(Service2::class)
             );
@@ -47,7 +49,7 @@ class ResolverServiceTest extends TestCase
     public function itResolvesConstructorArgumentsWithOptionsParameter()
     {
         $resolver = $this->prophesize(ResolverInterface::class);
-        $resolver->resolve(Argument::type(\ReflectionParameter::class))
+        $resolver->resolve(Argument::type(ReflectionParameter::class))
             ->willReturn(
                 new AutoWiring(Service2::class)
             );
@@ -92,7 +94,7 @@ class ResolverServiceTest extends TestCase
         $this->expectException(AutoWiringNotPossibleException::class);
 
         $resolver = $this->prophesize(ResolverInterface::class);
-        $resolver->resolve(Argument::type(\ReflectionParameter::class))
+        $resolver->resolve(Argument::type(ReflectionParameter::class))
             ->willReturn(null);
 
         $service = new ResolverService([ $resolver->reveal() ]);
@@ -112,7 +114,7 @@ class ResolverServiceTest extends TestCase
         $this->expectExceptionMessage($serviceName);
 
         $resolver = $this->prophesize(ResolverInterface::class);
-        $resolver->resolve(Argument::type(\ReflectionParameter::class))
+        $resolver->resolve(Argument::type(ReflectionParameter::class))
                  ->willReturn(null);
 
         $service = new ResolverService([ $resolver->reveal() ]);

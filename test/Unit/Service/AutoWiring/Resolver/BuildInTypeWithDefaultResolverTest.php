@@ -5,12 +5,15 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\BuildInTypeWithDefaultResolver;
+use ReflectionType;
+use ReflectionParameter;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver
  */
 class BuildInTypeWithDefaultResolverTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */
@@ -18,10 +21,10 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
-        $type = $this->prophesize(\ReflectionType::class);
+        $type = $this->prophesize(ReflectionType::class);
         $type->isBuiltin()->willReturn(true);
 
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->hasType()->willReturn(true);
         $parameter->getType()->willReturn($type->reveal());
         $parameter->isDefaultValueAvailable()->willReturn(true);
@@ -39,7 +42,7 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->hasType()->willReturn(false);
 
         $injection = $resolver->resolve($parameter->reveal());
@@ -54,10 +57,10 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
-        $type = $this->prophesize(\ReflectionType::class);
+        $type = $this->prophesize(ReflectionType::class);
         $type->isBuiltin()->willReturn(false);
 
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->hasType()->willReturn(true);
         $parameter->getType()->willReturn($type->reveal());
 
@@ -73,10 +76,10 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
-        $type = $this->prophesize(\ReflectionType::class);
+        $type = $this->prophesize(ReflectionType::class);
         $type->isBuiltin()->willReturn(true);
 
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->hasType()->willReturn(true);
         $parameter->getType()->willReturn($type->reveal());
         $parameter->isDefaultValueAvailable()->willReturn(false);

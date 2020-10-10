@@ -12,6 +12,7 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver;
  */
 class TranslatorResolverFactoryTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

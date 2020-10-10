@@ -14,6 +14,7 @@ use Laminas\ServiceManager\AbstractPluginManager;
  */
 class InjectDoctrineRepositoryTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      *

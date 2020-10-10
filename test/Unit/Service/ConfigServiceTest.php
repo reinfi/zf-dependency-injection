@@ -12,6 +12,7 @@ use Laminas\Config\Config;
  */
 class ConfigServiceTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

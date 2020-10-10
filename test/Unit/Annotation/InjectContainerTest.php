@@ -11,6 +11,7 @@ use Reinfi\DependencyInjection\Annotation\InjectContainer;
  */
 class InjectContainerTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

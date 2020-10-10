@@ -15,6 +15,7 @@ use Reinfi\DependencyInjection\Service\AutoWiring\ResolverServiceInterface;
  */
 class LazyResolverServiceTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

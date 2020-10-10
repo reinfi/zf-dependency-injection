@@ -14,6 +14,7 @@ use Laminas\Config\Config;
  */
 class YamlExtractorFactoryTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

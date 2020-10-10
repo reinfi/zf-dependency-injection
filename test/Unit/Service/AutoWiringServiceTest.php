@@ -19,6 +19,7 @@ use Reinfi\DependencyInjection\Traits\CacheKeyTrait;
  */
 class AutoWiringServiceTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     use CacheKeyTrait;
 
     /**

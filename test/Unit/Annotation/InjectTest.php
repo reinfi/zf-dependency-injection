@@ -12,6 +12,7 @@ use Reinfi\DependencyInjection\Service\InjectionService;
  */
 class InjectTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

@@ -10,6 +10,7 @@ use Reinfi\DependencyInjection\Annotation\InjectParent;
 use Laminas\Mvc\Service\ServiceManagerConfig;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\Stdlib\ArrayUtils;
+use ReflectionClass;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Integration
@@ -44,7 +45,7 @@ abstract class AbstractIntegrationTest extends TestCase
             $config['service_manager'] ?? []
         );
 
-        $reflectionClass = new \ReflectionClass(ServiceManager::class);
+        $reflectionClass = new ReflectionClass(ServiceManager::class);
         $reflConstructor = $reflectionClass->getConstructor();
         $constructorParameter = $reflConstructor->getParameters()[0];
 

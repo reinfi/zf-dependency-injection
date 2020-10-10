@@ -10,6 +10,7 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
 use Reinfi\DependencyInjection\Test\Service\Service2;
 use Reinfi\DependencyInjection\Test\Service\ServiceAnnotation;
 use Symfony\Component\Yaml\Yaml;
+use InvalidArgumentException;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Test\Unit\Service\Extractor
@@ -105,7 +106,7 @@ class YamlExtractorTest extends TestCase
      */
     public function itThrowsExceptionIfConfigurationKeyTypeMisses()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $extractor = new YamlExtractor(
             new Yaml(),

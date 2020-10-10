@@ -10,6 +10,7 @@ use Reinfi\DependencyInjection\Annotation\InjectConstant;
 use Reinfi\DependencyInjection\Command\CacheWarmupCommand;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\OutputInterface;
+use InvalidArgumentException;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Integration\Command
@@ -18,6 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class CacheWarmupCommandTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @inheritDoc
      */
@@ -55,7 +57,7 @@ class CacheWarmupCommandTest extends TestCase
      */
     public function itThrowsExceptionIfPathNotValid()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $config = __DIR__ . '/../resources/application_config.php';
 

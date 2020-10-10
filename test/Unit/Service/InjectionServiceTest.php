@@ -19,6 +19,7 @@ use Reinfi\DependencyInjection\Traits\CacheKeyTrait;
  */
 class InjectionServiceTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     use CacheKeyTrait;
 
     /**

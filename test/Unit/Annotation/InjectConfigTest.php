@@ -14,6 +14,7 @@ use Laminas\ServiceManager\AbstractPluginManager;
  */
 class InjectConfigTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

@@ -19,6 +19,7 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
  */
 class AutoWiringFactoryTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

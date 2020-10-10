@@ -13,6 +13,7 @@ use Laminas\ServiceManager\AbstractPluginManager;
  */
 class InjectValidatorTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      *

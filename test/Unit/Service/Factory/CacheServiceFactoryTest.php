@@ -14,6 +14,7 @@ use Laminas\Cache\Storage\Adapter\Memory;
  */
 class CacheServiceFactoryTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      * @dataProvider cacheServiceOptionsProvider

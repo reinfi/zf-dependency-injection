@@ -13,6 +13,7 @@ use Reinfi\DependencyInjection\Test\Service\Service2;
  */
 class InjectConstantTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */

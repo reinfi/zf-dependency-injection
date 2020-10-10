@@ -11,6 +11,7 @@ use Reinfi\DependencyInjection\Injection\AutoWiringContainer;
  */
 class AutoWiringContainerTest extends TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
     /**
      * @test
      */
