@@ -23,8 +23,7 @@
         "php": ">=7.3",
         "laminas/laminas-servicemanager": "^2.7 | ^3.0",
         "laminas/laminas-modulemanager": "^2.7",
-        "laminas/laminas-cache": "^2.5",
-        "rector/rector": "^0.8.17"
+        "laminas/laminas-cache": "^2.5"
     },
     "autoload": {
         "psr-4": {
