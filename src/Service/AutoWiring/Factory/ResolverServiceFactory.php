@@ -39,11 +39,6 @@ class ResolverServiceFactory
         return new ResolverService($resolverStack);
     }
 
-    /**
-     * @param array $config
-     *
-     * @return array
-     */
     private function getResolverStack(array $config): array
     {
         $defaultResolverStackConfig = [

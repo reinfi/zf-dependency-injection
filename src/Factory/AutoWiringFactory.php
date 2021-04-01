@@ -28,7 +28,7 @@ final class AutoWiringFactory extends AbstractFactory
             $requestedName,
             $options
         );
-        
+
         if ($injections === null) {
             return new $requestedName;
         }
@@ -36,17 +36,12 @@ final class AutoWiringFactory extends AbstractFactory
         return $this->buildInstance($requestedName, $injections);
     }
 
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return AutoWiringService
-     */
     private function getAutoWiringService(ContainerInterface $container): AutoWiringService
     {
         if ($container instanceof AbstractPluginManager) {
             $container = $container->getServiceLocator();
         }
-        
+
         return $container->get(AutoWiringService::class);
     }
 }

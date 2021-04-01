@@ -8,10 +8,7 @@ use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\LazyResolverService;
 
 /**
- * Class LazyResolverServiceFactory
- *
  * @package Reinfi\DependencyInjection\Service\AutoWiring\Factory
- * @author Martin Rintelen <martin.rintelen@check24.de>
  */
 class LazyResolverServiceFactory
 {
