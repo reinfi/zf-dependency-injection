@@ -2,20 +2,23 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Controller\Factory;
 
+use Laminas\Mvc\Controller\ControllerManager;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Controller\CacheWarmupController;
 use Reinfi\DependencyInjection\Controller\Factory\CacheWarmupControllerFactory;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\CacheService;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
-use Laminas\Mvc\Controller\ControllerManager;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Controller\Factory
  */
 class CacheWarmupControllerFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @test
      */

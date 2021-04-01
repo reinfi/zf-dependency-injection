@@ -5,6 +5,8 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
+use ReflectionParameter;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
@@ -20,13 +22,15 @@ use Reinfi\DependencyInjection\Test\Service\ServiceNoTypeHint;
  */
 class ResolverServiceTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @test
      */
     public function itResolvesConstructorArguments()
     {
         $resolver = $this->prophesize(ResolverInterface::class);
-        $resolver->resolve(Argument::type(\ReflectionParameter::class))
+        $resolver->resolve(Argument::type(ReflectionParameter::class))
             ->willReturn(
                 new AutoWiring(Service2::class)
             );
@@ -47,7 +51,7 @@ class ResolverServiceTest extends TestCase
     public function itResolvesConstructorArgumentsWithOptionsParameter()
     {
         $resolver = $this->prophesize(ResolverInterface::class);
-        $resolver->resolve(Argument::type(\ReflectionParameter::class))
+        $resolver->resolve(Argument::type(ReflectionParameter::class))
             ->willReturn(
                 new AutoWiring(Service2::class)
             );
@@ -92,7 +96,7 @@ class ResolverServiceTest extends TestCase
         $this->expectException(AutoWiringNotPossibleException::class);
 
         $resolver = $this->prophesize(ResolverInterface::class);
-        $resolver->resolve(Argument::type(\ReflectionParameter::class))
+        $resolver->resolve(Argument::type(ReflectionParameter::class))
             ->willReturn(null);
 
         $service = new ResolverService([ $resolver->reveal() ]);
@@ -112,7 +116,7 @@ class ResolverServiceTest extends TestCase
         $this->expectExceptionMessage($serviceName);
 
         $resolver = $this->prophesize(ResolverInterface::class);
-        $resolver->resolve(Argument::type(\ReflectionParameter::class))
+        $resolver->resolve(Argument::type(ReflectionParameter::class))
                  ->willReturn(null);
 
         $service = new ResolverService([ $resolver->reveal() ]);

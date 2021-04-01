@@ -2,7 +2,9 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Config\Factory;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\Factory\ModuleConfigFactory;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
@@ -12,6 +14,8 @@ use Reinfi\DependencyInjection\Config\ModuleConfig;
  */
 class ModuleConfigFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @test
      */
@@ -74,7 +78,7 @@ class ModuleConfigFactoryTest extends TestCase
      */
     public function itThrowsExceptionIfModuleConfigIsNotArray()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $factory = new ModuleConfigFactory();
 

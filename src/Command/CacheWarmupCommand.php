@@ -70,6 +70,8 @@ class CacheWarmupCommand extends Command
         );
 
         $output->writeln('Finished cache warmup');
+
+        return self::SUCCESS;
     }
 
     /**

@@ -3,17 +3,20 @@
 namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
 use Laminas\Config\Config;
+use Laminas\ServiceManager\AbstractPluginManager;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Annotation\InjectConfig;
 use Reinfi\DependencyInjection\Service\ConfigService;
-use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Annotation
  */
 class InjectConfigTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @test
      */
@@ -84,5 +87,4 @@ class InjectConfigTest extends TestCase
             'Invoke should return array containing true'
         );
     }
-
 }

@@ -2,18 +2,21 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service\Factory;
 
+use Laminas\Cache\Storage\Adapter\Memory;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\CacheService;
 use Reinfi\DependencyInjection\Service\Factory\CacheServiceFactory;
-use Laminas\Cache\Storage\Adapter\Memory;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\Factory
  */
 class CacheServiceFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @test
      * @dataProvider cacheServiceOptionsProvider

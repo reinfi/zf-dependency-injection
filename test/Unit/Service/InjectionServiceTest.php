@@ -4,6 +4,7 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\MethodProphecy;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
@@ -19,6 +20,7 @@ use Reinfi\DependencyInjection\Traits\CacheKeyTrait;
  */
 class InjectionServiceTest extends TestCase
 {
+    use ProphecyTrait;
     use CacheKeyTrait;
 
     /**

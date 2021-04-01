@@ -2,17 +2,20 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
+use Laminas\ServiceManager\AbstractPluginManager;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Annotation\InjectParent;
 use Reinfi\DependencyInjection\Service\InjectionService;
-use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Annotation
  */
 class InjectParentTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @test
      */

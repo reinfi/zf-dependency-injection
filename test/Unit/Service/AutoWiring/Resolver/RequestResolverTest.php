@@ -2,17 +2,22 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
-use PHPUnit\Framework\TestCase;
-use Reinfi\DependencyInjection\Injection\AutoWiring;
-use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\RequestResolver;
 use Laminas\Http\Request;
 use Laminas\Stdlib\RequestInterface;
+use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
+use ReflectionClass;
+use ReflectionParameter;
+use Reinfi\DependencyInjection\Injection\AutoWiring;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\RequestResolver;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver
  */
 class RequestResolverTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @test
      */
@@ -20,10 +25,10 @@ class RequestResolverTest extends TestCase
     {
         $resolver = new RequestResolver();
 
-        $class = $this->prophesize(\ReflectionClass::class);
+        $class = $this->prophesize(ReflectionClass::class);
         $class->getName()->willReturn(Request::class);
         $class->getInterfaceNames()->willReturn([ RequestInterface::class ]);
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getClass()->willReturn($class->reveal());
 
         $injection = $resolver->resolve($parameter->reveal());
@@ -38,8 +43,8 @@ class RequestResolverTest extends TestCase
     {
         $resolver = new RequestResolver();
 
-        $class = new \ReflectionClass(Request::class);
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $class = new ReflectionClass(Request::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getClass()->willReturn($class);
 
         $injection = $resolver->resolve($parameter->reveal());
@@ -54,8 +59,8 @@ class RequestResolverTest extends TestCase
     {
         $resolver = new RequestResolver();
 
-        $class = new \ReflectionClass(RequestInterface::class);
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $class = new ReflectionClass(RequestInterface::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getClass()->willReturn($class);
 
         $injection = $resolver->resolve($parameter->reveal());
@@ -70,10 +75,10 @@ class RequestResolverTest extends TestCase
     {
         $resolver = new RequestResolver();
 
-        $class = $this->prophesize(\ReflectionClass::class);
+        $class = $this->prophesize(ReflectionClass::class);
         $class->getName()->willReturn('');
         $class->getInterfaceNames()->willReturn([]);
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getClass()->willReturn($class->reveal());
 
         $this->assertNull(
@@ -89,7 +94,7 @@ class RequestResolverTest extends TestCase
     {
         $resolver = new RequestResolver();
 
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getClass()->willReturn(null);
 
         $this->assertNull(

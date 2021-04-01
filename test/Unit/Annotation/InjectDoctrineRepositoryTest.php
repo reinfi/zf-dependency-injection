@@ -4,16 +4,19 @@ namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Laminas\ServiceManager\AbstractPluginManager;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Annotation\InjectDoctrineRepository;
-use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Annotation
  */
 class InjectDoctrineRepositoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @test
      *

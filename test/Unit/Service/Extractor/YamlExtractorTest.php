@@ -2,6 +2,7 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Annotation\AnnotationInterface;
 use Reinfi\DependencyInjection\Exception\InjectionTypeUnknownException;
@@ -105,7 +106,7 @@ class YamlExtractorTest extends TestCase
      */
     public function itThrowsExceptionIfConfigurationKeyTypeMisses()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $extractor = new YamlExtractor(
             new Yaml(),

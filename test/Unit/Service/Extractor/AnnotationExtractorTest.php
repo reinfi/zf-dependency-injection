@@ -5,6 +5,9 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor;
 use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
+use ReflectionMethod;
+use ReflectionProperty;
 use Reinfi\DependencyInjection\Annotation\AnnotationInterface;
 use Reinfi\DependencyInjection\Service\Extractor\AnnotationExtractor;
 use Reinfi\DependencyInjection\Test\Service\Service1;
@@ -16,6 +19,8 @@ use Reinfi\DependencyInjection\Test\Service\ServiceAnnotation;
  */
 class AnnotationExtractorTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @test
      */
@@ -25,7 +30,7 @@ class AnnotationExtractorTest extends TestCase
 
         $reader = $this->prophesize(AnnotationReader::class);
         $reader->getPropertyAnnotation(
-            Argument::type(\ReflectionProperty::class),
+            Argument::type(ReflectionProperty::class),
             Argument::exact(AnnotationInterface::class)
         )->willReturn($annotation->reveal())
         ->shouldBeCalledTimes(3);
@@ -47,7 +52,7 @@ class AnnotationExtractorTest extends TestCase
 
         $reader = $this->prophesize(AnnotationReader::class);
         $reader->getMethodAnnotations(
-            Argument::type(\ReflectionMethod::class)
+            Argument::type(ReflectionMethod::class)
         )->willReturn([$annotation->reveal()])
             ->shouldBeCalledTimes(1);
 
@@ -80,7 +85,7 @@ class AnnotationExtractorTest extends TestCase
     {
         $reader = $this->prophesize(AnnotationReader::class);
         $reader->getMethodAnnotations(
-            Argument::type(\ReflectionMethod::class)
+            Argument::type(ReflectionMethod::class)
         )->willReturn([])
             ->shouldBeCalledTimes(1);
 

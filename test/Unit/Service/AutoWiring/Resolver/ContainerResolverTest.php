@@ -3,7 +3,10 @@
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
+use ReflectionClass;
+use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerResolver;
 use Reinfi\DependencyInjection\Test\Service\Service1;
@@ -13,6 +16,8 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
  */
 class ContainerResolverTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @test
      */
@@ -24,9 +29,9 @@ class ContainerResolverTest extends TestCase
 
         $resolver = new ContainerResolver($container->reveal());
 
-        $class = $this->prophesize(\ReflectionClass::class);
+        $class = $this->prophesize(ReflectionClass::class);
         $class->getName()->willReturn(Service1::class);
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getClass()->willReturn($class->reveal());
 
         $injection = $resolver->resolve($parameter->reveal());
@@ -45,14 +50,14 @@ class ContainerResolverTest extends TestCase
 
         $resolver = new ContainerResolver($container->reveal());
 
-        $class = $this->prophesize(\ReflectionClass::class);
+        $class = $this->prophesize(ReflectionClass::class);
         $class->getName()->willReturn(Service1::class);
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getClass()->willReturn($class->reveal());
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $reflCass = new \ReflectionClass($injection);
+        $reflCass = new ReflectionClass($injection);
         $property = $reflCass->getProperty('serviceName');
         $property->setAccessible(true);
 
@@ -73,9 +78,9 @@ class ContainerResolverTest extends TestCase
 
         $resolver = new ContainerResolver($container->reveal());
 
-        $class = $this->prophesize(\ReflectionClass::class);
+        $class = $this->prophesize(ReflectionClass::class);
         $class->getName()->willReturn(Service1::class);
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getClass()->willReturn($class->reveal());
 
         $injection = $resolver->resolve($parameter->reveal());
@@ -92,7 +97,7 @@ class ContainerResolverTest extends TestCase
 
         $resolver = new ContainerResolver($container->reveal());
 
-        $parameter = $this->prophesize(\ReflectionParameter::class);
+        $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getClass()->willReturn(null);
 
         $injection = $resolver->resolve($parameter->reveal());
