@@ -1,6 +1,9 @@
 parameters:
     level: max
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
     paths:
         - src
     excludes_analyse:
         - %currentWorkingDirectory%/src/Controller*
+        - %currentWorkingDirectory%/src/Command*

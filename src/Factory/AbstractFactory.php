@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Factory;
 
 use Laminas\ServiceManager\Exception\InvalidServiceException;
-use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use ReflectionClass;
 
