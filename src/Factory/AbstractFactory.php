@@ -7,6 +7,7 @@ namespace Reinfi\DependencyInjection\Factory;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use ReflectionClass;
 
 /**
  * @package Reinfi\DependencyInjection\Factory
@@ -42,7 +43,7 @@ abstract class AbstractFactory implements FactoryInterface
      */
     protected function buildInstance(string $className, array $injections)
     {
-        $reflClass = new \ReflectionClass($className);
+        $reflClass = new ReflectionClass($className);
 
         $instance = $reflClass->newInstanceArgs($injections);
 

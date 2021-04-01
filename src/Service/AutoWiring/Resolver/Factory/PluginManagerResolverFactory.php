@@ -12,11 +12,6 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\PluginManagerResolver
  */
 class PluginManagerResolverFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return PluginManagerResolver
-     */
     public function __invoke(ContainerInterface $container): PluginManagerResolver
     {
         return new PluginManagerResolver($container);

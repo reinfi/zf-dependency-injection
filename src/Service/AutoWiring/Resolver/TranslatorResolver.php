@@ -33,9 +33,6 @@ class TranslatorResolver implements ResolverInterface
      */
     private $container;
 
-    /**
-     * @param ContainerInterface $container
-     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -59,11 +56,6 @@ class TranslatorResolver implements ResolverInterface
         return null;
     }
 
-    /**
-     * @param ReflectionParameter $parameter
-     *
-     * @return bool
-     */
     private function isValid(ReflectionParameter $parameter): bool
     {
         if ($parameter->getClass() === null) {

@@ -18,9 +18,6 @@ class AutoWiring implements InjectionInterface
      */
     private $serviceName;
 
-    /**
-     * @param string $serviceName
-     */
     public function __construct(string $serviceName)
     {
         $this->serviceName = $serviceName;

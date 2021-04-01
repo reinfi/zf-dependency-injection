@@ -12,11 +12,6 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver;
  */
 class TranslatorResolverFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return TranslatorResolver
-     */
     public function __invoke(ContainerInterface $container): TranslatorResolver
     {
         return new TranslatorResolver($container);

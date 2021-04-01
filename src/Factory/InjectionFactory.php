@@ -35,11 +35,6 @@ final class InjectionFactory extends AbstractFactory
         return $this->buildInstance($requestedName, $injections);
     }
 
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return InjectionService
-     */
     private function getInjectionService(ContainerInterface $container): InjectionService
     {
         if ($container instanceof AbstractPluginManager) {

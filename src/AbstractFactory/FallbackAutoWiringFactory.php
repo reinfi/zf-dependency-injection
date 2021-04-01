@@ -18,7 +18,6 @@ use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
  */
 class FallbackAutoWiringFactory implements AbstractFactoryInterface
 {
-
     /**
      * @inheritdoc
      */
