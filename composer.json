@@ -1,7 +1,7 @@
 {
     "name": "reinfi/zf-dependency-injection",
     "type": "library",
-    "description": "A Zend Framework module for loading dependencies via annotation or config entries.",
+    "description": "A Laminas Framework module for loading dependencies via annotation or config entries.",
     "keywords": [
         "zend",
         "dependency",
