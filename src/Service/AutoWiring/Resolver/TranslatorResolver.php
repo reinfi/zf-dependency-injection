@@ -74,8 +74,8 @@ class TranslatorResolver implements ResolverInterface
         }
 
         if (
-            !class_exists($type->getName(), false)
-            && !interface_exists($type->getName(), false)
+            !class_exists($type->getName())
+            && !interface_exists($type->getName())
         ) {
             return false;
         }
