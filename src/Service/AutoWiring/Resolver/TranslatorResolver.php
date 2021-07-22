@@ -73,10 +73,6 @@ class TranslatorResolver implements ResolverInterface
             return false;
         }
 
-        if ($type->isBuiltin()) {
-            return false;
-        }
-
         if (
             !class_exists($type->getName(), false)
             && !interface_exists($type->getName(), false)

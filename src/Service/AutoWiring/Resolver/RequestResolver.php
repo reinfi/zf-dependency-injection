@@ -26,10 +26,6 @@ class RequestResolver implements ResolverInterface
             return null;
         }
 
-        if ($type->isBuiltin()) {
-            return null;
-        }
-
         if (
             !class_exists($type->getName(), false)
             && !interface_exists($type->getName(), false)

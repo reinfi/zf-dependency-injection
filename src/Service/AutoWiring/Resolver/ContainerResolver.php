@@ -40,10 +40,6 @@ class ContainerResolver implements ResolverInterface
             return null;
         }
 
-        if ($type->isBuiltin()) {
-            return null;
-        }
-
         if ($this->container->has($type->getName())) {
             return new AutoWiring($type->getName());
         }
