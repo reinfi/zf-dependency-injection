@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Service\AutoWiring;
 
 use ReflectionClass;
+use ReflectionNamedType;
 use ReflectionParameter;
+use ReflectionUnionType;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Injection\Value;
@@ -96,16 +98,29 @@ class ResolverService implements ResolverServiceInterface
             );
         }
 
-        if ($parameter->getType() !== null && $parameter->getType()->isBuiltin()) {
-            throw AutoWiringNotPossibleException::fromBuildInType($parameter);
+        $type = $parameter->getType();
+        if ($type === null) {
+            throw AutoWiringNotPossibleException::fromMissingTypeHint(
+                $parameter
+            );
         }
 
-        if ($parameter->getClass() === null) {
-            throw AutoWiringNotPossibleException::fromParameterName($parameter);
+        if ($type instanceof ReflectionNamedType) {
+            if ($type->isBuiltin()) {
+                throw AutoWiringNotPossibleException::fromBuildInType($parameter);
+            }
+
+            throw AutoWiringNotPossibleException::fromClassName(
+                $type->getName(), $parameter->getDeclaringClass()
+            );
         }
 
-        throw AutoWiringNotPossibleException::fromClassName(
-            $parameter->getClass(), $parameter->getDeclaringClass()
-        );
+        if ($type instanceof ReflectionUnionType) {
+            throw AutoWiringNotPossibleException::fromUnionType(
+                $parameter
+            );
+        }
+
+        throw AutoWiringNotPossibleException::fromParameterName($parameter);
     }
 }

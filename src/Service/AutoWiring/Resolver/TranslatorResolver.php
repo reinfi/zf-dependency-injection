@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Service\AutoWiring\Resolver;
 
 use Psr\Container\ContainerInterface;
+use ReflectionClass;
+use ReflectionNamedType;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
@@ -66,11 +68,23 @@ class TranslatorResolver implements ResolverInterface
      */
     private function isValid(ReflectionParameter $parameter): bool
     {
-        if ($parameter->getClass() === null) {
+        $type = $parameter->getType();
+        if (!$type instanceof ReflectionNamedType) {
             return false;
         }
 
-        $reflectionClass = $parameter->getClass();
+        if ($type->isBuiltin()) {
+            return false;
+        }
+
+        if (
+            !class_exists($type->getName(), false)
+            && !interface_exists($type->getName(), false)
+        ) {
+            return false;
+        }
+
+        $reflectionClass = new ReflectionClass($type->getName());
         $interfaceNames = $reflectionClass->getInterfaceNames();
 
         return (
