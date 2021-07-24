@@ -37,7 +37,7 @@ class InjectionService
 
     /**
      * @param ContainerInterface $container
-     * @param string             $className
+     * @param class-string       $className
      *
      * @return array|false
      */
@@ -59,7 +59,7 @@ class InjectionService
     }
 
     /**
-     * @param string $className
+     * @param class-string $className
      *
      * @return InjectionInterface[]
      */

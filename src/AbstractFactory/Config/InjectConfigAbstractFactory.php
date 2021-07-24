@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\AbstractFactory\Config;
 
 use Interop\Container\ContainerInterface;
-use Reinfi\DependencyInjection\Service\ConfigService;
 use Laminas\ServiceManager\AbstractFactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use Reinfi\DependencyInjection\Service\ConfigService;
 
 /**
  * @package Reinfi\DependencyInjection\AbstractFactory\Config
@@ -24,13 +24,21 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
     /**
      * @inheritDoc
      */
-    public function canCreate(ContainerInterface $container, $requestedName): bool
-    {
-        return preg_match(static::MATCH_PATTERN, $requestedName, $this->matches) === 1;
+    public function canCreate(
+        ContainerInterface $container,
+        $requestedName
+    ): bool {
+        return preg_match(
+                static::MATCH_PATTERN, $requestedName, $this->matches
+            ) === 1;
     }
 
     /**
-     * @inheritDoc
+     * @param ServiceLocatorInterface $serviceLocator
+     * @param string                  $name
+     * @param string                  $requestedName
+     *
+     * @return bool
      */
     public function canCreateServiceWithName(
         ServiceLocatorInterface $serviceLocator,
@@ -41,7 +49,11 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
     }
 
     /**
-     * @inheritDoc
+     * @param ContainerInterface $container
+     * @param string             $requestedName
+     * @param array|null         $options
+     *
+     * @return mixed|object|null
      */
     public function __invoke(
         ContainerInterface $container,
@@ -55,7 +67,11 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
     }
 
     /**
-     * @inheritDoc
+     * @param ServiceLocatorInterface $serviceLocator
+     * @param string                  $name
+     * @param string                  $requestedName
+     *
+     * @return mixed|object|null
      */
     public function createServiceWithName(
         ServiceLocatorInterface $serviceLocator,

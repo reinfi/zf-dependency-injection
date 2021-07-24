@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\AbstractFactory;
 
 use Interop\Container\ContainerInterface;
-use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
 use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
+use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
 
 /**
  * Class FallbackAutoWiringFactory
@@ -19,18 +19,30 @@ use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 class FallbackAutoWiringFactory implements AbstractFactoryInterface
 {
     /**
-     * @inheritdoc
+     * @param ContainerInterface $container
+     * @param class-string       $requestedName
+     *
+     * @return bool
      */
-    public function canCreate(ContainerInterface $container, $requestedName)
-    {
+    public function canCreate(
+        ContainerInterface $container,
+        $requestedName
+    ): bool {
         return class_exists($requestedName);
     }
 
     /**
-     * @inheritdoc
+     * @param ContainerInterface $container
+     * @param class-string       $requestedName
+     * @param array|null         $options
+     *
+     * @return mixed
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
-    {
+    public function __invoke(
+        ContainerInterface $container,
+        $requestedName,
+        array $options = null
+    ) {
         return (new AutoWiringFactory())($container, $requestedName, $options);
     }
 

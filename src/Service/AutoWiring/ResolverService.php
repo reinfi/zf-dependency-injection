@@ -12,6 +12,7 @@ use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Injection\Value;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResolverInterface;
+use Throwable;
 
 /**
  * @package Reinfi\DependencyInjection\Service\AutoWiring
@@ -33,8 +34,8 @@ class ResolverService implements ResolverServiceInterface
     }
 
     /**
-     * @param string     $className
-     * @param null|array $options
+     * @param class-string $className
+     * @param null|array   $options
      *
      * @return InjectionInterface[]
      */
@@ -68,8 +69,10 @@ class ResolverService implements ResolverServiceInterface
         ?array $options = null
     ): InjectionInterface {
 
+        $options = $options ?: [];
+
         // Don't try to resolve parameters present in the options array using reflections
-        if (array_key_exists($parameter->getName(), $options ?? [])) {
+        if (array_key_exists($parameter->getName(), $options)) {
             return new Value($options[$parameter->getName()]);
         }
 
@@ -81,7 +84,7 @@ class ResolverService implements ResolverServiceInterface
             }
         }
 
-        $this->handleUnresolvedParameter($parameter);
+        throw $this->handleUnresolvedParameter($parameter);
     }
 
     /**
@@ -91,16 +94,16 @@ class ResolverService implements ResolverServiceInterface
      */
     private function handleUnresolvedParameter(
         ReflectionParameter $parameter
-    ): void {
+    ): Throwable {
         if (!$parameter->hasType()) {
-            throw AutoWiringNotPossibleException::fromMissingTypeHint(
+            return AutoWiringNotPossibleException::fromMissingTypeHint(
                 $parameter
             );
         }
 
         $type = $parameter->getType();
         if ($type === null) {
-            throw AutoWiringNotPossibleException::fromMissingTypeHint(
+            return AutoWiringNotPossibleException::fromMissingTypeHint(
                 $parameter
             );
         }
@@ -110,17 +113,17 @@ class ResolverService implements ResolverServiceInterface
                 throw AutoWiringNotPossibleException::fromBuildInType($parameter);
             }
 
-            throw AutoWiringNotPossibleException::fromClassName(
+            return AutoWiringNotPossibleException::fromClassName(
                 $type->getName(), $parameter->getDeclaringClass()
             );
         }
 
         if ($type instanceof ReflectionUnionType) {
-            throw AutoWiringNotPossibleException::fromUnionType(
+            return AutoWiringNotPossibleException::fromUnionType(
                 $parameter
             );
         }
 
-        throw AutoWiringNotPossibleException::fromParameterName($parameter);
+        return AutoWiringNotPossibleException::fromParameterName($parameter);
     }
 }

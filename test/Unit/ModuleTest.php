@@ -26,19 +26,4 @@ class ModuleTest extends TestCase
             'Modules config should be of type array'
         );
     }
-
-    /**
-     * @test
-     */
-    public function itReturnsConsoleUsage(): void
-    {
-        $module = new Module();
-
-        $consoleAdapter = $this->prophesize(AdapterInterface::class);
-
-        self::assertIsArray(
-            $module->getConsoleUsage($consoleAdapter->reveal()),
-            'Modules console usage should be of type array'
-        );
-    }
 }

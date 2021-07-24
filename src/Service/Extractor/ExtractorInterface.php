@@ -14,14 +14,14 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
 interface ExtractorInterface
 {
     /**
-     * @param string $className
+     * @param class-string $className
      *
      * @return InjectionInterface[]
      */
     public function getPropertiesInjections(string $className): array;
 
     /**
-     * @param string $className
+     * @param class-string $className
      *
      * @return array
      */

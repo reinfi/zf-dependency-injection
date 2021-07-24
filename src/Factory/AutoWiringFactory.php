@@ -14,7 +14,11 @@ use Laminas\ServiceManager\AbstractPluginManager;
 final class AutoWiringFactory extends AbstractFactory
 {
     /**
-     * @inheritDoc
+     * @param \Interop\Container\ContainerInterface $container
+     * @param class-string                          $requestedName
+     * @param array|null                            $options
+     *
+     * @return mixed
      */
     public function __invoke(
         \Interop\Container\ContainerInterface $container,
