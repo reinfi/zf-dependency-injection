@@ -5,6 +5,7 @@
 Configure dependency injection in Laminas or Mezzio using annotations, yaml or autowiring.
 
 Heavily inspired by https://github.com/mikemix/mxdiModule.
+
 =======
 
 1. [Installation](#installation)
