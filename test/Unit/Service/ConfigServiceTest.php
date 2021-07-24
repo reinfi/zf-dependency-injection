@@ -26,7 +26,7 @@ class ConfigServiceTest extends TestCase
 
         $value = $service->resolve('test.value');
 
-        $this->assertEquals(
+        self::assertEquals(
             1,
             $value,
             'Value from config should be equal'
@@ -44,7 +44,7 @@ class ConfigServiceTest extends TestCase
 
         $value = $service->resolve('test.valueNull');
 
-        $this->assertNull(
+        self::assertNull(
             $value,
             'Value from config should be null'
         );

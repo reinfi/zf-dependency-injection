@@ -44,7 +44,7 @@ class InjectFilterTest extends TestCase
         $container->get('FilterManager')
             ->willReturn($pluginManager->reveal());
 
-        $this->assertTrue(
+        self::assertTrue(
             $inject($container->reveal()),
             'Invoke should return true'
         );
@@ -83,7 +83,7 @@ class InjectFilterTest extends TestCase
         $pluginManager->getServiceLocator()
             ->willReturn($container->reveal());
 
-        $this->assertTrue(
+        self::assertTrue(
             $inject($pluginManager->reveal()),
             'Invoke should return true'
         );

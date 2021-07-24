@@ -24,7 +24,7 @@ class TranslatorResolverFactoryTest extends TestCase
 
         $factory = new TranslatorResolverFactory();
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             TranslatorResolver::class,
             $factory($container->reveal())
         );

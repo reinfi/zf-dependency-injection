@@ -27,7 +27,7 @@ class InjectConfigAbstractFactoryTest extends TestCase
             ->prophesize(ServiceLocatorInterface::class)
             ->reveal();
 
-        $this->assertTrue(
+        self::assertTrue(
             $factory->canCreateServiceWithName(
                 $container,
                 'config.reinfi.di.test',
@@ -36,7 +36,7 @@ class InjectConfigAbstractFactoryTest extends TestCase
             'factory should be able to create service'
         );
 
-        $this->assertTrue(
+        self::assertTrue(
             $factory->canCreate(
                 $container,
                 'Config.reinfi.di.test'
@@ -57,7 +57,7 @@ class InjectConfigAbstractFactoryTest extends TestCase
             ->prophesize(ServiceLocatorInterface::class)
             ->reveal();
 
-        $this->assertFalse(
+        self::assertFalse(
             $factory->canCreateServiceWithName(
                 $container,
                 'service.reinfi.di.test',
@@ -66,7 +66,7 @@ class InjectConfigAbstractFactoryTest extends TestCase
             'factory should not be able to create service'
         );
 
-        $this->assertFalse(
+        self::assertFalse(
             $factory->canCreate(
                 $container,
                 'service.reinfi.di.test'
@@ -98,7 +98,7 @@ class InjectConfigAbstractFactoryTest extends TestCase
             'Config.reinfi.di.test'
         );
 
-        $this->assertTrue(
+        self::assertTrue(
             $factory->createServiceWithName(
                 $container->reveal(),
                 'config.reinfi.di.test',

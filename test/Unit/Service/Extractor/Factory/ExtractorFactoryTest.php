@@ -35,7 +35,7 @@ class ExtractorFactoryTest extends TestCase
 
         $factory = new ExtractorFactory();
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             YamlExtractor::class,
             $factory($container->reveal())
         );
@@ -58,7 +58,7 @@ class ExtractorFactoryTest extends TestCase
 
         $factory = new ExtractorFactory();
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             AnnotationExtractor::class,
             $factory($container->reveal())
         );

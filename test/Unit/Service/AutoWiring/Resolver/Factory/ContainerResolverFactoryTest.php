@@ -24,7 +24,7 @@ class ContainerResolverFactoryTest extends TestCase
 
         $factory = new ContainerResolverFactory();
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             ContainerResolver::class,
             $factory($container->reveal())
         );

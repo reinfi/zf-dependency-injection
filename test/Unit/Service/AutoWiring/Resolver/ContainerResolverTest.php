@@ -37,7 +37,7 @@ class ContainerResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertInstanceOf(InjectionInterface::class, $injection);
+        self::assertInstanceOf(InjectionInterface::class, $injection);
     }
 
     /**
@@ -62,7 +62,7 @@ class ContainerResolverTest extends TestCase
         $property = $reflCass->getProperty('serviceName');
         $property->setAccessible(true);
 
-        $this->assertEquals(
+        self::assertEquals(
             Service1::class,
             $property->getValue($injection)
         );
@@ -86,7 +86,7 @@ class ContainerResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertNull($injection);
+        self::assertNull($injection);
     }
 
     /**
@@ -103,6 +103,6 @@ class ContainerResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertNull($injection);
+        self::assertNull($injection);
     }
 }

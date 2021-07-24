@@ -33,7 +33,7 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertInstanceOf(InjectionInterface::class, $injection);
+        self::assertInstanceOf(InjectionInterface::class, $injection);
     }
 
     /**
@@ -48,7 +48,7 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertNull($injection, 'Should be null if parameter has no type');
+        self::assertNull($injection, 'Should be null if parameter has no type');
     }
 
     /**
@@ -67,7 +67,7 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertNull($injection, 'Should be null if parameter is not a buildin type');
+        self::assertNull($injection, 'Should be null if parameter is not a buildin type');
     }
 
     /**
@@ -86,6 +86,6 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertNull($injection, 'Should be null if parameter is not a buildin type');
+        self::assertNull($injection, 'Should be null if parameter is not a buildin type');
     }
 }

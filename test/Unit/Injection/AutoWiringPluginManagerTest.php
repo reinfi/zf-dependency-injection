@@ -39,7 +39,7 @@ class AutoWiringPluginManagerTest extends TestCase
             Service1::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $injection($container->reveal())
         );
@@ -71,7 +71,7 @@ class AutoWiringPluginManagerTest extends TestCase
             Service1::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $injection($otherPluginManager->reveal())
         );

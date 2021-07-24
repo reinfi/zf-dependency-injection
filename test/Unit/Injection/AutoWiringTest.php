@@ -32,7 +32,7 @@ class AutoWiringTest extends TestCase
 
         $injection = new AutoWiring(Service1::class);
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $injection($container->reveal())
         );
@@ -59,7 +59,7 @@ class AutoWiringTest extends TestCase
 
         $injection = new AutoWiring(Service1::class);
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $injection($pluginManager->reveal())
         );

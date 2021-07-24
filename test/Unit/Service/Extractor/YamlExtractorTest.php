@@ -30,7 +30,7 @@ class YamlExtractorTest extends TestCase
 
         $injections = $extractor->getPropertiesInjections(Service1::class);
 
-        $this->assertCount(0, $injections);
+        self::assertCount(0, $injections);
     }
 
     /**
@@ -46,7 +46,7 @@ class YamlExtractorTest extends TestCase
 
         $injections = $extractor->getConstructorInjections(Service1::class);
 
-        $this->assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
+        self::assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
     }
 
     /**
@@ -62,7 +62,7 @@ class YamlExtractorTest extends TestCase
 
         $injections = $extractor->getConstructorInjections(Service1::class);
 
-        $this->assertEquals(
+        self::assertEquals(
             Service2::class,
             $injections[0]->value,
             'First injection should be of type ' . Service2::class
@@ -82,7 +82,7 @@ class YamlExtractorTest extends TestCase
 
         $injections = $extractor->getConstructorInjections('Reinfi\DependencyInjection\Service\ServiceDoctrine');
 
-        $this->assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
+        self::assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
     }
 
     /**
@@ -98,7 +98,7 @@ class YamlExtractorTest extends TestCase
 
         $injections = $extractor->getConstructorInjections(Service2::class);
 
-        $this->assertCount(0, $injections);
+        self::assertCount(0, $injections);
     }
 
     /**

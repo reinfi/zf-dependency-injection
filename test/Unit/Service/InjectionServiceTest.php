@@ -61,7 +61,7 @@ class InjectionServiceTest extends TestCase
             Service1::class
         );
 
-        $this->assertCount(1, $injections);
+        self::assertCount(1, $injections);
     }
 
     /**
@@ -101,7 +101,7 @@ class InjectionServiceTest extends TestCase
             Service1::class
         );
 
-        $this->assertCount(1, $injections);
+        self::assertCount(1, $injections);
     }
 
     /**
@@ -136,7 +136,7 @@ class InjectionServiceTest extends TestCase
             Service1::class
         );
 
-        $this->assertCount(1, $injections);
+        self::assertCount(1, $injections);
     }
 
     /**
@@ -177,7 +177,7 @@ class InjectionServiceTest extends TestCase
             Service1::class
         );
 
-        $this->assertCount(1, $injections);
+        self::assertCount(1, $injections);
     }
 
     /**
@@ -208,6 +208,6 @@ class InjectionServiceTest extends TestCase
             Service2::class
         );
 
-        $this->assertFalse($injections);
+        self::assertFalse($injections);
     }
 }

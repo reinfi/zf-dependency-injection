@@ -56,7 +56,7 @@ class PluginManagerResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertInstanceOf(AutoWiringPluginManager::class, $injection);
+        self::assertInstanceOf(AutoWiringPluginManager::class, $injection);
     }
 
     /**
@@ -88,7 +88,7 @@ class PluginManagerResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertNotNull(
+        self::assertNotNull(
             $injection,
             'injection could not resolved'
         );
@@ -97,7 +97,7 @@ class PluginManagerResolverTest extends TestCase
         $property = $reflectionClass->getProperty('serviceName');
         $property->setAccessible(true);
 
-        $this->assertEquals(
+        self::assertEquals(
             $serviceClass,
             $property->getValue($injection)
         );
@@ -105,7 +105,7 @@ class PluginManagerResolverTest extends TestCase
         $property = $reflectionClass->getProperty('pluginManager');
         $property->setAccessible(true);
 
-        $this->assertEquals(
+        self::assertEquals(
             $pluginManager,
             $property->getValue($injection)
         );
@@ -137,7 +137,7 @@ class PluginManagerResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertNotNull(
+        self::assertNotNull(
             $injection,
             'injection could not resolved'
         );
@@ -146,7 +146,7 @@ class PluginManagerResolverTest extends TestCase
         $property = $reflCass->getProperty('pluginManager');
         $property->setAccessible(true);
 
-        $this->assertEquals(
+        self::assertEquals(
             'InjectionManager',
             $property->getValue($injection)
         );
@@ -165,7 +165,7 @@ class PluginManagerResolverTest extends TestCase
         $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getType()->willReturn($type->reveal());
 
-        $this->assertNull(
+        self::assertNull(
             $resolver->resolve($parameter->reveal()),
             'return value should be null if not found'
         );
@@ -185,7 +185,7 @@ class PluginManagerResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertNull($injection);
+        self::assertNull($injection);
     }
 
     /**

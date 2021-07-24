@@ -39,7 +39,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
             ServiceAnnotation::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             ServiceAnnotation::class,
             $instance
         );
@@ -60,7 +60,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
             ServiceAnnotationConstructor::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             ServiceAnnotationConstructor::class,
             $instance
         );
@@ -87,7 +87,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
             Service3::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service3::class,
             $instance
         );
@@ -108,7 +108,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
             null
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             ServiceAnnotation::class,
             $instance
         );
@@ -134,7 +134,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
             null
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             PluginService::class,
             $instance
         );
@@ -184,7 +184,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
             Service1::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $instance
         );

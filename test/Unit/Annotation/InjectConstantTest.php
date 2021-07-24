@@ -27,6 +27,6 @@ class InjectConstantTest extends TestCase
         $container = $this->prophesize(ContainerInterface::class);
         $container->get(InjectionService::class)->willReturn(true);
 
-        $this->assertSame(Service2::CONSTANT, $injectScalar($container->reveal()));
+        self::assertSame(Service2::CONSTANT, $injectScalar($container->reveal()));
     }
 }

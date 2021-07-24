@@ -45,7 +45,7 @@ class InjectionFactoryTest extends TestCase
                 Service1::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $instance
         );
@@ -73,7 +73,7 @@ class InjectionFactoryTest extends TestCase
             Service1::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $instance
         );
@@ -105,7 +105,7 @@ class InjectionFactoryTest extends TestCase
             Service1::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $instance
         );
@@ -133,7 +133,7 @@ class InjectionFactoryTest extends TestCase
             Service2::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service2::class,
             $instance
         );

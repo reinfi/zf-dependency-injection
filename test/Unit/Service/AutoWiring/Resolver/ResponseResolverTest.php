@@ -33,7 +33,7 @@ class ResponseResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertInstanceOf(AutoWiring::class, $injection);
+        self::assertInstanceOf(AutoWiring::class, $injection);
     }
 
     /**
@@ -51,7 +51,7 @@ class ResponseResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertInstanceOf(AutoWiring::class, $injection);
+        self::assertInstanceOf(AutoWiring::class, $injection);
     }
 
     /**
@@ -66,7 +66,7 @@ class ResponseResolverTest extends TestCase
         $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getType()->willReturn($type->reveal());
 
-        $this->assertNull(
+        self::assertNull(
             $resolver->resolve($parameter->reveal()),
             'return value should be null if not found'
         );
@@ -84,7 +84,7 @@ class ResponseResolverTest extends TestCase
         $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getType()->willReturn($type->reveal());
 
-        $this->assertNull(
+        self::assertNull(
             $resolver->resolve($parameter->reveal()),
             'return value should be null if not found'
         );
@@ -100,7 +100,7 @@ class ResponseResolverTest extends TestCase
         $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getType()->willReturn(null);
 
-        $this->assertNull(
+        self::assertNull(
             $resolver->resolve($parameter->reveal()),
             'return value should be null if not found'
         );

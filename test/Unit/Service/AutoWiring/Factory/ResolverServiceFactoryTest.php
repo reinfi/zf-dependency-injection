@@ -42,7 +42,7 @@ class ResolverServiceFactoryTest extends TestCase
 
         $factory = new ResolverServiceFactory();
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             ResolverService::class,
             $factory($container->reveal()),
             'factory should return instance of ' . ResolverService::class);
@@ -70,7 +70,7 @@ class ResolverServiceFactoryTest extends TestCase
 
         $factory = new ResolverServiceFactory();
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             ResolverService::class,
             $factory($container->reveal()),
             'factory should return instance of ' . ResolverService::class);

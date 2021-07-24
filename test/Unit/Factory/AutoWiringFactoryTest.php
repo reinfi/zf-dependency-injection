@@ -46,7 +46,7 @@ class AutoWiringFactoryTest extends TestCase
                 Service1::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $instance
         );
@@ -73,7 +73,7 @@ class AutoWiringFactoryTest extends TestCase
 
         $instance = $factory($container->reveal(), Service1::class, $options);
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $instance
         );
@@ -102,7 +102,7 @@ class AutoWiringFactoryTest extends TestCase
             Service1::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $instance
         );
@@ -135,7 +135,7 @@ class AutoWiringFactoryTest extends TestCase
             Service1::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $instance
         );
@@ -164,7 +164,7 @@ class AutoWiringFactoryTest extends TestCase
             Service2::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service2::class,
             $instance
         );

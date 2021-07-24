@@ -21,7 +21,7 @@ class ModuleTest extends TestCase
     {
         $module = new Module();
 
-        $this->assertIsArray(
+        self::assertIsArray(
             $module->getConfig(),
             'Modules config should be of type array'
         );
@@ -36,7 +36,7 @@ class ModuleTest extends TestCase
 
         $consoleAdapter = $this->prophesize(AdapterInterface::class);
 
-        $this->assertIsArray(
+        self::assertIsArray(
             $module->getConsoleUsage($consoleAdapter->reveal()),
             'Modules console usage should be of type array'
         );

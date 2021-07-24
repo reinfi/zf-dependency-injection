@@ -39,7 +39,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
             Service1::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $instance
         );
@@ -60,7 +60,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
             ServiceContainer::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             ServiceContainer::class,
             $instance
         );
@@ -81,7 +81,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
             Service3::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service3::class,
             $instance
         );
@@ -102,7 +102,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
             ServiceBuildInTypeWithDefault::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             ServiceBuildInTypeWithDefault::class,
             $instance
         );
@@ -123,7 +123,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
             ServiceBuildInTypeWithDefaultUsingConstant::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             ServiceBuildInTypeWithDefaultUsingConstant::class,
             $instance
         );
@@ -152,7 +152,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
             null
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             PluginService::class,
             $instance
         );

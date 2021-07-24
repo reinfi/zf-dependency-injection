@@ -39,8 +39,8 @@ class AnnotationExtractorTest extends TestCase
 
         $injections = $extractor->getPropertiesInjections(ServiceAnnotation::class);
 
-        $this->assertCount(3, $injections);
-        $this->assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
+        self::assertCount(3, $injections);
+        self::assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
     }
 
     /**
@@ -60,8 +60,8 @@ class AnnotationExtractorTest extends TestCase
 
         $injections = $extractor->getConstructorInjections(ServiceAnnotation::class);
 
-        $this->assertCount(1, $injections);
-        $this->assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
+        self::assertCount(1, $injections);
+        self::assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
     }
 
     /**
@@ -75,7 +75,7 @@ class AnnotationExtractorTest extends TestCase
 
         $injections = $extractor->getConstructorInjections(Service2::class);
 
-        $this->assertCount(0, $injections);
+        self::assertCount(0, $injections);
     }
 
     /**
@@ -93,6 +93,6 @@ class AnnotationExtractorTest extends TestCase
 
         $injections = $extractor->getConstructorInjections(Service1::class);
 
-        $this->assertCount(0, $injections);
+        self::assertCount(0, $injections);
     }
 }

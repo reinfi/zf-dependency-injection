@@ -34,7 +34,7 @@ class ContainerInterfaceResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertInstanceOf(InjectionInterface::class, $injection);
+        self::assertInstanceOf(InjectionInterface::class, $injection);
     }
 
     /**
@@ -51,7 +51,7 @@ class ContainerInterfaceResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertInstanceOf(InjectionInterface::class, $injection);
+        self::assertInstanceOf(InjectionInterface::class, $injection);
     }
 
     /**
@@ -67,7 +67,7 @@ class ContainerInterfaceResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertNull($injection);
+        self::assertNull($injection);
     }
 
     /**
@@ -84,7 +84,7 @@ class ContainerInterfaceResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertNull($injection);
+        self::assertNull($injection);
     }
 
     /**
@@ -101,7 +101,7 @@ class ContainerInterfaceResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertNull($injection);
+        self::assertNull($injection);
     }
 
     /**
@@ -116,6 +116,6 @@ class ContainerInterfaceResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertNull($injection);
+        self::assertNull($injection);
     }
 }

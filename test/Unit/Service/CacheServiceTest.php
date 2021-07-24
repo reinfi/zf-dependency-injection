@@ -41,7 +41,7 @@ class CacheServiceTest extends TestCase
 
         $result = call_user_func_array([$service, $method], $params);
 
-        $this->assertEquals(
+        self::assertEquals(
             $returnValue,
             $result,
             'Return value ' . json_encode($result) . ' does not match expected ' . json_encode($returnValue)
@@ -60,7 +60,7 @@ class CacheServiceTest extends TestCase
         $service = new CacheService($cache->reveal());
         $return = $service->setOptions([]);
 
-        $this->assertEquals(
+        self::assertEquals(
             $service,
             $return
         );

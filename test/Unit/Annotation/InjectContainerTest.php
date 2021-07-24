@@ -23,7 +23,7 @@ class InjectContainerTest extends TestCase
 
         $container = $this->prophesize(ContainerInterface::class);
 
-        $this->assertEquals(
+        self::assertEquals(
             $container->reveal(),
             $inject($container->reveal()),
             'Invoke should return provided container'

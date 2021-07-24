@@ -52,7 +52,7 @@ class CacheWarmupControllerFactoryTest extends TestCase
 
         $instance = $factory($controllerManager->reveal());
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             CacheWarmupController::class,
             $instance
         );

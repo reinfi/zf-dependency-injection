@@ -59,7 +59,7 @@ class AutoWiringServiceTest extends TestCase
             Service1::class
         );
 
-        $this->assertCount(1, $injections);
+        self::assertCount(1, $injections);
     }
 
     /**
@@ -108,7 +108,7 @@ class AutoWiringServiceTest extends TestCase
             $options
         );
 
-        $this->assertCount(2, $injections);
+        self::assertCount(2, $injections);
     }
 
     /**
@@ -143,7 +143,7 @@ class AutoWiringServiceTest extends TestCase
             Service1::class
         );
 
-        $this->assertCount(1, $injections);
+        self::assertCount(1, $injections);
     }
 
     /**
@@ -192,7 +192,7 @@ class AutoWiringServiceTest extends TestCase
             $options
         );
 
-        $this->assertCount(2, $injections);
+        self::assertCount(2, $injections);
     }
 
     /**
@@ -229,7 +229,7 @@ class AutoWiringServiceTest extends TestCase
             Service1::class
         );
 
-        $this->assertCount(1, $injections);
+        self::assertCount(1, $injections);
     }
 
     /**
@@ -258,7 +258,7 @@ class AutoWiringServiceTest extends TestCase
             Service2::class
         );
 
-        $this->assertNull(
+        self::assertNull(
             $injections,
             'Return value should be null if service has no injections'
         );

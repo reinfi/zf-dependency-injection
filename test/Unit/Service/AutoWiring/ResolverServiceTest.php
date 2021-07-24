@@ -39,8 +39,8 @@ class ResolverServiceTest extends TestCase
 
         $injections = $service->resolve(Service1::class);
 
-        $this->assertCount(3, $injections);
-        $this->assertContainsOnlyInstancesOf(
+        self::assertCount(3, $injections);
+        self::assertContainsOnlyInstancesOf(
             InjectionInterface::class, $injections
         );
     }
@@ -60,11 +60,11 @@ class ResolverServiceTest extends TestCase
 
         $injections = $service->resolve(Service1::class, ['foo' => 'bar']);
 
-        $this->assertCount(3, $injections);
-        $this->assertContainsOnlyInstancesOf(
+        self::assertCount(3, $injections);
+        self::assertContainsOnlyInstancesOf(
             InjectionInterface::class, $injections
         );
-        $this->assertSame(
+        self::assertSame(
             'bar',
             $injections[2]($this->prophesize(ContainerInterface::class)->reveal())
         );
@@ -81,7 +81,7 @@ class ResolverServiceTest extends TestCase
 
         $injections = $service->resolve(Service2::class);
 
-        $this->assertCount(0, $injections);
+        self::assertCount(0, $injections);
     }
 
     /**
