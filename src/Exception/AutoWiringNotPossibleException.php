@@ -81,22 +81,4 @@ class AutoWiringNotPossibleException extends \Exception
             )
         );
     }
-
-    /**
-     * @param ReflectionParameter $reflParameter
-     *
-     * @return AutoWiringNotPossibleException
-     */
-    public static function fromUnionType(ReflectionParameter $reflParameter): self
-    {
-        $declaringClass = $reflParameter->getDeclaringClass();
-
-        return new self(
-            sprintf(
-                'Could not resolve variable %s as it is of a union type to inject into class %s',
-                $reflParameter->getName(),
-                $declaringClass === null ? '<unknown>' : $declaringClass->getName()
-            )
-        );
-    }
 }

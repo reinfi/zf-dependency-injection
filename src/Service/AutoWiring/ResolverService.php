@@ -7,7 +7,6 @@ namespace Reinfi\DependencyInjection\Service\AutoWiring;
 use ReflectionClass;
 use ReflectionNamedType;
 use ReflectionParameter;
-use ReflectionUnionType;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Injection\Value;
@@ -95,35 +94,19 @@ class ResolverService implements ResolverServiceInterface
     private function handleUnresolvedParameter(
         ReflectionParameter $parameter
     ): Throwable {
-        if (!$parameter->hasType()) {
-            return AutoWiringNotPossibleException::fromMissingTypeHint(
-                $parameter
-            );
-        }
-
         $type = $parameter->getType();
-        if ($type === null) {
+        if (!$type instanceof ReflectionNamedType) {
             return AutoWiringNotPossibleException::fromMissingTypeHint(
                 $parameter
             );
         }
 
-        if ($type instanceof ReflectionNamedType) {
-            if ($type->isBuiltin()) {
-                throw AutoWiringNotPossibleException::fromBuildInType($parameter);
-            }
-
-            return AutoWiringNotPossibleException::fromClassName(
-                $type->getName(), $parameter->getDeclaringClass()
-            );
+        if ($type->isBuiltin()) {
+            throw AutoWiringNotPossibleException::fromBuildInType($parameter);
         }
 
-        if ($type instanceof ReflectionUnionType) {
-            return AutoWiringNotPossibleException::fromUnionType(
-                $parameter
-            );
-        }
-
-        return AutoWiringNotPossibleException::fromParameterName($parameter);
+        return AutoWiringNotPossibleException::fromClassName(
+            $type->getName(), $parameter->getDeclaringClass()
+        );
     }
 }
