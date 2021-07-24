@@ -57,6 +57,18 @@ class PluginManagerResolver implements ResolverInterface
         }
 
         $reflectionClass = new ReflectionClass($type->getName());
+
+        return $this->handleClass($reflectionClass);
+    }
+
+    /**
+     * @param ReflectionClass $reflectionClass
+     *
+     * @return AutoWiringPluginManager|null
+     */
+    private function handleClass(
+        ReflectionClass $reflectionClass
+    ): ?AutoWiringPluginManager {
         $serviceName = $reflectionClass->getName();
 
         $interfaceNames = $reflectionClass->getInterfaceNames();
@@ -66,7 +78,9 @@ class PluginManagerResolver implements ResolverInterface
                 in_array($interfaceName, $interfaceNames)
                 && $this->container->get($pluginManager)->has($serviceName)
             ) {
-                return new AutoWiringPluginManager($pluginManager, $serviceName);
+                return new AutoWiringPluginManager(
+                    $pluginManager, $serviceName
+                );
             }
         }
 
