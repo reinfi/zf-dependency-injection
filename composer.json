@@ -37,14 +37,12 @@
     },
     "suggest": {
         "doctrine/annotations": "To use annotation injections",
-        "laminas/laminas-mvc-console": "To use console warmup command route",
         "symfony/console": "To use console warmup command script",
         "symfony/yaml": "To use the yaml dependency definition"
     },
     "require-dev": {
         "laminas/laminas-config-aggregator": "^1.0",
         "laminas/laminas-mvc": "^2.7 | ^3.0",
-        "laminas/laminas-mvc-console": "^1.2",
         "laminas/laminas-view": "^2.6",
         "laminas/laminas-serializer": "^2.6",
         "laminas/laminas-log": "^2.9",
