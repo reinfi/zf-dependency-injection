@@ -1,25 +1,17 @@
-<phpunit
-        backupStaticAttributes="false"
-        colors="true"
-        convertErrorsToExceptions="true"
-        convertNoticesToExceptions="true"
-        convertWarningsToExceptions="true"
-        processIsolation="false"
-        stopOnFailure="false">
-    <testsuites>
-        <testsuite name='unit'>
-            <directory suffix='.php'>test/Unit</directory>
-        </testsuite>
-        <testsuite name='integration'>
-            <directory suffix='.php'>test/Integration</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="false">
-            <directory suffix=".php">config</directory>
-            <directory suffix=".php">src</directory>
-        </whitelist>
-    </filter>
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupStaticAttributes="false" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false" stopOnFailure="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage processUncoveredFiles="false">
+    <include>
+      <directory suffix=".php">config</directory>
+      <directory suffix=".php">src</directory>
+    </include>
+  </coverage>
+  <testsuites>
+    <testsuite name="unit">
+      <directory suffix=".php">test/Unit</directory>
+    </testsuite>
+    <testsuite name="integration">
+      <directory suffix=".php">test/Integration</directory>
+    </testsuite>
+  </testsuites>
 </phpunit>
-
-
