@@ -34,8 +34,17 @@ class ContainerInterfaceResolver implements ResolverInterface
             return null;
         }
 
-        $reflectionClass = new ReflectionClass($type->getName());
+        return $this->handleClass(new ReflectionClass($type->getName()));
+    }
 
+    /**
+     * @param ReflectionClass $reflectionClass
+     *
+     * @return AutoWiringContainer|null
+     */
+    private function handleClass(
+        ReflectionClass $reflectionClass
+    ): ?AutoWiringContainer {
         if (
             $reflectionClass->isInterface()
             && $reflectionClass->getName() === ContainerInterface::class
