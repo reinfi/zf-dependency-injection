@@ -19,7 +19,7 @@ class InjectConstantTest extends TestCase
     /**
      * @test
      */
-    public function itShouldConvertScalarTypes()
+    public function itShouldConvertScalarTypes(): void
     {
         $injectScalar = new InjectConstant();
         $injectScalar->value = Service2::class . '::CONSTANT';
@@ -27,6 +27,6 @@ class InjectConstantTest extends TestCase
         $container = $this->prophesize(ContainerInterface::class);
         $container->get(InjectionService::class)->willReturn(true);
 
-        $this->assertSame(Service2::CONSTANT, $injectScalar($container->reveal()));
+        self::assertSame(Service2::CONSTANT, $injectScalar($container->reveal()));
     }
 }

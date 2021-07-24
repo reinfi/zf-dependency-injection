@@ -26,7 +26,7 @@ class InjectionServiceTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesConstructorArguments()
+    public function itResolvesConstructorArguments(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
         $extractor = $this->prophesize(ExtractorInterface::class);
@@ -61,13 +61,13 @@ class InjectionServiceTest extends TestCase
             Service1::class
         );
 
-        $this->assertCount(1, $injections);
+        self::assertCount(1, $injections);
     }
 
     /**
      * @test
      */
-    public function itResolvesPropertyInjections()
+    public function itResolvesPropertyInjections(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
         $extractor = $this->prophesize(ExtractorInterface::class);
@@ -101,13 +101,13 @@ class InjectionServiceTest extends TestCase
             Service1::class
         );
 
-        $this->assertCount(1, $injections);
+        self::assertCount(1, $injections);
     }
 
     /**
      * @test
      */
-    public function itUsesCacheItemWhenFound()
+    public function itUsesCacheItemWhenFound(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
         $extrator = $this->prophesize(ExtractorInterface::class);
@@ -136,13 +136,13 @@ class InjectionServiceTest extends TestCase
             Service1::class
         );
 
-        $this->assertCount(1, $injections);
+        self::assertCount(1, $injections);
     }
 
     /**
      * @test
      */
-    public function itUsesExtractorWhenCacheItemIsNotAnArray()
+    public function itUsesExtractorWhenCacheItemIsNotAnArray(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
         $extractor = $this->prophesize(ExtractorInterface::class);
@@ -177,13 +177,13 @@ class InjectionServiceTest extends TestCase
             Service1::class
         );
 
-        $this->assertCount(1, $injections);
+        self::assertCount(1, $injections);
     }
 
     /**
      * @test
      */
-    public function itReturnsFalseWhenNoInjectionsAvaible()
+    public function itReturnsFalseWhenNoInjectionsAvaible(): void
     {
         $cacheKey = $this->buildCacheKey(Service2::class);
         $extractor = $this->prophesize(ExtractorInterface::class);
@@ -208,6 +208,6 @@ class InjectionServiceTest extends TestCase
             Service2::class
         );
 
-        $this->assertFalse($injections);
+        self::assertFalse($injections);
     }
 }

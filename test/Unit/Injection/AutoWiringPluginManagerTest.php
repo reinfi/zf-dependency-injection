@@ -20,7 +20,7 @@ class AutoWiringPluginManagerTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsServiceFromContainer()
+    public function itReturnsServiceFromContainer(): void
     {
         $pluginManager = $this->prophesize(AbstractPluginManager::class);
         $pluginManager->has(Service1::class)
@@ -39,7 +39,7 @@ class AutoWiringPluginManagerTest extends TestCase
             Service1::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $injection($container->reveal())
         );
@@ -48,7 +48,7 @@ class AutoWiringPluginManagerTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsServiceFromParentLocator()
+    public function itReturnsServiceFromParentLocator(): void
     {
         $pluginManager = $this->prophesize(AbstractPluginManager::class);
         $pluginManager->has(Service1::class)
@@ -71,7 +71,7 @@ class AutoWiringPluginManagerTest extends TestCase
             Service1::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $injection($otherPluginManager->reveal())
         );
@@ -80,7 +80,7 @@ class AutoWiringPluginManagerTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfServiceNotFound()
+    public function itThrowsExceptionIfServiceNotFound(): void
     {
         $this->expectException(AutoWiringNotPossibleException::class);
 

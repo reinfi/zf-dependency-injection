@@ -17,13 +17,13 @@ class InjectContainerTest extends TestCase
     /**
      * @test
      */
-    public function itCallsContainerWithValue()
+    public function itCallsContainerWithValue(): void
     {
         $inject = new InjectContainer();
 
         $container = $this->prophesize(ContainerInterface::class);
 
-        $this->assertEquals(
+        self::assertEquals(
             $container->reveal(),
             $inject($container->reveal()),
             'Invoke should return provided container'

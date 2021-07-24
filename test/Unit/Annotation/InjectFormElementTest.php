@@ -27,7 +27,7 @@ class InjectFormElementTest extends TestCase
     public function itCallsPluginManagerWithValue(
         array $values,
         string $className
-    ) {
+    ): void {
         $inject = new InjectFormElement($values);
 
         $pluginManager = $this->prophesize(AbstractPluginManager::class);
@@ -44,7 +44,7 @@ class InjectFormElementTest extends TestCase
         $container->get('FormElementManager')
             ->willReturn($pluginManager->reveal());
 
-        $this->assertTrue(
+        self::assertTrue(
             $inject($container->reveal()),
             'Invoke should return true'
         );
@@ -61,7 +61,7 @@ class InjectFormElementTest extends TestCase
     public function itCallsPluginManagerFromParentServiceLocator(
         array $values,
         string $className
-    ) {
+    ): void {
         $inject = new InjectFormElement($values);
 
         $filterManager = $this->prophesize(AbstractPluginManager::class);
@@ -83,7 +83,7 @@ class InjectFormElementTest extends TestCase
         $pluginManager->getServiceLocator()
             ->willReturn($container->reveal());
 
-        $this->assertTrue(
+        self::assertTrue(
             $inject($pluginManager->reveal()),
             'Invoke should return true'
         );

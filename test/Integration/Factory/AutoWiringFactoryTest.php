@@ -27,7 +27,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceWithDependencies()
+    public function itCreatesServiceWithDependencies(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -39,7 +39,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
             Service1::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service1::class,
             $instance
         );
@@ -48,7 +48,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceWithContainerAsDependency()
+    public function itCreatesServiceWithContainerAsDependency(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -60,7 +60,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
             ServiceContainer::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             ServiceContainer::class,
             $instance
         );
@@ -69,7 +69,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceWithNoDependencies()
+    public function itCreatesServiceWithNoDependencies(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -81,7 +81,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
             Service3::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             Service3::class,
             $instance
         );
@@ -90,7 +90,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceWithBuiltInType()
+    public function itCreatesServiceWithBuiltInType(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -102,7 +102,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
             ServiceBuildInTypeWithDefault::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             ServiceBuildInTypeWithDefault::class,
             $instance
         );
@@ -111,7 +111,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceWithBuiltInTypeUsingConstantAsDefault()
+    public function itCreatesServiceWithBuiltInTypeUsingConstantAsDefault(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -123,7 +123,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
             ServiceBuildInTypeWithDefaultUsingConstant::class
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             ServiceBuildInTypeWithDefaultUsingConstant::class,
             $instance
         );
@@ -132,7 +132,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceFromPluginManager()
+    public function itCreatesServiceFromPluginManager(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -152,7 +152,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
             null
         );
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             PluginService::class,
             $instance
         );
@@ -161,7 +161,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itThrowsExceptionIfServiceNotFound()
+    public function itThrowsExceptionIfServiceNotFound(): void
     {
         $this->expectException(InvalidServiceException::class);
 

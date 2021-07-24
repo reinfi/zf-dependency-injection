@@ -6,10 +6,11 @@ use Laminas\Http\Response;
 use Laminas\Stdlib\ResponseInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
-use ReflectionClass;
+use ReflectionNamedType;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResponseResolver;
+use Reinfi\DependencyInjection\Test\Service\Service1;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver
@@ -21,67 +22,51 @@ class ResponseResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsInjectionInterfaceForResponseInterface()
+    public function itReturnsInjectionInterfaceForResponseInterface(): void
     {
         $resolver = new ResponseResolver();
 
-        $class = $this->prophesize(ReflectionClass::class);
-        $class->getName()->willReturn(Response::class);
-        $class->getInterfaceNames()->willReturn([ ResponseInterface::class ]);
+        $type = $this->prophesize(ReflectionNamedType::class);
+        $type->getName()->willReturn(ResponseInterface::class);
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getClass()->willReturn($class->reveal());
+        $parameter->getType()->willReturn($type->reveal());
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertInstanceOf(AutoWiring::class, $injection);
+        self::assertInstanceOf(AutoWiring::class, $injection);
     }
 
     /**
      * @test
      */
-    public function itReturnsInjectionInterfaceForResponseClass()
+    public function itReturnsInjectionInterfaceForResponseClass(): void
     {
         $resolver = new ResponseResolver();
 
-        $class = new ReflectionClass(Response::class);
+
+        $type = $this->prophesize(ReflectionNamedType::class);
+        $type->getName()->willReturn(Response::class);
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getClass()->willReturn($class);
+        $parameter->getType()->willReturn($type->reveal());
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertInstanceOf(AutoWiring::class, $injection);
+        self::assertInstanceOf(AutoWiring::class, $injection);
     }
 
     /**
      * @test
      */
-    public function itReturnsInjectionInterfaceForResponseInterfaceAsTypeHint()
+    public function itReturnsNullIfNoResponse(): void
     {
         $resolver = new ResponseResolver();
 
-        $class = new ReflectionClass(ResponseInterface::class);
+        $type = $this->prophesize(ReflectionNamedType::class);
+        $type->getName()->willReturn(Service1::class);
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getClass()->willReturn($class);
+        $parameter->getType()->willReturn($type->reveal());
 
-        $injection = $resolver->resolve($parameter->reveal());
-
-        $this->assertInstanceOf(AutoWiring::class, $injection);
-    }
-
-    /**
-     * @test
-     */
-    public function itReturnsNullIfNoResponse()
-    {
-        $resolver = new ResponseResolver();
-
-        $class = $this->prophesize(ReflectionClass::class);
-        $class->getName()->willReturn('');
-        $class->getInterfaceNames()->willReturn([]);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getClass()->willReturn($class->reveal());
-
-        $this->assertNull(
+        self::assertNull(
             $resolver->resolve($parameter->reveal()),
             'return value should be null if not found'
         );
@@ -90,14 +75,32 @@ class ResponseResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfParameterHasNoClass()
+    public function itReturnsNullIfClassDoesNotExists(): void
+    {
+        $resolver = new ResponseResolver();
+
+        $type = $this->prophesize(ReflectionNamedType::class);
+        $type->getName()->willReturn('ServiceWhichDoesNotExists');
+        $parameter = $this->prophesize(ReflectionParameter::class);
+        $parameter->getType()->willReturn($type->reveal());
+
+        self::assertNull(
+            $resolver->resolve($parameter->reveal()),
+            'return value should be null if not found'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itReturnsNullIfParameterHasNoClass(): void
     {
         $resolver = new ResponseResolver();
 
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getClass()->willReturn(null);
+        $parameter->getType()->willReturn(null);
 
-        $this->assertNull(
+        self::assertNull(
             $resolver->resolve($parameter->reveal()),
             'return value should be null if not found'
         );

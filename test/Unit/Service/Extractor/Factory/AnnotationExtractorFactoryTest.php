@@ -18,13 +18,13 @@ class AnnotationExtractorFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsAnnotationExtractor()
+    public function itReturnsAnnotationExtractor(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
         $factory = new AnnotationExtractorFactory();
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             AnnotationExtractor::class,
             $factory($container->reveal())
         );

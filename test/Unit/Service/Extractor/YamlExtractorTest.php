@@ -20,7 +20,7 @@ class YamlExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itShouldReturnEmptyArrayForPropertyInjections()
+    public function itShouldReturnEmptyArrayForPropertyInjections(): void
     {
         $extractor = new YamlExtractor(
             new Yaml(),
@@ -30,13 +30,13 @@ class YamlExtractorTest extends TestCase
 
         $injections = $extractor->getPropertiesInjections(Service1::class);
 
-        $this->assertCount(0, $injections);
+        self::assertCount(0, $injections);
     }
 
     /**
      * @test
      */
-    public function itShouldReturnInjections()
+    public function itShouldReturnInjections(): void
     {
         $extractor = new YamlExtractor(
             new Yaml(),
@@ -46,13 +46,13 @@ class YamlExtractorTest extends TestCase
 
         $injections = $extractor->getConstructorInjections(Service1::class);
 
-        $this->assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
+        self::assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
     }
 
     /**
      * @test
      */
-    public function itShouldSetRequiredInjectionProperties()
+    public function itShouldSetRequiredInjectionProperties(): void
     {
         $extractor = new YamlExtractor(
             new Yaml(),
@@ -62,7 +62,7 @@ class YamlExtractorTest extends TestCase
 
         $injections = $extractor->getConstructorInjections(Service1::class);
 
-        $this->assertEquals(
+        self::assertEquals(
             Service2::class,
             $injections[0]->value,
             'First injection should be of type ' . Service2::class
@@ -72,7 +72,7 @@ class YamlExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itShouldReturnInjectionsIfTypeHasContructorArguments()
+    public function itShouldReturnInjectionsIfTypeHasConstructorArguments(): void
     {
         $extractor = new YamlExtractor(
             new Yaml(),
@@ -82,13 +82,13 @@ class YamlExtractorTest extends TestCase
 
         $injections = $extractor->getConstructorInjections('Reinfi\DependencyInjection\Service\ServiceDoctrine');
 
-        $this->assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
+        self::assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
     }
 
     /**
      * @test
      */
-    public function itShouldReturnNoInjectionsIfNotDefined()
+    public function itShouldReturnNoInjectionsIfNotDefined(): void
     {
         $extractor = new YamlExtractor(
             new Yaml(),
@@ -98,13 +98,13 @@ class YamlExtractorTest extends TestCase
 
         $injections = $extractor->getConstructorInjections(Service2::class);
 
-        $this->assertCount(0, $injections);
+        self::assertCount(0, $injections);
     }
 
     /**
      * @test
      */
-    public function itThrowsExceptionIfConfigurationKeyTypeMisses()
+    public function itThrowsExceptionIfConfigurationKeyTypeMisses(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -120,7 +120,7 @@ class YamlExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfTypeIsUnknown()
+    public function itThrowsExceptionIfTypeIsUnknown(): void
     {
         $this->expectException(InjectionTypeUnknownException::class);
 
@@ -136,7 +136,7 @@ class YamlExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfTypeIsNotOfTypeInjectionInterface()
+    public function itThrowsExceptionIfTypeIsNotOfTypeInjectionInterface(): void
     {
         $this->expectException(InjectionTypeUnknownException::class);
 

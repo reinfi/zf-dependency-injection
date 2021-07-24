@@ -26,7 +26,7 @@ class ResolverServiceFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itCreatesResolverServiceWithDefaultResolvers()
+    public function itCreatesResolverServiceWithDefaultResolvers(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
@@ -42,7 +42,7 @@ class ResolverServiceFactoryTest extends TestCase
 
         $factory = new ResolverServiceFactory();
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             ResolverService::class,
             $factory($container->reveal()),
             'factory should return instance of ' . ResolverService::class);
@@ -51,7 +51,7 @@ class ResolverServiceFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itCreatesResolverServiceWithAdditionalResolvers()
+    public function itCreatesResolverServiceWithAdditionalResolvers(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
@@ -70,7 +70,7 @@ class ResolverServiceFactoryTest extends TestCase
 
         $factory = new ResolverServiceFactory();
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             ResolverService::class,
             $factory($container->reveal()),
             'factory should return instance of ' . ResolverService::class);

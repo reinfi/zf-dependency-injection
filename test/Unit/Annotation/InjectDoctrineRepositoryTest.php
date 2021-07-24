@@ -28,7 +28,7 @@ class InjectDoctrineRepositoryTest extends TestCase
     public function itGetsRepositoryWithoutEntityManagerSet(
         array $values,
         string $repositoryClass
-    ) {
+    ): void {
         $inject = new InjectDoctrineRepository($values);
 
         $repository = $this->prophesize($repositoryClass);
@@ -41,7 +41,7 @@ class InjectDoctrineRepositoryTest extends TestCase
         $container->get('Doctrine\ORM\EntityManager')
             ->willReturn($entityManager->reveal());
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             $repositoryClass,
             $inject($container->reveal()),
             'Should be instance of repositoryClass ' . $repositoryClass
@@ -61,7 +61,7 @@ class InjectDoctrineRepositoryTest extends TestCase
         array $values,
         string $entityManagerIdentifier,
         string $repositoryClass
-    ) {
+    ): void {
         $inject = new InjectDoctrineRepository($values);
 
         $repository = $this->prophesize($repositoryClass);
@@ -74,7 +74,7 @@ class InjectDoctrineRepositoryTest extends TestCase
         $container->get($entityManagerIdentifier)
             ->willReturn($entityManager->reveal());
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             $repositoryClass,
             $inject($container->reveal()),
             'Should be instance of repositoryClass ' . $repositoryClass
@@ -92,7 +92,7 @@ class InjectDoctrineRepositoryTest extends TestCase
     public function itGetsRepositoryFromPluginManager(
         array $values,
         string $repositoryClass
-    ) {
+    ): void {
         $inject = new InjectDoctrineRepository($values);
 
         $repository = $this->prophesize($repositoryClass);
@@ -109,7 +109,7 @@ class InjectDoctrineRepositoryTest extends TestCase
         $pluginManager->getServiceLocator()
             ->willReturn($container->reveal());
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             $repositoryClass,
             $inject($pluginManager->reveal()),
             'Should be instance of repositoryClass ' . $repositoryClass

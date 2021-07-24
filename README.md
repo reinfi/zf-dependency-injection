@@ -4,6 +4,9 @@
 
 Configure dependency injection in Laminas or Mezzio using annotations, yaml or autowiring.
 
+Heavily inspired by https://github.com/mikemix/mxdiModule.
+=======
+
 1. [Installation](#installation)
 2. [AutoWiring](#autowiring)
 3. [Annotations](#annotations)
@@ -150,7 +153,7 @@ To enable YAML usage you need to specify the following configuration
 ```
 ### Caching
 Parsing mapping sources is very heavy. You *should* enable the cache on production servers.
-You can set up caching easily with any custom or pre-existing ZF2 cache adapter.
+You can set up caching easily with any custom or pre-existing Laminas cache adapter.
 ```
 'reinfi.dependencyInjection' => [
     'cache'         => \Laminas\Cache\Storage\Adapter\Memory::class,
@@ -159,13 +162,13 @@ You can set up caching easily with any custom or pre-existing ZF2 cache adapter.
 ]
 ```
 
-You can find more information about available out-of-the-box adapters at the [ZF2 docs site](http://framework.zend.com/manual/current/en/modules/zend.cache.storage.adapter.html).
+You can find more information about available out-of-the-box adapters at the [Laminas docs site](https://docs.laminas.dev/laminas-cache/storage/adapter/).
 
 ### Console commands
-* Warmup cache for ZF2: `php public/index.php reinfi:di cache warmup`
+* Warmup cache for Laminas: `php public/index.php reinfi:di cache warmup`
   Fills the cache with every injection required by a class.
   This can either be via AutoWiringFactory or InjectionFactory.
-* Warmup script for ZF2 or ZF3: php bin/zf-dependency-injection-cache-warmup
+* Warmup script for Laminas: php bin/zf-dependency-injection-cache-warmup
   Fills the cache with every injection required by a class.
   This can either be via AutoWiringFactory or InjectionFactory.
 

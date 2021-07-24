@@ -23,7 +23,7 @@ class CacheServiceFactoryTest extends TestCase
      *
      * @param array $options
      */
-    public function itInstancesCacheService(array $options)
+    public function itInstancesCacheService(array $options): void
     {
         $moduleConfig = $options;
 
@@ -36,7 +36,7 @@ class CacheServiceFactoryTest extends TestCase
 
         $instance = $factory($container->reveal());
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             CacheService::class,
             $instance,
             'factory should return instance of ' . CacheService::class

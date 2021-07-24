@@ -1,7 +1,7 @@
 {
     "name": "reinfi/zf-dependency-injection",
     "type": "library",
-    "description": "A Zend Framework module for loading dependencies via annotation or config entries.",
+    "description": "A Laminas Framework module for loading dependencies via annotation or config entries.",
     "keywords": [
         "zend",
         "dependency",
@@ -23,7 +23,7 @@
         "php": ">=7.3",
         "laminas/laminas-servicemanager": "^2.7 | ^3.0",
         "laminas/laminas-modulemanager": "^2.7",
-        "laminas/laminas-cache": "^2.5"
+        "laminas/laminas-cache": "^2.11"
     },
     "autoload": {
         "psr-4": {
@@ -37,14 +37,12 @@
     },
     "suggest": {
         "doctrine/annotations": "To use annotation injections",
-        "laminas/laminas-mvc-console": "To use console warmup command route",
         "symfony/console": "To use console warmup command script",
         "symfony/yaml": "To use the yaml dependency definition"
     },
     "require-dev": {
         "laminas/laminas-config-aggregator": "^1.0",
         "laminas/laminas-mvc": "^2.7 | ^3.0",
-        "laminas/laminas-mvc-console": "^1.2",
         "laminas/laminas-view": "^2.6",
         "laminas/laminas-serializer": "^2.6",
         "laminas/laminas-log": "^2.9",
@@ -55,7 +53,12 @@
         "symfony/yaml": "^4",
         "friendsofphp/php-cs-fixer": "^2.10",
         "phpstan/phpstan": "^0.12.0",
-        "phpspec/prophecy-phpunit": "^2.0"
+        "phpspec/prophecy-phpunit": "^2.0",
+        "laminas/laminas-hydrator": "^4.2",
+        "laminas/laminas-validator": "^2.14",
+        "laminas/laminas-filter": "^2.11",
+        "laminas/laminas-form": "^3.0",
+        "laminas/laminas-inputfilter": "^2.12"
     },
     "extra": {
         "zf": {

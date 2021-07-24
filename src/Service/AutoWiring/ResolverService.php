@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Service\AutoWiring;
 
 use ReflectionClass;
+use ReflectionNamedType;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Injection\Value;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResolverInterface;
+use Throwable;
 
 /**
  * @package Reinfi\DependencyInjection\Service\AutoWiring
@@ -31,8 +33,8 @@ class ResolverService implements ResolverServiceInterface
     }
 
     /**
-     * @param string     $className
-     * @param null|array $options
+     * @param class-string $className
+     * @param null|array   $options
      *
      * @return InjectionInterface[]
      */
@@ -66,8 +68,10 @@ class ResolverService implements ResolverServiceInterface
         ?array $options = null
     ): InjectionInterface {
 
+        $options = $options ?: [];
+
         // Don't try to resolve parameters present in the options array using reflections
-        if (array_key_exists($parameter->getName(), $options ?? [])) {
+        if (array_key_exists($parameter->getName(), $options)) {
             return new Value($options[$parameter->getName()]);
         }
 
@@ -79,7 +83,7 @@ class ResolverService implements ResolverServiceInterface
             }
         }
 
-        $this->handleUnresolvedParameter($parameter);
+        throw $this->handleUnresolvedParameter($parameter);
     }
 
     /**
@@ -89,23 +93,20 @@ class ResolverService implements ResolverServiceInterface
      */
     private function handleUnresolvedParameter(
         ReflectionParameter $parameter
-    ): void {
-        if (!$parameter->hasType()) {
-            throw AutoWiringNotPossibleException::fromMissingTypeHint(
+    ): Throwable {
+        $type = $parameter->getType();
+        if (!$type instanceof ReflectionNamedType) {
+            return AutoWiringNotPossibleException::fromMissingTypeHint(
                 $parameter
             );
         }
 
-        if ($parameter->getType() !== null && $parameter->getType()->isBuiltin()) {
+        if ($type->isBuiltin()) {
             throw AutoWiringNotPossibleException::fromBuildInType($parameter);
         }
 
-        if ($parameter->getClass() === null) {
-            throw AutoWiringNotPossibleException::fromParameterName($parameter);
-        }
-
-        throw AutoWiringNotPossibleException::fromClassName(
-            $parameter->getClass(), $parameter->getDeclaringClass()
+        return AutoWiringNotPossibleException::fromClassName(
+            $type->getName(), $parameter->getDeclaringClass()
         );
     }
 }

@@ -17,28 +17,13 @@ class ModuleTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsConfig()
+    public function itReturnsConfig(): void
     {
         $module = new Module();
 
-        $this->assertIsArray(
+        self::assertIsArray(
             $module->getConfig(),
             'Modules config should be of type array'
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function itReturnsConsoleUsage()
-    {
-        $module = new Module();
-
-        $consoleAdapter = $this->prophesize(AdapterInterface::class);
-
-        $this->assertIsArray(
-            $module->getConsoleUsage($consoleAdapter->reveal()),
-            'Modules console usage should be of type array'
         );
     }
 }

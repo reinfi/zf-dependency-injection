@@ -18,13 +18,13 @@ class PluginManagerResolverFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsContainerResolver()
+    public function itReturnsPluginManagerResolver(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
         $factory = new PluginManagerResolverFactory();
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             PluginManagerResolver::class,
             $factory($container->reveal())
         );

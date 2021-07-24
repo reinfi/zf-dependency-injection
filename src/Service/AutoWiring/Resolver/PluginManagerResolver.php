@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Service\AutoWiring\Resolver;
 
 use Psr\Container\ContainerInterface;
+use ReflectionClass;
+use ReflectionNamedType;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiringPluginManager;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
@@ -42,11 +44,31 @@ class PluginManagerResolver implements ResolverInterface
      */
     public function resolve(ReflectionParameter $parameter): ?InjectionInterface
     {
-        if ($parameter->getClass() === null) {
+        $type = $parameter->getType();
+        if (!$type instanceof ReflectionNamedType) {
             return null;
         }
 
-        $reflectionClass = $parameter->getClass();
+        if (
+            !class_exists($type->getName())
+            && !interface_exists($type->getName())
+        ) {
+            return null;
+        }
+
+        $reflectionClass = new ReflectionClass($type->getName());
+
+        return $this->handleClass($reflectionClass);
+    }
+
+    /**
+     * @param ReflectionClass $reflectionClass
+     *
+     * @return AutoWiringPluginManager|null
+     */
+    private function handleClass(
+        ReflectionClass $reflectionClass
+    ): ?AutoWiringPluginManager {
         $serviceName = $reflectionClass->getName();
 
         $interfaceNames = $reflectionClass->getInterfaceNames();
@@ -56,7 +78,9 @@ class PluginManagerResolver implements ResolverInterface
                 in_array($interfaceName, $interfaceNames)
                 && $this->container->get($pluginManager)->has($serviceName)
             ) {
-                return new AutoWiringPluginManager($pluginManager, $serviceName);
+                return new AutoWiringPluginManager(
+                    $pluginManager, $serviceName
+                );
             }
         }
 

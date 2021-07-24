@@ -37,7 +37,7 @@ class CacheWarmupCommandTest extends TestCase
     /**
      * @test
      */
-    public function itWarmsupCacheEntries()
+    public function itWarmsupCacheEntries(): void
     {
         $config = __DIR__ . '/../../resources/application_config.php';
 
@@ -57,7 +57,7 @@ class CacheWarmupCommandTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfPathNotValid()
+    public function itThrowsExceptionIfPathNotValid(): void
     {
         $this->expectException(InvalidArgumentException::class);
 

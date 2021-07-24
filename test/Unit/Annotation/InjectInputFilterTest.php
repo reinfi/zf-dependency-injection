@@ -27,7 +27,7 @@ class InjectInputFilterTest extends TestCase
     public function itCallsPluginManagerWithValue(
         array $values,
         string $className
-    ) {
+    ): void {
         $inject = new InjectInputFilter($values);
 
         $pluginManager = $this->prophesize(AbstractPluginManager::class);
@@ -44,7 +44,7 @@ class InjectInputFilterTest extends TestCase
         $container->get('InputFilterManager')
             ->willReturn($pluginManager->reveal());
 
-        $this->assertTrue(
+        self::assertTrue(
             $inject($container->reveal()),
             'Invoke should return true'
         );
@@ -61,7 +61,7 @@ class InjectInputFilterTest extends TestCase
     public function itCallsPluginManagerFromParentServiceLocator(
         array $values,
         string $className
-    ) {
+    ): void {
         $inject = new InjectInputFilter($values);
 
         $filterManager = $this->prophesize(AbstractPluginManager::class);
@@ -83,7 +83,7 @@ class InjectInputFilterTest extends TestCase
         $pluginManager->getServiceLocator()
             ->willReturn($container->reveal());
 
-        $this->assertTrue(
+        self::assertTrue(
             $inject($pluginManager->reveal()),
             'Invoke should return true'
         );

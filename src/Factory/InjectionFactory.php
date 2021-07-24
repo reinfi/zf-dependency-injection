@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Factory;
 
+use Laminas\ServiceManager\AbstractPluginManager;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\InjectionService;
-use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * @package Reinfi\DependencyInjection\Factory
@@ -14,7 +14,11 @@ use Laminas\ServiceManager\AbstractPluginManager;
 final class InjectionFactory extends AbstractFactory
 {
     /**
-     * @inheritDoc
+     * @param \Interop\Container\ContainerInterface $container
+     * @param class-string                          $requestedName
+     * @param array|null                            $options
+     *
+     * @return mixed
      */
     public function __invoke(
         \Interop\Container\ContainerInterface $container,
@@ -35,8 +39,9 @@ final class InjectionFactory extends AbstractFactory
         return $this->buildInstance($requestedName, $injections);
     }
 
-    private function getInjectionService(ContainerInterface $container): InjectionService
-    {
+    private function getInjectionService(
+        ContainerInterface $container
+    ): InjectionService {
         if ($container instanceof AbstractPluginManager) {
             $container = $container->getServiceLocator();
         }

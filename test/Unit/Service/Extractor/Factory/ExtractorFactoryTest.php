@@ -21,7 +21,7 @@ class ExtractorFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsExtractorDefinedInConfig()
+    public function itReturnsExtractorDefinedInConfig(): void
     {
         $moduleConfig = new Config(['extractor' => YamlExtractor::class]);
 
@@ -35,7 +35,7 @@ class ExtractorFactoryTest extends TestCase
 
         $factory = new ExtractorFactory();
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             YamlExtractor::class,
             $factory($container->reveal())
         );
@@ -44,7 +44,7 @@ class ExtractorFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsAnnotationExtractorIfNoneDefined()
+    public function itReturnsAnnotationExtractorIfNoneDefined(): void
     {
         $moduleConfig = new Config([]);
 
@@ -58,7 +58,7 @@ class ExtractorFactoryTest extends TestCase
 
         $factory = new ExtractorFactory();
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             AnnotationExtractor::class,
             $factory($container->reveal())
         );

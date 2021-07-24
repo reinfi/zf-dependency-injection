@@ -18,7 +18,7 @@ class ConfigServiceTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesConfigPath()
+    public function itResolvesConfigPath(): void
     {
         $config = new Config(require __DIR__ . '/../../resources/config.php');
 
@@ -26,7 +26,7 @@ class ConfigServiceTest extends TestCase
 
         $value = $service->resolve('test.value');
 
-        $this->assertEquals(
+        self::assertEquals(
             1,
             $value,
             'Value from config should be equal'
@@ -36,7 +36,7 @@ class ConfigServiceTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesToNullIfValueNotFound()
+    public function itResolvesToNullIfValueNotFound(): void
     {
         $config = new Config(require __DIR__ . '/../../resources/config.php');
 
@@ -44,7 +44,7 @@ class ConfigServiceTest extends TestCase
 
         $value = $service->resolve('test.valueNull');
 
-        $this->assertNull(
+        self::assertNull(
             $value,
             'Value from config should be null'
         );
@@ -53,7 +53,7 @@ class ConfigServiceTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfValueMustExist()
+    public function itThrowsExceptionIfValueMustExist(): void
     {
         $this->expectException(ConfigPathNotFoundException::class);
 

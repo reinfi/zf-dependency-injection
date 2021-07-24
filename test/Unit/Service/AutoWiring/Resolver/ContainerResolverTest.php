@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use ReflectionClass;
+use ReflectionNamedType;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerResolver;
@@ -21,7 +22,7 @@ class ContainerResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsInjectionInterface()
+    public function itReturnsInjectionInterface(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(Service1::class)
@@ -29,20 +30,20 @@ class ContainerResolverTest extends TestCase
 
         $resolver = new ContainerResolver($container->reveal());
 
-        $class = $this->prophesize(ReflectionClass::class);
-        $class->getName()->willReturn(Service1::class);
+        $type = $this->prophesize(ReflectionNamedType::class);
+        $type->getName()->willReturn(Service1::class);
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getClass()->willReturn($class->reveal());
+        $parameter->getType()->willReturn($type->reveal());
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertInstanceOf(InjectionInterface::class, $injection);
+        self::assertInstanceOf(InjectionInterface::class, $injection);
     }
 
     /**
      * @test
      */
-    public function itReturnsClassName()
+    public function itReturnsClassName(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(Service1::class)
@@ -50,10 +51,10 @@ class ContainerResolverTest extends TestCase
 
         $resolver = new ContainerResolver($container->reveal());
 
-        $class = $this->prophesize(ReflectionClass::class);
-        $class->getName()->willReturn(Service1::class);
+        $type = $this->prophesize(ReflectionNamedType::class);
+        $type->getName()->willReturn(Service1::class);
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getClass()->willReturn($class->reveal());
+        $parameter->getType()->willReturn($type->reveal());
 
         $injection = $resolver->resolve($parameter->reveal());
 
@@ -61,7 +62,7 @@ class ContainerResolverTest extends TestCase
         $property = $reflCass->getProperty('serviceName');
         $property->setAccessible(true);
 
-        $this->assertEquals(
+        self::assertEquals(
             Service1::class,
             $property->getValue($injection)
         );
@@ -70,7 +71,7 @@ class ContainerResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfServiceNotFound()
+    public function itReturnsNullIfServiceNotFound(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(Service1::class)
@@ -78,30 +79,30 @@ class ContainerResolverTest extends TestCase
 
         $resolver = new ContainerResolver($container->reveal());
 
-        $class = $this->prophesize(ReflectionClass::class);
-        $class->getName()->willReturn(Service1::class);
+        $type = $this->prophesize(ReflectionNamedType::class);
+        $type->getName()->willReturn(Service1::class);
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getClass()->willReturn($class->reveal());
+        $parameter->getType()->willReturn($type->reveal());
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertNull($injection);
+        self::assertNull($injection);
     }
 
     /**
      * @test
      */
-    public function itReturnsNullIfParameterHasNoClass()
+    public function itReturnsNullIfParameterHasNoType(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
         $resolver = new ContainerResolver($container->reveal());
 
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getClass()->willReturn(null);
+        $parameter->getType()->willReturn(null);
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        $this->assertNull($injection);
+        self::assertNull($injection);
     }
 }

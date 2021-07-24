@@ -26,7 +26,7 @@ class AutoWiringServiceTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesConstructorArguments()
+    public function itResolvesConstructorArguments(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
         $resolver = $this->prophesize(ResolverService::class);
@@ -59,13 +59,13 @@ class AutoWiringServiceTest extends TestCase
             Service1::class
         );
 
-        $this->assertCount(1, $injections);
+        self::assertCount(1, $injections);
     }
 
     /**
      * @test
      */
-    public function itResolvesConstructorArgumentsWithOptions()
+    public function itResolvesConstructorArgumentsWithOptions(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
         $resolver = $this->prophesize(ResolverService::class);
@@ -108,13 +108,13 @@ class AutoWiringServiceTest extends TestCase
             $options
         );
 
-        $this->assertCount(2, $injections);
+        self::assertCount(2, $injections);
     }
 
     /**
      * @test
      */
-    public function itUsesCacheItemWhenFound()
+    public function itUsesCacheItemWhenFound(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
         $resolverService = $this->prophesize(ResolverService::class);
@@ -143,13 +143,13 @@ class AutoWiringServiceTest extends TestCase
             Service1::class
         );
 
-        $this->assertCount(1, $injections);
+        self::assertCount(1, $injections);
     }
 
     /**
      * @test
      */
-    public function itDoesNotCacheOptions()
+    public function itDoesNotCacheOptions(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
         $resolverService = $this->prophesize(ResolverService::class);
@@ -192,13 +192,13 @@ class AutoWiringServiceTest extends TestCase
             $options
         );
 
-        $this->assertCount(2, $injections);
+        self::assertCount(2, $injections);
     }
 
     /**
      * @test
      */
-    public function itUsesResolverWhenCacheItemIsNotAnArray()
+    public function itUsesResolverWhenCacheItemIsNotAnArray(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
         $resolverService = $this->prophesize(ResolverService::class);
@@ -229,13 +229,13 @@ class AutoWiringServiceTest extends TestCase
             Service1::class
         );
 
-        $this->assertCount(1, $injections);
+        self::assertCount(1, $injections);
     }
 
     /**
      * @test
      */
-    public function itReturnsFalseWhenNoInjectionsAvaible()
+    public function itReturnsFalseWhenNoInjectionsAvailable(): void
     {
         $cacheKey = $this->buildCacheKey(Service2::class);
         $resolverService = $this->prophesize(ResolverService::class);
@@ -258,7 +258,7 @@ class AutoWiringServiceTest extends TestCase
             Service2::class
         );
 
-        $this->assertNull(
+        self::assertNull(
             $injections,
             'Return value should be null if service has no injections'
         );

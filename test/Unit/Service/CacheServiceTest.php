@@ -31,7 +31,7 @@ class CacheServiceTest extends TestCase
         array $arguments,
         $params,
         $returnValue
-    ) {
+    ): void {
         $cache = $this->prophesize(StorageInterface::class);
         $methodProphecy = new MethodProphecy($cache, $method, $arguments);
         $methodProphecy->willReturn($returnValue);
@@ -41,7 +41,7 @@ class CacheServiceTest extends TestCase
 
         $result = call_user_func_array([$service, $method], $params);
 
-        $this->assertEquals(
+        self::assertEquals(
             $returnValue,
             $result,
             'Return value ' . json_encode($result) . ' does not match expected ' . json_encode($returnValue)
@@ -51,7 +51,7 @@ class CacheServiceTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsFluentClassForSetOptions()
+    public function itReturnsFluentClassForSetOptions(): void
     {
         $cache = $this->prophesize(StorageInterface::class);
         $cache->setOptions(Argument::type('array'))
@@ -60,7 +60,7 @@ class CacheServiceTest extends TestCase
         $service = new CacheService($cache->reveal());
         $return = $service->setOptions([]);
 
-        $this->assertEquals(
+        self::assertEquals(
             $service,
             $return
         );

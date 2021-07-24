@@ -18,13 +18,13 @@ class ContainerResolverFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsContainerResolver()
+    public function itReturnsContainerResolver(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
         $factory = new ContainerResolverFactory();
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             ContainerResolver::class,
             $factory($container->reveal())
         );

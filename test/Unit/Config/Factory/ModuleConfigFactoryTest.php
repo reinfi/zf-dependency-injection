@@ -19,7 +19,7 @@ class ModuleConfigFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsModuleConfig()
+    public function itReturnsModuleConfig(): void
     {
         $factory = new ModuleConfigFactory();
 
@@ -27,7 +27,7 @@ class ModuleConfigFactoryTest extends TestCase
         $container->get('config')
             ->willReturn([ ModuleConfig::CONFIG_KEY => [] ]);
 
-        $this->assertIsArray(
+        self::assertIsArray(
             $factory($container->reveal()),
             'Factory should return array'
         );
@@ -36,7 +36,7 @@ class ModuleConfigFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsModuleConfigData()
+    public function itReturnsModuleConfigData(): void
     {
         $factory = new ModuleConfigFactory();
 
@@ -46,7 +46,7 @@ class ModuleConfigFactoryTest extends TestCase
 
         $config = $factory($container->reveal());
 
-        $this->assertArrayHasKey(
+        self::assertArrayHasKey(
             'extractor',
             $config,
             'Config should contain extractor key'
@@ -56,7 +56,7 @@ class ModuleConfigFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsEmptyConfig()
+    public function itReturnsEmptyConfig(): void
     {
         $factory = new ModuleConfigFactory();
 
@@ -66,7 +66,7 @@ class ModuleConfigFactoryTest extends TestCase
 
         $config = $factory($container->reveal());
 
-        $this->assertCount(
+        self::assertCount(
             0,
             $config,
             'Config should be empty'
@@ -76,7 +76,7 @@ class ModuleConfigFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfModuleConfigIsNotArray()
+    public function itThrowsExceptionIfModuleConfigIsNotArray(): void
     {
         $this->expectException(InvalidArgumentException::class);
 

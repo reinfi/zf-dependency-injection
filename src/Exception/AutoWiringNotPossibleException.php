@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Exception;
 
+use ReflectionParameter;
+
 /**
  * @codeCoverageIgnore
  *
@@ -12,11 +14,11 @@ namespace Reinfi\DependencyInjection\Exception;
 class AutoWiringNotPossibleException extends \Exception
 {
     /**
-     * @param \ReflectionParameter $reflParameter
+     * @param ReflectionParameter $reflParameter
      *
      * @return AutoWiringNotPossibleException
      */
-    public static function fromParameterName(\ReflectionParameter $reflParameter): self
+    public static function fromParameterName(ReflectionParameter $reflParameter): self
     {
         return new self(
             sprintf(
@@ -27,29 +29,29 @@ class AutoWiringNotPossibleException extends \Exception
     }
 
     /**
-     * @param \ReflectionClass $reflClass
+     * @param string $className
      * @param \ReflectionClass|null $constructedClass
      *
      * @return AutoWiringNotPossibleException
      */
-    public static function fromClassName(\ReflectionClass $reflClass, ?\ReflectionClass $constructedClass): self
+    public static function fromClassName(string $className, ?\ReflectionClass $constructedClass): self
     {
         return new self(
             sprintf(
                 'Could not resolve class %s to inject into class %s',
-                $reflClass->getName(),
+                $className,
                 $constructedClass === null ? '<unknown>' : $constructedClass->getName()
             )
         );
     }
 
     /**
-     * @param \ReflectionParameter $reflParameter
+     * @param ReflectionParameter $reflParameter
      *
      * @return AutoWiringNotPossibleException
      */
     public static function fromMissingTypeHint(
-        \ReflectionParameter $reflParameter
+        ReflectionParameter $reflParameter
     ): self {
         $declaringClass = $reflParameter->getDeclaringClass();
 
@@ -63,11 +65,11 @@ class AutoWiringNotPossibleException extends \Exception
     }
 
     /**
-     * @param \ReflectionParameter $reflParameter
+     * @param ReflectionParameter $reflParameter
      *
      * @return AutoWiringNotPossibleException
      */
-    public static function fromBuildInType(\ReflectionParameter $reflParameter): self
+    public static function fromBuildInType(ReflectionParameter $reflParameter): self
     {
         $declaringClass = $reflParameter->getDeclaringClass();
 

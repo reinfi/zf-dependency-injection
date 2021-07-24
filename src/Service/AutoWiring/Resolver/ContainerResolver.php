@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Service\AutoWiring\Resolver;
 
 use Psr\Container\ContainerInterface;
+use ReflectionNamedType;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
@@ -26,12 +27,13 @@ class ContainerResolver implements ResolverInterface
 
     public function resolve(ReflectionParameter $parameter): ?InjectionInterface
     {
-        if ($parameter->getClass() === null) {
+        $type = $parameter->getType();
+        if (!$type instanceof ReflectionNamedType) {
             return null;
         }
 
-        if ($this->container->has($parameter->getClass()->getName())) {
-            return new AutoWiring($parameter->getClass()->getName());
+        if ($this->container->has($type->getName())) {
+            return new AutoWiring($type->getName());
         }
 
         return null;

@@ -18,7 +18,7 @@ class InjectTest extends TestCase
     /**
      * @test
      */
-    public function itCallsContainerWithValue()
+    public function itCallsContainerWithValue(): void
     {
         $inject = new Inject();
 
@@ -29,7 +29,7 @@ class InjectTest extends TestCase
         $container->get(InjectionService::class)
             ->willReturn(true);
 
-        $this->assertTrue(
+        self::assertTrue(
             $inject($container->reveal()),
             'Invoke should return true'
         );

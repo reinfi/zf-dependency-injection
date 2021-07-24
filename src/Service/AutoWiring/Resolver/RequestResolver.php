@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Service\AutoWiring\Resolver;
 
+use ReflectionClass;
+use ReflectionNamedType;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
@@ -19,11 +21,19 @@ class RequestResolver implements ResolverInterface
      */
     public function resolve(ReflectionParameter $parameter): ?InjectionInterface
     {
-        if ($parameter->getClass() === null) {
+        $type = $parameter->getType();
+        if (!$type instanceof ReflectionNamedType) {
             return null;
         }
 
-        $reflectionClass = $parameter->getClass();
+        if (
+            !class_exists($type->getName())
+            && !interface_exists($type->getName())
+        ) {
+            return null;
+        }
+
+        $reflectionClass = new ReflectionClass($type->getName());
         $interfaceNames = $reflectionClass->getInterfaceNames();
 
         if (

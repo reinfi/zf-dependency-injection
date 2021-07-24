@@ -24,7 +24,7 @@ class AnnotationExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesPropertyAnnotations()
+    public function itResolvesPropertyAnnotations(): void
     {
         $annotation = $this->prophesize(AnnotationInterface::class);
 
@@ -39,14 +39,14 @@ class AnnotationExtractorTest extends TestCase
 
         $injections = $extractor->getPropertiesInjections(ServiceAnnotation::class);
 
-        $this->assertCount(3, $injections);
-        $this->assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
+        self::assertCount(3, $injections);
+        self::assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
     }
 
     /**
      * @test
      */
-    public function itResolvesConstructorAnnotations()
+    public function itResolvesConstructorAnnotations(): void
     {
         $annotation = $this->prophesize(AnnotationInterface::class);
 
@@ -60,14 +60,14 @@ class AnnotationExtractorTest extends TestCase
 
         $injections = $extractor->getConstructorInjections(ServiceAnnotation::class);
 
-        $this->assertCount(1, $injections);
-        $this->assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
+        self::assertCount(1, $injections);
+        self::assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
     }
 
     /**
      * @test
      */
-    public function itReturnsEmptyArrayIfNoConstructorIsDefined()
+    public function itReturnsEmptyArrayIfNoConstructorIsDefined(): void
     {
         $reader = $this->prophesize(AnnotationReader::class);
 
@@ -75,13 +75,13 @@ class AnnotationExtractorTest extends TestCase
 
         $injections = $extractor->getConstructorInjections(Service2::class);
 
-        $this->assertCount(0, $injections);
+        self::assertCount(0, $injections);
     }
 
     /**
      * @test
      */
-    public function itReturnsEmptyArrayIfNoConstructorAnnotationIsDefined()
+    public function itReturnsEmptyArrayIfNoConstructorAnnotationIsDefined(): void
     {
         $reader = $this->prophesize(AnnotationReader::class);
         $reader->getMethodAnnotations(
@@ -93,6 +93,6 @@ class AnnotationExtractorTest extends TestCase
 
         $injections = $extractor->getConstructorInjections(Service1::class);
 
-        $this->assertCount(0, $injections);
+        self::assertCount(0, $injections);
     }
 }
