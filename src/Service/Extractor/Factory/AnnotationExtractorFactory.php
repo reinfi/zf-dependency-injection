@@ -12,9 +12,6 @@ use Reinfi\DependencyInjection\Service\Extractor\AnnotationExtractor;
  */
 class AnnotationExtractorFactory
 {
-    /**
-     * @return AnnotationExtractor
-     */
     public function __invoke(): AnnotationExtractor
     {
         return new AnnotationExtractor(

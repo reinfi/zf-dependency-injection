@@ -23,10 +23,6 @@ class AutoWiringPluginManager implements InjectionInterface
      */
     private $serviceName;
 
-    /**
-     * @param string $pluginManager
-     * @param string $serviceName
-     */
     public function __construct(
         string $pluginManager,
         string $serviceName

@@ -18,11 +18,6 @@ use Laminas\ServiceManager\AbstractPluginManager;
  */
 class CacheWarmupControllerFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return CacheWarmupController
-     */
     public function __invoke(ContainerInterface $container): CacheWarmupController
     {
         if ($container instanceof AbstractPluginManager) {

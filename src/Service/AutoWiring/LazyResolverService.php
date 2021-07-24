@@ -23,9 +23,6 @@ class LazyResolverService implements ResolverServiceInterface
      */
     private $resolverService;
 
-    /**
-     * @param ContainerInterface $container
-     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;

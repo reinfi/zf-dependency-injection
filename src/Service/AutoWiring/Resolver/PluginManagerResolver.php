@@ -34,9 +34,6 @@ class PluginManagerResolver implements ResolverInterface
      */
     private $container;
 
-    /**
-     * @param ContainerInterface $container
-     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -76,10 +73,6 @@ class PluginManagerResolver implements ResolverInterface
         return null;
     }
 
-    /**
-     * @param string $className
-     * @param string $pluginManager
-     */
     public static function addMapping(string $className, string $pluginManager): void
     {
         static::$pluginManagerMapping[$className] = $pluginManager;

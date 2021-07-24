@@ -14,11 +14,6 @@ use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
  */
 class ExtractorFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return ExtractorInterface
-     */
     public function __invoke(ContainerInterface $container): ExtractorInterface
     {
         /** @var array $config */

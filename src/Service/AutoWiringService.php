@@ -27,10 +27,6 @@ class AutoWiringService
      */
     private $cache;
 
-    /**
-     * @param ResolverServiceInterface $resolverService
-     * @param StorageInterface         $cache
-     */
     public function __construct(
         ResolverServiceInterface $resolverService,
         StorageInterface $cache
@@ -65,7 +61,8 @@ class AutoWiringService
     }
 
     /**
-     * @param string $className
+     * @param string     $className
+     * @param array|null $options
      *
      * @return InjectionInterface[]
      */

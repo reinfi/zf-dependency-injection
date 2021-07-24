@@ -15,11 +15,6 @@ use Symfony\Component\Yaml\Yaml;
  */
 class YamlExtractorFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return YamlExtractor
-     */
     public function __invoke(ContainerInterface $container): YamlExtractor
     {
         $yaml = new Yaml();

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Service\Extractor;
 
 use Doctrine\Common\Annotations\AnnotationReader;
+use ReflectionClass;
 use ReflectionMethod;
+use ReflectionProperty;
 use Reinfi\DependencyInjection\Annotation\AnnotationInterface;
 
 /**
@@ -18,9 +20,6 @@ class AnnotationExtractor implements ExtractorInterface
      */
     protected $reader;
 
-    /**
-     * @param AnnotationReader $reader
-     */
     public function __construct(AnnotationReader $reader)
     {
         $this->reader = $reader;
@@ -32,9 +31,9 @@ class AnnotationExtractor implements ExtractorInterface
     public function getPropertiesInjections(string $className): array
     {
         $injections = [];
-        $reflection = new \ReflectionClass($className);
+        $reflection = new ReflectionClass($className);
         foreach ($reflection->getProperties() as $index => $property) {
-            $reflectionProperty = new \ReflectionProperty(
+            $reflectionProperty = new ReflectionProperty(
                 $className,
                 $property->getName()
             );

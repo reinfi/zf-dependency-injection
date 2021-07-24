@@ -15,11 +15,6 @@ use Laminas\Cache\StorageFactory;
  */
 class CacheServiceFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return CacheService
-     */
     public function __invoke(ContainerInterface $container): CacheService
     {
         /** @var array $config */
@@ -40,7 +35,7 @@ class CacheServiceFactory
                 'plugins' => $cachePlugins,
             ]
         );
-        
+
         return new CacheService($cache);
     }
 }

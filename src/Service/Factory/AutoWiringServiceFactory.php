@@ -14,11 +14,6 @@ use Reinfi\DependencyInjection\Service\CacheService;
  */
 class AutoWiringServiceFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return AutoWiringService
-     */
     public function __invoke(ContainerInterface $container): AutoWiringService
     {
         /** @var LazyResolverService $resolverService */
