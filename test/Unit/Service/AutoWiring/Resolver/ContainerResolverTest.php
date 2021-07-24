@@ -92,27 +92,6 @@ class ContainerResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfClassDoesNotExists()
-    {
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->has(Service1::class)
-            ->willReturn(false);
-
-        $resolver = new ContainerResolver($container->reveal());
-
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn('ServiceWhichDoesNotExists');
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
-
-        $injection = $resolver->resolve($parameter->reveal());
-
-        $this->assertNull($injection);
-    }
-
-    /**
-     * @test
-     */
     public function itReturnsNullIfParameterHasNoType()
     {
         $container = $this->prophesize(ContainerInterface::class);

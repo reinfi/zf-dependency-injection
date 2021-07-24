@@ -4,8 +4,8 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
+use ReflectionNamedType;
 use ReflectionParameter;
-use ReflectionType;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\BuildInTypeWithDefaultResolver;
 
@@ -23,11 +23,10 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
-        $type = $this->prophesize(ReflectionType::class);
+        $type = $this->prophesize(ReflectionNamedType::class);
         $type->isBuiltin()->willReturn(true);
 
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->hasType()->willReturn(true);
         $parameter->getType()->willReturn($type->reveal());
         $parameter->isDefaultValueAvailable()->willReturn(true);
         $parameter->getDefaultValue()->willReturn(0)->shouldBeCalled();
@@ -45,7 +44,7 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
         $resolver = new BuildInTypeWithDefaultResolver();
 
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->hasType()->willReturn(false);
+        $parameter->getType()->willReturn(null);
 
         $injection = $resolver->resolve($parameter->reveal());
 
@@ -59,7 +58,7 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
-        $type = $this->prophesize(ReflectionType::class);
+        $type = $this->prophesize(ReflectionNamedType::class);
         $type->isBuiltin()->willReturn(false);
 
         $parameter = $this->prophesize(ReflectionParameter::class);
@@ -78,11 +77,10 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
-        $type = $this->prophesize(ReflectionType::class);
+        $type = $this->prophesize(ReflectionNamedType::class);
         $type->isBuiltin()->willReturn(true);
 
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->hasType()->willReturn(true);
         $parameter->getType()->willReturn($type->reveal());
         $parameter->isDefaultValueAvailable()->willReturn(false);
 

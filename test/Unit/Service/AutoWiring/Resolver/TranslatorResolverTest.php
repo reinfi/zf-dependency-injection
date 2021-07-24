@@ -10,6 +10,7 @@ use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\MethodProphecy;
 use Psr\Container\ContainerInterface;
 use ReflectionClass;
+use ReflectionNamedType;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver;
@@ -34,17 +35,20 @@ class TranslatorResolverTest extends TestCase
 
         foreach ($containerHasCalls as $serviceName => $result) {
             $container->addMethodProphecy(
-                (new MethodProphecy($container, 'has', [ Argument::exact($serviceName) ]))
-                ->willReturn($result)
-                ->shouldBeCalled()
+                (new MethodProphecy(
+                    $container, 'has', [ Argument::exact($serviceName) ]
+                ))
+                    ->willReturn($result)
+                    ->shouldBeCalled()
             );
         }
 
         $resolver = new TranslatorResolver($container->reveal());
 
-        $class = new ReflectionClass(TranslatorInterface::class);
+        $type = $this->prophesize(ReflectionNamedType::class);
+        $type->getName()->willReturn(TranslatorInterface::class);
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getClass()->willReturn($class);
+        $parameter->getType()->willReturn($type->reveal());
 
         $injection = $resolver->resolve($parameter->reveal());
 
@@ -64,15 +68,18 @@ class TranslatorResolverTest extends TestCase
 
         foreach ($containerHasCalls as $serviceName => $result) {
             $container->addMethodProphecy(
-                (new MethodProphecy($container, 'has', [ Argument::exact($serviceName) ]))
+                (new MethodProphecy(
+                    $container, 'has', [ Argument::exact($serviceName) ]
+                ))
                     ->willReturn($result)
             );
         }
         $resolver = new TranslatorResolver($container->reveal());
 
-        $class = new ReflectionClass(Translator::class);
+        $type = $this->prophesize(ReflectionNamedType::class);
+        $type->getName()->willReturn(Translator::class);
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getClass()->willReturn($class);
+        $parameter->getType()->willReturn($type->reveal());
 
         $injection = $resolver->resolve($parameter->reveal());
 
@@ -92,9 +99,10 @@ class TranslatorResolverTest extends TestCase
 
         $resolver = new TranslatorResolver($container->reveal());
 
-        $class = new ReflectionClass(Translator::class);
+        $type = $this->prophesize(ReflectionNamedType::class);
+        $type->getName()->willReturn(Translator::class);
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getClass()->willReturn($class);
+        $parameter->getType()->willReturn($type->reveal());
 
         $this->assertNull(
             $resolver->resolve($parameter->reveal()),
@@ -105,16 +113,18 @@ class TranslatorResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfReflectionParameterHasNoClass()
+    public function itReturnsNullIfReflectionParameterHasNoType()
     {
         $container = $this->prophesize(ContainerInterface::class);
 
-        $container->has(TranslatorInterface::class)->willReturn(false)->shouldNotBeCalled();
+        $container->has(TranslatorInterface::class)->willReturn(
+            false
+        )->shouldNotBeCalled();
 
         $resolver = new TranslatorResolver($container->reveal());
 
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getClass()->willReturn(null);
+        $parameter->getType()->willReturn(null);
 
         $this->assertNull(
             $resolver->resolve($parameter->reveal()),
@@ -131,11 +141,10 @@ class TranslatorResolverTest extends TestCase
 
         $resolver = new TranslatorResolver($container->reveal());
 
-        $class = $this->prophesize(ReflectionClass::class);
-        $class->getName()->willReturn('');
-        $class->getInterfaceNames()->willReturn([]);
+        $type = $this->prophesize(ReflectionNamedType::class);
+        $type->getName()->willReturn('');
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getClass()->willReturn($class->reveal());
+        $parameter->getType()->willReturn($type->reveal());
 
         $this->assertNull(
             $resolver->resolve($parameter->reveal()),
@@ -146,14 +155,14 @@ class TranslatorResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfParameterHasNoClass()
+    public function itReturnsNullIfParameterHasNoType()
     {
         $container = $this->prophesize(ContainerInterface::class);
 
         $resolver = new TranslatorResolver($container->reveal());
 
         $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getClass()->willReturn(null);
+        $parameter->getType()->willReturn(null);
 
         $this->assertNull(
             $resolver->resolve($parameter->reveal()),
@@ -174,15 +183,15 @@ class TranslatorResolverTest extends TestCase
             ],
             [
                 [
-                    'MvcTranslator'                            => false,
+                    'MvcTranslator'                               => false,
                     'Laminas\I18n\Translator\TranslatorInterface' => true,
                 ],
             ],
             [
                 [
-                    'MvcTranslator'                            => false,
+                    'MvcTranslator'                               => false,
                     'Laminas\I18n\Translator\TranslatorInterface' => false,
-                    'Translator'                               => true,
+                    'Translator'                                  => true,
                 ],
             ],
         ];

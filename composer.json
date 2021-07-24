@@ -55,7 +55,12 @@
         "symfony/yaml": "^4",
         "friendsofphp/php-cs-fixer": "^2.10",
         "phpstan/phpstan": "^0.12.0",
-        "phpspec/prophecy-phpunit": "^2.0"
+        "phpspec/prophecy-phpunit": "^2.0",
+        "laminas/laminas-hydrator": "^4.2",
+        "laminas/laminas-validator": "^2.14",
+        "laminas/laminas-filter": "^2.11",
+        "laminas/laminas-form": "^3.0",
+        "laminas/laminas-inputfilter": "^2.12"
     },
     "extra": {
         "zf": {
