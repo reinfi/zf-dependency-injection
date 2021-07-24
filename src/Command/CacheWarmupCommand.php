@@ -25,7 +25,7 @@ class CacheWarmupCommand extends Command
     /**
      * {@inheritDoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('reinfi:di:cache')
@@ -42,7 +42,7 @@ class CacheWarmupCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('Start up application with supplied config...');
 

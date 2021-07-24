@@ -20,19 +20,11 @@ class ContainerResolver implements ResolverInterface
      */
     private $container;
 
-    /**
-     * @param ContainerInterface $container
-     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
-    /**
-     * @param ReflectionParameter $parameter
-     *
-     * @return InjectionInterface|null
-     */
     public function resolve(ReflectionParameter $parameter): ?InjectionInterface
     {
         $type = $parameter->getType();

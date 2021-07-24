@@ -13,11 +13,6 @@ use Laminas\Config\Config;
  */
 class ConfigServiceFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return ConfigService
-     */
     public function __invoke(ContainerInterface $container): ConfigService
     {
         $config = new Config($container->get('config'));

@@ -16,9 +16,6 @@ class CacheService implements StorageInterface
      */
     private $cache;
 
-    /**
-     * @param StorageInterface $cache
-     */
     public function __construct(StorageInterface $cache)
     {
         $this->cache = $cache;
@@ -27,7 +24,7 @@ class CacheService implements StorageInterface
     /**
      * @inheritDoc
      */
-    public function setOptions($options)
+    public function setOptions($options): self
     {
         $this->cache->setOptions($options);
 

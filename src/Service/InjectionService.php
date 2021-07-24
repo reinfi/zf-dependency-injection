@@ -27,10 +27,6 @@ class InjectionService
      */
     private $cache;
 
-    /**
-     * @param ExtractorInterface $extractor
-     * @param StorageInterface   $cache
-     */
     public function __construct(
         ExtractorInterface $extractor,
         StorageInterface $cache

@@ -22,9 +22,9 @@ abstract class AbstractInjectPluginManager extends AbstractAnnotation
     private $name;
 
     /**
-     * @var array
+     * @var array|null
      */
-    private $options;
+    private $options = null;
 
     /**
      * @param array $values

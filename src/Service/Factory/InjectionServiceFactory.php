@@ -16,11 +16,6 @@ use Laminas\Config\Config;
  */
 class InjectionServiceFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return InjectionService
-     */
     public function __invoke(ContainerInterface $container): InjectionService
     {
         /** @var ExtractorInterface $extractor */
