@@ -18,7 +18,7 @@ class ContainerResolverFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsContainerResolver()
+    public function itReturnsContainerResolver(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 

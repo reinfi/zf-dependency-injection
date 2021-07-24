@@ -19,7 +19,7 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsInjectionInterface()
+    public function itReturnsInjectionInterface(): void
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
@@ -39,7 +39,7 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfNoType()
+    public function itReturnsNullIfNoType(): void
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
@@ -54,7 +54,7 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfNoBuildInType()
+    public function itReturnsNullIfNoBuildInType(): void
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
@@ -73,7 +73,7 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfNoDefaultValueAvailable()
+    public function itReturnsNullIfNoDefaultValueAvailable(): void
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 

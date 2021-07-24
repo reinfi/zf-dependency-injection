@@ -26,7 +26,7 @@ class AutoWiringServiceTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesConstructorArguments()
+    public function itResolvesConstructorArguments(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
         $resolver = $this->prophesize(ResolverService::class);
@@ -65,7 +65,7 @@ class AutoWiringServiceTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesConstructorArgumentsWithOptions()
+    public function itResolvesConstructorArgumentsWithOptions(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
         $resolver = $this->prophesize(ResolverService::class);
@@ -114,7 +114,7 @@ class AutoWiringServiceTest extends TestCase
     /**
      * @test
      */
-    public function itUsesCacheItemWhenFound()
+    public function itUsesCacheItemWhenFound(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
         $resolverService = $this->prophesize(ResolverService::class);
@@ -149,7 +149,7 @@ class AutoWiringServiceTest extends TestCase
     /**
      * @test
      */
-    public function itDoesNotCacheOptions()
+    public function itDoesNotCacheOptions(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
         $resolverService = $this->prophesize(ResolverService::class);
@@ -198,7 +198,7 @@ class AutoWiringServiceTest extends TestCase
     /**
      * @test
      */
-    public function itUsesResolverWhenCacheItemIsNotAnArray()
+    public function itUsesResolverWhenCacheItemIsNotAnArray(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
         $resolverService = $this->prophesize(ResolverService::class);
@@ -235,7 +235,7 @@ class AutoWiringServiceTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsFalseWhenNoInjectionsAvaible()
+    public function itReturnsFalseWhenNoInjectionsAvailable(): void
     {
         $cacheKey = $this->buildCacheKey(Service2::class);
         $resolverService = $this->prophesize(ResolverService::class);

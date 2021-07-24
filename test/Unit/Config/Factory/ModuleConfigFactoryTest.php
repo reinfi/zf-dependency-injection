@@ -19,7 +19,7 @@ class ModuleConfigFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsModuleConfig()
+    public function itReturnsModuleConfig(): void
     {
         $factory = new ModuleConfigFactory();
 
@@ -36,7 +36,7 @@ class ModuleConfigFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsModuleConfigData()
+    public function itReturnsModuleConfigData(): void
     {
         $factory = new ModuleConfigFactory();
 
@@ -56,7 +56,7 @@ class ModuleConfigFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsEmptyConfig()
+    public function itReturnsEmptyConfig(): void
     {
         $factory = new ModuleConfigFactory();
 
@@ -76,7 +76,7 @@ class ModuleConfigFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfModuleConfigIsNotArray()
+    public function itThrowsExceptionIfModuleConfigIsNotArray(): void
     {
         $this->expectException(InvalidArgumentException::class);
 

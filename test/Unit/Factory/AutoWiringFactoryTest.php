@@ -25,7 +25,7 @@ class AutoWiringFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itCreatesServiceWithInjections()
+    public function itCreatesServiceWithInjections(): void
     {
         $service = $this->prophesize(AutoWiringService::class);
         $service->resolveConstructorInjection(
@@ -55,7 +55,7 @@ class AutoWiringFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itCreatesServiceWithInjectionsWithOptions()
+    public function itCreatesServiceWithInjectionsWithOptions(): void
     {
         $options = ['foo' => 'bar'];
         $service = $this->prophesize(AutoWiringService::class);
@@ -82,7 +82,7 @@ class AutoWiringFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itCreatesServiceFromCanonicalName()
+    public function itCreatesServiceFromCanonicalName(): void
     {
         $service = $this->prophesize(AutoWiringService::class);
         $service->resolveConstructorInjection(
@@ -111,7 +111,7 @@ class AutoWiringFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itCreatesServiceFromPluginManager()
+    public function itCreatesServiceFromPluginManager(): void
     {
         $service = $this->prophesize(AutoWiringService::class);
         $service->resolveConstructorInjection(
@@ -144,7 +144,7 @@ class AutoWiringFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itCreatesServiceWithNoInjections()
+    public function itCreatesServiceWithNoInjections(): void
     {
         $service = $this->prophesize(AutoWiringService::class);
         $service->resolveConstructorInjection(
@@ -173,7 +173,7 @@ class AutoWiringFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfClassNotSet()
+    public function itThrowsExceptionIfClassNotSet(): void
     {
         $this->expectException(InvalidServiceException::class);
 
@@ -189,7 +189,7 @@ class AutoWiringFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfClassNotFound()
+    public function itThrowsExceptionIfClassNotFound(): void
     {
         $this->expectException(InvalidServiceException::class);
 

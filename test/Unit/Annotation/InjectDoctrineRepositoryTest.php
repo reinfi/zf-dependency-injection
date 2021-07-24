@@ -28,7 +28,7 @@ class InjectDoctrineRepositoryTest extends TestCase
     public function itGetsRepositoryWithoutEntityManagerSet(
         array $values,
         string $repositoryClass
-    ) {
+    ): void {
         $inject = new InjectDoctrineRepository($values);
 
         $repository = $this->prophesize($repositoryClass);
@@ -61,7 +61,7 @@ class InjectDoctrineRepositoryTest extends TestCase
         array $values,
         string $entityManagerIdentifier,
         string $repositoryClass
-    ) {
+    ): void {
         $inject = new InjectDoctrineRepository($values);
 
         $repository = $this->prophesize($repositoryClass);
@@ -92,7 +92,7 @@ class InjectDoctrineRepositoryTest extends TestCase
     public function itGetsRepositoryFromPluginManager(
         array $values,
         string $repositoryClass
-    ) {
+    ): void {
         $inject = new InjectDoctrineRepository($values);
 
         $repository = $this->prophesize($repositoryClass);

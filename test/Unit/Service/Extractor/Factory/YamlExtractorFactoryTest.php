@@ -20,7 +20,7 @@ class YamlExtractorFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsYamlExtractor()
+    public function itReturnsYamlExtractor(): void
     {
         $moduleConfig = new Config(['extractor_options' => [ 'file' => '' ]]);
 

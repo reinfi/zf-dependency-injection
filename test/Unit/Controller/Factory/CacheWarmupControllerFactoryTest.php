@@ -22,7 +22,7 @@ class CacheWarmupControllerFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itCreatesController()
+    public function itCreatesController(): void
     {
         if (!class_exists('Laminas\Mvc\Console\Controller\AbstractConsoleController')) {
             $this->markTestSkipped('Skipped because zend console for zend version 3 is not installed');

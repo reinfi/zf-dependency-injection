@@ -18,7 +18,7 @@ class PluginManagerResolverFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsContainerResolver()
+    public function itReturnsPluginManagerResolver(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 

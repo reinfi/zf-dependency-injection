@@ -23,7 +23,7 @@ class ContainerInterfaceResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsInjectionInterfaceIfIsInterfaceTypeHint()
+    public function itReturnsInjectionInterfaceIfIsInterfaceTypeHint(): void
     {
         $resolver = new ContainerInterfaceResolver();
 
@@ -40,7 +40,7 @@ class ContainerInterfaceResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsInjectionInterfaceIfHasInterfaceImplemented()
+    public function itReturnsInjectionInterfaceIfHasInterfaceImplemented(): void
     {
         $resolver = new ContainerInterfaceResolver();
 
@@ -57,7 +57,7 @@ class ContainerInterfaceResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfIsAbstractPluginManager()
+    public function itReturnsNullIfIsAbstractPluginManager(): void
     {
         $resolver = new ContainerInterfaceResolver();
         $type = $this->prophesize(ReflectionNamedType::class);
@@ -73,7 +73,7 @@ class ContainerInterfaceResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfOtherClass()
+    public function itReturnsNullIfOtherClass(): void
     {
         $resolver = new ContainerInterfaceResolver();
 
@@ -90,7 +90,7 @@ class ContainerInterfaceResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfClassDoesNotExists()
+    public function itReturnsNullIfClassDoesNotExists(): void
     {
         $resolver = new ContainerInterfaceResolver();
 
@@ -107,7 +107,7 @@ class ContainerInterfaceResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfParameterHasNoType()
+    public function itReturnsNullIfParameterHasNoType(): void
     {
         $resolver = new ContainerInterfaceResolver();
 

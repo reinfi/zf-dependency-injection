@@ -9,7 +9,6 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\MethodProphecy;
 use Psr\Container\ContainerInterface;
-use ReflectionClass;
 use ReflectionNamedType;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
@@ -30,7 +29,7 @@ class TranslatorResolverTest extends TestCase
      */
     public function itReturnsInjectionInterfaceForTranslatorInterface(
         array $containerHasCalls
-    ) {
+    ): void {
         $container = $this->prophesize(ContainerInterface::class);
 
         foreach ($containerHasCalls as $serviceName => $result) {
@@ -63,7 +62,7 @@ class TranslatorResolverTest extends TestCase
      */
     public function itReturnsInjectionInterfaceForTranslatorClass(
         array $containerHasCalls
-    ) {
+    ): void {
         $container = $this->prophesize(ContainerInterface::class);
 
         foreach ($containerHasCalls as $serviceName => $result) {
@@ -89,7 +88,7 @@ class TranslatorResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfNoTranslatorRegistered()
+    public function itReturnsNullIfNoTranslatorRegistered(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
@@ -113,7 +112,7 @@ class TranslatorResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfReflectionParameterHasNoType()
+    public function itReturnsNullIfReflectionParameterHasNoType(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
@@ -135,7 +134,7 @@ class TranslatorResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfNoTranslatorInterface()
+    public function itReturnsNullIfNoTranslatorInterface(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
@@ -155,7 +154,7 @@ class TranslatorResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfParameterHasNoType()
+    public function itReturnsNullIfParameterHasNoType(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 

@@ -27,7 +27,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceWithDependencies()
+    public function itCreatesServiceWithDependencies(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -48,7 +48,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceWithDependenciesFromConstructor()
+    public function itCreatesServiceWithDependenciesFromConstructor(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -69,7 +69,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceWithNoInjectionsDefined()
+    public function itCreatesServiceWithNoInjectionsDefined(): void
     {
         $container = $this->getServiceManager([
             'service_manager' => [
@@ -96,7 +96,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceFromCanonicalName()
+    public function itCreatesServiceFromCanonicalName(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -117,7 +117,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceFromPluginManager()
+    public function itCreatesServiceFromPluginManager(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -143,7 +143,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itThrowsExceptionIfServiceNotFound()
+    public function itThrowsExceptionIfServiceNotFound(): void
     {
         $this->expectException(InvalidServiceException::class);
 
@@ -161,7 +161,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itResolvesYamlInjections()
+    public function itResolvesYamlInjections(): void
     {
         $config = ArrayUtils::merge(
             require __DIR__ . '/../../resources/config.php',

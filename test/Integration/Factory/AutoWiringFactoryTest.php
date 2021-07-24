@@ -27,7 +27,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceWithDependencies()
+    public function itCreatesServiceWithDependencies(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -48,7 +48,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceWithContainerAsDependency()
+    public function itCreatesServiceWithContainerAsDependency(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -69,7 +69,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceWithNoDependencies()
+    public function itCreatesServiceWithNoDependencies(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -90,7 +90,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceWithBuiltInType()
+    public function itCreatesServiceWithBuiltInType(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -111,7 +111,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceWithBuiltInTypeUsingConstantAsDefault()
+    public function itCreatesServiceWithBuiltInTypeUsingConstantAsDefault(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -132,7 +132,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itCreatesServiceFromPluginManager()
+    public function itCreatesServiceFromPluginManager(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -161,7 +161,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itThrowsExceptionIfServiceNotFound()
+    public function itThrowsExceptionIfServiceNotFound(): void
     {
         $this->expectException(InvalidServiceException::class);
 

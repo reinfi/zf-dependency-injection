@@ -18,7 +18,7 @@ class InjectConfigAbstractFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itCanCreateServiceWithConfigPattern()
+    public function itCanCreateServiceWithConfigPattern(): void
     {
         $factory = new InjectConfigAbstractFactory();
 
@@ -48,7 +48,7 @@ class InjectConfigAbstractFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itCanNotCreateServiceWithNonConfigPattern()
+    public function itCanNotCreateServiceWithNonConfigPattern(): void
     {
         $factory = new InjectConfigAbstractFactory();
 
@@ -78,7 +78,7 @@ class InjectConfigAbstractFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itCallsConfigServiceForConfigPattern()
+    public function itCallsConfigServiceForConfigPattern(): void
     {
         $factory = new InjectConfigAbstractFactory();
 

@@ -21,7 +21,7 @@ class ExtractorFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsExtractorDefinedInConfig()
+    public function itReturnsExtractorDefinedInConfig(): void
     {
         $moduleConfig = new Config(['extractor' => YamlExtractor::class]);
 
@@ -44,7 +44,7 @@ class ExtractorFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsAnnotationExtractorIfNoneDefined()
+    public function itReturnsAnnotationExtractorIfNoneDefined(): void
     {
         $moduleConfig = new Config([]);
 

@@ -18,7 +18,7 @@ class ConfigServiceTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesConfigPath()
+    public function itResolvesConfigPath(): void
     {
         $config = new Config(require __DIR__ . '/../../resources/config.php');
 
@@ -36,7 +36,7 @@ class ConfigServiceTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesToNullIfValueNotFound()
+    public function itResolvesToNullIfValueNotFound(): void
     {
         $config = new Config(require __DIR__ . '/../../resources/config.php');
 
@@ -53,7 +53,7 @@ class ConfigServiceTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfValueMustExist()
+    public function itThrowsExceptionIfValueMustExist(): void
     {
         $this->expectException(ConfigPathNotFoundException::class);
 

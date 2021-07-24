@@ -38,7 +38,7 @@ class PluginManagerResolverTest extends TestCase
     public function itReturnsInjectionInterfaceForPluginManager(
         string $serviceClass,
         string $pluginManager
-    ) {
+    ): void {
         $pluginManagerClass = $this->prophesize(ContainerInterface::class);
         $pluginManagerClass->has($serviceClass)
             ->willReturn(true);
@@ -70,7 +70,7 @@ class PluginManagerResolverTest extends TestCase
     public function itReturnsServiceAndPluginManager(
         string $serviceClass,
         string $pluginManager
-    ) {
+    ): void {
         $pluginManagerClass = $this->prophesize(ContainerInterface::class);
         $pluginManagerClass->has($serviceClass)
             ->willReturn(true);
@@ -114,7 +114,7 @@ class PluginManagerResolverTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesAdditionalInterfaceMappings()
+    public function itResolvesAdditionalInterfaceMappings(): void
     {
         PluginManagerResolver::addMapping(
             ServiceInterface::class,
@@ -155,7 +155,7 @@ class PluginManagerResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfNoPluginManagerFound()
+    public function itReturnsNullIfNoPluginManagerFound(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
         $resolver = new PluginManagerResolver($container->reveal());
@@ -174,7 +174,7 @@ class PluginManagerResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfParameterHasNoType()
+    public function itReturnsNullIfParameterHasNoType(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 

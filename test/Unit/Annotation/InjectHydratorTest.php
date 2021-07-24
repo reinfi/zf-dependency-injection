@@ -27,7 +27,7 @@ class InjectHydratorTest extends TestCase
     public function itCallsPluginManagerWithValue(
         array $values,
         string $className
-    ) {
+    ): void {
         $inject = new InjectHydrator($values);
 
         $pluginManager = $this->prophesize(AbstractPluginManager::class);
@@ -61,7 +61,7 @@ class InjectHydratorTest extends TestCase
     public function itCallsPluginManagerFromParentServiceLocator(
         array $values,
         string $className
-    ) {
+    ): void {
         $inject = new InjectHydrator($values);
 
         $filterManager = $this->prophesize(AbstractPluginManager::class);

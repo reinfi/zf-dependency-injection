@@ -23,7 +23,7 @@ class CacheServiceFactoryTest extends TestCase
      *
      * @param array $options
      */
-    public function itInstancesCacheService(array $options)
+    public function itInstancesCacheService(array $options): void
     {
         $moduleConfig = $options;
 

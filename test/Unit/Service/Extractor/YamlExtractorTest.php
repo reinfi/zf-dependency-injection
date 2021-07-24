@@ -20,7 +20,7 @@ class YamlExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itShouldReturnEmptyArrayForPropertyInjections()
+    public function itShouldReturnEmptyArrayForPropertyInjections(): void
     {
         $extractor = new YamlExtractor(
             new Yaml(),
@@ -36,7 +36,7 @@ class YamlExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itShouldReturnInjections()
+    public function itShouldReturnInjections(): void
     {
         $extractor = new YamlExtractor(
             new Yaml(),
@@ -52,7 +52,7 @@ class YamlExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itShouldSetRequiredInjectionProperties()
+    public function itShouldSetRequiredInjectionProperties(): void
     {
         $extractor = new YamlExtractor(
             new Yaml(),
@@ -72,7 +72,7 @@ class YamlExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itShouldReturnInjectionsIfTypeHasContructorArguments()
+    public function itShouldReturnInjectionsIfTypeHasConstructorArguments(): void
     {
         $extractor = new YamlExtractor(
             new Yaml(),
@@ -88,7 +88,7 @@ class YamlExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itShouldReturnNoInjectionsIfNotDefined()
+    public function itShouldReturnNoInjectionsIfNotDefined(): void
     {
         $extractor = new YamlExtractor(
             new Yaml(),
@@ -104,7 +104,7 @@ class YamlExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfConfigurationKeyTypeMisses()
+    public function itThrowsExceptionIfConfigurationKeyTypeMisses(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -120,7 +120,7 @@ class YamlExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfTypeIsUnknown()
+    public function itThrowsExceptionIfTypeIsUnknown(): void
     {
         $this->expectException(InjectionTypeUnknownException::class);
 
@@ -136,7 +136,7 @@ class YamlExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfTypeIsNotOfTypeInjectionInterface()
+    public function itThrowsExceptionIfTypeIsNotOfTypeInjectionInterface(): void
     {
         $this->expectException(InjectionTypeUnknownException::class);
 

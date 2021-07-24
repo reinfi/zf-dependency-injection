@@ -27,7 +27,7 @@ class InjectFilterTest extends TestCase
     public function itCallsPluginManagerWithValue(
         array $values,
         string $className
-    ) {
+    ): void {
         $inject = new InjectFilter($values);
 
         $pluginManager = $this->prophesize(AbstractPluginManager::class);
@@ -61,7 +61,7 @@ class InjectFilterTest extends TestCase
     public function itCallsPluginManagerFromParentServiceLocator(
         array $values,
         string $className
-    ) {
+    ): void {
         $inject = new InjectFilter($values);
 
         $filterManager = $this->prophesize(AbstractPluginManager::class);

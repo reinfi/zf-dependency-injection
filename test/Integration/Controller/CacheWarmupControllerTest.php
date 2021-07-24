@@ -23,7 +23,7 @@ class CacheWarmupControllerTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function itWarmsupCacheEntries()
+    public function itWarmsupCacheEntries(): void
     {
         if (!class_exists('Laminas\Mvc\Console\Controller\AbstractConsoleController')) {
             $this->markTestSkipped('Skipped because zend console for zend version 3 is not installed');

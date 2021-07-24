@@ -17,7 +17,7 @@ class AutoWiringContainerTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsContainer()
+    public function itReturnsContainer(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 

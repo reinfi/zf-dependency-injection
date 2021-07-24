@@ -27,7 +27,7 @@ class ResolverServiceTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesConstructorArguments()
+    public function itResolvesConstructorArguments(): void
     {
         $resolver = $this->prophesize(ResolverInterface::class);
         $resolver->resolve(Argument::type(ReflectionParameter::class))
@@ -48,7 +48,7 @@ class ResolverServiceTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesConstructorArgumentsWithOptionsParameter()
+    public function itResolvesConstructorArgumentsWithOptionsParameter(): void
     {
         $resolver = $this->prophesize(ResolverInterface::class);
         $resolver->resolve(Argument::type(ReflectionParameter::class))
@@ -73,7 +73,7 @@ class ResolverServiceTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsEmptyArrayIfNoConstructorArguments()
+    public function itReturnsEmptyArrayIfNoConstructorArguments(): void
     {
         $resolver = $this->prophesize(ResolverInterface::class);
 
@@ -91,7 +91,7 @@ class ResolverServiceTest extends TestCase
      *
      * @param string $serviceName
      */
-    public function itThrowsExceptionIfDependencyCouldNotResolved(string $serviceName)
+    public function itThrowsExceptionIfDependencyCouldNotResolved(string $serviceName): void
     {
         $this->expectException(AutoWiringNotPossibleException::class);
 
@@ -111,7 +111,7 @@ class ResolverServiceTest extends TestCase
      *
      * @param string $serviceName
      */
-    public function itShouldAddTheResolveClassToExceptionIfDependencyCouldNotResolved(string $serviceName)
+    public function itShouldAddTheResolveClassToExceptionIfDependencyCouldNotResolved(string $serviceName): void
     {
         $this->expectExceptionMessage($serviceName);
 
@@ -124,10 +124,7 @@ class ResolverServiceTest extends TestCase
         $service->resolve($serviceName);
     }
 
-    /**
-     * @return array
-     */
-    public function exceptionServiceDataProvider()
+    public function exceptionServiceDataProvider(): array
     {
         return [
             [ Service1::class ],

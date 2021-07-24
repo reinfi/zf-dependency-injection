@@ -31,7 +31,7 @@ class CacheServiceTest extends TestCase
         array $arguments,
         $params,
         $returnValue
-    ) {
+    ): void {
         $cache = $this->prophesize(StorageInterface::class);
         $methodProphecy = new MethodProphecy($cache, $method, $arguments);
         $methodProphecy->willReturn($returnValue);
@@ -51,7 +51,7 @@ class CacheServiceTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsFluentClassForSetOptions()
+    public function itReturnsFluentClassForSetOptions(): void
     {
         $cache = $this->prophesize(StorageInterface::class);
         $cache->setOptions(Argument::type('array'))

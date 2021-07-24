@@ -22,7 +22,7 @@ class ContainerResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsInjectionInterface()
+    public function itReturnsInjectionInterface(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(Service1::class)
@@ -43,7 +43,7 @@ class ContainerResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsClassName()
+    public function itReturnsClassName(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(Service1::class)
@@ -71,7 +71,7 @@ class ContainerResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfServiceNotFound()
+    public function itReturnsNullIfServiceNotFound(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(Service1::class)
@@ -92,7 +92,7 @@ class ContainerResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfParameterHasNoType()
+    public function itReturnsNullIfParameterHasNoType(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 

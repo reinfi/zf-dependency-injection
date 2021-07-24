@@ -22,7 +22,7 @@ class RequestResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsInjectionInterfaceForRequestInterface()
+    public function itReturnsInjectionInterfaceForRequestInterface(): void
     {
         $resolver = new RequestResolver();
 
@@ -39,7 +39,7 @@ class RequestResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsInjectionInterfaceForRequestClass()
+    public function itReturnsInjectionInterfaceForRequestClass(): void
     {
         $resolver = new RequestResolver();
 
@@ -56,7 +56,7 @@ class RequestResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfNoRequest()
+    public function itReturnsNullIfNoRequest(): void
     {
         $resolver = new RequestResolver();
 
@@ -74,7 +74,7 @@ class RequestResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfClassDoesNotExists()
+    public function itReturnsNullIfClassDoesNotExists(): void
     {
         $resolver = new RequestResolver();
 
@@ -92,7 +92,7 @@ class RequestResolverTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsNullIfParameterHasNoClass()
+    public function itReturnsNullIfParameterHasNoClass(): void
     {
         $resolver = new RequestResolver();
 

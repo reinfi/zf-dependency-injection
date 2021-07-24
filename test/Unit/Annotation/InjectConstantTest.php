@@ -19,7 +19,7 @@ class InjectConstantTest extends TestCase
     /**
      * @test
      */
-    public function itShouldConvertScalarTypes()
+    public function itShouldConvertScalarTypes(): void
     {
         $injectScalar = new InjectConstant();
         $injectScalar->value = Service2::class . '::CONSTANT';

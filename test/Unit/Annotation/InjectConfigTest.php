@@ -20,7 +20,7 @@ class InjectConfigTest extends TestCase
     /**
      * @test
      */
-    public function itCallsConfigServiceFromContainerWithValue()
+    public function itCallsConfigServiceFromContainerWithValue(): void
     {
         $inject = new InjectConfig(['value' => 'reinfi.di.test']);
 
@@ -41,7 +41,7 @@ class InjectConfigTest extends TestCase
     /**
      * @test
      */
-    public function itCallsConfigServiceFromPluginManagerWithValue()
+    public function itCallsConfigServiceFromPluginManagerWithValue(): void
     {
         $inject = new InjectConfig(['value' => 'reinfi.di.test']);
 
@@ -66,7 +66,7 @@ class InjectConfigTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsArrayIfPropertyIsSet()
+    public function itReturnsArrayIfPropertyIsSet(): void
     {
         $inject = new InjectConfig(['value' => 'reinfi.di.test', 'asArray' => true]);
 

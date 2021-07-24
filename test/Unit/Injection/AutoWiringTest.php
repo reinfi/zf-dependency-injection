@@ -20,7 +20,7 @@ class AutoWiringTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsServiceFromContainer()
+    public function itReturnsServiceFromContainer(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(Service1::class)
@@ -41,7 +41,7 @@ class AutoWiringTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsServiceFromParentLocator()
+    public function itReturnsServiceFromParentLocator(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(Service1::class)
@@ -68,7 +68,7 @@ class AutoWiringTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfServiceNotFound()
+    public function itThrowsExceptionIfServiceNotFound(): void
     {
         $this->expectException(AutoWiringNotPossibleException::class);
 

@@ -17,7 +17,7 @@ class ModuleTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsConfig()
+    public function itReturnsConfig(): void
     {
         $module = new Module();
 
@@ -30,7 +30,7 @@ class ModuleTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsConsoleUsage()
+    public function itReturnsConsoleUsage(): void
     {
         $module = new Module();
 

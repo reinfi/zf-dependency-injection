@@ -19,7 +19,7 @@ class InjectParentTest extends TestCase
     /**
      * @test
      */
-    public function itCallsContainerWithValue()
+    public function itCallsContainerWithValue(): void
     {
         $inject = new InjectParent();
 
@@ -39,7 +39,7 @@ class InjectParentTest extends TestCase
     /**
      * @test
      */
-    public function itCallsParentContainerWhenPluginManager()
+    public function itCallsParentContainerWhenPluginManager(): void
     {
         $inject = new InjectParent();
 

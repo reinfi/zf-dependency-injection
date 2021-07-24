@@ -21,7 +21,7 @@ class LazyResolverServiceTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesResolverServiceLazy()
+    public function itResolvesResolverServiceLazy(): void
     {
         $resolverService = $this->prophesize(ResolverServiceInterface::class);
         $resolverService->resolve('test', null)
@@ -40,7 +40,7 @@ class LazyResolverServiceTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesResolverServiceLazyWithOptions()
+    public function itResolvesResolverServiceLazyWithOptions(): void
     {
         $options = ['foo' => 'bar'];
 
@@ -61,7 +61,7 @@ class LazyResolverServiceTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesResolverServiceOnlyOnce()
+    public function itResolvesResolverServiceOnlyOnce(): void
     {
         $resolverService = $this->prophesize(ResolverServiceInterface::class);
         $resolverService->resolve('test', null)

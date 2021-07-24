@@ -18,7 +18,7 @@ class InjectTest extends TestCase
     /**
      * @test
      */
-    public function itCallsContainerWithValue()
+    public function itCallsContainerWithValue(): void
     {
         $inject = new Inject();
 

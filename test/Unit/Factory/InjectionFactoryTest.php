@@ -25,7 +25,7 @@ class InjectionFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itCreatesServiceWithInjections()
+    public function itCreatesServiceWithInjections(): void
     {
         $service = $this->prophesize(InjectionService::class);
         $service->resolveConstructorInjection(
@@ -54,7 +54,7 @@ class InjectionFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itCreatesServiceFromCanonicalName()
+    public function itCreatesServiceFromCanonicalName(): void
     {
         $service = $this->prophesize(InjectionService::class);
         $service->resolveConstructorInjection(
@@ -82,7 +82,7 @@ class InjectionFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itCreatesServiceFromPluginManager()
+    public function itCreatesServiceFromPluginManager(): void
     {
         $service = $this->prophesize(InjectionService::class);
         $service->resolveConstructorInjection(
@@ -114,7 +114,7 @@ class InjectionFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itCreatesServiceWithNoInjections()
+    public function itCreatesServiceWithNoInjections(): void
     {
         $service = $this->prophesize(InjectionService::class);
         $service->resolveConstructorInjection(
@@ -142,7 +142,7 @@ class InjectionFactoryTest extends TestCase
     /**
      * @test
      */
-    public function itThrowsExceptionIfClassNotFound()
+    public function itThrowsExceptionIfClassNotFound(): void
     {
         $this->expectException(InvalidServiceException::class);
 

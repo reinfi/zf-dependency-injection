@@ -24,7 +24,7 @@ class AnnotationExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesPropertyAnnotations()
+    public function itResolvesPropertyAnnotations(): void
     {
         $annotation = $this->prophesize(AnnotationInterface::class);
 
@@ -46,7 +46,7 @@ class AnnotationExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itResolvesConstructorAnnotations()
+    public function itResolvesConstructorAnnotations(): void
     {
         $annotation = $this->prophesize(AnnotationInterface::class);
 
@@ -67,7 +67,7 @@ class AnnotationExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsEmptyArrayIfNoConstructorIsDefined()
+    public function itReturnsEmptyArrayIfNoConstructorIsDefined(): void
     {
         $reader = $this->prophesize(AnnotationReader::class);
 
@@ -81,7 +81,7 @@ class AnnotationExtractorTest extends TestCase
     /**
      * @test
      */
-    public function itReturnsEmptyArrayIfNoConstructorAnnotationIsDefined()
+    public function itReturnsEmptyArrayIfNoConstructorAnnotationIsDefined(): void
     {
         $reader = $this->prophesize(AnnotationReader::class);
         $reader->getMethodAnnotations(
