@@ -8,7 +8,6 @@ use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverServiceInterface;
 use Reinfi\DependencyInjection\Traits\CacheKeyTrait;
-use Laminas\Cache\Storage\StorageInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Service
@@ -23,13 +22,13 @@ class AutoWiringService
     private $resolverService;
 
     /**
-     * @var StorageInterface
+     * @var CacheService
      */
     private $cache;
 
     public function __construct(
         ResolverServiceInterface $resolverService,
-        StorageInterface $cache
+        CacheService $cache
     ) {
         $this->resolverService = $resolverService;
         $this->cache = $cache;
@@ -70,8 +69,8 @@ class AutoWiringService
     {
         $cacheKey = $this->buildCacheKey($className);
 
-        if ($options === null && $this->cache->hasItem($cacheKey)) {
-            $cachedItem = $this->cache->getItem($cacheKey);
+        if ($options === null && $this->cache->has($cacheKey)) {
+            $cachedItem = $this->cache->get($cacheKey);
 
             if (is_array($cachedItem)) {
                 return $cachedItem;
@@ -81,7 +80,7 @@ class AutoWiringService
         $injections = $this->resolverService->resolve($className, $options);
 
         if ($options === null) {
-            $this->cache->setItem($cacheKey, $injections);
+            $this->cache->set($cacheKey, $injections);
         }
 
         return $injections;

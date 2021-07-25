@@ -2,7 +2,7 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service\Factory;
 
-use Laminas\Cache\Storage\Adapter\Memory;
+use Cache\Adapter\PHPArray\ArrayCachePool;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
@@ -19,18 +19,13 @@ class CacheServiceFactoryTest extends TestCase
 
     /**
      * @test
-     * @dataProvider cacheServiceOptionsProvider
-     *
-     * @param array $options
      */
-    public function itInstancesCacheService(array $options): void
+    public function itInstancesCacheServiceWithoutConfig(): void
     {
-        $moduleConfig = $options;
-
         $container = $this->prophesize(ContainerInterface::class);
 
         $container->get(ModuleConfig::class)
-            ->willReturn($moduleConfig);
+            ->willReturn([]);
 
         $factory = new CacheServiceFactory();
 
@@ -44,36 +39,49 @@ class CacheServiceFactoryTest extends TestCase
     }
 
     /**
-     * @return array
+     * @test
      */
-    public function cacheServiceOptionsProvider(): array
+    public function itInstancesCacheServiceWithConfigString(): void
     {
-        return [
-            [
-                [],
-            ],
-            [
-                [ 'cache' => Memory::class ],
-            ],
-            [
-                [
-                    'cache'         => Memory::class,
-                    'cache_options' => [],
-                ],
-            ],
-            [
-                [
-                    'cache'         => Memory::class,
-                    'cache_plugins' => [],
-                ],
-            ],
-            [
-                [
-                    'cache'         => Memory::class,
-                    'cache_options' => [],
-                    'cache_plugins' => [],
-                ],
-            ],
-        ];
+        $container = $this->prophesize(ContainerInterface::class);
+
+        $container->get(ModuleConfig::class)
+            ->willReturn(['cache' => ArrayCachePool::class]);
+        $container->get(ArrayCachePool::class)
+            ->willReturn(new ArrayCachePool())
+            ->shouldBeCalled();
+
+        $factory = new CacheServiceFactory();
+
+        $instance = $factory($container->reveal());
+
+        self::assertInstanceOf(
+            CacheService::class,
+            $instance,
+            'factory should return instance of ' . CacheService::class
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itInstancesCacheServiceWithConfigCallable(): void
+    {
+        $container = $this->prophesize(ContainerInterface::class);
+
+        $container->get(ModuleConfig::class)
+            ->willReturn(['cache' => function () {
+                return new ArrayCachePool();
+            }]);
+
+        $factory = new CacheServiceFactory();
+
+        $instance = $factory($container->reveal());
+
+        self::assertInstanceOf(
+            CacheService::class,
+            $instance,
+            'factory should return instance of ' . CacheService::class
+        );
     }
 }

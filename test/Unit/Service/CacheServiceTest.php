@@ -2,11 +2,11 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service;
 
-use Laminas\Cache\Storage\StorageInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\MethodProphecy;
+use Psr\SimpleCache\CacheInterface;
 use Reinfi\DependencyInjection\Service\CacheService;
 
 /**
@@ -32,7 +32,7 @@ class CacheServiceTest extends TestCase
         $params,
         $returnValue
     ): void {
-        $cache = $this->prophesize(StorageInterface::class);
+        $cache = $this->prophesize(CacheInterface::class);
         $methodProphecy = new MethodProphecy($cache, $method, $arguments);
         $methodProphecy->willReturn($returnValue);
         $cache->addMethodProphecy($methodProphecy);
@@ -49,166 +49,28 @@ class CacheServiceTest extends TestCase
     }
 
     /**
-     * @test
-     */
-    public function itReturnsFluentClassForSetOptions(): void
-    {
-        $cache = $this->prophesize(StorageInterface::class);
-        $cache->setOptions(Argument::type('array'))
-            ->willReturn(null);
-
-        $service = new CacheService($cache->reveal());
-        $return = $service->setOptions([]);
-
-        self::assertEquals(
-            $service,
-            $return
-        );
-    }
-
-    /**
      * @return array
      */
     public function getMethodDataProvider(): array
     {
         return [
             [
-                'getOptions',
-                [ Argument::any() ],
-                [  ],
-                [ true ],
-            ],
-            [
-                'getItem',
+                'get',
                 [ Argument::exact('itemKey'), Argument::exact(null), Argument::exact(null) ],
                 [ 'itemKey' ],
-                'cachedItem',
+                ['cachedItem'],
             ],
             [
-                'getItems',
-                [ Argument::type('array') ],
-                [ ['itemKey'] ],
-                [ 'cachedItem' ],
-            ],
-            [
-                'hasItem',
+                'has',
                 [ Argument::exact('itemKey') ],
                 [ 'itemKey' ],
                 true,
             ],
             [
-                'hasItems',
-                [ Argument::type('array') ],
-                [ ['itemKey'] ],
-                [ true ],
-            ],
-            [
-                'getMetadata',
-                [ Argument::exact('itemKey') ],
-                [ 'itemKey' ],
-                [ true ],
-            ],
-            [
-                'getMetadatas',
-                [ Argument::type('array') ],
-                [ ['itemKey'] ],
-                [ true ],
-            ],
-            [
-                'setItem',
-                [ Argument::exact('itemKey'), Argument::exact('itemValue') ],
-                [ 'itemKey', 'itemValue' ],
+                'set',
+                [ Argument::exact('itemKey'), Argument::exact(['itemValue']) ],
+                [ 'itemKey', ['itemValue'] ],
                 true,
-            ],
-            [
-                'setItems',
-                [ Argument::type('array') ],
-                [ ['itemKey' => 'itemValue'] ],
-                [ true ],
-            ],
-            [
-                'addItem',
-                [ Argument::exact('itemKey'), Argument::exact('itemValue') ],
-                [ 'itemKey', 'itemValue' ],
-                true,
-            ],
-            [
-                'addItems',
-                [ Argument::type('array') ],
-                [ ['itemKey' => 'itemValue'] ],
-                [ true ],
-            ],
-            [
-                'replaceItem',
-                [ Argument::exact('itemKey'), Argument::exact('itemValue') ],
-                [ 'itemKey', 'itemValue' ],
-                true,
-            ],
-            [
-                'replaceItems',
-                [ Argument::type('array') ],
-                [ ['itemKey' => 'itemValue'] ],
-                [ true ],
-            ],
-            [
-                'checkAndSetItem',
-                [ Argument::exact('itemToken'), Argument::exact('itemKey'), Argument::exact('itemValue') ],
-                [ 'itemToken', 'itemKey', 'itemValue' ],
-                [ true ],
-            ],
-            [
-                'touchItem',
-                [ Argument::exact('itemKey') ],
-                [ 'itemKey' ],
-                true,
-            ],
-            [
-                'touchItems',
-                [ Argument::type('array') ],
-                [ ['itemKey' => 'itemValue'] ],
-                [ true ],
-            ],
-            [
-                'removeItem',
-                [ Argument::exact('itemKey') ],
-                [ 'itemKey' ],
-                true,
-            ],
-            [
-                'removeItems',
-                [ Argument::type('array') ],
-                [ ['itemKey' => 'itemValue'] ],
-                [ true ],
-            ],
-            [
-                'incrementItem',
-                [ Argument::exact('itemKey'), Argument::exact('itemValue') ],
-                [ 'itemKey', 'itemValue' ],
-                true,
-            ],
-            [
-                'incrementItems',
-                [ Argument::type('array') ],
-                [ ['itemKey' => 'itemValue'] ],
-                [ true ],
-            ],
-            [
-                'decrementItem',
-                [ Argument::exact('itemKey'), Argument::exact('itemValue') ],
-                [ 'itemKey', 'itemValue' ],
-                true,
-            ],
-            [
-                'decrementItems',
-                [ Argument::type('array') ],
-                [ ['itemKey' => 'itemValue'] ],
-                [ true ],
-            ],
-            [
-                'getCapabilities',
-                [ Argument::any() ],
-                [  ],
-                [ true ],
             ],
         ];
     }

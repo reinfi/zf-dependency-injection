@@ -8,7 +8,6 @@ use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
 use Reinfi\DependencyInjection\Traits\CacheKeyTrait;
-use Laminas\Cache\Storage\StorageInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Service
@@ -23,13 +22,13 @@ class InjectionService
     private $extractor;
 
     /**
-     * @var StorageInterface
+     * @var CacheService
      */
     private $cache;
 
     public function __construct(
         ExtractorInterface $extractor,
-        StorageInterface $cache
+        CacheService $cache
     ) {
         $this->extractor = $extractor;
         $this->cache = $cache;
@@ -67,8 +66,8 @@ class InjectionService
     {
         $cacheKey = $this->buildCacheKey($className);
 
-        if ($this->cache->hasItem($cacheKey)) {
-            $cachedItem = $this->cache->getItem($cacheKey);
+        if ($this->cache->has($cacheKey)) {
+            $cachedItem = $this->cache->get($cacheKey);
 
             if (is_array($cachedItem)) {
                 return $cachedItem;
@@ -79,7 +78,7 @@ class InjectionService
             $this->extractor->getPropertiesInjections($className),
             $this->extractor->getConstructorInjections($className)
         );
-        $this->cache->setItem($cacheKey, $injections);
+        $this->cache->set($cacheKey, $injections);
 
         return $injections;
     }
