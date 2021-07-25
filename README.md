@@ -154,21 +154,25 @@ To enable YAML usage you need to specify the following configuration
 ```
 ### Caching
 Parsing mapping sources is very heavy. You *should* enable the cache on production servers.
-You can set up caching easily with any custom or pre-existing Laminas cache adapter.
-```
+You can set up caching easily with any custom or pre-existing PSR-16 cache adapter.
+
+You can provide a string which will be resolved by the container.
+```php
 'reinfi.dependencyInjection' => [
-    'cache'         => \Laminas\Cache\Storage\Adapter\Memory::class,
-    'cache_options' => [],
-    'cache_plugins' => [],
+    'cache' => \Laminas\Cache\Storage\Adapter\Memory::class,
+]
+```
+or you provide a factory for a cache adapter.
+```php
+'reinfi.dependencyInjection' => [
+    'cache' => function() {
+       return new \Laminas\Cache\Storage\Adapter\Memory();
+    },
 ]
 ```
 
-You can find more information about available out-of-the-box adapters at the [Laminas docs site](https://docs.laminas.dev/laminas-cache/storage/adapter/).
 
 ### Console commands
-* Warmup cache for Laminas: `php public/index.php reinfi:di cache warmup`
-  Fills the cache with every injection required by a class.
-  This can either be via AutoWiringFactory or InjectionFactory.
 * Warmup script for Laminas: php bin/zf-dependency-injection-cache-warmup
   Fills the cache with every injection required by a class.
   This can either be via AutoWiringFactory or InjectionFactory.
