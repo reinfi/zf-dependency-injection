@@ -27,24 +27,4 @@ return [
             \Reinfi\DependencyInjection\AbstractFactory\Config\InjectConfigAbstractFactory::class,
         ],
     ],
-    'console'         => [
-        'router' => [
-            'routes' => [
-                'reinfi-di-cache-warmup' => [
-                    'options' => [
-                        'route'    => 'reinfi:di cache warmup',
-                        'defaults' => [
-                            'controller' => \Reinfi\DependencyInjection\Controller\CacheWarmupController::class,
-                            'action'     => 'index',
-                        ],
-                    ],
-                ],
-            ],
-        ],
-    ],
-    'controllers'     => [
-        'factories' => [
-            \Reinfi\DependencyInjection\Controller\CacheWarmupController::class => \Reinfi\DependencyInjection\Controller\Factory\CacheWarmupControllerFactory::class,
-        ],
-    ],
 ];
