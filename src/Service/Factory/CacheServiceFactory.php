@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Service\Factory;
 
-use Cache\Adapter\PHPArray\ArrayCachePool;
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Psr\SimpleCache\CacheInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
+use Reinfi\DependencyInjection\Service\Cache\Memory;
 use Reinfi\DependencyInjection\Service\CacheService;
 
 /**
@@ -25,7 +25,7 @@ class CacheServiceFactory
         $cacheConfigValue = $config['cache'] ?? null;
 
         if ($cacheConfigValue === null) {
-            $cache = new ArrayCachePool();
+            $cache = new Memory();
         }
 
         if (is_string($cacheConfigValue)) {

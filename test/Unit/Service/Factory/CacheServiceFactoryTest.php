@@ -2,11 +2,11 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service\Factory;
 
-use Cache\Adapter\PHPArray\ArrayCachePool;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
+use Reinfi\DependencyInjection\Service\Cache\Memory;
 use Reinfi\DependencyInjection\Service\CacheService;
 use Reinfi\DependencyInjection\Service\Factory\CacheServiceFactory;
 
@@ -46,9 +46,9 @@ class CacheServiceFactoryTest extends TestCase
         $container = $this->prophesize(ContainerInterface::class);
 
         $container->get(ModuleConfig::class)
-            ->willReturn(['cache' => ArrayCachePool::class]);
-        $container->get(ArrayCachePool::class)
-            ->willReturn(new ArrayCachePool())
+            ->willReturn(['cache' => Memory::class]);
+        $container->get(Memory::class)
+            ->willReturn(new Memory())
             ->shouldBeCalled();
 
         $factory = new CacheServiceFactory();
@@ -71,7 +71,7 @@ class CacheServiceFactoryTest extends TestCase
 
         $container->get(ModuleConfig::class)
             ->willReturn(['cache' => function () {
-                return new ArrayCachePool();
+                return new Memory();
             }]);
 
         $factory = new CacheServiceFactory();
