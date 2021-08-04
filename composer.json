@@ -58,7 +58,8 @@
         "laminas/laminas-validator": "^2.14",
         "laminas/laminas-filter": "^2.11",
         "laminas/laminas-form": "^3.0",
-        "laminas/laminas-inputfilter": "^2.12"
+        "laminas/laminas-inputfilter": "^2.12",
+        "squizlabs/php_codesniffer": "^3.6"
     },
     "extra": {
         "zf": {
