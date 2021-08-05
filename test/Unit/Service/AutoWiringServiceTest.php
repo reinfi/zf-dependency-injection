@@ -44,8 +44,8 @@ class AutoWiringServiceTest extends TestCase
              ]);
 
         $cache = $this->prophesize(CacheService::class);
-        $cache->hasItem($cacheKey)->willReturn(false);
-        $cache->setItem($cacheKey, Argument::type('array'))->willReturn(true);
+        $cache->has($cacheKey)->willReturn(false);
+        $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
 
         $service = new AutoWiringService(
             $resolver->reveal(),
@@ -92,8 +92,8 @@ class AutoWiringServiceTest extends TestCase
              ]);
 
         $cache = $this->prophesize(CacheService::class);
-        $cache->hasItem($cacheKey)->willReturn(false);
-        $cache->setItem($cacheKey, Argument::type('array'))->willReturn(true);
+        $cache->has($cacheKey)->willReturn(false);
+        $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
 
         $service = new AutoWiringService(
             $resolver->reveal(),
@@ -126,8 +126,8 @@ class AutoWiringServiceTest extends TestCase
         );
 
         $cache = $this->prophesize(CacheService::class);
-        $cache->hasItem($cacheKey)->willReturn(true);
-        $cache->getItem($cacheKey)->willReturn([
+        $cache->has($cacheKey)->willReturn(true);
+        $cache->get($cacheKey)->willReturn([
             $injection->reveal()
         ]);
 
@@ -175,9 +175,9 @@ class AutoWiringServiceTest extends TestCase
             ]);
 
         $cache = $this->prophesize(CacheService::class);
-        $cache->setItem($cacheKey, Argument::type('array'))->shouldNotBeCalled();
-        $cache->hasItem($cacheKey)->shouldNotBeCalled();
-        $cache->getItem($cacheKey)->shouldNotBeCalled();
+        $cache->set($cacheKey, Argument::type('array'))->shouldNotBeCalled();
+        $cache->has($cacheKey)->shouldNotBeCalled();
+        $cache->get($cacheKey)->shouldNotBeCalled();
 
         $service = new AutoWiringService(
             $resolverService->reveal(),
@@ -213,9 +213,9 @@ class AutoWiringServiceTest extends TestCase
             ->willReturn([$injection->reveal()]);
 
         $cache = $this->prophesize(CacheService::class);
-        $cache->hasItem($cacheKey)->willReturn(true)->shouldBeCalled();
-        $cache->getItem($cacheKey)->willReturn(null)->shouldBeCalled();
-        $cache->setItem($cacheKey, Argument::type('array'))->willReturn(true);
+        $cache->has($cacheKey)->willReturn(true)->shouldBeCalled();
+        $cache->get($cacheKey)->willReturn(null)->shouldBeCalled();
+        $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
 
         $service = new AutoWiringService(
             $resolverService->reveal(),
@@ -243,8 +243,8 @@ class AutoWiringServiceTest extends TestCase
             ->willReturn([]);
 
         $cache = $this->prophesize(CacheService::class);
-        $cache->hasItem($cacheKey)->willReturn(false);
-        $cache->setItem($cacheKey, Argument::type('array'))->willReturn(true);
+        $cache->has($cacheKey)->willReturn(false);
+        $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
 
         $service = new AutoWiringService(
             $resolverService->reveal(),

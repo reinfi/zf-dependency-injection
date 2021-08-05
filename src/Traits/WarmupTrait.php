@@ -5,8 +5,8 @@ namespace Reinfi\DependencyInjection\Traits;
 use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
 use Reinfi\DependencyInjection\Factory\InjectionFactory;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverServiceInterface;
+use Reinfi\DependencyInjection\Service\CacheService;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
-use Laminas\Cache\Storage\StorageInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Traits
@@ -19,13 +19,13 @@ trait WarmupTrait
      * @param array                    $factoriesConfig
      * @param ExtractorInterface       $extractor
      * @param ResolverServiceInterface $resolverService
-     * @param StorageInterface         $cache
+     * @param CacheService             $cache
      */
     private function warmupConfig(
         array $factoriesConfig,
         ExtractorInterface $extractor,
         ResolverServiceInterface $resolverService,
-        StorageInterface $cache
+        CacheService $cache
     ) {
         array_walk(
             $factoriesConfig,
@@ -33,7 +33,7 @@ trait WarmupTrait
                 $factoryClass,
                 $className
             ) use ($extractor, $resolverService, $cache) {
-                if (! is_string($factoryClass)) {
+                if (!is_string($factoryClass)) {
                     return;
                 }
                 $injections = $this->handleService(
@@ -44,7 +44,7 @@ trait WarmupTrait
                 );
 
                 if (count($injections) > 0) {
-                    $cache->setItem(
+                    $cache->set(
                         $this->buildCacheKey($className),
                         $injections
                     );
