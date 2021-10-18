@@ -156,7 +156,7 @@ To enable YAML usage you need to specify the following configuration
 Parsing mapping sources is very heavy. You *should* enable the cache on production servers.
 You can set up caching easily with any custom or pre-existing PSR-16 cache adapter.
 
-You can provide a string which will be resolved by the container.
+You can provide a string which will be resolved by the container. The factory must return a PSR-16 cache adapter.
 ```php
 'reinfi.dependencyInjection' => [
     'cache' => \Laminas\Cache\Storage\Adapter\Memory::class,
