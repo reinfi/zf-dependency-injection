@@ -166,7 +166,9 @@ or you provide a factory for a cache adapter.
 ```php
 'reinfi.dependencyInjection' => [
     'cache' => function() {
-       return new \Laminas\Cache\Storage\Adapter\Memory();
+       return new \Laminas\Cache\Psr\SimpleCache\SimpleCacheDecorator(
+           new \Laminas\Cache\Storage\Adapter\Memory()
+       );
     },
 ]
 ```
