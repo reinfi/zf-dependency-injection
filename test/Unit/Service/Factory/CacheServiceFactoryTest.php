@@ -70,7 +70,8 @@ class CacheServiceFactoryTest extends TestCase
         $container = $this->prophesize(ContainerInterface::class);
 
         $container->get(ModuleConfig::class)
-            ->willReturn(['cache' => function () {
+            ->willReturn(['cache' => static function (ContainerInterface $containerArgument) use ($container){
+                self::assertSame($container->reveal(), $containerArgument);
                 return new Memory();
             }]);
 
