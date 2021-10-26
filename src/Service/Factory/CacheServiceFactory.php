@@ -33,7 +33,7 @@ class CacheServiceFactory
         }
 
         if (is_callable($cacheConfigValue)) {
-            $cache = $cacheConfigValue();
+            $cache = $cacheConfigValue($container);
         }
 
         if (!$cache instanceof CacheInterface) {
