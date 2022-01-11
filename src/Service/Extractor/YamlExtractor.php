@@ -15,19 +15,19 @@ use Symfony\Component\Yaml\Yaml;
 class YamlExtractor implements ExtractorInterface
 {
     /**
-     * @var array
+     * @var array|null
      */
-    protected $config;
+    protected ?array $config = null;
 
     /**
      * @var Yaml
      */
-    protected $yaml;
+    protected Yaml $yaml;
 
     /**
      * @var string
      */
-    protected $filePath;
+    protected string $filePath;
 
     /**
      * @var string

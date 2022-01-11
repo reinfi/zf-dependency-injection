@@ -12,7 +12,7 @@ class Memory implements CacheInterface
     /**
      * @var array
      */
-    private $cachedItems = [];
+    private array $cachedItems = [];
 
     public function get($key, $default = null)
     {

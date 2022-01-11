@@ -14,7 +14,7 @@ class CacheService
     /**
      * @var CacheInterface
      */
-    private $cache;
+    private CacheInterface $cache;
 
     public function __construct(CacheInterface $cache)
     {

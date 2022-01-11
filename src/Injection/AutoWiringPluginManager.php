@@ -16,12 +16,12 @@ class AutoWiringPluginManager implements InjectionInterface
     /**
      * @var string
      */
-    private $pluginManager;
+    private string $pluginManager;
 
     /**
      * @var string
      */
-    private $serviceName;
+    private string $serviceName;
 
     public function __construct(
         string $pluginManager,

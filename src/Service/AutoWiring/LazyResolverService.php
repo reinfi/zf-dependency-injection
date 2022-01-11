@@ -16,12 +16,12 @@ class LazyResolverService implements ResolverServiceInterface
     /**
      * @var ContainerInterface
      */
-    private $container;
+    private ContainerInterface $container;
 
     /**
-     * @var ResolverServiceInterface
+     * @var ResolverServiceInterface|null
      */
-    private $resolverService;
+    private ?ResolverServiceInterface $resolverService = null;
 
     public function __construct(ContainerInterface $container)
     {

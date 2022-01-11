@@ -14,12 +14,12 @@ use Reinfi\DependencyInjection\Service\ConfigService;
  */
 class InjectConfigAbstractFactory implements AbstractFactoryInterface
 {
-    const MATCH_PATTERN = '/^Config\.(.*)$/';
+    private const MATCH_PATTERN = '/^Config\.(.*)$/';
 
     /**
      * @var array
      */
-    private $matches;
+    private array $matches = [];
 
     /**
      * @inheritDoc
@@ -29,8 +29,10 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
         $requestedName
     ): bool {
         return preg_match(
-                static::MATCH_PATTERN, $requestedName, $this->matches
-            ) === 1;
+            static::MATCH_PATTERN,
+            $requestedName,
+            $this->matches
+        ) === 1;
     }
 
     /**

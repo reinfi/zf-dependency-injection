@@ -19,12 +19,12 @@ final class InjectConfig extends AbstractAnnotation
     /**
      * @var string
      */
-    private $configPath;
+    private string $configPath;
 
     /**
      * @var bool
      */
-    private $asArray = false;
+    private bool $asArray = false;
 
     /**
      * @param array $values

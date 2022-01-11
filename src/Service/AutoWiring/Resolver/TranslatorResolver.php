@@ -19,12 +19,12 @@ class TranslatorResolver implements ResolverInterface
     /**
      * used to avoid requirement of laminas/laminas-i18n module
      */
-    const TRANSLATOR_INTERFACE = 'Laminas\I18n\Translator\TranslatorInterface';
+    private const TRANSLATOR_INTERFACE = 'Laminas\I18n\Translator\TranslatorInterface';
 
     /**
      * possible names for translator service within container
      */
-    const TRANSLATOR_CONTAINER_SERVICE_NAME = [
+    private const TRANSLATOR_CONTAINER_SERVICE_NAME = [
         'MvcTranslator',
         self::TRANSLATOR_INTERFACE,
         'Translator'

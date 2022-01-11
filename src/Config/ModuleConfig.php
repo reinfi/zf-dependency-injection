@@ -14,5 +14,5 @@ interface ModuleConfig
     /**
      * @var string
      */
-    const CONFIG_KEY = 'reinfi.dependencyInjection';
+    public const CONFIG_KEY = 'reinfi.dependencyInjection';
 }
