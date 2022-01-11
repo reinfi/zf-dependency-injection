@@ -29,7 +29,7 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
         $requestedName
     ): bool {
         return preg_match(
-            static::MATCH_PATTERN,
+            self::MATCH_PATTERN,
             $requestedName,
             $this->matches
         ) === 1;
