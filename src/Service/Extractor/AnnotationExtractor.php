@@ -15,10 +15,7 @@ use Reinfi\DependencyInjection\Annotation\AnnotationInterface;
  */
 class AnnotationExtractor implements ExtractorInterface
 {
-    /**
-     * @var AnnotationReader
-     */
-    protected $reader;
+    protected AnnotationReader $reader;
 
     public function __construct(AnnotationReader $reader)
     {

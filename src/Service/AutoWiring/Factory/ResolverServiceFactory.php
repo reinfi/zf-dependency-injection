@@ -19,11 +19,6 @@ use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
  */
 class ResolverServiceFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return ResolverService
-     */
     public function __invoke(ContainerInterface $container): ResolverService
     {
         /** @var array $config */

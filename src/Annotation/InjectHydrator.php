@@ -12,8 +12,5 @@ namespace Reinfi\DependencyInjection\Annotation;
  */
 final class InjectHydrator extends AbstractInjectPluginManager
 {
-    /**
-     * @var string
-     */
-    const PLUGIN_MANAGER = 'HydratorManager';
+    public const PLUGIN_MANAGER = 'HydratorManager';
 }

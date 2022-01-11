@@ -13,27 +13,6 @@ use ReflectionParameter;
  */
 class AutoWiringNotPossibleException extends \Exception
 {
-    /**
-     * @param ReflectionParameter $reflParameter
-     *
-     * @return AutoWiringNotPossibleException
-     */
-    public static function fromParameterName(ReflectionParameter $reflParameter): self
-    {
-        return new self(
-            sprintf(
-                'Could not resolve parameter %s to to a class',
-                $reflParameter->getName()
-            )
-        );
-    }
-
-    /**
-     * @param string $className
-     * @param \ReflectionClass|null $constructedClass
-     *
-     * @return AutoWiringNotPossibleException
-     */
     public static function fromClassName(string $className, ?\ReflectionClass $constructedClass): self
     {
         return new self(
@@ -45,11 +24,6 @@ class AutoWiringNotPossibleException extends \Exception
         );
     }
 
-    /**
-     * @param ReflectionParameter $reflParameter
-     *
-     * @return AutoWiringNotPossibleException
-     */
     public static function fromMissingTypeHint(
         ReflectionParameter $reflParameter
     ): self {
@@ -64,11 +38,6 @@ class AutoWiringNotPossibleException extends \Exception
         );
     }
 
-    /**
-     * @param ReflectionParameter $reflParameter
-     *
-     * @return AutoWiringNotPossibleException
-     */
     public static function fromBuildInType(ReflectionParameter $reflParameter): self
     {
         $declaringClass = $reflParameter->getDeclaringClass();

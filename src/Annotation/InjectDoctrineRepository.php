@@ -14,15 +14,9 @@ use Psr\Container\ContainerInterface;
  */
 final class InjectDoctrineRepository extends AbstractAnnotation
 {
-    /**
-     * @var string
-     */
-    private $entityManager = 'Doctrine\ORM\EntityManager';
+    private string $entityManager = 'Doctrine\ORM\EntityManager';
 
-    /**
-     * @var string
-     */
-    private $entity;
+    private string $entity;
 
     /**
      * @param array $values

@@ -29,10 +29,7 @@ class PluginManagerResolver implements ResolverInterface
         'Laminas\Form\ElementInterface'            => 'FormElementManager',
     ];
 
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
+    private ContainerInterface $container;
 
     public function __construct(ContainerInterface $container)
     {
@@ -79,7 +76,8 @@ class PluginManagerResolver implements ResolverInterface
                 && $this->container->get($pluginManager)->has($serviceName)
             ) {
                 return new AutoWiringPluginManager(
-                    $pluginManager, $serviceName
+                    $pluginManager,
+                    $serviceName
                 );
             }
         }

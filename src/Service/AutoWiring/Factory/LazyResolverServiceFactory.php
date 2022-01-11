@@ -12,11 +12,6 @@ use Reinfi\DependencyInjection\Service\AutoWiring\LazyResolverService;
  */
 class LazyResolverServiceFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return LazyResolverService
-     */
     public function __invoke(ContainerInterface $container): LazyResolverService
     {
         return new LazyResolverService($container);

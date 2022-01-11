@@ -12,8 +12,5 @@ namespace Reinfi\DependencyInjection\Annotation;
  */
 final class InjectInputFilter extends AbstractInjectPluginManager
 {
-    /**
-     * @var string
-     */
-    const PLUGIN_MANAGER = 'InputFilterManager';
+    public const PLUGIN_MANAGER = 'InputFilterManager';
 }
