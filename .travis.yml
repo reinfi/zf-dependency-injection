@@ -1,9 +1,8 @@
 language: php
 
 php:
-  - 7.3
-  - 7.4
   - 8.0
+  - 8.1
 
 before_install:
   - cp $HOME/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini /tmp
