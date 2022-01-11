@@ -11,14 +11,8 @@ use Psr\Container\ContainerInterface;
  */
 abstract class AbstractInjectPluginManager extends AbstractAnnotation
 {
-    /**
-     * @var string
-     */
     public const PLUGIN_MANAGER = '';
 
-    /**
-     * @var string
-     */
     private string $name;
 
     /**

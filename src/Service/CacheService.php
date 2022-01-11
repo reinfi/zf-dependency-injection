@@ -11,9 +11,6 @@ use Psr\SimpleCache\CacheInterface;
  */
 class CacheService
 {
-    /**
-     * @var CacheInterface
-     */
     private CacheInterface $cache;
 
     public function __construct(CacheInterface $cache)

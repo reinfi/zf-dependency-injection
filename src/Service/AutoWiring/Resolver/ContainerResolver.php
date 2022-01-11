@@ -15,9 +15,6 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
  */
 class ContainerResolver implements ResolverInterface
 {
-    /**
-     * @var ContainerInterface
-     */
     private ContainerInterface $container;
 
     public function __construct(ContainerInterface $container)

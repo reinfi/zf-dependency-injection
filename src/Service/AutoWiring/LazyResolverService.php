@@ -13,14 +13,8 @@ use Psr\Container\ContainerInterface;
  */
 class LazyResolverService implements ResolverServiceInterface
 {
-    /**
-     * @var ContainerInterface
-     */
     private ContainerInterface $container;
 
-    /**
-     * @var ResolverServiceInterface|null
-     */
     private ?ResolverServiceInterface $resolverService = null;
 
     public function __construct(ContainerInterface $container)

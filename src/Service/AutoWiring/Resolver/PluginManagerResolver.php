@@ -29,9 +29,6 @@ class PluginManagerResolver implements ResolverInterface
         'Laminas\Form\ElementInterface'            => 'FormElementManager',
     ];
 
-    /**
-     * @var ContainerInterface
-     */
     private ContainerInterface $container;
 
     public function __construct(ContainerInterface $container)

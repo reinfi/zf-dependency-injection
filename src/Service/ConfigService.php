@@ -12,9 +12,6 @@ use Laminas\Config\Config;
  */
 class ConfigService
 {
-    /**
-     * @var Config
-     */
     private Config $config;
 
     public function __construct(Config $config)

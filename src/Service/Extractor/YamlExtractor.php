@@ -19,20 +19,11 @@ class YamlExtractor implements ExtractorInterface
      */
     protected ?array $config = null;
 
-    /**
-     * @var Yaml
-     */
     protected Yaml $yaml;
 
-    /**
-     * @var string
-     */
     protected string $filePath;
 
-    /**
-     * @var string
-     */
-    protected $injectionNamespace;
+    protected string $injectionNamespace;
 
     public function __construct(
         Yaml $yaml,

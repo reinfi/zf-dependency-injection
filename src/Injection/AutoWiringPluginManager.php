@@ -13,14 +13,8 @@ use Laminas\ServiceManager\AbstractPluginManager;
  */
 class AutoWiringPluginManager implements InjectionInterface
 {
-    /**
-     * @var string
-     */
     private string $pluginManager;
 
-    /**
-     * @var string
-     */
     private string $serviceName;
 
     public function __construct(

@@ -12,11 +12,6 @@ use Laminas\ServiceManager\AbstractPluginManager;
  */
 abstract class AbstractAnnotation implements AnnotationInterface
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return ContainerInterface
-     */
     protected function determineContainer(ContainerInterface $container): ContainerInterface
     {
         if ($container instanceof AbstractPluginManager) {
