@@ -8,6 +8,7 @@ use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\MethodProphecy;
 use Psr\SimpleCache\CacheInterface;
 use Reinfi\DependencyInjection\Service\CacheService;
+use stdClass;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service
@@ -73,5 +74,15 @@ class CacheServiceTest extends TestCase
                 true,
             ],
         ];
+    }
+
+    public function itReturnsNullIfCacheValueIsNotAnArray(): void
+    {
+        $cache = $this->prophesize(CacheInterface::class);
+        $cache->get('key')->willReturn(new stdClass());
+
+        $cacheService = new CacheService($cache->reveal());
+
+        $this->assertNull($cacheService->get('key'));
     }
 }
