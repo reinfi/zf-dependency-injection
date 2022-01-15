@@ -124,6 +124,11 @@ class YamlExtractor implements ExtractorInterface
         }
 
         $injection = new $injectionClass();
+
+        if (!$injection instanceof InjectionInterface) {
+            throw new InjectionTypeUnknownException('Invalid class of type ' . get_class($injection));
+        }
+
         foreach ($spec as $key => $value) {
             $injection->$key = $value;
         }

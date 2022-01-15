@@ -1,9 +1,12 @@
 parameters:
-    level: max
+    level: 8
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
     paths:
         - src
-    excludes_analyse:
+    excludePaths:
         - %currentWorkingDirectory%/src/Controller*
         - %currentWorkingDirectory%/src/Command*
+
+includes:
+    - vendor/bnf/phpstan-psr-container/extension.neon
