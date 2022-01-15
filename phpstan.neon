@@ -1,11 +1,10 @@
 parameters:
-    level: 8
+    level: max
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
     paths:
         - src
     excludePaths:
-        - %currentWorkingDirectory%/src/Controller*
         - %currentWorkingDirectory%/src/Command*
 
 includes:

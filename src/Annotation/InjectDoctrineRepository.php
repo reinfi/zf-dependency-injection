@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Annotation;
 
 use Psr\Container\ContainerInterface;
+use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 
 /**
  * @package Reinfi\DependencyInjection\Annotation
@@ -44,6 +45,15 @@ final class InjectDoctrineRepository extends AbstractAnnotation
     {
         $container = $this->determineContainer($container);
 
-        return $container->get($this->entityManager)->getRepository($this->entity);
+        $entityManager = $container->get($this->entityManager);
+
+        if (
+            !is_object($entityManager)
+            || !method_exists($entityManager, 'getRepository')
+        ) {
+            throw new AutoWiringNotPossibleException($this->entity);
+        }
+
+        return $entityManager->getRepository($this->entity);
     }
 }
