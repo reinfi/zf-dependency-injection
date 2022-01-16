@@ -15,7 +15,10 @@ class ConfigServiceFactory
 {
     public function __invoke(ContainerInterface $container): ConfigService
     {
-        $config = new Config($container->get('config'));
+        $containerConfig = $container->get('config');
+
+        assert(is_array($containerConfig));
+        $config = new Config($containerConfig);
 
         return new ConfigService($config);
     }

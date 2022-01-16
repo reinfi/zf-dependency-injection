@@ -71,14 +71,17 @@ class PluginManagerResolver implements ResolverInterface
         $interfaceNames = $reflectionClass->getInterfaceNames();
 
         foreach (self::$pluginManagerMapping as $interfaceName => $pluginManager) {
-            if (
-                in_array($interfaceName, $interfaceNames)
-                && $this->container->get($pluginManager)->has($serviceName)
-            ) {
-                return new AutoWiringPluginManager(
-                    $pluginManager,
-                    $serviceName
-                );
+            if (in_array($interfaceName, $interfaceNames)) {
+                $pluginManagerImplementation = $this->container->get($pluginManager);
+                if (
+                    $pluginManagerImplementation instanceof ContainerInterface
+                    && $pluginManagerImplementation->has($serviceName)
+                ) {
+                    return new AutoWiringPluginManager(
+                        $pluginManager,
+                        $serviceName
+                    );
+                }
             }
         }
 

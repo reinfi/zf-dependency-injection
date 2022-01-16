@@ -87,9 +87,9 @@ class YamlExtractor implements ExtractorInterface
                 throw new \RuntimeException('could not read config from path ' . $this->filePath);
             }
 
-            $this->config = $this->yaml::parse(
-                $fileContents
-            );
+            $parsedFile = $this->yaml::parse($fileContents);
+            assert(is_array($parsedFile));
+            $this->config = $parsedFile;
         }
 
         return $this->config[$className] ?? [];
@@ -124,6 +124,11 @@ class YamlExtractor implements ExtractorInterface
         }
 
         $injection = new $injectionClass();
+
+        if (!$injection instanceof InjectionInterface) {
+            throw new InjectionTypeUnknownException('Invalid class of type ' . get_class($injection));
+        }
+
         foreach ($spec as $key => $value) {
             $injection->$key = $value;
         }

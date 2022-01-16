@@ -4,6 +4,8 @@ parameters:
     checkGenericClassInNonGenericObjectType: false
     paths:
         - src
-    excludes_analyse:
-        - %currentWorkingDirectory%/src/Controller*
+    excludePaths:
         - %currentWorkingDirectory%/src/Command*
+
+includes:
+    - vendor/bnf/phpstan-psr-container/extension.neon
