@@ -16,15 +16,9 @@ class InjectionService
 {
     use CacheKeyTrait;
 
-    /**
-     * @var ExtractorInterface
-     */
-    private $extractor;
+    private ExtractorInterface $extractor;
 
-    /**
-     * @var CacheService
-     */
-    private $cache;
+    private CacheService $cache;
 
     public function __construct(
         ExtractorInterface $extractor,

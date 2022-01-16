@@ -13,15 +13,9 @@ use Laminas\ServiceManager\AbstractPluginManager;
  */
 class AutoWiringPluginManager implements InjectionInterface
 {
-    /**
-     * @var string
-     */
-    private $pluginManager;
+    private string $pluginManager;
 
-    /**
-     * @var string
-     */
-    private $serviceName;
+    private string $serviceName;
 
     public function __construct(
         string $pluginManager,
@@ -43,8 +37,12 @@ class AutoWiringPluginManager implements InjectionInterface
             $container = $container->getServiceLocator();
         }
 
-        if ($container->get($this->pluginManager)->has($this->serviceName)) {
-            return $container->get($this->pluginManager)->get($this->serviceName);
+        $pluginManagerImplemenation = $container->get($this->pluginManager);
+        if (
+            $pluginManagerImplemenation instanceof ContainerInterface
+            && $pluginManagerImplemenation->has($this->serviceName)
+        ) {
+            return $pluginManagerImplemenation->get($this->serviceName);
         }
 
         throw new AutoWiringNotPossibleException($this->serviceName);

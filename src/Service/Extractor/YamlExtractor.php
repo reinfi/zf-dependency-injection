@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Service\Extractor;
 
+use InvalidArgumentException;
 use ReflectionClass;
 use Reinfi\DependencyInjection\Exception\InjectionTypeUnknownException;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
+use RuntimeException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -15,24 +17,15 @@ use Symfony\Component\Yaml\Yaml;
 class YamlExtractor implements ExtractorInterface
 {
     /**
-     * @var array
+     * @var array|null
      */
-    protected $config;
+    protected ?array $config = null;
 
-    /**
-     * @var Yaml
-     */
-    protected $yaml;
+    protected Yaml $yaml;
 
-    /**
-     * @var string
-     */
-    protected $filePath;
+    protected string $filePath;
 
-    /**
-     * @var string
-     */
-    protected $injectionNamespace;
+    protected string $injectionNamespace;
 
     public function __construct(
         Yaml $yaml,
@@ -68,7 +61,7 @@ class YamlExtractor implements ExtractorInterface
             $type = $spec['type'] ?? false;
 
             if ($type === false) {
-                throw new \InvalidArgumentException('Missing property type for class ' . $className);
+                throw new InvalidArgumentException('Missing property type for class ' . $className);
             }
 
             unset($spec['type']);
@@ -93,12 +86,12 @@ class YamlExtractor implements ExtractorInterface
             $fileContents = file_get_contents($this->filePath);
 
             if ($fileContents === false) {
-                throw new \RuntimeException('could not read config from path ' . $this->filePath);
+                throw new RuntimeException('could not read config from path ' . $this->filePath);
             }
 
-            $this->config = $this->yaml::parse(
-                $fileContents
-            );
+            $parsedFile = $this->yaml::parse($fileContents);
+            assert(is_array($parsedFile));
+            $this->config = $parsedFile;
         }
 
         return $this->config[$className] ?? [];
@@ -133,6 +126,11 @@ class YamlExtractor implements ExtractorInterface
         }
 
         $injection = new $injectionClass();
+
+        if (!$injection instanceof InjectionInterface) {
+            throw new InjectionTypeUnknownException('Invalid class of type ' . get_class($injection));
+        }
+
         foreach ($spec as $key => $value) {
             $injection->$key = $value;
         }

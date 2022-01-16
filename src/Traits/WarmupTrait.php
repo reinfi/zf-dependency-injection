@@ -53,12 +53,6 @@ trait WarmupTrait
         );
     }
 
-    /**
-     * @param string                   $className
-     * @param string                   $factoryClass
-     * @param ExtractorInterface       $extractor
-     * @param ResolverServiceInterface $resolverService
-     */
     private function handleService(
         string $className,
         string $factoryClass,
@@ -82,24 +76,16 @@ trait WarmupTrait
         return [];
     }
 
-    /**
-     * @param ExtractorInterface $extractor
-     * @param string             $className
-     */
     private function warmupInjection(
         ExtractorInterface $extractor,
         string $className
-    ) {
+    ): array {
         return array_merge(
             $extractor->getPropertiesInjections($className),
             $extractor->getConstructorInjections($className)
         );
     }
 
-    /**
-     * @param ResolverServiceInterface $resolverService
-     * @param string                   $className
-     */
     private function warmupAutoWiring(
         ResolverServiceInterface $resolverService,
         string $className

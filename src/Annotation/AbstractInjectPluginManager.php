@@ -4,27 +4,23 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Annotation;
 
+use Laminas\ServiceManager\AbstractPluginManager;
 use Psr\Container\ContainerInterface;
+use Reinfi\DependencyInjection\Exception\InjectionNotPossibleException;
 
 /**
  * @package Reinfi\DependencyInjection\Annotation
  */
 abstract class AbstractInjectPluginManager extends AbstractAnnotation
 {
-    /**
-     * @var string
-     */
-    const PLUGIN_MANAGER = '';
+    public const PLUGIN_MANAGER = '';
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
     /**
      * @var array|null
      */
-    private $options = null;
+    private ?array $options = null;
 
     /**
      * @param array $values
@@ -50,13 +46,16 @@ abstract class AbstractInjectPluginManager extends AbstractAnnotation
     public function __invoke(ContainerInterface $container)
     {
         $container = $this->determineContainer($container);
+        $pluginManagerImplementation = $container->get(static::PLUGIN_MANAGER);
 
-        if (is_array($this->options)) {
-            return $container->get(static::PLUGIN_MANAGER)
-                ->get($this->name, $this->options);
+        if (!$pluginManagerImplementation instanceof AbstractPluginManager) {
+            throw InjectionNotPossibleException::fromUnknownPluginManager(static::PLUGIN_MANAGER);
         }
 
-        return $container->get(static::PLUGIN_MANAGER)
-            ->get($this->name);
+        if (is_array($this->options)) {
+            return $pluginManagerImplementation->get($this->name, $this->options);
+        }
+
+        return $pluginManagerImplementation->get($this->name);
     }
 }

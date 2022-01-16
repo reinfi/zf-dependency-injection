@@ -19,10 +19,10 @@ class ExtractorFactory
         /** @var array $config */
         $config = $container->get(ModuleConfig::class);
 
-        /** @var ExtractorInterface $extractor */
         $extractor = $container->get(
             $config['extractor'] ?? AnnotationExtractor::class
         );
+        assert($extractor instanceof ExtractorInterface);
 
         return $extractor;
     }

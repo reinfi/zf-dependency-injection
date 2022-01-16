@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Config\Factory;
 
+use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
 
@@ -13,10 +14,7 @@ use Reinfi\DependencyInjection\Config\ModuleConfig;
 class ModuleConfigFactory
 {
     /**
-     * @param ContainerInterface $container
-     *
-     * @return array
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function __invoke(ContainerInterface $container): array
     {
@@ -26,7 +24,7 @@ class ModuleConfigFactory
         $moduleConfig = $config[ModuleConfig::CONFIG_KEY] ?? [];
 
         if (!is_array($moduleConfig)) {
-            throw new \InvalidArgumentException('Module config must be type of array');
+            throw new InvalidArgumentException('Module config must be type of array');
         }
 
         return $moduleConfig;

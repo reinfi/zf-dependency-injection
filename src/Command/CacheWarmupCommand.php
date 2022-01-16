@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Command;
 
+use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\CacheService;
@@ -49,12 +50,15 @@ class CacheWarmupCommand extends Command
         $config = $input->getArgument('applicationConfig');
 
         if (!is_string($config)) {
-            throw new \InvalidArgumentException('Invalid config path provided');
+            throw new InvalidArgumentException('Invalid config path provided');
         }
 
         $path = stream_resolve_include_path($config);
         if ($path === false || !is_readable($path)) {
-            throw new \InvalidArgumentException("Invalid config path: {$config}");
+            throw new InvalidArgumentException(sprintf(
+                'Invalid config path: %s',
+                $config
+            ));
         }
 
         $container = Application::init(include $path)

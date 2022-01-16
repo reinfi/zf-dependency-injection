@@ -16,15 +16,9 @@ class AutoWiringService
 {
     use CacheKeyTrait;
 
-    /**
-     * @var ResolverServiceInterface
-     */
-    private $resolverService;
+    private ResolverServiceInterface $resolverService;
 
-    /**
-     * @var CacheService
-     */
-    private $cache;
+    private CacheService $cache;
 
     public function __construct(
         ResolverServiceInterface $resolverService,

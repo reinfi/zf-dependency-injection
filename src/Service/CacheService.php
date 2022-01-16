@@ -11,10 +11,7 @@ use Psr\SimpleCache\CacheInterface;
  */
 class CacheService
 {
-    /**
-     * @var CacheInterface
-     */
-    private $cache;
+    private CacheInterface $cache;
 
     public function __construct(CacheInterface $cache)
     {
@@ -23,7 +20,12 @@ class CacheService
 
     public function get(string $key): ?array
     {
-        return $this->cache->get($key);
+        $cachedValue = $this->cache->get($key);
+        if (!is_array($cachedValue)) {
+            return null;
+        }
+
+        return $cachedValue;
     }
 
     public function set(string $key, array $value): bool

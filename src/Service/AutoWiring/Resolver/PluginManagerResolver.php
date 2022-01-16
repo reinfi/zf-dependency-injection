@@ -17,9 +17,9 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
 class PluginManagerResolver implements ResolverInterface
 {
     /**
-     * @var array
+     * @var array<class-string, string>
      */
-    protected static $pluginManagerMapping = [
+    protected static array $pluginManagerMapping = [
         'Laminas\Hydrator\HydratorInterface'       => 'HydratorManager',
         'Laminas\View\Helper\HelperInterface'      => 'ViewHelperManager',
         'Laminas\Validator\ValidatorInterface'     => 'ValidatorManager',
@@ -29,10 +29,7 @@ class PluginManagerResolver implements ResolverInterface
         'Laminas\Form\ElementInterface'            => 'FormElementManager',
     ];
 
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
+    private ContainerInterface $container;
 
     public function __construct(ContainerInterface $container)
     {
@@ -74,19 +71,27 @@ class PluginManagerResolver implements ResolverInterface
         $interfaceNames = $reflectionClass->getInterfaceNames();
 
         foreach (self::$pluginManagerMapping as $interfaceName => $pluginManager) {
-            if (
-                in_array($interfaceName, $interfaceNames)
-                && $this->container->get($pluginManager)->has($serviceName)
-            ) {
-                return new AutoWiringPluginManager(
-                    $pluginManager, $serviceName
-                );
+            if (in_array($interfaceName, $interfaceNames)) {
+                $pluginManagerImplementation = $this->container->get($pluginManager);
+                if (
+                    $pluginManagerImplementation instanceof ContainerInterface
+                    && $pluginManagerImplementation->has($serviceName)
+                ) {
+                    return new AutoWiringPluginManager(
+                        $pluginManager,
+                        $serviceName
+                    );
+                }
             }
         }
 
         return null;
     }
 
+    /**
+     * @param class-string $className
+     * @param string $pluginManager
+     */
     public static function addMapping(string $className, string $pluginManager): void
     {
         static::$pluginManagerMapping[$className] = $pluginManager;

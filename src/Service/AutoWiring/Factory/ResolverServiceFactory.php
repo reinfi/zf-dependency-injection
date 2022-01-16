@@ -11,6 +11,7 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerInterfaceRes
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\PluginManagerResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\RequestResolver;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResolverInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResponseResolver;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 
@@ -19,11 +20,6 @@ use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
  */
 class ResolverServiceFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return ResolverService
-     */
     public function __invoke(ContainerInterface $container): ResolverService
     {
         /** @var array $config */
@@ -31,6 +27,7 @@ class ResolverServiceFactory
 
         $resolverStackConfig = $this->getResolverStack($config);
 
+        /** @var ResolverInterface[] $resolverStack */
         $resolverStack = array_map(
             [$container, 'get'],
             $resolverStackConfig
@@ -39,6 +36,11 @@ class ResolverServiceFactory
         return new ResolverService($resolverStack);
     }
 
+    /**
+     * @param array $config
+     *
+     * @return class-string[]
+     */
     private function getResolverStack(array $config): array
     {
         $defaultResolverStackConfig = [

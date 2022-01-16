@@ -12,7 +12,7 @@ class Memory implements CacheInterface
     /**
      * @var array
      */
-    private $cachedItems = [];
+    private array $cachedItems = [];
 
     public function get($key, $default = null)
     {
@@ -40,17 +40,17 @@ class Memory implements CacheInterface
         return true;
     }
 
-    public function getMultiple($keys, $default = null)
+    public function getMultiple($keys, $default = null): iterable
     {
         throw new BadMethodCallException('Currently not implemented for memory cache');
     }
 
-    public function setMultiple($values, $ttl = null)
+    public function setMultiple($values, $ttl = null): bool
     {
         throw new BadMethodCallException('Currently not implemented for memory cache');
     }
 
-    public function deleteMultiple($keys)
+    public function deleteMultiple($keys): bool
     {
         throw new BadMethodCallException('Currently not implemented for memory cache');
     }

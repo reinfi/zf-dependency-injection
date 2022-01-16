@@ -52,8 +52,6 @@ abstract class AbstractFactory implements FactoryInterface
     {
         $reflectionClass = new ReflectionClass($className);
 
-        $instance = $reflectionClass->newInstanceArgs($injections);
-
-        return $instance;
+        return $reflectionClass->newInstanceArgs($injections);
     }
 }

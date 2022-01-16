@@ -12,10 +12,7 @@ use Laminas\Config\Config;
  */
 class ConfigService
 {
-    /**
-     * @var Config
-     */
-    private $config;
+    private Config $config;
 
     public function __construct(Config $config)
     {
@@ -26,6 +23,7 @@ class ConfigService
      * @param string $configPath
      *
      * @return mixed|null
+     * @throws ConfigPathNotFoundException
      */
     public function resolve(string $configPath)
     {
@@ -72,8 +70,11 @@ class ConfigService
             return $config->get($currentKey);
         }
 
+        $subConfig = $config->get($currentKey);
+        assert($subConfig instanceof Config);
+
         return $this->resolveConfigPath(
-            $config->get($currentKey),
+            $subConfig,
             $configParts,
             $nullAllowed
         );

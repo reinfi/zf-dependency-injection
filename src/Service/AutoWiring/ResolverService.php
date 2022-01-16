@@ -21,7 +21,7 @@ class ResolverService implements ResolverServiceInterface
     /**
      * @var ResolverInterface[]
      */
-    private $resolverStack;
+    private array $resolverStack;
 
     /**
      * @param ResolverInterface[] $resolverStack
@@ -67,7 +67,6 @@ class ResolverService implements ResolverServiceInterface
         ReflectionParameter $parameter,
         ?array $options = null
     ): InjectionInterface {
-
         $options = $options ?: [];
 
         // Don't try to resolve parameters present in the options array using reflections
@@ -87,7 +86,6 @@ class ResolverService implements ResolverServiceInterface
     }
 
     /**
-     * @param ReflectionParameter $parameter
      *
      * @throws AutoWiringNotPossibleException
      */
@@ -106,7 +104,8 @@ class ResolverService implements ResolverServiceInterface
         }
 
         return AutoWiringNotPossibleException::fromClassName(
-            $type->getName(), $parameter->getDeclaringClass()
+            $type->getName(),
+            $parameter->getDeclaringClass()
         );
     }
 }

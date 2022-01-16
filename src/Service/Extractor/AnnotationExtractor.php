@@ -15,10 +15,7 @@ use Reinfi\DependencyInjection\Annotation\AnnotationInterface;
  */
 class AnnotationExtractor implements ExtractorInterface
 {
-    /**
-     * @var AnnotationReader
-     */
-    protected $reader;
+    protected AnnotationReader $reader;
 
     public function __construct(AnnotationReader $reader)
     {
@@ -64,13 +61,11 @@ class AnnotationExtractor implements ExtractorInterface
             new ReflectionMethod($className, '__construct')
         );
 
-        $injections = array_filter(
+        return array_filter(
             $injections,
             function ($annotation) {
                 return $annotation instanceof AnnotationInterface;
             }
         );
-
-        return $injections;
     }
 }
