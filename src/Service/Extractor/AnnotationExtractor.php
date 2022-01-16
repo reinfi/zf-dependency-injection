@@ -61,13 +61,11 @@ class AnnotationExtractor implements ExtractorInterface
             new ReflectionMethod($className, '__construct')
         );
 
-        $injections = array_filter(
+        return array_filter(
             $injections,
             function ($annotation) {
                 return $annotation instanceof AnnotationInterface;
             }
         );
-
-        return $injections;
     }
 }

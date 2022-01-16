@@ -17,9 +17,9 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
 class PluginManagerResolver implements ResolverInterface
 {
     /**
-     * @var array
+     * @var array<class-string, string>
      */
-    protected static $pluginManagerMapping = [
+    protected static array $pluginManagerMapping = [
         'Laminas\Hydrator\HydratorInterface'       => 'HydratorManager',
         'Laminas\View\Helper\HelperInterface'      => 'ViewHelperManager',
         'Laminas\Validator\ValidatorInterface'     => 'ValidatorManager',
@@ -88,6 +88,10 @@ class PluginManagerResolver implements ResolverInterface
         return null;
     }
 
+    /**
+     * @param class-string $className
+     * @param string $pluginManager
+     */
     public static function addMapping(string $className, string $pluginManager): void
     {
         static::$pluginManagerMapping[$className] = $pluginManager;

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Service\Extractor;
 
+use InvalidArgumentException;
 use ReflectionClass;
 use Reinfi\DependencyInjection\Exception\InjectionTypeUnknownException;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
+use RuntimeException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -59,7 +61,7 @@ class YamlExtractor implements ExtractorInterface
             $type = $spec['type'] ?? false;
 
             if ($type === false) {
-                throw new \InvalidArgumentException('Missing property type for class ' . $className);
+                throw new InvalidArgumentException('Missing property type for class ' . $className);
             }
 
             unset($spec['type']);
@@ -84,7 +86,7 @@ class YamlExtractor implements ExtractorInterface
             $fileContents = file_get_contents($this->filePath);
 
             if ($fileContents === false) {
-                throw new \RuntimeException('could not read config from path ' . $this->filePath);
+                throw new RuntimeException('could not read config from path ' . $this->filePath);
             }
 
             $parsedFile = $this->yaml::parse($fileContents);

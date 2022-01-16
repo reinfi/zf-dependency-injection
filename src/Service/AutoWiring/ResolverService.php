@@ -86,7 +86,6 @@ class ResolverService implements ResolverServiceInterface
     }
 
     /**
-     * @param ReflectionParameter $parameter
      *
      * @throws AutoWiringNotPossibleException
      */

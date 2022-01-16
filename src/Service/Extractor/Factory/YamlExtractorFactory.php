@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Service\Extractor\Factory;
 
 use Psr\Container\ContainerInterface;
+use ReflectionClass;
 use Reinfi\DependencyInjection\Annotation\AnnotationInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
@@ -22,7 +23,7 @@ class YamlExtractorFactory
         /** @var array $config */
         $config = $container->get(ModuleConfig::class);
 
-        $reflClass = new \ReflectionClass(AnnotationInterface::class);
+        $reflClass = new ReflectionClass(AnnotationInterface::class);
 
         return new YamlExtractor(
             $yaml,

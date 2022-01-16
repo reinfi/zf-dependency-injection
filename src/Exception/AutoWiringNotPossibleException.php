@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Exception;
 
+use Exception;
+use ReflectionClass;
 use ReflectionParameter;
 
 /**
@@ -11,9 +13,9 @@ use ReflectionParameter;
  *
  * @package Reinfi\DependencyInjection\Exception
  */
-class AutoWiringNotPossibleException extends \Exception
+class AutoWiringNotPossibleException extends Exception
 {
-    public static function fromClassName(string $className, ?\ReflectionClass $constructedClass): self
+    public static function fromClassName(string $className, ?ReflectionClass $constructedClass): self
     {
         return new self(
             sprintf(

@@ -14,7 +14,6 @@ use Reinfi\DependencyInjection\Config\ModuleConfig;
 class ModuleConfigFactory
 {
     /**
-     * @return array
      * @throws InvalidArgumentException
      */
     public function __invoke(ContainerInterface $container): array
