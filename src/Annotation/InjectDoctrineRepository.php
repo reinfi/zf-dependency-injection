@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Annotation;
 
+use Attribute;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 
@@ -13,6 +14,7 @@ use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
  * @Annotation
  * @Target({"PROPERTY", "METHOD"})
  */
+#[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
 final class InjectDoctrineRepository extends AbstractAnnotation
 {
     private string $entityManager = 'Doctrine\ORM\EntityManager';

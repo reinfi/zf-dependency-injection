@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Annotation;
 
+use Attribute;
 use Laminas\Config\Config;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\ConfigService;
@@ -14,6 +15,7 @@ use Reinfi\DependencyInjection\Service\ConfigService;
  * @Annotation
  * @Target({"PROPERTY", "METHOD"})
  */
+#[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
 final class InjectConfig extends AbstractAnnotation
 {
     /**

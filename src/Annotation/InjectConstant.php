@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Annotation;
 
+use Attribute;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -12,6 +13,7 @@ use Psr\Container\ContainerInterface;
  * @Annotation
  * @Target({"PROPERTY", "METHOD"})
  */
+#[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
 final class InjectConstant implements AnnotationInterface
 {
     /**

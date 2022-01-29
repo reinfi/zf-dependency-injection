@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Annotation;
 
+use Attribute;
 use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
 
@@ -13,6 +14,7 @@ use Laminas\ServiceManager\AbstractPluginManager;
  * @Annotation
  * @Target({"PROPERTY", "METHOD"})
  */
+#[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
 final class InjectParent implements AnnotationInterface
 {
     /**
