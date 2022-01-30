@@ -12,7 +12,6 @@ use Attribute;
  * @Annotation
  * @Target({"PROPERTY", "METHOD"})
  */
-#[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
 final class InjectControllerPlugin extends AbstractInjectPluginManager
 {
     public const PLUGIN_MANAGER = 'ControllerPluginManager';
