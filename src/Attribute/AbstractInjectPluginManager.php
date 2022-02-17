@@ -20,9 +20,9 @@ abstract class AbstractInjectPluginManager extends AbstractAttribute
     /**
      * @var array|null
      */
-    private ?array $options = null;
+    private ?array $options;
 
-    public function __construct(string $name, ?array $options)
+    public function __construct(string $name, ?array $options = null)
     {
         $this->name = $name;
         $this->options = $options;
