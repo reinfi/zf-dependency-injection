@@ -22,6 +22,12 @@ class AttributeExtractorTest extends TestCase
      */
     public function itResolvesPropertyAnnotations(): void
     {
+        $isPhp8OrAbove = version_compare(PHP_VERSION, '8.0.0') >= 0;
+
+        if (!$isPhp8OrAbove) {
+            $this->markTestSkipped('Not a php version of 8.0 or above');
+        }
+
         $extractor = new AttributeExtractor();
 
         $injections = $extractor->getPropertiesInjections(ServiceAttribute::class);
@@ -35,6 +41,12 @@ class AttributeExtractorTest extends TestCase
      */
     public function itResolvesConstructorAnnotations(): void
     {
+        $isPhp8OrAbove = version_compare(PHP_VERSION, '8.0.0') >= 0;
+
+        if (!$isPhp8OrAbove) {
+            $this->markTestSkipped('Not a php version of 8.0 or above');
+        }
+
         $extractor = new AttributeExtractor();
 
         $injections = $extractor->getConstructorInjections(ServiceAttributeConstructor::class);
