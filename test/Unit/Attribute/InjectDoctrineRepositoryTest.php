@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Attribute\InjectDoctrineRepository;
+use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
+use Reinfi\DependencyInjection\Test\Service\Service2;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Attribute
@@ -144,5 +146,39 @@ class InjectDoctrineRepositoryTest extends TestCase
                 EntityRepository::class,
             ],
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function itThrowsExceptionIfEntityManagerIsNotAnObject(): void
+    {
+        $this->expectException(AutoWiringNotPossibleException::class);
+
+        $inject = new InjectDoctrineRepository(EntityRepository::class, 'No-EntityManager');
+
+        $container = $this->prophesize(ContainerInterface::class);
+
+        $container->get('No-EntityManager')->willReturn('1');
+
+        $inject($container->reveal());
+    }
+
+    /**
+     * @test
+     */
+    public function itThrowsExceptionIfEntityManagerHasNotGetRepositoryMethod(): void
+    {
+        $this->expectException(AutoWiringNotPossibleException::class);
+
+        $inject = new InjectDoctrineRepository(EntityRepository::class, 'No-EntityManager');
+
+        $container = $this->prophesize(ContainerInterface::class);
+
+        $container->get('No-EntityManager')->willReturn(
+            $this->prophesize(Service2::class)->reveal()
+        );
+
+        $inject($container->reveal());
     }
 }
