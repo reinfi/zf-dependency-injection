@@ -5,7 +5,9 @@ parameters:
     paths:
         - src
     excludePaths:
-        - %currentWorkingDirectory%/src/Command*
+        analyse:
+            - %currentWorkingDirectory%/src/Command*
+            - %currentWorkingDirectory%/src/Service/Extractor/AttributeExtractor.php
 
 includes:
     - vendor/bnf/phpstan-psr-container/extension.neon
