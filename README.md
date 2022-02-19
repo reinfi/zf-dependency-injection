@@ -10,10 +10,11 @@ Heavily inspired by https://github.com/mikemix/mxdiModule.
 
 1. [Installation](#installation)
 2. [AutoWiring](#autowiring)
-3. [Annotations](#annotations)
-3. [YAML](#yaml)
-4. [Caching](#caching)
-6. [Console commands](#console-commands)
+3. [Attributes](#attributes)
+4. [Annotations](#annotations)
+5. [YAML](#yaml)
+6. [Caching](#caching)
+7. [Console commands](#console-commands)
 
 ### Installation
 
