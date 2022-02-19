@@ -162,6 +162,8 @@ It is only constructor injection supported, if you need di from setters you need
 You can add the annotations at properties or at the __construct method.
 
 ```php
+use Reinfi\DependencyInjection\Annotation\Inject;
+
 /**
  * @Inject("Namespace\MyService")
  */
@@ -177,7 +179,10 @@ public function __construct(
 }
 ```
 or
+
 ```php
+use Reinfi\DependencyInjection\Annotation\Inject;
+
 /**
  * @Inject("Namespace\MyService")
  */
