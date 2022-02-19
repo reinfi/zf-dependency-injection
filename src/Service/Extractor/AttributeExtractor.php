@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Service\Extractor;
 
+use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionProperty;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
@@ -26,17 +27,12 @@ class AttributeExtractor implements ExtractorInterface
             $attributes = $reflectionProperty->getAttributes();
 
             foreach ($attributes as $attribute) {
-                $attributeName = $attribute->getName();
-                if (!is_subclass_of($attributeName, InjectionInterface::class)) {
+                $injection = $this->getInjectionFromAttribute($attribute);
+                if (!$injection instanceof InjectionInterface) {
                     continue;
                 }
 
-                $instance = $attribute->newInstance();
-                if (!$instance instanceof InjectionInterface) {
-                    continue;
-                }
-
-                $injections[$index] = $instance;
+                $injections[$index] = $injection;
 
                 // Only one attribute is supported at a property.
                 break;
@@ -63,19 +59,29 @@ class AttributeExtractor implements ExtractorInterface
         $attributes = $reflectionConstructor->getAttributes();
 
         foreach ($attributes as $attribute) {
-            $attributeName = $attribute->getName();
-            if (!is_subclass_of($attributeName, InjectionInterface::class)) {
+            $injection = $this->getInjectionFromAttribute($attribute);
+            if (!$injection instanceof InjectionInterface) {
                 continue;
             }
 
-            $instance = $attribute->newInstance();
-            if (!$instance instanceof InjectionInterface) {
-                continue;
-            }
-
-            $injections[] = $instance;
+            $injections[] = $injection;
         }
 
         return $injections;
+    }
+
+    private function getInjectionFromAttribute(ReflectionAttribute $attribute): ?InjectionInterface
+    {
+        $attributeName = $attribute->getName();
+        if (!is_subclass_of($attributeName, InjectionInterface::class)) {
+            return null;
+        }
+
+        $instance = $attribute->newInstance();
+        if (!$instance instanceof InjectionInterface) {
+            return null;
+        }
+
+        return $instance;
     }
 }
