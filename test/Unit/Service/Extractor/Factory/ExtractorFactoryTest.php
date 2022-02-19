@@ -32,6 +32,7 @@ class ExtractorFactoryTest extends TestCase
         $moduleConfig = new Config(['extractor' => YamlExtractor::class]);
 
         $yamlExtractor = $this->prophesize(YamlExtractor::class);
+        $annotationExtractor = $this->prophesize(AnnotationExtractor::class);
         $attributeExtractor = $this->prophesize(AttributeExtractor::class);
         $container = $this->prophesize(ContainerInterface::class);
 
@@ -40,6 +41,9 @@ class ExtractorFactoryTest extends TestCase
             ->shouldBeCalled();
         $container->get(YamlExtractor::class)
             ->willReturn($yamlExtractor->reveal())
+            ->shouldBeCalled();
+        $container->get(AnnotationExtractor::class)
+            ->willReturn($annotationExtractor->reveal())
             ->shouldBeCalled();
         $container->get(AttributeExtractor::class)
             ->willReturn($attributeExtractor->reveal())
@@ -60,9 +64,9 @@ class ExtractorFactoryTest extends TestCase
         self::assertTrue(is_array($chain));
 
         if ($isPhp8OrAbove) {
-            self::assertCount(2, $chain);
+            self::assertCount(3, $chain);
         } else {
-            self::assertCount(1, $chain);
+            self::assertCount(2, $chain);
         }
 
         self::assertContainsOnlyInstancesOf(ExtractorInterface::class, $chain);

@@ -22,9 +22,17 @@ class ExtractorFactory
         /** @var array $config */
         $config = $container->get(ModuleConfig::class);
 
-        $extractors = [
-            $this->extractorByConfig($container, $config)
-        ];
+        $extractors = [];
+
+        $extractorFromConfig = $this->extractorFromConfig($container, $config);
+
+        if ($extractorFromConfig instanceof ExtractorInterface) {
+            $extractors[] = $extractorFromConfig;
+        }
+
+        if (class_exists('Doctrine\Common\Annotations\AnnotationReader')) {
+            $extractors[] = $container->get(AnnotationExtractor::class);
+        }
 
         if (version_compare(PHP_VERSION, '8.0.0') >= 0) {
             $extractors[] = $container->get(AttributeExtractor::class);
@@ -33,9 +41,17 @@ class ExtractorFactory
         return new ExtractorChain($extractors);
     }
 
-    private function extractorByConfig(ContainerInterface $container, array $config): ExtractorInterface
-    {
-        $extractor = $container->get($config['extractor'] ?? AnnotationExtractor::class);
+    private function extractorFromConfig(
+        ContainerInterface $container,
+        array              $config
+    ): ?ExtractorInterface {
+        $extractorConfiguration = $config['extractor'] ?? null;
+
+        if ($extractorConfiguration === null) {
+            return null;
+        }
+
+        $extractor = $container->get($extractorConfiguration);
 
         if ($extractor instanceof ExtractorInterface) {
             return $extractor;
