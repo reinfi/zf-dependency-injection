@@ -69,8 +69,65 @@ If you like to add another resolver you can simply add one through the configura
 ```
 It needs to implement the ResolverInterface.
 
+### Attributes
+Attributes are activated if you are using a php version 8.0 or higher.
+To use attributes for your dependencies you need to specify the 'InjectionFactory' within the service manager configuration.
+```php
+'service_manager' => [
+    'factories' => [
+        YourService::class => \Reinfi\DependencyInjection\Factory\InjectionFactory::class,
+    ],
+]
+```
+Following attributes are supported:
+* Inject (directly injects a service from the service locator)
+* InjectParent (must be used if you inject a service from a plugin manager)
+* InjectConfig (dot separated path to a config value, e.g. service_manager.factories)
+* InjectContainer (directly inject container interface)
+
+Also in addition there a several annotations to inject from plugin managers.
+* InjectViewHelper
+* InjectFilter
+* InjectInputFilter
+* InjectValidator
+* InjectHydrator
+* InjectFormElement
+
+You can either pass directly the required service name or if you need options you can pass them as following:
+```php
+#[InjectFormElement(name="Service", options={"field": "value"}]
+```
+
+If you need a doctrine repository there is also an attribute.
+* InjectDoctrineRepository
+
+It is only constructor injection supported, if you need di from setters you need to use delegator factories.
+
+You can add the attributes at properties or at the __construct method.
+
+```php
+#[Inject("Namespace\MyService")] 
+private MyService $service;
+
+public function __construct(MyService $service) 
+{
+    $this->service = $service;
+}
+```
+or
+```php
+private MyService $service;
+
+#[Inject("Namespace\MyService")] 
+public function __construct(MyService $service) 
+{
+    $this->service = $service;
+}
+```
+The order is important and you should decide between constructor or property annotations.
+
 ### Annotations
-To use annotation for your dependencies you need to specify the 'InjectionFactory' within the service manager configuration.
+To use annotations for your dependencies you need to specify the 'InjectionFactory' within the service manager configuration.
 ```php
 'service_manager' => [
     'factories' => [
@@ -106,33 +163,28 @@ You can add the annotations at properties or at the __construct method.
 
 ```php
 /**
-     * @Inject("Namespace\MyService")
-     *
-     * @var MyService
-     */
-    private $service;
+ * @Inject("Namespace\MyService")
+ */
+private MyService $service;
 
-    /**
-     * @param MyService $service
-     */
-    public function __construct(
-        MyService $service,
-    ) {
-        $this->service = $service;
-    }
+/**
+ * @param MyService $service
+ */
+public function __construct(
+    MyService $service,
+) {
+    $this->service = $service;
+}
 ```
 or
 ```php
-    /**
-     * @Inject("Namespace\MyService")
-     *
-     * @param MyService $service
-     */
-    public function __construct(
-        MyService $service,
-    ) {
-        $this->service = $service;
-    }
+/**
+ * @Inject("Namespace\MyService")
+ */
+public function __construct(MyService $service) 
+{
+    $this->service = $service;
+}
 ```
 The order is important and you should decide between constructor or property annotations.
 ##### Adding own annotations
