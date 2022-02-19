@@ -24,6 +24,10 @@ class ExtractorChain implements ExtractorInterface
         return array_reduce(
             $this->chain,
             function (array $injections, ExtractorInterface $extractor) use ($className): array {
+                if (count($injections) > 0) {
+                    return $injections;
+                }
+
                 return $injections + $extractor->getPropertiesInjections($className);
             },
             []
@@ -38,6 +42,10 @@ class ExtractorChain implements ExtractorInterface
         return array_reduce(
             $this->chain,
             function (array $injections, ExtractorInterface $extractor) use ($className): array {
+                if (count($injections) > 0) {
+                    return $injections;
+                }
+
                 return $injections + $extractor->getConstructorInjections($className);
             },
             []
