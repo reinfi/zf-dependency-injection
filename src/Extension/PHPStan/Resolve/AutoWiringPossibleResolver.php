@@ -30,6 +30,12 @@ class AutoWiringPossibleResolver
 
     private function getResolverService(): ?ResolverServiceInterface
     {
-        return $this->serviceManagerLoader->getServiceLocator()?->get(ResolverService::class);
+        $serviceLocator = $this->serviceManagerLoader->getServiceLocator();
+
+        if ($serviceLocator === null) {
+            return null;
+        }
+
+        return $serviceLocator->get(ResolverService::class);
     }
 }
