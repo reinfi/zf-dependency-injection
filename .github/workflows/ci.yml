@@ -44,4 +44,4 @@ jobs:
         run: composer phpstan
 
       - name: Run phpunit
-        run: composer phpunit
+        run: composer test
