@@ -16,8 +16,10 @@ final class AutoWiringPossibleRule implements Rule
     private AutoWiringClassesResolver $classesResolver;
     private AutoWiringPossibleResolver $possibleResolver;
 
-    public function __construct(AutoWiringClassesResolver $classesResolver, AutoWiringPossibleResolver $possibleResolver)
-    {
+    public function __construct(
+        AutoWiringClassesResolver $classesResolver,
+        AutoWiringPossibleResolver $possibleResolver
+    ) {
         $this->classesResolver = $classesResolver;
         $this->possibleResolver = $possibleResolver;
     }
@@ -34,19 +36,23 @@ final class AutoWiringPossibleRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        if ($node->name === null) {
+        if ($node->namespacedName === null) {
             return [];
         }
 
-        if (! $this->classesResolver->isAutowired($node->name->name)) {
+        if (! $this->classesResolver->isAutowired($node->namespacedName->toString())) {
             return [];
         }
 
         try {
-            $this->possibleResolver->resolve($node->name->name);
+            $this->possibleResolver->resolve($node->namespacedName->toString());
         } catch (AutoWiringNotPossibleException $exception) {
             return [
-                $exception->getMessage()
+                sprintf(
+                    'AutoWiring of %s not possible, due to: %s',
+                    $node->namespacedName->toString(),
+                    $exception->getMessage()
+                )
             ];
         }
 
