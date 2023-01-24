@@ -51,7 +51,7 @@ class AutoWiringClassesResolver
 
         return array_reduce(
             $config,
-            function (array $classes, mixed $config): array {
+            function (array $classes, $config): array {
                 if (! is_array($config)) {
                     return $classes;
                 }
@@ -63,7 +63,7 @@ class AutoWiringClassesResolver
 
                 $autowiredClasses = array_filter(
                     $factories,
-                    function (mixed $factoryClass): bool {
+                    function ($factoryClass): bool {
                         return $factoryClass === AutoWiringFactory::class;
                     }
                 );
