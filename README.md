@@ -13,7 +13,8 @@ Heavily inspired by https://github.com/mikemix/mxdiModule.
 4. [Annotations](#annotations)
 5. [YAML](#yaml)
 6. [Caching](#caching)
-7. [Console commands](#console-commands)
+7. [PHPStan Extension](#phpstan-extension)
+8. [Console commands](#console-commands)
 
 ### Installation
 
@@ -228,6 +229,40 @@ or you provide a factory for a cache adapter.
        );
     },
 ]
+```
+
+### PHPStan Extension
+As "autowiring" is always kind of magic this library ships with a PHPStan extension to solve that problem.
+
+If you also install [phpstan/extension-installer](https://github.com/phpstan/extension-installer) then you're all set!
+
+<details>
+    <summary>Manual installation</summary>
+
+If you don't want to use `phpstan/extension-installer`, include phpstan-extension.neon in your project's PHPStan config:
+
+```
+includes:
+    - vendor/reinfi/zf-dependency-injection/phpstan-extension.neon
+```
+
+</details>
+
+The extension requires to know your service manager to find all the classes you configured for autowiring.
+
+If you do not provide it, the PHPStan extension will simply do nothing.
+
+```neon
+parameters:
+    reinfiLaminasDependencyInjection:
+       serviceManagerLoader: tests/service-manager.php
+```
+
+For example, `tests/service-manager.php` would look something like this:
+
+```php
+$app = \Laminas\Mvc\Application::init($config);
+return $app->getServiceManager();
 ```
 
 
