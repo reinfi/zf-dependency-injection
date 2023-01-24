@@ -65,6 +65,11 @@
         "zf": {
             "component": "Reinfi\\DependencyInjection",
             "config-provider": "Reinfi\\DependencyInjection\\ConfigProvider"
+        },
+        "phpstan": {
+            "includes": [
+                "phpstan-extension.neon"
+            ]
         }
     },
     "scripts": {

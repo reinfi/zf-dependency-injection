@@ -1,0 +1,21 @@
+parameters:
+    reinfiLaminasDependencyInjection:
+        serviceManagerLoader: null
+
+parametersSchema:
+    reinfiLaminasDependencyInjection: structure([
+        serviceManagerLoader: schema(string(), nullable())
+    ])
+
+rules:
+    - Reinfi\DependencyInjection\Extension\PHPStan\Rules\AutoWiringPossibleRule
+
+services:
+    -
+        class: Reinfi\DependencyInjection\Extension\PHPStan\ServiceManagerLoader
+        arguments:
+            serviceManagerLoader: %reinfiLaminasDependencyInjection.serviceManagerLoader%
+    -
+        class: Reinfi\DependencyInjection\Extension\PHPStan\Resolve\AutoWiringClassesResolver
+    -
+        class: Reinfi\DependencyInjection\Extension\PHPStan\Resolve\AutoWiringPossibleResolver
