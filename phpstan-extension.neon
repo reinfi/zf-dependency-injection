@@ -1,10 +1,6 @@
-parameters:
-    reinfiLaminasDependencyInjection:
-        serviceManagerLoader: null
-
 parametersSchema:
     reinfiLaminasDependencyInjection: structure([
-        serviceManagerLoader: schema(string(), nullable())
+        serviceManagerLoader: schema(string())
     ])
 
 rules:
