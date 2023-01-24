@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\AbstractFactory\Config;
 
 use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\AbstractFactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 use Reinfi\DependencyInjection\Service\ConfigService;
 
 /**
@@ -36,21 +35,6 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
     }
 
     /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @param string                  $name
-     * @param string                  $requestedName
-     *
-     * @return bool
-     */
-    public function canCreateServiceWithName(
-        ServiceLocatorInterface $serviceLocator,
-        $name,
-        $requestedName
-    ): bool {
-        return $this->canCreate($serviceLocator, $requestedName);
-    }
-
-    /**
      * @param ContainerInterface $container
      * @param string             $requestedName
      * @param array|null         $options
@@ -66,20 +50,5 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
         $configService = $container->get(ConfigService::class);
 
         return $configService->resolve($this->matches[1]);
-    }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @param string                  $name
-     * @param string                  $requestedName
-     *
-     * @return mixed|object|null
-     */
-    public function createServiceWithName(
-        ServiceLocatorInterface $serviceLocator,
-        $name,
-        $requestedName
-    ) {
-        return $this($serviceLocator, $requestedName);
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Reinfi\DependencyInjection\Test\Unit\AbstractFactory\Config;
 
-use Laminas\ServiceManager\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\AbstractFactory\Config\InjectConfigAbstractFactory;
 use Reinfi\DependencyInjection\Service\ConfigService;
 
@@ -22,19 +22,10 @@ class InjectConfigAbstractFactoryTest extends TestCase
     {
         $factory = new InjectConfigAbstractFactory();
 
-        /** @var ServiceLocatorInterface $container */
+        /** @var ContainerInterface $container */
         $container = $this
-            ->prophesize(ServiceLocatorInterface::class)
+            ->prophesize(ContainerInterface::class)
             ->reveal();
-
-        self::assertTrue(
-            $factory->canCreateServiceWithName(
-                $container,
-                'config.reinfi.di.test',
-                'Config.reinfi.di.test'
-            ),
-            'factory should be able to create service'
-        );
 
         self::assertTrue(
             $factory->canCreate(
@@ -52,19 +43,10 @@ class InjectConfigAbstractFactoryTest extends TestCase
     {
         $factory = new InjectConfigAbstractFactory();
 
-        /** @var ServiceLocatorInterface $container */
+        /** @var ContainerInterface $container */
         $container = $this
-            ->prophesize(ServiceLocatorInterface::class)
+            ->prophesize(ContainerInterface::class)
             ->reveal();
-
-        self::assertFalse(
-            $factory->canCreateServiceWithName(
-                $container,
-                'service.reinfi.di.test',
-                'service.reinfi.di.test'
-            ),
-            'factory should not be able to create service'
-        );
 
         self::assertFalse(
             $factory->canCreate(
@@ -83,27 +65,21 @@ class InjectConfigAbstractFactoryTest extends TestCase
         $factory = new InjectConfigAbstractFactory();
 
         $container = $this
-            ->prophesize(ServiceLocatorInterface::class);
+            ->prophesize(ContainerInterface::class);
 
         $configService = $this->prophesize(ConfigService::class);
         $configService->resolve('reinfi.di.test')
-            ->willReturn(true);
+            ->willReturn(true)
+            ->shouldBeCalled();
 
         $container->get(ConfigService::class)
             ->willReturn($configService->reveal());
 
-        $factory->canCreateServiceWithName(
+        $factory->canCreate($container->reveal(), 'Config.reinfi.di.test');
+
+        $factory(
             $container->reveal(),
             'config.reinfi.di.test',
-            'Config.reinfi.di.test'
-        );
-
-        self::assertTrue(
-            $factory->createServiceWithName(
-                $container->reveal(),
-                'config.reinfi.di.test',
-                'Config.reinfi.di.test'
-            )
         );
     }
 }
