@@ -51,7 +51,6 @@
         "doctrine/orm": "^2.5",
         "php-coveralls/php-coveralls": "^2.0",
         "symfony/yaml": "^4.0 | ^5.0 | ^6.0",
-        "friendsofphp/php-cs-fixer": "^3.4",
         "phpstan/phpstan": "^1.3",
         "phpspec/prophecy-phpunit": "^2.0",
         "laminas/laminas-hydrator": "^4.2",
@@ -59,7 +58,9 @@
         "laminas/laminas-filter": "^2.11",
         "laminas/laminas-form": "^3.0",
         "laminas/laminas-inputfilter": "^2.12",
-        "bnf/phpstan-psr-container": "^1.0"
+        "bnf/phpstan-psr-container": "^1.0",
+        "symplify/easy-coding-standard": "^11.2",
+        "doctrine/annotations": "^2.0"
     },
     "extra": {
         "zf": {
@@ -73,6 +74,8 @@
         }
     },
     "scripts": {
+        "cs-check": "ecs check",
+        "cs-fix": "ecs check --fix",
         "phpstan": "./vendor/bin/phpstan analyse -c phpstan.neon",
         "test": "vendor/bin/phpunit --no-coverage",
         "test-with-coverage": "vendor/bin/phpunit --coverage-clover=build/coverage.xml",

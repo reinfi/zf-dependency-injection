@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit;
 
-use Laminas\Console\Adapter\AdapterInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Reinfi\DependencyInjection\Module;
@@ -14,10 +15,7 @@ class ModuleTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itReturnsConfig(): void
+    public function testItReturnsConfig(): void
     {
         $module = new Module();
 

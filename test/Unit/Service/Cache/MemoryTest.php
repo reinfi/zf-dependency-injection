@@ -10,10 +10,7 @@ use Reinfi\DependencyInjection\Service\Cache\Memory;
 
 class MemoryTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function itStoresCachedContents(): void
+    public function testItStoresCachedContents(): void
     {
         $cache = new Memory();
 
@@ -34,10 +31,7 @@ class MemoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itHandlesNotStoredContents(): void
+    public function testItHandlesNotStoredContents(): void
     {
         $cache = new Memory();
 
@@ -52,10 +46,7 @@ class MemoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itDeletesStoredContents(): void
+    public function testItDeletesStoredContents(): void
     {
         $cache = new Memory();
 
@@ -77,10 +68,7 @@ class MemoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itClearsStoredContents(): void
+    public function testItClearsStoredContents(): void
     {
         $cache = new Memory();
 
@@ -109,13 +97,9 @@ class MemoryTest extends TestCase
     }
 
     /**
-     * @test
      * @dataProvider badMethodDataProvider
-     *
-     * @param string $methodName
-     * @param array $methodParams
      */
-    public function itThrowsExceptionForNotImplementedMethods(string $methodName, array $methodParams): void
+    public function testItThrowsExceptionForNotImplementedMethods(string $methodName, array $methodParams): void
     {
         $this->expectException(BadMethodCallException::class);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service;
 
 use PHPUnit\Framework\TestCase;
@@ -18,16 +20,12 @@ class CacheServiceTest extends TestCase
     use ProphecyTrait;
 
     /**
-     * @test
-     *
      * @dataProvider getMethodDataProvider
      *
-     * @param string $method
-     * @param array  $arguments
      * @param mixed  $params
      * @param mixed  $returnValue
      */
-    public function itProxiesCallToUnderlyingCache(
+    public function testItProxiesCallToUnderlyingCache(
         string $method,
         array $arguments,
         $params,
@@ -49,28 +47,25 @@ class CacheServiceTest extends TestCase
         );
     }
 
-    /**
-     * @return array
-     */
     public function getMethodDataProvider(): array
     {
         return [
             [
                 'get',
-                [ Argument::exact('itemKey'), Argument::exact(null), Argument::exact(null) ],
-                [ 'itemKey' ],
+                [Argument::exact('itemKey'), Argument::exact(null), Argument::exact(null)],
+                ['itemKey'],
                 ['cachedItem'],
             ],
             [
                 'has',
-                [ Argument::exact('itemKey') ],
-                [ 'itemKey' ],
+                [Argument::exact('itemKey')],
+                ['itemKey'],
                 true,
             ],
             [
                 'set',
-                [ Argument::exact('itemKey'), Argument::exact(['itemValue']) ],
-                [ 'itemKey', ['itemValue'] ],
+                [Argument::exact('itemKey'), Argument::exact(['itemValue'])],
+                ['itemKey', ['itemValue']],
                 true,
             ],
         ];

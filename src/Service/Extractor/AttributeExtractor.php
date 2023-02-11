@@ -11,9 +11,6 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
 
 class AttributeExtractor implements ExtractorInterface
 {
-    /**
-     * @inheritDoc
-     */
     public function getPropertiesInjections(string $className): array
     {
         $injections = [];
@@ -28,7 +25,7 @@ class AttributeExtractor implements ExtractorInterface
 
             foreach ($attributes as $attribute) {
                 $injection = $this->getInjectionFromAttribute($attribute);
-                if (!$injection instanceof InjectionInterface) {
+                if (! $injection instanceof InjectionInterface) {
                     continue;
                 }
 
@@ -42,9 +39,6 @@ class AttributeExtractor implements ExtractorInterface
         return $injections;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getConstructorInjections(string $className): array
     {
         $injections = [];
@@ -60,7 +54,7 @@ class AttributeExtractor implements ExtractorInterface
 
         foreach ($attributes as $attribute) {
             $injection = $this->getInjectionFromAttribute($attribute);
-            if (!$injection instanceof InjectionInterface) {
+            if (! $injection instanceof InjectionInterface) {
                 continue;
             }
 
@@ -73,12 +67,12 @@ class AttributeExtractor implements ExtractorInterface
     private function getInjectionFromAttribute(ReflectionAttribute $attribute): ?InjectionInterface
     {
         $attributeName = $attribute->getName();
-        if (!is_subclass_of($attributeName, InjectionInterface::class)) {
+        if (! is_subclass_of($attributeName, InjectionInterface::class)) {
             return null;
         }
 
         $instance = $attribute->newInstance();
-        if (!$instance instanceof InjectionInterface) {
+        if (! $instance instanceof InjectionInterface) {
             return null;
         }
 

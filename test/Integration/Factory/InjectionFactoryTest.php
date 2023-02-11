@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Integration\Factory;
 
 use Laminas\ServiceManager\AbstractPluginManager;
@@ -24,10 +26,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceWithDependencies(): void
+    public function testItCreatesServiceWithDependencies(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -45,10 +44,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceWithDependenciesFromConstructor(): void
+    public function testItCreatesServiceWithDependenciesFromConstructor(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -66,10 +62,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceWithNoInjectionsDefined(): void
+    public function testItCreatesServiceWithNoInjectionsDefined(): void
     {
         $container = $this->getServiceManager([
             'service_manager' => [
@@ -77,7 +70,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
                     Service3::class => InjectionFactory::class,
                 ],
             ],
-          ]);
+        ]);
 
         $factory = new InjectionFactory();
 
@@ -93,10 +86,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceFromCanonicalName(): void
+    public function testItCreatesServiceFromCanonicalName(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -114,10 +104,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceFromPluginManager(): void
+    public function testItCreatesServiceFromPluginManager(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -140,10 +127,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
         );
     }
 
-    /**
-     * @test
-     */
-    public function itThrowsExceptionIfServiceNotFound(): void
+    public function testItThrowsExceptionIfServiceNotFound(): void
     {
         $this->expectException(InvalidServiceException::class);
 
@@ -158,10 +142,7 @@ class InjectionFactoryTest extends AbstractIntegrationTest
         );
     }
 
-    /**
-     * @test
-     */
-    public function itResolvesYamlInjections(): void
+    public function testItResolvesYamlInjections(): void
     {
         $config = ArrayUtils::merge(
             require __DIR__ . '/../../resources/config.php',

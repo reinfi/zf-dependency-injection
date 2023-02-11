@@ -37,8 +37,6 @@ class ResolverServiceFactory
     }
 
     /**
-     * @param array $config
-     *
      * @return class-string[]
      */
     private function getResolverStack(array $config): array

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
 use Laminas\Filter\ToInt;
@@ -28,14 +30,9 @@ class PluginManagerResolverTest extends TestCase
     use ProphecyTrait;
 
     /**
-     * @test
-     *
      * @dataProvider getPluginManagerData
-     *
-     * @param string $serviceClass
-     * @param string $pluginManager
      */
-    public function itReturnsInjectionInterfaceForPluginManager(
+    public function testItReturnsInjectionInterfaceForPluginManager(
         string $serviceClass,
         string $pluginManager
     ): void {
@@ -60,14 +57,9 @@ class PluginManagerResolverTest extends TestCase
     }
 
     /**
-     * @test
-     *
      * @dataProvider getPluginManagerData
-     *
-     * @param string $serviceClass
-     * @param string $pluginManager
      */
-    public function itReturnsServiceAndPluginManager(
+    public function testItReturnsServiceAndPluginManager(
         string $serviceClass,
         string $pluginManager
     ): void {
@@ -111,10 +103,7 @@ class PluginManagerResolverTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itResolvesAdditionalInterfaceMappings(): void
+    public function testItResolvesAdditionalInterfaceMappings(): void
     {
         PluginManagerResolver::addMapping(
             ServiceInterface::class,
@@ -152,10 +141,7 @@ class PluginManagerResolverTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfNoPluginManagerFound(): void
+    public function testItReturnsNullIfNoPluginManagerFound(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
         $resolver = new PluginManagerResolver($container->reveal());
@@ -171,10 +157,7 @@ class PluginManagerResolverTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfParameterHasNoType(): void
+    public function testItReturnsNullIfParameterHasNoType(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
@@ -188,9 +171,6 @@ class PluginManagerResolverTest extends TestCase
         self::assertNull($injection);
     }
 
-    /**
-     * @return array
-     */
     public function getPluginManagerData(): array
     {
         return [

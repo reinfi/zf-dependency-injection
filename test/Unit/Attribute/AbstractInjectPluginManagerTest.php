@@ -16,10 +16,7 @@ class AbstractInjectPluginManagerTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itThrowsExceptionIfNotInstanceOfPluginManager(): void
+    public function testItThrowsExceptionIfNotInstanceOfPluginManager(): void
     {
         $this->expectException(InjectionNotPossibleException::class);
 
@@ -31,6 +28,5 @@ class AbstractInjectPluginManagerTest extends TestCase
         $container->get('NOT-A-PLUGIN-MANAGER')->willReturn($noPluginManagerClass->reveal());
 
         $attribute($container->reveal());
-
     }
 }

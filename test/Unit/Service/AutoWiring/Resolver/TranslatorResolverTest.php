@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
 use Laminas\I18n\Translator\Translator;
@@ -22,12 +24,9 @@ class TranslatorResolverTest extends TestCase
     use ProphecyTrait;
 
     /**
-     * @test
      * @dataProvider containerHasCallsProvider
-     *
-     * @param array $containerHasCalls
      */
-    public function itReturnsInjectionInterfaceForTranslatorInterface(
+    public function testItReturnsInjectionInterfaceForTranslatorInterface(
         array $containerHasCalls
     ): void {
         $container = $this->prophesize(ContainerInterface::class);
@@ -35,7 +34,9 @@ class TranslatorResolverTest extends TestCase
         foreach ($containerHasCalls as $serviceName => $result) {
             $container->addMethodProphecy(
                 (new MethodProphecy(
-                    $container, 'has', [ Argument::exact($serviceName) ]
+                    $container,
+                    'has',
+                    [Argument::exact($serviceName)]
                 ))
                     ->willReturn($result)
                     ->shouldBeCalled()
@@ -55,12 +56,9 @@ class TranslatorResolverTest extends TestCase
     }
 
     /**
-     * @test
      * @dataProvider containerHasCallsProvider
-     *
-     * @param array $containerHasCalls
      */
-    public function itReturnsInjectionInterfaceForTranslatorClass(
+    public function testItReturnsInjectionInterfaceForTranslatorClass(
         array $containerHasCalls
     ): void {
         $container = $this->prophesize(ContainerInterface::class);
@@ -68,7 +66,9 @@ class TranslatorResolverTest extends TestCase
         foreach ($containerHasCalls as $serviceName => $result) {
             $container->addMethodProphecy(
                 (new MethodProphecy(
-                    $container, 'has', [ Argument::exact($serviceName) ]
+                    $container,
+                    'has',
+                    [Argument::exact($serviceName)]
                 ))
                     ->willReturn($result)
             );
@@ -85,10 +85,7 @@ class TranslatorResolverTest extends TestCase
         self::assertInstanceOf(AutoWiring::class, $injection);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfNoTranslatorRegistered(): void
+    public function testItReturnsNullIfNoTranslatorRegistered(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
@@ -109,10 +106,7 @@ class TranslatorResolverTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfReflectionParameterHasNoType(): void
+    public function testItReturnsNullIfReflectionParameterHasNoType(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
@@ -131,10 +125,7 @@ class TranslatorResolverTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfNoTranslatorInterface(): void
+    public function testItReturnsNullIfNoTranslatorInterface(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
@@ -151,10 +142,7 @@ class TranslatorResolverTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfParameterHasNoType(): void
+    public function testItReturnsNullIfParameterHasNoType(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
@@ -169,9 +157,6 @@ class TranslatorResolverTest extends TestCase
         );
     }
 
-    /**
-     * @return array
-     */
     public function containerHasCallsProvider(): array
     {
         return [
@@ -182,15 +167,15 @@ class TranslatorResolverTest extends TestCase
             ],
             [
                 [
-                    'MvcTranslator'                               => false,
+                    'MvcTranslator' => false,
                     'Laminas\I18n\Translator\TranslatorInterface' => true,
                 ],
             ],
             [
                 [
-                    'MvcTranslator'                               => false,
+                    'MvcTranslator' => false,
                     'Laminas\I18n\Translator\TranslatorInterface' => false,
-                    'Translator'                                  => true,
+                    'Translator' => true,
                 ],
             ],
         ];

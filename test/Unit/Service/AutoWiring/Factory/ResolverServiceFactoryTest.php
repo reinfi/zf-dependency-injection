@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Factory;
 
 use PHPUnit\Framework\TestCase;
@@ -23,10 +25,7 @@ class ResolverServiceFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itCreatesResolverServiceWithDefaultResolvers(): void
+    public function testItCreatesResolverServiceWithDefaultResolvers(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
@@ -45,19 +44,19 @@ class ResolverServiceFactoryTest extends TestCase
         self::assertInstanceOf(
             ResolverService::class,
             $factory($container->reveal()),
-            'factory should return instance of ' . ResolverService::class);
+            'factory should return instance of ' . ResolverService::class
+        );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesResolverServiceWithAdditionalResolvers(): void
+    public function testItCreatesResolverServiceWithAdditionalResolvers(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
         $container->get(ModuleConfig::class)
             ->willReturn(
-                ['autowire_resolver' => [ TestResolver::class ], ]
+                [
+                    'autowire_resolver' => [TestResolver::class],
+                ]
             );
 
         $container->get(ContainerResolver::class)->shouldBeCalled();
@@ -73,6 +72,7 @@ class ResolverServiceFactoryTest extends TestCase
         self::assertInstanceOf(
             ResolverService::class,
             $factory($container->reveal()),
-            'factory should return instance of ' . ResolverService::class);
+            'factory should return instance of ' . ResolverService::class
+        );
     }
 }

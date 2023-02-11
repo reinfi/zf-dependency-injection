@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Attribute;
 
 use Attribute;
-use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
+use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 
 /**
@@ -22,9 +22,6 @@ final class InjectParent implements InjectionInterface
         $this->value = $value;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function __invoke(ContainerInterface $container)
     {
         if ($container instanceof AbstractPluginManager) {

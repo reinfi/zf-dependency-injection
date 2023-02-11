@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Service\Factory;
 
+use Laminas\Config\Config;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\ConfigService;
-use Laminas\Config\Config;
 
 /**
  * @package Reinfi\DependencyInjection\Service\Factory

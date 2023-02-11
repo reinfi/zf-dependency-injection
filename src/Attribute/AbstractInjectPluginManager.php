@@ -17,9 +17,6 @@ abstract class AbstractInjectPluginManager extends AbstractAttribute
 
     private string $name;
 
-    /**
-     * @var array|null
-     */
     private ?array $options;
 
     public function __construct(string $name, ?array $options = null)
@@ -28,15 +25,12 @@ abstract class AbstractInjectPluginManager extends AbstractAttribute
         $this->options = $options;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function __invoke(ContainerInterface $container)
     {
         $container = $this->determineContainer($container);
         $pluginManagerImplementation = $container->get(static::PLUGIN_MANAGER);
 
-        if (!$pluginManagerImplementation instanceof AbstractPluginManager) {
+        if (! $pluginManagerImplementation instanceof AbstractPluginManager) {
             throw InjectionNotPossibleException::fromUnknownPluginManager(static::PLUGIN_MANAGER);
         }
 

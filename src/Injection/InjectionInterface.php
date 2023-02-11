@@ -14,8 +14,6 @@ use Psr\Container\ContainerInterface;
 interface InjectionInterface
 {
     /**
-     * @param ContainerInterface $container
-     *
      * @return mixed
      */
     public function __invoke(ContainerInterface $container);

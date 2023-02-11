@@ -22,8 +22,6 @@ interface ExtractorInterface
 
     /**
      * @param class-string $className
-     *
-     * @return array
      */
     public function getConstructorInjections(string $className): array;
 }

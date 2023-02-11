@@ -21,9 +21,6 @@ final class InjectConstant implements InjectionInterface
         $this->value = $value;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function __invoke(ContainerInterface $container)
     {
         return constant($this->value);

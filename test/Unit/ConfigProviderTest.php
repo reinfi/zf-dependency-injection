@@ -9,10 +9,7 @@ use Reinfi\DependencyInjection\ConfigProvider;
 
 class ConfigProviderTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function itReturnsDependencies(): void
+    public function testItReturnsDependencies(): void
     {
         $configProvider = new ConfigProvider();
 

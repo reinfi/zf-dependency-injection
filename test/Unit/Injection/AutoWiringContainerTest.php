@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Injection;
 
 use PHPUnit\Framework\TestCase;
@@ -14,10 +16,7 @@ class AutoWiringContainerTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itReturnsContainer(): void
+    public function testItReturnsContainer(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Service;
 
 /**
@@ -14,9 +16,6 @@ class BadInjectionClass
      */
     private $property;
 
-    /**
-     * @param array $property
-     */
     public function __construct(array $property)
     {
         $this->property = $property;

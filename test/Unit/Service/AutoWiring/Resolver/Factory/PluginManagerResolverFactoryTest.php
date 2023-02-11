@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver\Factory;
 
 use PHPUnit\Framework\TestCase;
@@ -15,10 +17,7 @@ class PluginManagerResolverFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itReturnsPluginManagerResolver(): void
+    public function testItReturnsPluginManagerResolver(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 

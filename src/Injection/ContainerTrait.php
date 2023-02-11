@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Injection;
 
 use Laminas\ServiceManager\AbstractPluginManager;

@@ -22,12 +22,9 @@ class LazyResolverService implements ResolverServiceInterface
         $this->container = $container;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function resolve(string $className, ?array $options = null): array
     {
-        if (!$this->resolverService instanceof ResolverServiceInterface) {
+        if (! $this->resolverService instanceof ResolverServiceInterface) {
             $this->resolverService = $this->container->get(ResolverService::class);
         }
 

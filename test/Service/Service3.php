@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Service;
 
 /**
@@ -7,5 +9,4 @@ namespace Reinfi\DependencyInjection\Test\Service;
  */
 class Service3
 {
-
 }

@@ -11,9 +11,6 @@ use Laminas\ModuleManager\Feature\ConfigProviderInterface;
  */
 class Module implements ConfigProviderInterface
 {
-    /**
-     * @inheritDoc
-     */
     public function getConfig(): array
     {
         return require __DIR__ . '/../config/module.config.php';

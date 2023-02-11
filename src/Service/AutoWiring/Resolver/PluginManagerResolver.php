@@ -20,13 +20,13 @@ class PluginManagerResolver implements ResolverInterface
      * @var array<class-string, string>
      */
     protected static array $pluginManagerMapping = [
-        'Laminas\Hydrator\HydratorInterface'       => 'HydratorManager',
-        'Laminas\View\Helper\HelperInterface'      => 'ViewHelperManager',
-        'Laminas\Validator\ValidatorInterface'     => 'ValidatorManager',
-        'Laminas\Filter\FilterInterface'           => 'FilterManager',
+        'Laminas\Hydrator\HydratorInterface' => 'HydratorManager',
+        'Laminas\View\Helper\HelperInterface' => 'ViewHelperManager',
+        'Laminas\Validator\ValidatorInterface' => 'ValidatorManager',
+        'Laminas\Filter\FilterInterface' => 'FilterManager',
         'Laminas\InputFilter\InputFilterInterface' => 'InputFilterManager',
-        'Laminas\InputFilter\InputInterface'       => 'InputFilterManager',
-        'Laminas\Form\ElementInterface'            => 'FormElementManager',
+        'Laminas\InputFilter\InputInterface' => 'InputFilterManager',
+        'Laminas\Form\ElementInterface' => 'FormElementManager',
     ];
 
     private ContainerInterface $container;
@@ -36,19 +36,16 @@ class PluginManagerResolver implements ResolverInterface
         $this->container = $container;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function resolve(ReflectionParameter $parameter): ?InjectionInterface
     {
         $type = $parameter->getType();
-        if (!$type instanceof ReflectionNamedType) {
+        if (! $type instanceof ReflectionNamedType) {
             return null;
         }
 
         if (
-            !class_exists($type->getName())
-            && !interface_exists($type->getName())
+            ! class_exists($type->getName())
+            && ! interface_exists($type->getName())
         ) {
             return null;
         }
@@ -59,10 +56,13 @@ class PluginManagerResolver implements ResolverInterface
     }
 
     /**
-     * @param ReflectionClass $reflectionClass
-     *
-     * @return AutoWiringPluginManager|null
+     * @param class-string $className
      */
+    public static function addMapping(string $className, string $pluginManager): void
+    {
+        static::$pluginManagerMapping[$className] = $pluginManager;
+    }
+
     private function handleClass(
         ReflectionClass $reflectionClass
     ): ?AutoWiringPluginManager {
@@ -71,7 +71,7 @@ class PluginManagerResolver implements ResolverInterface
         $interfaceNames = $reflectionClass->getInterfaceNames();
 
         foreach (self::$pluginManagerMapping as $interfaceName => $pluginManager) {
-            if (in_array($interfaceName, $interfaceNames)) {
+            if (in_array($interfaceName, $interfaceNames, true)) {
                 $pluginManagerImplementation = $this->container->get($pluginManager);
                 if (
                     $pluginManagerImplementation instanceof ContainerInterface
@@ -86,14 +86,5 @@ class PluginManagerResolver implements ResolverInterface
         }
 
         return null;
-    }
-
-    /**
-     * @param class-string $className
-     * @param string $pluginManager
-     */
-    public static function addMapping(string $className, string $pluginManager): void
-    {
-        static::$pluginManagerMapping[$className] = $pluginManager;
     }
 }

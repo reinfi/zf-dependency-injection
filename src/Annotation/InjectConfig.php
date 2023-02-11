@@ -16,19 +16,10 @@ use Reinfi\DependencyInjection\Service\ConfigService;
  */
 final class InjectConfig extends AbstractAnnotation
 {
-    /**
-     * @var string
-     */
     private string $configPath;
 
-    /**
-     * @var bool
-     */
     private bool $asArray = false;
 
-    /**
-     * @param array $values
-     */
     public function __construct(array $values)
     {
         if (isset($values['asArray'])) {
@@ -37,9 +28,7 @@ final class InjectConfig extends AbstractAnnotation
 
         $this->configPath = $values['value'];
     }
-    /**
-     * @inheritDoc
-     */
+
     public function __invoke(ContainerInterface $container)
     {
         $container = $this->determineContainer($container);

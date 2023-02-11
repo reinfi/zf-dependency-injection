@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Config\Factory;
 
 use InvalidArgumentException;
@@ -16,16 +18,15 @@ class ModuleConfigFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itReturnsModuleConfig(): void
+    public function testItReturnsModuleConfig(): void
     {
         $factory = new ModuleConfigFactory();
 
         $container = $this->prophesize(ContainerInterface::class);
         $container->get('config')
-            ->willReturn([ ModuleConfig::CONFIG_KEY => [] ]);
+            ->willReturn([
+                ModuleConfig::CONFIG_KEY => [],
+            ]);
 
         self::assertIsArray(
             $factory($container->reveal()),
@@ -33,16 +34,17 @@ class ModuleConfigFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsModuleConfigData(): void
+    public function testItReturnsModuleConfigData(): void
     {
         $factory = new ModuleConfigFactory();
 
         $container = $this->prophesize(ContainerInterface::class);
         $container->get('config')
-            ->willReturn([ ModuleConfig::CONFIG_KEY => [ 'extractor' => '' ] ]);
+            ->willReturn([
+                ModuleConfig::CONFIG_KEY => [
+                    'extractor' => '',
+                ],
+            ]);
 
         $config = $factory($container->reveal());
 
@@ -53,10 +55,7 @@ class ModuleConfigFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsEmptyConfig(): void
+    public function testItReturnsEmptyConfig(): void
     {
         $factory = new ModuleConfigFactory();
 
@@ -73,10 +72,7 @@ class ModuleConfigFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itThrowsExceptionIfModuleConfigIsNotArray(): void
+    public function testItThrowsExceptionIfModuleConfigIsNotArray(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -84,7 +80,9 @@ class ModuleConfigFactoryTest extends TestCase
 
         $container = $this->prophesize(ContainerInterface::class);
         $container->get('config')
-            ->willReturn([ ModuleConfig::CONFIG_KEY => true ]);
+            ->willReturn([
+                ModuleConfig::CONFIG_KEY => true,
+            ]);
 
         $factory($container->reveal());
     }

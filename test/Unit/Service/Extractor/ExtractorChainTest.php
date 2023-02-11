@@ -15,10 +15,7 @@ class ExtractorChainTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itCallExtractorsForPropertyAnnotations(): void
+    public function testItCallExtractorsForPropertyAnnotations(): void
     {
         $extractor1 = $this->prophesize(ExtractorInterface::class);
         $extractor2 = $this->prophesize(ExtractorInterface::class);
@@ -38,14 +35,12 @@ class ExtractorChainTest extends TestCase
         );
 
         self::assertCount(
-            0, $extractor->getPropertiesInjections(Service1::class)
+            0,
+            $extractor->getPropertiesInjections(Service1::class)
         );
     }
 
-    /**
-     * @test
-     */
-    public function itOnlyCallsOneExtractorIfInjectionsFoundInProperties(): void
+    public function testItOnlyCallsOneExtractorIfInjectionsFoundInProperties(): void
     {
         $extractor1 = $this->prophesize(ExtractorInterface::class);
         $extractor2 = $this->prophesize(ExtractorInterface::class);
@@ -53,7 +48,7 @@ class ExtractorChainTest extends TestCase
         $injection = $this->prophesize(InjectionInterface::class);
 
         $extractor1->getPropertiesInjections(Service1::class)
-            ->willReturn([ $injection->reveal() ])
+            ->willReturn([$injection->reveal()])
             ->shouldBeCalled();
         $extractor2->getPropertiesInjections(Service1::class)
             ->willReturn([])
@@ -67,14 +62,12 @@ class ExtractorChainTest extends TestCase
         );
 
         self::assertCount(
-            1, $extractor->getPropertiesInjections(Service1::class)
+            1,
+            $extractor->getPropertiesInjections(Service1::class)
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCallExtractorsForConstructorInjections(): void
+    public function testItCallExtractorsForConstructorInjections(): void
     {
         $extractor1 = $this->prophesize(ExtractorInterface::class);
         $extractor2 = $this->prophesize(ExtractorInterface::class);
@@ -94,15 +87,12 @@ class ExtractorChainTest extends TestCase
         );
 
         self::assertCount(
-            0, $extractor->getConstructorInjections(Service1::class)
+            0,
+            $extractor->getConstructorInjections(Service1::class)
         );
     }
 
-
-    /**
-     * @test
-     */
-    public function itOnlyCallsOneExtractorIfInjectionsFoundInConstructor(): void
+    public function testItOnlyCallsOneExtractorIfInjectionsFoundInConstructor(): void
     {
         $extractor1 = $this->prophesize(ExtractorInterface::class);
         $extractor2 = $this->prophesize(ExtractorInterface::class);
@@ -110,7 +100,7 @@ class ExtractorChainTest extends TestCase
         $injection = $this->prophesize(InjectionInterface::class);
 
         $extractor1->getConstructorInjections(Service1::class)
-            ->willReturn([ $injection->reveal() ])
+            ->willReturn([$injection->reveal()])
             ->shouldBeCalled();
         $extractor2->getConstructorInjections(Service1::class)
             ->willReturn([])
@@ -124,7 +114,8 @@ class ExtractorChainTest extends TestCase
         );
 
         self::assertCount(
-            1, $extractor->getConstructorInjections(Service1::class)
+            1,
+            $extractor->getConstructorInjections(Service1::class)
         );
     }
 }

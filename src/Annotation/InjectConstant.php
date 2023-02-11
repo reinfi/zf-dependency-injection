@@ -19,9 +19,6 @@ final class InjectConstant implements AnnotationInterface
      */
     public $value;
 
-    /**
-     * @inheritDoc
-     */
     public function __invoke(ContainerInterface $container)
     {
         return constant($this->value);

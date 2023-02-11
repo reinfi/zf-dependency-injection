@@ -29,7 +29,6 @@ class InjectionService
     }
 
     /**
-     * @param ContainerInterface $container
      * @param class-string       $className
      *
      * @return array|false

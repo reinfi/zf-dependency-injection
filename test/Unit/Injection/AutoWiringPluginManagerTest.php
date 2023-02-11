@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Injection;
 
 use Laminas\ServiceManager\AbstractPluginManager;
@@ -17,10 +19,7 @@ class AutoWiringPluginManagerTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itReturnsServiceFromContainer(): void
+    public function testItReturnsServiceFromContainer(): void
     {
         $pluginManager = $this->prophesize(AbstractPluginManager::class);
         $pluginManager->has(Service1::class)
@@ -45,10 +44,7 @@ class AutoWiringPluginManagerTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsServiceFromParentLocator(): void
+    public function testItReturnsServiceFromParentLocator(): void
     {
         $pluginManager = $this->prophesize(AbstractPluginManager::class);
         $pluginManager->has(Service1::class)
@@ -77,10 +73,7 @@ class AutoWiringPluginManagerTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itThrowsExceptionIfServiceNotFound(): void
+    public function testItThrowsExceptionIfServiceNotFound(): void
     {
         $this->expectException(AutoWiringNotPossibleException::class);
 

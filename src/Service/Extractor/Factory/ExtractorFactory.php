@@ -43,7 +43,7 @@ class ExtractorFactory
 
     private function extractorFromConfig(
         ContainerInterface $container,
-        array              $config
+        array $config
     ): ?ExtractorInterface {
         $extractorConfiguration = $config['extractor'] ?? null;
 

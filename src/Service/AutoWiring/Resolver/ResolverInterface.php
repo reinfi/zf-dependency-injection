@@ -12,10 +12,5 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
  */
 interface ResolverInterface
 {
-    /**
-     * @param ReflectionParameter $parameter
-     *
-     * @return InjectionInterface|null
-     */
     public function resolve(ReflectionParameter $parameter): ?InjectionInterface;
 }

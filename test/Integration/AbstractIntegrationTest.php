@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Integration;
 
 use Laminas\Mvc\Service\ServiceManagerConfig;
@@ -17,9 +19,6 @@ use Reinfi\DependencyInjection\Annotation\InjectParent;
  */
 abstract class AbstractIntegrationTest extends TestCase
 {
-    /**
-     * @inheritDoc
-     */
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
@@ -31,11 +30,6 @@ abstract class AbstractIntegrationTest extends TestCase
         class_exists(InjectConstant::class);
     }
 
-    /**
-     * @param array $config
-     *
-     * @return ServiceManager
-     */
     protected function getServiceManager(array $config = []): ServiceManager
     {
         $moduleServices = require __DIR__ . '/../../config/module.config.php';

@@ -36,7 +36,7 @@ class CacheServiceFactory
             $cache = $cacheConfigValue($container);
         }
 
-        if (!$cache instanceof CacheInterface) {
+        if (! $cache instanceof CacheInterface) {
             throw new InvalidArgumentException(
                 'config value for cache does not return a cache interface instance'
             );

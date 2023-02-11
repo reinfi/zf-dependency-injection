@@ -9,9 +9,6 @@ use Psr\SimpleCache\CacheInterface;
 
 class Memory implements CacheInterface
 {
-    /**
-     * @var array
-     */
     private array $cachedItems = [];
 
     public function get($key, $default = null)

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Service\Resolver;
 
 use ReflectionParameter;
@@ -11,9 +13,6 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResolverInterface;
  */
 class TestResolver implements ResolverInterface
 {
-    /**
-     * @inheritDoc
-     */
     public function resolve(ReflectionParameter $parameter): ?InjectionInterface
     {
         return null;

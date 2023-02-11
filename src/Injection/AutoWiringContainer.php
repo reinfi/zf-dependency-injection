@@ -11,9 +11,6 @@ use Psr\Container\ContainerInterface;
  */
 class AutoWiringContainer implements InjectionInterface
 {
-    /**
-     * @inheritDoc
-     */
     public function __invoke(ContainerInterface $container): ContainerInterface
     {
         return $container;

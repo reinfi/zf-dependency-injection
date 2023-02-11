@@ -14,9 +14,6 @@ use Psr\Container\ContainerInterface;
  */
 final class InjectContainer implements AnnotationInterface
 {
-    /**
-     * @inheritDoc
-     */
     public function __invoke(ContainerInterface $container)
     {
         return $container;

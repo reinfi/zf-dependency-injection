@@ -27,7 +27,7 @@ class TranslatorResolver implements ResolverInterface
     private const TRANSLATOR_CONTAINER_SERVICE_NAME = [
         'MvcTranslator',
         self::TRANSLATOR_INTERFACE,
-        'Translator'
+        'Translator',
     ];
 
     private ContainerInterface $container;
@@ -37,12 +37,9 @@ class TranslatorResolver implements ResolverInterface
         $this->container = $container;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function resolve(ReflectionParameter $parameter): ?InjectionInterface
     {
-        if (!$this->isValid($parameter)) {
+        if (! $this->isValid($parameter)) {
             return null;
         }
 
@@ -58,13 +55,13 @@ class TranslatorResolver implements ResolverInterface
     private function isValid(ReflectionParameter $parameter): bool
     {
         $type = $parameter->getType();
-        if (!$type instanceof ReflectionNamedType) {
+        if (! $type instanceof ReflectionNamedType) {
             return false;
         }
 
         if (
-            !class_exists($type->getName())
-            && !interface_exists($type->getName())
+            ! class_exists($type->getName())
+            && ! interface_exists($type->getName())
         ) {
             return false;
         }
@@ -72,9 +69,8 @@ class TranslatorResolver implements ResolverInterface
         $reflectionClass = new ReflectionClass($type->getName());
         $interfaceNames = $reflectionClass->getInterfaceNames();
 
-        return (
-            $reflectionClass->getName() === self::TRANSLATOR_INTERFACE
-            || in_array(self::TRANSLATOR_INTERFACE, $interfaceNames)
-        );
+        return $reflectionClass->getName() === self::TRANSLATOR_INTERFACE
+            || in_array(self::TRANSLATOR_INTERFACE, $interfaceNames, true)
+        ;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\AbstractFactory\Config;
 
 use PHPUnit\Framework\TestCase;
@@ -15,10 +17,7 @@ class InjectConfigAbstractFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itCanCreateServiceWithConfigPattern(): void
+    public function testItCanCreateServiceWithConfigPattern(): void
     {
         $factory = new InjectConfigAbstractFactory();
 
@@ -36,10 +35,7 @@ class InjectConfigAbstractFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCanNotCreateServiceWithNonConfigPattern(): void
+    public function testItCanNotCreateServiceWithNonConfigPattern(): void
     {
         $factory = new InjectConfigAbstractFactory();
 
@@ -57,10 +53,7 @@ class InjectConfigAbstractFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCallsConfigServiceForConfigPattern(): void
+    public function testItCallsConfigServiceForConfigPattern(): void
     {
         $factory = new InjectConfigAbstractFactory();
 

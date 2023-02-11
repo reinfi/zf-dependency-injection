@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver\Factory;
 
 use PHPUnit\Framework\TestCase;
@@ -15,10 +17,7 @@ class TranslatorResolverFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itReturnsTranslatorResolver(): void
+    public function testItReturnsTranslatorResolver(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 

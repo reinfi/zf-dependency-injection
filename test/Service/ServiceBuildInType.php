@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Service;
 
 /**
@@ -7,9 +9,6 @@ namespace Reinfi\DependencyInjection\Test\Service;
  */
 class ServiceBuildInType
 {
-    /**
-     * @param int $service2
-     */
     public function __construct(
         int $service2
     ) {

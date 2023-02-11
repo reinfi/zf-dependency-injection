@@ -21,9 +21,6 @@ final class Inject implements InjectionInterface
         $this->value = $value;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function __invoke(ContainerInterface $container)
     {
         return $container->get($this->value);

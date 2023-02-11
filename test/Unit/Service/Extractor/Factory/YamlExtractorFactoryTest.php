@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory;
 
 use Laminas\Config\Config;
@@ -17,12 +19,13 @@ class YamlExtractorFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itReturnsYamlExtractor(): void
+    public function testItReturnsYamlExtractor(): void
     {
-        $moduleConfig = new Config(['extractor_options' => [ 'file' => '' ]]);
+        $moduleConfig = new Config([
+            'extractor_options' => [
+                'file' => '',
+            ],
+        ]);
 
         $container = $this->prophesize(ContainerInterface::class);
         $container->get(ModuleConfig::class)

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Extension\PHPStan\Resolve;
 
 use Laminas\Config\Config;
-use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
 use Reinfi\DependencyInjection\Extension\PHPStan\ServiceManagerLoader;
+use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
 
 class AutoWiringClassesResolver
 {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Command;
 
 use InvalidArgumentException;
+use Laminas\Mvc\Application;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\CacheService;
@@ -14,7 +15,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Laminas\Mvc\Application;
 
 /**
  * @package Reinfi\DependencyInjection\Command
@@ -23,9 +23,6 @@ class CacheWarmupCommand extends Command
 {
     use WarmupTrait;
 
-    /**
-     * {@inheritDoc}
-     */
     protected function configure(): void
     {
         $this
@@ -40,21 +37,18 @@ class CacheWarmupCommand extends Command
             );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('Start up application with supplied config...');
 
         $config = $input->getArgument('applicationConfig');
 
-        if (!is_string($config)) {
+        if (! is_string($config)) {
             throw new InvalidArgumentException('Invalid config path provided');
         }
 
         $path = stream_resolve_include_path($config);
-        if ($path === false || !is_readable($path)) {
+        if ($path === false || ! is_readable($path)) {
             throw new InvalidArgumentException(sprintf(
                 'Invalid config path: %s',
                 $config
@@ -78,11 +72,6 @@ class CacheWarmupCommand extends Command
         return self::SUCCESS;
     }
 
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return array
-     */
     private function getServiceManagerConfig(ContainerInterface $container): array
     {
         $configuration = $container->get('config');
