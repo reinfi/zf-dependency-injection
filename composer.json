@@ -59,7 +59,8 @@
         "laminas/laminas-filter": "^2.11",
         "laminas/laminas-form": "^3.0",
         "laminas/laminas-inputfilter": "^2.12",
-        "bnf/phpstan-psr-container": "^1.0"
+        "bnf/phpstan-psr-container": "^1.0",
+        "symplify/easy-coding-standard": "^11.2"
     },
     "extra": {
         "zf": {
@@ -73,6 +74,8 @@
         }
     },
     "scripts": {
+        "cs-check": "ecs check",
+        "cs-fix": "ecs check --fix",
         "phpstan": "./vendor/bin/phpstan analyse -c phpstan.neon",
         "test": "vendor/bin/phpunit --no-coverage",
         "test-with-coverage": "vendor/bin/phpunit --coverage-clover=build/coverage.xml",
