@@ -45,3 +45,6 @@ jobs:
 
       - name: Run phpunit
         run: composer test
+
+      - name: Run easy coding standard
+        run: composer cs-check
