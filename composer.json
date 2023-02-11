@@ -59,7 +59,8 @@
         "laminas/laminas-form": "^3.0",
         "laminas/laminas-inputfilter": "^2.12",
         "bnf/phpstan-psr-container": "^1.0",
-        "symplify/easy-coding-standard": "^11.2"
+        "symplify/easy-coding-standard": "^11.2",
+        "doctrine/annotations": "^2.0"
     },
     "extra": {
         "zf": {
