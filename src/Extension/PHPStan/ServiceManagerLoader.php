@@ -17,7 +17,7 @@ final class ServiceManagerLoader
 
     public function __construct(?string $serviceManagerLoader)
     {
-        if (null === $serviceManagerLoader) {
+        if ($serviceManagerLoader === null) {
             return;
         }
 

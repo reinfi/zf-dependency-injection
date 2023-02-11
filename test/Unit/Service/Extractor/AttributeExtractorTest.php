@@ -17,14 +17,11 @@ class AttributeExtractorTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itResolvesPropertyAnnotations(): void
+    public function testItResolvesPropertyAnnotations(): void
     {
         $isPhp8OrAbove = version_compare(PHP_VERSION, '8.0.0') >= 0;
 
-        if (!$isPhp8OrAbove) {
+        if (! $isPhp8OrAbove) {
             $this->markTestSkipped('Not a php version of 8.0 or above');
         }
 
@@ -36,14 +33,11 @@ class AttributeExtractorTest extends TestCase
         self::assertContainsOnlyInstancesOf(InjectionInterface::class, $injections);
     }
 
-    /**
-     * @test
-     */
-    public function itResolvesConstructorAnnotations(): void
+    public function testItResolvesConstructorAnnotations(): void
     {
         $isPhp8OrAbove = version_compare(PHP_VERSION, '8.0.0') >= 0;
 
-        if (!$isPhp8OrAbove) {
+        if (! $isPhp8OrAbove) {
             $this->markTestSkipped('Not a php version of 8.0 or above');
         }
 
@@ -55,10 +49,7 @@ class AttributeExtractorTest extends TestCase
         self::assertContainsOnlyInstancesOf(InjectionInterface::class, $injections);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsEmptyArrayIfNoConstructorIsDefined(): void
+    public function testItReturnsEmptyArrayIfNoConstructorIsDefined(): void
     {
         $extractor = new AttributeExtractor();
 
@@ -67,14 +58,11 @@ class AttributeExtractorTest extends TestCase
         self::assertCount(0, $injections);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsEmptyArrayIfNoConstructorAttributeIsDefined(): void
+    public function testItReturnsEmptyArrayIfNoConstructorAttributeIsDefined(): void
     {
         $isPhp8OrAbove = version_compare(PHP_VERSION, '8.0.0') >= 0;
 
-        if (!$isPhp8OrAbove) {
+        if (! $isPhp8OrAbove) {
             $this->markTestSkipped('Not a php version of 8.0 or above');
         }
 

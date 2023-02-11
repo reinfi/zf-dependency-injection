@@ -14,9 +14,6 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
 final class InjectContainer implements InjectionInterface
 {
-    /**
-     * @inheritDoc
-     */
     public function __invoke(ContainerInterface $container)
     {
         return $container;

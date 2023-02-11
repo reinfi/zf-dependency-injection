@@ -19,9 +19,6 @@ final class Inject implements AnnotationInterface
      */
     public $value;
 
-    /**
-     * @inheritDoc
-     */
     public function __invoke(ContainerInterface $container)
     {
         return $container->get($this->value);

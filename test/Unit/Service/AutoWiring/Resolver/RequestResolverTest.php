@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
 use Laminas\Http\Request;
@@ -19,10 +21,7 @@ class RequestResolverTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itReturnsInjectionInterfaceForRequestInterface(): void
+    public function testItReturnsInjectionInterfaceForRequestInterface(): void
     {
         $resolver = new RequestResolver();
 
@@ -36,10 +35,7 @@ class RequestResolverTest extends TestCase
         self::assertInstanceOf(AutoWiring::class, $injection);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsInjectionInterfaceForRequestClass(): void
+    public function testItReturnsInjectionInterfaceForRequestClass(): void
     {
         $resolver = new RequestResolver();
 
@@ -53,10 +49,7 @@ class RequestResolverTest extends TestCase
         self::assertInstanceOf(AutoWiring::class, $injection);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfNoRequest(): void
+    public function testItReturnsNullIfNoRequest(): void
     {
         $resolver = new RequestResolver();
 
@@ -71,10 +64,7 @@ class RequestResolverTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfClassDoesNotExists(): void
+    public function testItReturnsNullIfClassDoesNotExists(): void
     {
         $resolver = new RequestResolver();
 
@@ -89,10 +79,7 @@ class RequestResolverTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfParameterHasNoClass(): void
+    public function testItReturnsNullIfParameterHasNoClass(): void
     {
         $resolver = new RequestResolver();
 

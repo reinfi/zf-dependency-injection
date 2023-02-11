@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\AbstractFactory;
@@ -19,22 +20,7 @@ use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
 class FallbackAutoWiringFactory implements AbstractFactoryInterface
 {
     /**
-     * @param ContainerInterface $container
      * @param class-string       $requestedName
-     *
-     * @return bool
-     */
-    public function canCreate(
-        ContainerInterface $container,
-        $requestedName
-    ): bool {
-        return class_exists($requestedName);
-    }
-
-    /**
-     * @param ContainerInterface $container
-     * @param class-string       $requestedName
-     * @param array|null         $options
      *
      * @return mixed
      */
@@ -46,4 +32,13 @@ class FallbackAutoWiringFactory implements AbstractFactoryInterface
         return (new AutoWiringFactory())($container, $requestedName, $options);
     }
 
+    /**
+     * @param class-string       $requestedName
+     */
+    public function canCreate(
+        ContainerInterface $container,
+        $requestedName
+    ): bool {
+        return class_exists($requestedName);
+    }
 }

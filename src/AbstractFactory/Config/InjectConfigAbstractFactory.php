@@ -15,29 +15,10 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
 {
     private const MATCH_PATTERN = '/^Config\.(.*)$/';
 
-    /**
-     * @var array
-     */
     private array $matches = [];
 
     /**
-     * @inheritDoc
-     */
-    public function canCreate(
-        ContainerInterface $container,
-        $requestedName
-    ): bool {
-        return preg_match(
-            self::MATCH_PATTERN,
-            $requestedName,
-            $this->matches
-        ) === 1;
-    }
-
-    /**
-     * @param ContainerInterface $container
      * @param string             $requestedName
-     * @param array|null         $options
      *
      * @return mixed|object|null
      */
@@ -50,5 +31,16 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
         $configService = $container->get(ConfigService::class);
 
         return $configService->resolve($this->matches[1]);
+    }
+
+    public function canCreate(
+        ContainerInterface $container,
+        $requestedName
+    ): bool {
+        return preg_match(
+            self::MATCH_PATTERN,
+            $requestedName,
+            $this->matches
+        ) === 1;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
 use Laminas\ServiceManager\AbstractPluginManager;
@@ -20,10 +22,7 @@ class ContainerInterfaceResolverTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itReturnsInjectionInterfaceIfIsInterfaceTypeHint(): void
+    public function testItReturnsInjectionInterfaceIfIsInterfaceTypeHint(): void
     {
         $resolver = new ContainerInterfaceResolver();
 
@@ -37,10 +36,7 @@ class ContainerInterfaceResolverTest extends TestCase
         self::assertInstanceOf(InjectionInterface::class, $injection);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsInjectionInterfaceIfHasInterfaceImplemented(): void
+    public function testItReturnsInjectionInterfaceIfHasInterfaceImplemented(): void
     {
         $resolver = new ContainerInterfaceResolver();
 
@@ -54,10 +50,7 @@ class ContainerInterfaceResolverTest extends TestCase
         self::assertInstanceOf(InjectionInterface::class, $injection);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfIsAbstractPluginManager(): void
+    public function testItReturnsNullIfIsAbstractPluginManager(): void
     {
         $resolver = new ContainerInterfaceResolver();
         $type = $this->prophesize(ReflectionNamedType::class);
@@ -70,10 +63,7 @@ class ContainerInterfaceResolverTest extends TestCase
         self::assertNull($injection);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfOtherClass(): void
+    public function testItReturnsNullIfOtherClass(): void
     {
         $resolver = new ContainerInterfaceResolver();
 
@@ -87,10 +77,7 @@ class ContainerInterfaceResolverTest extends TestCase
         self::assertNull($injection);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfClassDoesNotExists(): void
+    public function testItReturnsNullIfClassDoesNotExists(): void
     {
         $resolver = new ContainerInterfaceResolver();
 
@@ -104,10 +91,7 @@ class ContainerInterfaceResolverTest extends TestCase
         self::assertNull($injection);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfParameterHasNoType(): void
+    public function testItReturnsNullIfParameterHasNoType(): void
     {
         $resolver = new ContainerInterfaceResolver();
 

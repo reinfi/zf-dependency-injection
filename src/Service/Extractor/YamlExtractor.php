@@ -16,9 +16,6 @@ use Symfony\Component\Yaml\Yaml;
  */
 class YamlExtractor implements ExtractorInterface
 {
-    /**
-     * @var array|null
-     */
     protected ?array $config = null;
 
     protected Yaml $yaml;
@@ -37,17 +34,11 @@ class YamlExtractor implements ExtractorInterface
         $this->injectionNamespace = $injectionNamespace;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getPropertiesInjections(string $className): array
     {
         return [];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getConstructorInjections(string $className): array
     {
         $config = $this->getConfig($className);
@@ -75,14 +66,9 @@ class YamlExtractor implements ExtractorInterface
         return $injections;
     }
 
-    /**
-     * @param string $className
-     *
-     * @return array
-     */
     private function getConfig(string $className): array
     {
-        if (!is_array($this->config)) {
+        if (! is_array($this->config)) {
             $fileContents = file_get_contents($this->filePath);
 
             if ($fileContents === false) {
@@ -98,10 +84,6 @@ class YamlExtractor implements ExtractorInterface
     }
 
     /**
-     * @param string $type
-     * @param array  $spec
-     *
-     * @return InjectionInterface
      * @throws InjectionTypeUnknownException
      */
     private function buildInjection(
@@ -110,7 +92,7 @@ class YamlExtractor implements ExtractorInterface
     ): InjectionInterface {
         $injectionClass = $this->injectionNamespace . '\\' . $type;
 
-        if (!class_exists($injectionClass)) {
+        if (! class_exists($injectionClass)) {
             throw new InjectionTypeUnknownException('Invalid injection type ' . $type);
         }
 
@@ -118,7 +100,7 @@ class YamlExtractor implements ExtractorInterface
         if ($reflectionClass->getConstructor() !== null) {
             $injection = $reflectionClass->newInstance($spec);
 
-            if (!$injection instanceof InjectionInterface) {
+            if (! $injection instanceof InjectionInterface) {
                 throw new InjectionTypeUnknownException('Invalid class of type ' . get_class($injection));
             }
 
@@ -127,12 +109,12 @@ class YamlExtractor implements ExtractorInterface
 
         $injection = new $injectionClass();
 
-        if (!$injection instanceof InjectionInterface) {
+        if (! $injection instanceof InjectionInterface) {
             throw new InjectionTypeUnknownException('Invalid class of type ' . get_class($injection));
         }
 
         foreach ($spec as $key => $value) {
-            $injection->$key = $value;
+            $injection->{$key} = $value;
         }
 
         return $injection;

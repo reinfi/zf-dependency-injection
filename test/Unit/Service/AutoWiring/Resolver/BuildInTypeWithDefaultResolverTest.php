@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
 use PHPUnit\Framework\TestCase;
@@ -16,10 +18,7 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itReturnsInjectionInterface(): void
+    public function testItReturnsInjectionInterface(): void
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
@@ -36,10 +35,7 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
         self::assertInstanceOf(InjectionInterface::class, $injection);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfNoType(): void
+    public function testItReturnsNullIfNoType(): void
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
@@ -51,10 +47,7 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
         self::assertNull($injection, 'Should be null if parameter has no type');
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfNoBuildInType(): void
+    public function testItReturnsNullIfNoBuildInType(): void
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
@@ -70,10 +63,7 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
         self::assertNull($injection, 'Should be null if parameter is not a buildin type');
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfNoDefaultValueAvailable(): void
+    public function testItReturnsNullIfNoDefaultValueAvailable(): void
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 

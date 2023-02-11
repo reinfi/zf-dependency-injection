@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Traits;
 
@@ -14,10 +15,6 @@ trait CacheKeyTrait
 {
     /**
      * To avoid naming collisions
-     *
-     * @param string $className
-     *
-     * @return string
      */
     private function buildCacheKey(string $className): string
     {

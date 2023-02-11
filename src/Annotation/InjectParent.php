@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Annotation;
 
-use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
+use Psr\Container\ContainerInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Annotation
@@ -20,9 +20,6 @@ final class InjectParent implements AnnotationInterface
      */
     public $value;
 
-    /**
-     * @inheritDoc
-     */
     public function __invoke(ContainerInterface $container)
     {
         if ($container instanceof AbstractPluginManager) {

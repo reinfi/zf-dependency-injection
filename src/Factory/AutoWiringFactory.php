@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Factory;
 
+use Laminas\ServiceManager\AbstractPluginManager;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\AutoWiringService;
-use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * @package Reinfi\DependencyInjection\Factory
@@ -14,9 +14,7 @@ use Laminas\ServiceManager\AbstractPluginManager;
 final class AutoWiringFactory extends AbstractFactory
 {
     /**
-     * @param \Interop\Container\ContainerInterface $container
      * @param class-string                          $requestedName
-     * @param array|null                            $options
      *
      * @return mixed
      */
@@ -34,7 +32,7 @@ final class AutoWiringFactory extends AbstractFactory
         );
 
         if ($injections === null) {
-            return new $requestedName;
+            return new $requestedName();
         }
 
         return $this->buildInstance($requestedName, $injections);

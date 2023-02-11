@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
 use PHPUnit\Framework\TestCase;
@@ -16,10 +18,7 @@ class InjectConstantTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itShouldConvertScalarTypes(): void
+    public function testItShouldConvertScalarTypes(): void
     {
         $injectScalar = new InjectConstant();
         $injectScalar->value = Service2::class . '::CONSTANT';

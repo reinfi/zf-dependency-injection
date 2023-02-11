@@ -6,5 +6,4 @@ namespace Reinfi\DependencyInjection\Test\Service;
 
 class ServiceWithInterface implements ServiceInterface
 {
-
 }

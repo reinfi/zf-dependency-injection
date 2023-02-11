@@ -21,7 +21,7 @@ class CacheService
     public function get(string $key): ?array
     {
         $cachedValue = $this->cache->get($key);
-        if (!is_array($cachedValue)) {
+        if (! is_array($cachedValue)) {
             return null;
         }
 

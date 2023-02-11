@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory;
 
 use Laminas\Config\Config;
@@ -22,14 +24,13 @@ class ExtractorFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itReturnsExtractorDefinedInConfig(): void
+    public function testItReturnsExtractorDefinedInConfig(): void
     {
         $isPhp8OrAbove = version_compare(PHP_VERSION, '8.0.0') >= 0;
 
-        $moduleConfig = new Config(['extractor' => YamlExtractor::class]);
+        $moduleConfig = new Config([
+            'extractor' => YamlExtractor::class,
+        ]);
 
         $yamlExtractor = $this->prophesize(YamlExtractor::class);
         $annotationExtractor = $this->prophesize(AnnotationExtractor::class);
@@ -72,10 +73,7 @@ class ExtractorFactoryTest extends TestCase
         self::assertContainsOnlyInstancesOf(ExtractorInterface::class, $chain);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsAnnotationExtractorIfNoneDefined(): void
+    public function testItReturnsAnnotationExtractorIfNoneDefined(): void
     {
         $isPhp8OrAbove = version_compare(PHP_VERSION, '8.0.0') >= 0;
 

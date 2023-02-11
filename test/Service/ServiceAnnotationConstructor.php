@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Service;
 
 use Reinfi\DependencyInjection\Annotation\Inject;
@@ -30,10 +32,6 @@ class ServiceAnnotationConstructor
      * @Inject("Reinfi\DependencyInjection\Test\Service\Service2")
      * @InjectConfig("test.value")
      * @InjectConstant("Reinfi\DependencyInjection\Test\Service\Service2::CONSTANT")
-     *
-     * @param Service2 $service2
-     * @param int      $value
-     * @param string     $constant
      */
     public function __construct(Service2 $service2, int $value, string $constant)
     {

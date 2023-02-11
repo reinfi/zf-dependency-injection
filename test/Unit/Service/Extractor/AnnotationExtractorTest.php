@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor;
 
 use Doctrine\Common\Annotations\AnnotationReader;
@@ -21,10 +23,7 @@ class AnnotationExtractorTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itResolvesPropertyAnnotations(): void
+    public function testItResolvesPropertyAnnotations(): void
     {
         $annotation = $this->prophesize(AnnotationInterface::class);
 
@@ -33,7 +32,7 @@ class AnnotationExtractorTest extends TestCase
             Argument::type(ReflectionProperty::class),
             Argument::exact(AnnotationInterface::class)
         )->willReturn($annotation->reveal())
-        ->shouldBeCalledTimes(3);
+            ->shouldBeCalledTimes(3);
 
         $extractor = new AnnotationExtractor($reader->reveal());
 
@@ -43,10 +42,7 @@ class AnnotationExtractorTest extends TestCase
         self::assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
     }
 
-    /**
-     * @test
-     */
-    public function itResolvesConstructorAnnotations(): void
+    public function testItResolvesConstructorAnnotations(): void
     {
         $annotation = $this->prophesize(AnnotationInterface::class);
 
@@ -64,10 +60,7 @@ class AnnotationExtractorTest extends TestCase
         self::assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsEmptyArrayIfNoConstructorIsDefined(): void
+    public function testItReturnsEmptyArrayIfNoConstructorIsDefined(): void
     {
         $reader = $this->prophesize(AnnotationReader::class);
 
@@ -78,10 +71,7 @@ class AnnotationExtractorTest extends TestCase
         self::assertCount(0, $injections);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsEmptyArrayIfNoConstructorAnnotationIsDefined(): void
+    public function testItReturnsEmptyArrayIfNoConstructorAnnotationIsDefined(): void
     {
         $reader = $this->prophesize(AnnotationReader::class);
         $reader->getMethodAnnotations(

@@ -4,31 +4,28 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Service\AutoWiring\Resolver;
 
+use Laminas\Stdlib\RequestInterface;
 use ReflectionClass;
 use ReflectionNamedType;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
-use Laminas\Stdlib\RequestInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Service\AutoWiring\Resolver
  */
 class RequestResolver implements ResolverInterface
 {
-    /**
-     * @inheritDoc
-     */
     public function resolve(ReflectionParameter $parameter): ?InjectionInterface
     {
         $type = $parameter->getType();
-        if (!$type instanceof ReflectionNamedType) {
+        if (! $type instanceof ReflectionNamedType) {
             return null;
         }
 
         if (
-            !class_exists($type->getName())
-            && !interface_exists($type->getName())
+            ! class_exists($type->getName())
+            && ! interface_exists($type->getName())
         ) {
             return null;
         }
@@ -38,7 +35,7 @@ class RequestResolver implements ResolverInterface
 
         if (
             $reflectionClass->getName() !== RequestInterface::class
-            && !in_array(RequestInterface::class, $interfaceNames)
+            && ! in_array(RequestInterface::class, $interfaceNames, true)
         ) {
             return null;
         }

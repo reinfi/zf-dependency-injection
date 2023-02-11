@@ -16,9 +16,6 @@ class ExtractorChain implements ExtractorInterface
         $this->chain = $chain;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getPropertiesInjections(string $className): array
     {
         return array_reduce(
@@ -34,9 +31,6 @@ class ExtractorChain implements ExtractorInterface
         );
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getConstructorInjections(string $className): array
     {
         return array_reduce(
@@ -50,6 +44,5 @@ class ExtractorChain implements ExtractorInterface
             },
             []
         );
-
     }
 }

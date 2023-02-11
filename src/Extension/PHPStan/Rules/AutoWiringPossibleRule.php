@@ -14,6 +14,7 @@ use Reinfi\DependencyInjection\Extension\PHPStan\Resolve\AutoWiringPossibleResol
 final class AutoWiringPossibleRule implements Rule
 {
     private AutoWiringClassesResolver $classesResolver;
+
     private AutoWiringPossibleResolver $possibleResolver;
 
     public function __construct(
@@ -31,7 +32,6 @@ final class AutoWiringPossibleRule implements Rule
 
     /**
      * @param Node\Stmt\Class_ $node
-     * @param Scope $scope
      * @return string[]
      */
     public function processNode(Node $node, Scope $scope): array
@@ -52,7 +52,7 @@ final class AutoWiringPossibleRule implements Rule
                     'AutoWiring of %s not possible, due to: %s',
                     $node->namespacedName->toString(),
                     $exception->getMessage()
-                )
+                ),
             ];
         }
 

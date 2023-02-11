@@ -12,9 +12,6 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
 interface ResolverServiceInterface
 {
     /**
-     * @param string     $className
-     * @param null|array $options
-     *
      * @return InjectionInterface[]
      */
     public function resolve(string $className, ?array $options = null): array;

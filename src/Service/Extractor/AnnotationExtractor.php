@@ -22,9 +22,6 @@ class AnnotationExtractor implements ExtractorInterface
         $this->reader = $reader;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getPropertiesInjections(string $className): array
     {
         $injections = [];
@@ -40,7 +37,7 @@ class AnnotationExtractor implements ExtractorInterface
                 AnnotationInterface::class
             );
 
-            if (null !== $inject) {
+            if ($inject !== null) {
                 $injections[$index] = $inject;
             }
         }
@@ -48,12 +45,9 @@ class AnnotationExtractor implements ExtractorInterface
         return $injections;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getConstructorInjections(string $className): array
     {
-        if (!in_array('__construct', get_class_methods($className))) {
+        if (! in_array('__construct', get_class_methods($className), true)) {
             return [];
         }
 

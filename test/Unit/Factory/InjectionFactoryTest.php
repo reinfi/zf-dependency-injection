@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Factory;
 
 use Laminas\ServiceManager\AbstractPluginManager;
@@ -22,10 +24,7 @@ class InjectionFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceWithInjections(): void
+    public function testItCreatesServiceWithInjections(): void
     {
         $service = $this->prophesize(InjectionService::class);
         $service->resolveConstructorInjection(
@@ -42,7 +41,7 @@ class InjectionFactoryTest extends TestCase
         $instance = $factory->createService(
             $container->reveal(),
             Service1::class,
-                Service1::class
+            Service1::class
         );
 
         self::assertInstanceOf(
@@ -51,10 +50,7 @@ class InjectionFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceFromCanonicalName(): void
+    public function testItCreatesServiceFromCanonicalName(): void
     {
         $service = $this->prophesize(InjectionService::class);
         $service->resolveConstructorInjection(
@@ -79,10 +75,7 @@ class InjectionFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceFromPluginManager(): void
+    public function testItCreatesServiceFromPluginManager(): void
     {
         $service = $this->prophesize(InjectionService::class);
         $service->resolveConstructorInjection(
@@ -111,10 +104,7 @@ class InjectionFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceWithNoInjections(): void
+    public function testItCreatesServiceWithNoInjections(): void
     {
         $service = $this->prophesize(InjectionService::class);
         $service->resolveConstructorInjection(
@@ -139,10 +129,7 @@ class InjectionFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itThrowsExceptionIfClassNotFound(): void
+    public function testItThrowsExceptionIfClassNotFound(): void
     {
         $this->expectException(InvalidServiceException::class);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
 use PHPUnit\Framework\TestCase;
@@ -15,10 +17,7 @@ class InjectTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itCallsContainerWithValue(): void
+    public function testItCallsContainerWithValue(): void
     {
         $inject = new Inject();
 

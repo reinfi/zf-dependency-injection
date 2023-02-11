@@ -15,7 +15,6 @@ use ReflectionClass;
 abstract class AbstractFactory implements FactoryInterface
 {
     /**
-     * @param ServiceLocatorInterface $serviceLocator
      * @param class-string            $canonicalName
      * @param class-string            $requestedName
      *
@@ -44,9 +43,6 @@ abstract class AbstractFactory implements FactoryInterface
 
     /**
      * @param class-string $className
-     * @param array  $injections
-     *
-     * @return object
      */
     protected function buildInstance(string $className, array $injections): object
     {

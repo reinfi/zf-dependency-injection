@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor;
 
 use InvalidArgumentException;
@@ -17,10 +19,7 @@ use Symfony\Component\Yaml\Yaml;
  */
 class YamlExtractorTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function itShouldReturnEmptyArrayForPropertyInjections(): void
+    public function testItShouldReturnEmptyArrayForPropertyInjections(): void
     {
         $extractor = new YamlExtractor(
             new Yaml(),
@@ -33,10 +32,7 @@ class YamlExtractorTest extends TestCase
         self::assertCount(0, $injections);
     }
 
-    /**
-     * @test
-     */
-    public function itShouldReturnInjections(): void
+    public function testItShouldReturnInjections(): void
     {
         $extractor = new YamlExtractor(
             new Yaml(),
@@ -49,10 +45,7 @@ class YamlExtractorTest extends TestCase
         self::assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
     }
 
-    /**
-     * @test
-     */
-    public function itShouldSetRequiredInjectionProperties(): void
+    public function testItShouldSetRequiredInjectionProperties(): void
     {
         $extractor = new YamlExtractor(
             new Yaml(),
@@ -69,10 +62,7 @@ class YamlExtractorTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itShouldReturnInjectionsIfTypeHasConstructorArguments(): void
+    public function testItShouldReturnInjectionsIfTypeHasConstructorArguments(): void
     {
         $extractor = new YamlExtractor(
             new Yaml(),
@@ -85,10 +75,7 @@ class YamlExtractorTest extends TestCase
         self::assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
     }
 
-    /**
-     * @test
-     */
-    public function itShouldReturnNoInjectionsIfNotDefined(): void
+    public function testItShouldReturnNoInjectionsIfNotDefined(): void
     {
         $extractor = new YamlExtractor(
             new Yaml(),
@@ -101,10 +88,7 @@ class YamlExtractorTest extends TestCase
         self::assertCount(0, $injections);
     }
 
-    /**
-     * @test
-     */
-    public function itThrowsExceptionIfConfigurationKeyTypeMisses(): void
+    public function testItThrowsExceptionIfConfigurationKeyTypeMisses(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -117,10 +101,7 @@ class YamlExtractorTest extends TestCase
         $extractor->getConstructorInjections(Service1::class);
     }
 
-    /**
-     * @test
-     */
-    public function itThrowsExceptionIfTypeIsUnknown(): void
+    public function testItThrowsExceptionIfTypeIsUnknown(): void
     {
         $this->expectException(InjectionTypeUnknownException::class);
 
@@ -133,10 +114,7 @@ class YamlExtractorTest extends TestCase
         $extractor->getConstructorInjections(Service2::class);
     }
 
-    /**
-     * @test
-     */
-    public function itThrowsExceptionIfTypeIsNotOfTypeInjectionInterface(): void
+    public function testItThrowsExceptionIfTypeIsNotOfTypeInjectionInterface(): void
     {
         $this->expectException(InjectionTypeUnknownException::class);
 

@@ -15,14 +15,8 @@ use Reinfi\DependencyInjection\Service\ConfigService;
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
 final class InjectConfig extends AbstractAttribute
 {
-    /**
-     * @var string
-     */
     private string $configPath;
 
-    /**
-     * @var bool
-     */
     private bool $asArray;
 
     public function __construct(string $configPath, bool $asArray = false)
@@ -31,9 +25,6 @@ final class InjectConfig extends AbstractAttribute
         $this->asArray = $asArray;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function __invoke(ContainerInterface $container)
     {
         $container = $this->determineContainer($container);

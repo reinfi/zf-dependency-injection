@@ -34,7 +34,6 @@ class ResolverService implements ResolverServiceInterface
 
     /**
      * @param class-string $className
-     * @param null|array   $options
      *
      * @return InjectionInterface[]
      */
@@ -57,10 +56,6 @@ class ResolverService implements ResolverServiceInterface
     }
 
     /**
-     * @param ReflectionParameter $parameter
-     * @param null|array $options
-     *
-     * @return InjectionInterface
      * @throws AutoWiringNotPossibleException
      */
     private function resolveParameter(
@@ -86,14 +81,13 @@ class ResolverService implements ResolverServiceInterface
     }
 
     /**
-     *
      * @throws AutoWiringNotPossibleException
      */
     private function handleUnresolvedParameter(
         ReflectionParameter $parameter
     ): Throwable {
         $type = $parameter->getType();
-        if (!$type instanceof ReflectionNamedType) {
+        if (! $type instanceof ReflectionNamedType) {
             return AutoWiringNotPossibleException::fromMissingTypeHint(
                 $parameter
             );

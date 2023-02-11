@@ -21,8 +21,8 @@ class ServiceAttribute
 
     public function __construct(
         Service2 $service2,
-        string   $version,
-        int      $testValue
+        string $version,
+        int $testValue
     ) {
         $this->service2 = $service2;
         $this->version = $version;

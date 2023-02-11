@@ -4,32 +4,29 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Service\AutoWiring\Resolver;
 
+use Laminas\ServiceManager\AbstractPluginManager;
 use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use ReflectionNamedType;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiringContainer;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
-use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * @package Reinfi\DependencyInjection\Service\AutoWiring\Resolver
  */
 class ContainerInterfaceResolver implements ResolverInterface
 {
-    /**
-     * @inheritDoc
-     */
     public function resolve(ReflectionParameter $parameter): ?InjectionInterface
     {
         $type = $parameter->getType();
-        if (!$type instanceof ReflectionNamedType) {
+        if (! $type instanceof ReflectionNamedType) {
             return null;
         }
 
         if (
-            !class_exists($type->getName())
-            && !interface_exists($type->getName())
+            ! class_exists($type->getName())
+            && ! interface_exists($type->getName())
         ) {
             return null;
         }
@@ -37,11 +34,6 @@ class ContainerInterfaceResolver implements ResolverInterface
         return $this->handleClass(new ReflectionClass($type->getName()));
     }
 
-    /**
-     * @param ReflectionClass $reflectionClass
-     *
-     * @return AutoWiringContainer|null
-     */
     private function handleClass(
         ReflectionClass $reflectionClass
     ): ?AutoWiringContainer {
@@ -57,7 +49,7 @@ class ContainerInterfaceResolver implements ResolverInterface
         }
 
         $interfaceNames = $reflectionClass->getInterfaceNames();
-        if (in_array(ContainerInterface::class, $interfaceNames)) {
+        if (in_array(ContainerInterface::class, $interfaceNames, true)) {
             return new AutoWiringContainer();
         }
 

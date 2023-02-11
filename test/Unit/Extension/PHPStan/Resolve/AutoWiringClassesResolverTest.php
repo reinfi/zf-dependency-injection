@@ -15,10 +15,7 @@ class AutoWiringClassesResolverTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itReturnsFalseIfNoServiceManagerIsProvided(): void
+    public function testItReturnsFalseIfNoServiceManagerIsProvided(): void
     {
         $serviceManagerLoader = new ServiceManagerLoader(null);
 
@@ -29,10 +26,7 @@ class AutoWiringClassesResolverTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsTrueIfClassIsRegisteredForAutoWiring(): void
+    public function testItReturnsTrueIfClassIsRegisteredForAutoWiring(): void
     {
         $serviceManagerLoader = new ServiceManagerLoader(
             __DIR__ . '/../../../../resources/container.php'

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Attribute;
 
 use Laminas\Config\Config;
@@ -17,10 +19,7 @@ class InjectConfigTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itCallsConfigServiceFromContainerWithValue(): void
+    public function testItCallsConfigServiceFromContainerWithValue(): void
     {
         $inject = new InjectConfig('reinfi.di.test');
 
@@ -38,10 +37,7 @@ class InjectConfigTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCallsConfigServiceFromPluginManagerWithValue(): void
+    public function testItCallsConfigServiceFromPluginManagerWithValue(): void
     {
         $inject = new InjectConfig('reinfi.di.test');
 
@@ -63,15 +59,12 @@ class InjectConfigTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsArrayIfPropertyIsSet(): void
+    public function testItReturnsArrayIfPropertyIsSet(): void
     {
         $inject = new InjectConfig('reinfi.di.test', true);
 
         $config = $this->prophesize(Config::class);
-        $config->toArray()->shouldBeCalled()->willReturn([ true ]);
+        $config->toArray()->shouldBeCalled()->willReturn([true]);
 
         $configService = $this->prophesize(ConfigService::class);
         $configService->resolve('reinfi.di.test')
@@ -82,7 +75,7 @@ class InjectConfigTest extends TestCase
             ->willReturn($configService->reveal());
 
         self::assertEquals(
-            [ true ],
+            [true],
             $inject($container->reveal()),
             'Invoke should return array containing true'
         );

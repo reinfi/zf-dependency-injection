@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Service;
 
-use Reinfi\DependencyInjection\Exception\ConfigPathNotFoundException;
 use Laminas\Config\Config;
+use Reinfi\DependencyInjection\Exception\ConfigPathNotFoundException;
 
 /**
  * @package Reinfi\DependencyInjection\Service
@@ -20,8 +20,6 @@ class ConfigService
     }
 
     /**
-     * @param string $configPath
-     *
      * @return mixed|null
      * @throws ConfigPathNotFoundException
      */
@@ -44,10 +42,6 @@ class ConfigService
     }
 
     /**
-     * @param Config $config
-     * @param array  $configParts
-     * @param bool   $nullAllowed
-     *
      * @return mixed|null
      * @throws ConfigPathNotFoundException
      */
@@ -58,7 +52,7 @@ class ConfigService
     ) {
         $currentKey = array_shift($configParts);
 
-        if (!$config->offsetExists($currentKey)) {
+        if (! $config->offsetExists($currentKey)) {
             if ($nullAllowed) {
                 return null;
             }

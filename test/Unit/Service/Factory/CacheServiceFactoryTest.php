@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\Factory;
 
 use PHPUnit\Framework\TestCase;
@@ -17,10 +19,7 @@ class CacheServiceFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itInstancesCacheServiceWithoutConfig(): void
+    public function testItInstancesCacheServiceWithoutConfig(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
@@ -38,15 +37,14 @@ class CacheServiceFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itInstancesCacheServiceWithConfigString(): void
+    public function testItInstancesCacheServiceWithConfigString(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
         $container->get(ModuleConfig::class)
-            ->willReturn(['cache' => Memory::class]);
+            ->willReturn([
+                'cache' => Memory::class,
+            ]);
         $container->get(Memory::class)
             ->willReturn(new Memory())
             ->shouldBeCalled();
@@ -62,18 +60,17 @@ class CacheServiceFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itInstancesCacheServiceWithConfigCallable(): void
+    public function testItInstancesCacheServiceWithConfigCallable(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 
         $container->get(ModuleConfig::class)
-            ->willReturn(['cache' => static function (ContainerInterface $containerArgument) use ($container){
-                self::assertSame($container->reveal(), $containerArgument);
-                return new Memory();
-            }]);
+            ->willReturn([
+                'cache' => static function (ContainerInterface $containerArgument) use ($container) {
+                    self::assertSame($container->reveal(), $containerArgument);
+                    return new Memory();
+                },
+            ]);
 
         $factory = new CacheServiceFactory();
 

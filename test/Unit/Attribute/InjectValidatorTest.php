@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Attribute;
 
 use Laminas\ServiceManager\AbstractPluginManager;
@@ -17,14 +19,9 @@ class InjectValidatorTest extends TestCase
     use ProphecyTrait;
 
     /**
-     * @test
-     *
      * @dataProvider getAttributeValues
-     *
-     * @param array  $values
-     * @param string $className
      */
-    public function itCallsPluginManagerWithValue(
+    public function testItCallsPluginManagerWithValue(
         array $values,
         string $className
     ): void {
@@ -51,14 +48,9 @@ class InjectValidatorTest extends TestCase
     }
 
     /**
-     * @test
-     *
      * @dataProvider getAttributeValues
-     *
-     * @param array  $values
-     * @param string $className
      */
-    public function itCallsPluginManagerFromParentServiceLocator(
+    public function testItCallsPluginManagerFromParentServiceLocator(
         array $values,
         string $className
     ): void {
@@ -89,9 +81,6 @@ class InjectValidatorTest extends TestCase
         );
     }
 
-    /**
-     * @return array
-     */
     public function getAttributeValues(): array
     {
         return [
@@ -103,8 +92,10 @@ class InjectValidatorTest extends TestCase
             ],
             [
                 [
-                    'name'    => Service1::class,
-                    'options' => [ 'field' => true ],
+                    'name' => Service1::class,
+                    'options' => [
+                        'field' => true,
+                    ],
                 ],
                 Service1::class,
             ],

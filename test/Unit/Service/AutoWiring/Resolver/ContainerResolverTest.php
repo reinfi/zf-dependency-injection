@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
 use PHPUnit\Framework\TestCase;
@@ -19,10 +21,7 @@ class ContainerResolverTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itReturnsInjectionInterface(): void
+    public function testItReturnsInjectionInterface(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(Service1::class)
@@ -40,10 +39,7 @@ class ContainerResolverTest extends TestCase
         self::assertInstanceOf(InjectionInterface::class, $injection);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsClassName(): void
+    public function testItReturnsClassName(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(Service1::class)
@@ -68,10 +64,7 @@ class ContainerResolverTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfServiceNotFound(): void
+    public function testItReturnsNullIfServiceNotFound(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(Service1::class)
@@ -89,10 +82,7 @@ class ContainerResolverTest extends TestCase
         self::assertNull($injection);
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsNullIfParameterHasNoType(): void
+    public function testItReturnsNullIfParameterHasNoType(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 

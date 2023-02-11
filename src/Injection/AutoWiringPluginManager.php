@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Injection;
 
+use Laminas\ServiceManager\AbstractPluginManager;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
-use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * @package Reinfi\DependencyInjection\Injection
@@ -26,8 +26,6 @@ class AutoWiringPluginManager implements InjectionInterface
     }
 
     /**
-     * @param ContainerInterface $container
-     *
      * @return mixed
      * @throws AutoWiringNotPossibleException
      */

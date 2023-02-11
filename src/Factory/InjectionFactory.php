@@ -14,9 +14,7 @@ use Reinfi\DependencyInjection\Service\InjectionService;
 final class InjectionFactory extends AbstractFactory
 {
     /**
-     * @param \Interop\Container\ContainerInterface $container
      * @param class-string                          $requestedName
-     * @param array|null                            $options
      *
      * @return mixed
      */
@@ -33,7 +31,7 @@ final class InjectionFactory extends AbstractFactory
         );
 
         if ($injections === false) {
-            return new $requestedName;
+            return new $requestedName();
         }
 
         return $this->buildInstance($requestedName, $injections);

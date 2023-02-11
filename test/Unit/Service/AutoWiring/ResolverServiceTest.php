@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring;
 
 use Interop\Container\ContainerInterface;
@@ -24,10 +26,7 @@ class ResolverServiceTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itResolvesConstructorArguments(): void
+    public function testItResolvesConstructorArguments(): void
     {
         $resolver = $this->prophesize(ResolverInterface::class);
         $resolver->resolve(Argument::type(ReflectionParameter::class))
@@ -35,20 +34,18 @@ class ResolverServiceTest extends TestCase
                 new AutoWiring(Service2::class)
             );
 
-        $service = new ResolverService([ $resolver->reveal() ]);
+        $service = new ResolverService([$resolver->reveal()]);
 
         $injections = $service->resolve(Service1::class);
 
         self::assertCount(3, $injections);
         self::assertContainsOnlyInstancesOf(
-            InjectionInterface::class, $injections
+            InjectionInterface::class,
+            $injections
         );
     }
 
-    /**
-     * @test
-     */
-    public function itResolvesConstructorArgumentsWithOptionsParameter(): void
+    public function testItResolvesConstructorArgumentsWithOptionsParameter(): void
     {
         $resolver = $this->prophesize(ResolverInterface::class);
         $resolver->resolve(Argument::type(ReflectionParameter::class))
@@ -56,13 +53,16 @@ class ResolverServiceTest extends TestCase
                 new AutoWiring(Service2::class)
             );
 
-        $service = new ResolverService([ $resolver->reveal() ]);
+        $service = new ResolverService([$resolver->reveal()]);
 
-        $injections = $service->resolve(Service1::class, ['foo' => 'bar']);
+        $injections = $service->resolve(Service1::class, [
+            'foo' => 'bar',
+        ]);
 
         self::assertCount(3, $injections);
         self::assertContainsOnlyInstancesOf(
-            InjectionInterface::class, $injections
+            InjectionInterface::class,
+            $injections
         );
         self::assertSame(
             'bar',
@@ -70,14 +70,11 @@ class ResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itReturnsEmptyArrayIfNoConstructorArguments(): void
+    public function testItReturnsEmptyArrayIfNoConstructorArguments(): void
     {
         $resolver = $this->prophesize(ResolverInterface::class);
 
-        $service = new ResolverService([ $resolver->reveal() ]);
+        $service = new ResolverService([$resolver->reveal()]);
 
         $injections = $service->resolve(Service2::class);
 
@@ -85,13 +82,9 @@ class ResolverServiceTest extends TestCase
     }
 
     /**
-     * @test
-     *
      * @dataProvider exceptionServiceDataProvider
-     *
-     * @param string $serviceName
      */
-    public function itThrowsExceptionIfDependencyCouldNotResolved(string $serviceName): void
+    public function testItThrowsExceptionIfDependencyCouldNotResolved(string $serviceName): void
     {
         $this->expectException(AutoWiringNotPossibleException::class);
 
@@ -99,27 +92,23 @@ class ResolverServiceTest extends TestCase
         $resolver->resolve(Argument::type(ReflectionParameter::class))
             ->willReturn(null);
 
-        $service = new ResolverService([ $resolver->reveal() ]);
+        $service = new ResolverService([$resolver->reveal()]);
 
         $service->resolve($serviceName);
     }
 
     /**
-     * @test
-     *
      * @dataProvider exceptionServiceDataProvider
-     *
-     * @param string $serviceName
      */
-    public function itShouldAddTheResolveClassToExceptionIfDependencyCouldNotResolved(string $serviceName): void
+    public function testItShouldAddTheResolveClassToExceptionIfDependencyCouldNotResolved(string $serviceName): void
     {
         $this->expectExceptionMessage($serviceName);
 
         $resolver = $this->prophesize(ResolverInterface::class);
         $resolver->resolve(Argument::type(ReflectionParameter::class))
-                 ->willReturn(null);
+            ->willReturn(null);
 
-        $service = new ResolverService([ $resolver->reveal() ]);
+        $service = new ResolverService([$resolver->reveal()]);
 
         $service->resolve($serviceName);
     }
@@ -127,9 +116,9 @@ class ResolverServiceTest extends TestCase
     public function exceptionServiceDataProvider(): array
     {
         return [
-            [ Service1::class ],
-            [ ServiceNoTypeHint::class ],
-            [ ServiceBuildInType::class ],
+            [Service1::class],
+            [ServiceNoTypeHint::class],
+            [ServiceBuildInType::class],
         ];
     }
 }

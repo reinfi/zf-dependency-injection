@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
 use Laminas\ServiceManager\AbstractPluginManager;
@@ -16,10 +18,7 @@ class InjectParentTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itCallsContainerWithValue(): void
+    public function testItCallsContainerWithValue(): void
     {
         $inject = new InjectParent();
 
@@ -36,10 +35,7 @@ class InjectParentTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCallsParentContainerWhenPluginManager(): void
+    public function testItCallsParentContainerWhenPluginManager(): void
     {
         $inject = new InjectParent();
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Factory;
 
 use Laminas\ServiceManager\AbstractPluginManager;
@@ -22,10 +24,7 @@ class AutoWiringFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceWithInjections(): void
+    public function testItCreatesServiceWithInjections(): void
     {
         $service = $this->prophesize(AutoWiringService::class);
         $service->resolveConstructorInjection(
@@ -43,7 +42,7 @@ class AutoWiringFactoryTest extends TestCase
         $instance = $factory->createService(
             $container->reveal(),
             Service1::class,
-                Service1::class
+            Service1::class
         );
 
         self::assertInstanceOf(
@@ -52,12 +51,11 @@ class AutoWiringFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceWithInjectionsWithOptions(): void
+    public function testItCreatesServiceWithInjectionsWithOptions(): void
     {
-        $options = ['foo' => 'bar'];
+        $options = [
+            'foo' => 'bar',
+        ];
         $service = $this->prophesize(AutoWiringService::class);
         $service->resolveConstructorInjection(
             Argument::type(ContainerInterface::class),
@@ -79,10 +77,7 @@ class AutoWiringFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceFromCanonicalName(): void
+    public function testItCreatesServiceFromCanonicalName(): void
     {
         $service = $this->prophesize(AutoWiringService::class);
         $service->resolveConstructorInjection(
@@ -108,10 +103,7 @@ class AutoWiringFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceFromPluginManager(): void
+    public function testItCreatesServiceFromPluginManager(): void
     {
         $service = $this->prophesize(AutoWiringService::class);
         $service->resolveConstructorInjection(
@@ -141,10 +133,7 @@ class AutoWiringFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceWithNoInjections(): void
+    public function testItCreatesServiceWithNoInjections(): void
     {
         $service = $this->prophesize(AutoWiringService::class);
         $service->resolveConstructorInjection(
@@ -170,10 +159,7 @@ class AutoWiringFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itThrowsExceptionIfClassNotSet(): void
+    public function testItThrowsExceptionIfClassNotSet(): void
     {
         $this->expectException(InvalidServiceException::class);
 
@@ -186,10 +172,7 @@ class AutoWiringFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itThrowsExceptionIfClassNotFound(): void
+    public function testItThrowsExceptionIfClassNotFound(): void
     {
         $this->expectException(InvalidServiceException::class);
 

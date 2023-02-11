@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Integration\Factory;
 
 use Laminas\ServiceManager\AbstractPluginManager;
@@ -24,10 +26,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceWithDependencies(): void
+    public function testItCreatesServiceWithDependencies(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -45,10 +44,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceWithContainerAsDependency(): void
+    public function testItCreatesServiceWithContainerAsDependency(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -66,10 +62,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceWithNoDependencies(): void
+    public function testItCreatesServiceWithNoDependencies(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -87,10 +80,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceWithBuiltInType(): void
+    public function testItCreatesServiceWithBuiltInType(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -108,10 +98,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceWithBuiltInTypeUsingConstantAsDefault(): void
+    public function testItCreatesServiceWithBuiltInTypeUsingConstantAsDefault(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -129,10 +116,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
         );
     }
 
-    /**
-     * @test
-     */
-    public function itCreatesServiceFromPluginManager(): void
+    public function testItCreatesServiceFromPluginManager(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
@@ -158,10 +142,7 @@ class AutoWiringFactoryTest extends AbstractIntegrationTest
         );
     }
 
-    /**
-     * @test
-     */
-    public function itThrowsExceptionIfServiceNotFound(): void
+    public function testItThrowsExceptionIfServiceNotFound(): void
     {
         $this->expectException(InvalidServiceException::class);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring;
 
 use Interop\Container\ContainerInterface;
@@ -18,10 +20,7 @@ class LazyResolverServiceTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itResolvesResolverServiceLazy(): void
+    public function testItResolvesResolverServiceLazy(): void
     {
         $resolverService = $this->prophesize(ResolverServiceInterface::class);
         $resolverService->resolve('test', null)
@@ -37,31 +36,27 @@ class LazyResolverServiceTest extends TestCase
         $service->resolve('test');
     }
 
-    /**
-     * @test
-     */
-    public function itResolvesResolverServiceLazyWithOptions(): void
+    public function testItResolvesResolverServiceLazyWithOptions(): void
     {
-        $options = ['foo' => 'bar'];
+        $options = [
+            'foo' => 'bar',
+        ];
 
         $resolverService = $this->prophesize(ResolverServiceInterface::class);
         $resolverService->resolve('test', $options)
-                        ->willReturn([]);
+            ->willReturn([]);
 
         $container = $this->prophesize(ContainerInterface::class);
         $container->get(ResolverService::class)
-                  ->willReturn($resolverService->reveal())
-                  ->shouldBeCalled();
+            ->willReturn($resolverService->reveal())
+            ->shouldBeCalled();
 
         $service = new LazyResolverService($container->reveal());
 
         $service->resolve('test', $options);
     }
 
-    /**
-     * @test
-     */
-    public function itResolvesResolverServiceOnlyOnce(): void
+    public function testItResolvesResolverServiceOnlyOnce(): void
     {
         $resolverService = $this->prophesize(ResolverServiceInterface::class);
         $resolverService->resolve('test', null)

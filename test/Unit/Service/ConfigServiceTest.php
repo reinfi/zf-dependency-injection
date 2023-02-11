@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service;
 
 use Laminas\Config\Config;
@@ -15,10 +17,7 @@ class ConfigServiceTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itResolvesConfigPath(): void
+    public function testItResolvesConfigPath(): void
     {
         $config = new Config(require __DIR__ . '/../../resources/config.php');
 
@@ -33,10 +32,7 @@ class ConfigServiceTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itResolvesToNullIfValueNotFound(): void
+    public function testItResolvesToNullIfValueNotFound(): void
     {
         $config = new Config(require __DIR__ . '/../../resources/config.php');
 
@@ -50,10 +46,7 @@ class ConfigServiceTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function itThrowsExceptionIfValueMustExist(): void
+    public function testItThrowsExceptionIfValueMustExist(): void
     {
         $this->expectException(ConfigPathNotFoundException::class);
 

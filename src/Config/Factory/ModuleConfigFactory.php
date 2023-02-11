@@ -23,7 +23,7 @@ class ModuleConfigFactory
 
         $moduleConfig = $config[ModuleConfig::CONFIG_KEY] ?? [];
 
-        if (!is_array($moduleConfig)) {
+        if (! is_array($moduleConfig)) {
             throw new InvalidArgumentException('Module config must be type of array');
         }
 

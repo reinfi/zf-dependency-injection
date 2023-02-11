@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Traits;
 
 use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
@@ -15,12 +17,6 @@ trait WarmupTrait
 {
     use CacheKeyTrait;
 
-    /**
-     * @param array                    $factoriesConfig
-     * @param ExtractorInterface       $extractor
-     * @param ResolverServiceInterface $resolverService
-     * @param CacheService             $cache
-     */
     private function warmupConfig(
         array $factoriesConfig,
         ExtractorInterface $extractor,
@@ -33,7 +29,7 @@ trait WarmupTrait
                 $factoryClass,
                 $className
             ) use ($extractor, $resolverService, $cache) {
-                if (!is_string($factoryClass)) {
+                if (! is_string($factoryClass)) {
                     return;
                 }
                 $injections = $this->handleService(

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory;
 
 use PHPUnit\Framework\TestCase;
@@ -15,10 +17,7 @@ class AnnotationExtractorFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function itReturnsAnnotationExtractor(): void
+    public function testItReturnsAnnotationExtractor(): void
     {
         $container = $this->prophesize(ContainerInterface::class);
 

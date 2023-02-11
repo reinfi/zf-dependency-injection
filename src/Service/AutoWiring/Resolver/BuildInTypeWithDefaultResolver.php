@@ -14,21 +14,18 @@ use Reinfi\DependencyInjection\Injection\Value;
  */
 class BuildInTypeWithDefaultResolver implements ResolverInterface
 {
-    /**
-     * @inheritDoc
-     */
     public function resolve(ReflectionParameter $parameter): ?InjectionInterface
     {
         $type = $parameter->getType();
-        if (!$type instanceof ReflectionNamedType) {
+        if (! $type instanceof ReflectionNamedType) {
             return null;
         }
 
-        if (!$type->isBuiltin()) {
+        if (! $type->isBuiltin()) {
             return null;
         }
 
-        if (!$parameter->isDefaultValueAvailable()) {
+        if (! $parameter->isDefaultValueAvailable()) {
             return null;
         }
 

@@ -19,12 +19,9 @@ final class InjectDoctrineRepository extends AbstractAnnotation
 
     private string $entity;
 
-    /**
-     * @param array $values
-     */
     public function __construct(array $values)
     {
-        if (!isset($values['value'])) {
+        if (! isset($values['value'])) {
             if (isset($values['em']) || isset($values['entityManager'])) {
                 $this->entityManager = $values['entityManager'] ?? $values['em'];
             }
@@ -34,13 +31,9 @@ final class InjectDoctrineRepository extends AbstractAnnotation
             return;
         }
 
-
         $this->entity = $values['value'];
     }
 
-    /**
-     * @inheritDoc
-     */
     public function __invoke(ContainerInterface $container)
     {
         $container = $this->determineContainer($container);
@@ -48,8 +41,8 @@ final class InjectDoctrineRepository extends AbstractAnnotation
         $entityManager = $container->get($this->entityManager);
 
         if (
-            !is_object($entityManager)
-            || !method_exists($entityManager, 'getRepository')
+            ! is_object($entityManager)
+            || ! method_exists($entityManager, 'getRepository')
         ) {
             throw new AutoWiringNotPossibleException($this->entity);
         }

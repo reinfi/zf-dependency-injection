@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Service;
 
 use Reinfi\DependencyInjection\Annotation\Inject;
@@ -31,11 +33,6 @@ class ServiceAnnotation
      */
     protected $valueAsArray;
 
-    /**
-     * @param Service2 $service2
-     * @param int      $value
-     * @param array    $valueAsArray
-     */
     public function __construct(Service2 $service2, int $value, array $valueAsArray)
     {
         $this->service2 = $service2;

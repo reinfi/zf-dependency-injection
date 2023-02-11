@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Integration\Command;
 
 use InvalidArgumentException;
@@ -22,9 +24,6 @@ class CacheWarmupCommandTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @inheritDoc
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -34,16 +33,13 @@ class CacheWarmupCommandTest extends TestCase
         class_exists(InjectConstant::class);
     }
 
-    /**
-     * @test
-     */
-    public function itWarmsupCacheEntries(): void
+    public function testItWarmsupCacheEntries(): void
     {
         $config = __DIR__ . '/../../resources/application_config.php';
 
         $input = new ArgvInput(
             [
-                'command'           => 'reinfi:di:cache',
+                'command' => 'reinfi:di:cache',
                 'applicationConfig' => $config,
             ]
         );
@@ -54,10 +50,7 @@ class CacheWarmupCommandTest extends TestCase
         $command->run($input, $output->reveal());
     }
 
-    /**
-     * @test
-     */
-    public function itThrowsExceptionIfPathNotValid(): void
+    public function testItThrowsExceptionIfPathNotValid(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -65,7 +58,7 @@ class CacheWarmupCommandTest extends TestCase
 
         $input = new ArgvInput(
             [
-                'command'           => 'reinfi:di:cache',
+                'command' => 'reinfi:di:cache',
                 'applicationConfig' => $config,
             ]
         );

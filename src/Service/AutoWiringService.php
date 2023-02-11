@@ -29,10 +29,6 @@ class AutoWiringService
     }
 
     /**
-     * @param ContainerInterface $container
-     * @param string             $className
-     * @param null|array         $options
-     *
      * @return InjectionInterface[]|null
      */
     public function resolveConstructorInjection(
@@ -54,9 +50,6 @@ class AutoWiringService
     }
 
     /**
-     * @param string     $className
-     * @param array|null $options
-     *
      * @return InjectionInterface[]
      */
     private function getInjections(string $className, ?array $options = null): array

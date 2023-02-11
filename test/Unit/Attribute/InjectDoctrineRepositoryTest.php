@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Reinfi\DependencyInjection\Test\Unit\Attribute;
 
 use Doctrine\ORM\EntityManager;
@@ -20,14 +22,9 @@ class InjectDoctrineRepositoryTest extends TestCase
     use ProphecyTrait;
 
     /**
-     * @test
-     *
      * @dataProvider getAttributeValuesWithoutEntityManager
-     *
-     * @param array  $values
-     * @param string $repositoryClass
      */
-    public function itGetsRepositoryWithoutEntityManagerSet(
+    public function testItGetsRepositoryWithoutEntityManagerSet(
         array $values,
         string $repositoryClass
     ): void {
@@ -51,15 +48,9 @@ class InjectDoctrineRepositoryTest extends TestCase
     }
 
     /**
-     * @test
-     *
      * @dataProvider getAttributeValuesWithEntityManager
-     *
-     * @param array  $values
-     * @param string $entityManagerIdentifier
-     * @param string $repositoryClass
      */
-    public function itGetsRepositoryWithEntityManagerSet(
+    public function testItGetsRepositoryWithEntityManagerSet(
         array $values,
         string $entityManagerIdentifier,
         string $repositoryClass
@@ -84,14 +75,9 @@ class InjectDoctrineRepositoryTest extends TestCase
     }
 
     /**
-     * @test
-     *
      * @dataProvider getAttributeValuesWithoutEntityManager
-     *
-     * @param array  $values
-     * @param string $repositoryClass
      */
-    public function itGetsRepositoryFromPluginManager(
+    public function testItGetsRepositoryFromPluginManager(
         array $values,
         string $repositoryClass
     ): void {
@@ -118,28 +104,24 @@ class InjectDoctrineRepositoryTest extends TestCase
         );
     }
 
-    /**
-     * @return array
-     */
     public function getAttributeValuesWithoutEntityManager(): array
     {
         return [
             [
-                [ 'entity' => EntityRepository::class ],
+                [
+                    'entity' => EntityRepository::class,
+                ],
                 EntityRepository::class,
             ],
         ];
     }
 
-    /**
-     * @return array
-     */
     public function getAttributeValuesWithEntityManager(): array
     {
         return [
             [
                 [
-                    'entity'        => EntityRepository::class,
+                    'entity' => EntityRepository::class,
                     'entityManager' => 'doctrine.entityManager',
                 ],
                 'doctrine.entityManager',
@@ -148,10 +130,7 @@ class InjectDoctrineRepositoryTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     */
-    public function itThrowsExceptionIfEntityManagerIsNotAnObject(): void
+    public function testItThrowsExceptionIfEntityManagerIsNotAnObject(): void
     {
         $this->expectException(AutoWiringNotPossibleException::class);
 
@@ -164,10 +143,7 @@ class InjectDoctrineRepositoryTest extends TestCase
         $inject($container->reveal());
     }
 
-    /**
-     * @test
-     */
-    public function itThrowsExceptionIfEntityManagerHasNotGetRepositoryMethod(): void
+    public function testItThrowsExceptionIfEntityManagerHasNotGetRepositoryMethod(): void
     {
         $this->expectException(AutoWiringNotPossibleException::class);
 

@@ -17,17 +17,11 @@ abstract class AbstractInjectPluginManager extends AbstractAnnotation
 
     private string $name;
 
-    /**
-     * @var array|null
-     */
     private ?array $options = null;
 
-    /**
-     * @param array $values
-     */
     public function __construct(array $values)
     {
-        if (!isset($values['value'])) {
+        if (! isset($values['value'])) {
             if (isset($values['options'])) {
                 $this->options = $values['options'];
             }
@@ -40,15 +34,12 @@ abstract class AbstractInjectPluginManager extends AbstractAnnotation
         $this->name = $values['value'];
     }
 
-    /**
-     * @inheritDoc
-     */
     public function __invoke(ContainerInterface $container)
     {
         $container = $this->determineContainer($container);
         $pluginManagerImplementation = $container->get(static::PLUGIN_MANAGER);
 
-        if (!$pluginManagerImplementation instanceof AbstractPluginManager) {
+        if (! $pluginManagerImplementation instanceof AbstractPluginManager) {
             throw InjectionNotPossibleException::fromUnknownPluginManager(static::PLUGIN_MANAGER);
         }
 

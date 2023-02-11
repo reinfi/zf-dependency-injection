@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Extension\PHPStan\Resolve;
 
+use Reinfi\DependencyInjection\Extension\PHPStan\ServiceManagerLoader;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverServiceInterface;
-use Reinfi\DependencyInjection\Extension\PHPStan\ServiceManagerLoader;
 
 class AutoWiringPossibleResolver
 {

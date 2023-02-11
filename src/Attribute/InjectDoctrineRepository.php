@@ -27,9 +27,6 @@ final class InjectDoctrineRepository extends AbstractAttribute
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     public function __invoke(ContainerInterface $container)
     {
         $container = $this->determineContainer($container);
@@ -37,8 +34,8 @@ final class InjectDoctrineRepository extends AbstractAttribute
         $entityManager = $container->get($this->entityManager);
 
         if (
-            !is_object($entityManager)
-            || !method_exists($entityManager, 'getRepository')
+            ! is_object($entityManager)
+            || ! method_exists($entityManager, 'getRepository')
         ) {
             throw new AutoWiringNotPossibleException($this->entity);
         }
