@@ -29,7 +29,7 @@ final class InjectConfig extends AbstractAnnotation
         $this->configPath = $values['value'];
     }
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): mixed
     {
         $container = $this->determineContainer($container);
 

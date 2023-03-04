@@ -21,7 +21,7 @@ final class InjectConstant implements InjectionInterface
         $this->value = $value;
     }
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): mixed
     {
         return constant($this->value);
     }

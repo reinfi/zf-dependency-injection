@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Attribute;
 
 use Attribute;
+use Doctrine\ORM\EntityRepository;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 
@@ -27,7 +28,7 @@ final class InjectDoctrineRepository extends AbstractAttribute
         }
     }
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): EntityRepository
     {
         $container = $this->determineContainer($container);
 

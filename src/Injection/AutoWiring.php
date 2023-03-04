@@ -21,10 +21,9 @@ class AutoWiring implements InjectionInterface
     }
 
     /**
-     * @return mixed
      * @throws AutoWiringNotPossibleException
      */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): mixed
     {
         if ($container->has($this->serviceName)) {
             return $container->get($this->serviceName);

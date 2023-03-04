@@ -34,7 +34,7 @@ abstract class AbstractInjectPluginManager extends AbstractAnnotation
         $this->name = $values['value'];
     }
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): mixed
     {
         $container = $this->determineContainer($container);
         $pluginManagerImplementation = $container->get(static::PLUGIN_MANAGER);

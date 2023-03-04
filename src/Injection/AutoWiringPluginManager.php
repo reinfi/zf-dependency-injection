@@ -29,18 +29,18 @@ class AutoWiringPluginManager implements InjectionInterface
      * @return mixed
      * @throws AutoWiringNotPossibleException
      */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): mixed
     {
         if ($container instanceof AbstractPluginManager) {
             $container = $container->getServiceLocator();
         }
 
-        $pluginManagerImplemenation = $container->get($this->pluginManager);
+        $pluginManagerImplementation = $container->get($this->pluginManager);
         if (
-            $pluginManagerImplemenation instanceof ContainerInterface
-            && $pluginManagerImplemenation->has($this->serviceName)
+            $pluginManagerImplementation instanceof ContainerInterface
+            && $pluginManagerImplementation->has($this->serviceName)
         ) {
-            return $pluginManagerImplemenation->get($this->serviceName);
+            return $pluginManagerImplementation->get($this->serviceName);
         }
 
         throw new AutoWiringNotPossibleException($this->serviceName);
