@@ -26,7 +26,6 @@ class AutoWiringPluginManager implements InjectionInterface
     }
 
     /**
-     * @return mixed
      * @throws AutoWiringNotPossibleException
      */
     public function __invoke(ContainerInterface $container): mixed
