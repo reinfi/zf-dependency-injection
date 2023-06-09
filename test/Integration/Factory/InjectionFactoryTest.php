@@ -16,6 +16,7 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
 use Reinfi\DependencyInjection\Test\Service\Service3;
 use Reinfi\DependencyInjection\Test\Service\ServiceAnnotation;
 use Reinfi\DependencyInjection\Test\Service\ServiceAnnotationConstructor;
+use Reinfi\DependencyInjection\Test\Service\ServiceAttribute81;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Integration\Factory
@@ -58,6 +59,27 @@ class InjectionFactoryTest extends AbstractIntegrationTest
 
         self::assertInstanceOf(
             ServiceAnnotationConstructor::class,
+            $instance
+        );
+    }
+
+    /**
+     * @requires PHP 8.1
+     */
+    public function testItCreatesServiceWithDependenciesFromConstructorPromotion(): void
+    {
+        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+
+        $factory = new InjectionFactory();
+
+        $instance = $factory->createService(
+            $container,
+            ServiceAttribute81::class,
+            ServiceAttribute81::class
+        );
+
+        self::assertInstanceOf(
+            ServiceAttribute81::class,
             $instance
         );
     }

@@ -11,7 +11,7 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
 /**
  * @package Reinfi\DependencyInjection\Attribute
  */
-#[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
+#[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::TARGET_PARAMETER | Attribute::IS_REPEATABLE)]
 final class InjectConstant implements InjectionInterface
 {
     public string $value;
