@@ -22,13 +22,7 @@ class ExtractorFactory
         /** @var array $config */
         $config = $container->get(ModuleConfig::class);
 
-        $extractors = [];
-
-        $extractorFromConfig = $this->extractorFromConfig($container, $config);
-
-        if ($extractorFromConfig instanceof ExtractorInterface) {
-            $extractors[] = $extractorFromConfig;
-        }
+        $extractors = $this->extractorsFromConfig($container, $config);
 
         if (class_exists('Doctrine\Common\Annotations\AnnotationReader')) {
             $extractors[] = $container->get(AnnotationExtractor::class);
@@ -41,27 +35,45 @@ class ExtractorFactory
         return new ExtractorChain($extractors);
     }
 
-    private function extractorFromConfig(
+    /**
+     * @return ExtractorInterface[]
+     */
+    private function extractorsFromConfig(
         ContainerInterface $container,
         array $config
-    ): ?ExtractorInterface {
+    ): array {
         $extractorConfiguration = $config['extractor'] ?? null;
 
         if ($extractorConfiguration === null) {
-            return null;
+            return [];
         }
 
-        $extractor = $container->get($extractorConfiguration);
-
-        if ($extractor instanceof ExtractorInterface) {
-            return $extractor;
+        if (! is_string($extractorConfiguration) && ! is_array($extractorConfiguration)) {
+            throw new InvalidArgumentException(
+                'Configuration property "extractor" must be of either string or array of strings'
+            );
         }
 
-        throw new InvalidArgumentException(
-            sprintf(
-                'Configuration property "extractor" must be of type %s',
-                ExtractorInterface::class
-            )
+        if (is_string($extractorConfiguration)) {
+            $extractorConfiguration = [$extractorConfiguration];
+        }
+
+        return array_map(
+            function (string $extractorClassName) use ($container): ExtractorInterface {
+                $extractor = $container->get($extractorClassName);
+
+                if ($extractor instanceof ExtractorInterface) {
+                    return $extractor;
+                }
+
+                throw new InvalidArgumentException(
+                    sprintf(
+                        'Configuration property "extractor" must be of type %s',
+                        ExtractorInterface::class
+                    )
+                );
+            },
+            $extractorConfiguration
         );
     }
 }
