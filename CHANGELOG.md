@@ -1,4 +1,6 @@
 ## Changelog
+### v5.5.0
+- extractor configuration can now contain an array of extractors 
 ### v5.0.0
 - deprecated PHP 7.3
 - add PHP 8.1
