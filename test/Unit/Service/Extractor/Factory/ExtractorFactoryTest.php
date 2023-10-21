@@ -26,8 +26,6 @@ class ExtractorFactoryTest extends TestCase
 
     public function testItReturnsExtractorDefinedInConfig(): void
     {
-        $isPhp8OrAbove = version_compare(PHP_VERSION, '8.0.0') >= 0;
-
         $moduleConfig = new Config([
             'extractor' => YamlExtractor::class,
         ]);
@@ -48,7 +46,7 @@ class ExtractorFactoryTest extends TestCase
             ->shouldBeCalled();
         $container->get(AttributeExtractor::class)
             ->willReturn($attributeExtractor->reveal())
-            ->shouldBeCalledTimes($isPhp8OrAbove ? 1 : 0);
+            ->shouldBeCalled();
 
         $factory = new ExtractorFactory();
 
@@ -64,19 +62,13 @@ class ExtractorFactoryTest extends TestCase
 
         self::assertTrue(is_array($chain));
 
-        if ($isPhp8OrAbove) {
-            self::assertCount(3, $chain);
-        } else {
-            self::assertCount(2, $chain);
-        }
+        self::assertCount(3, $chain);
 
         self::assertContainsOnlyInstancesOf(ExtractorInterface::class, $chain);
     }
 
     public function testItReturnsArrayOfExtractorsDefinedInConfig(): void
     {
-        $isPhp8OrAbove = version_compare(PHP_VERSION, '8.0.0') >= 0;
-
         $moduleConfig = new Config([
             'extractor' => [
                 YamlExtractor::class,
@@ -99,7 +91,7 @@ class ExtractorFactoryTest extends TestCase
             ->shouldBeCalled();
         $container->get(AttributeExtractor::class)
             ->willReturn($attributeExtractor->reveal())
-            ->shouldBeCalledTimes($isPhp8OrAbove ? 1 : 0);
+            ->shouldBeCalled();
 
         $factory = new ExtractorFactory();
 
@@ -115,19 +107,13 @@ class ExtractorFactoryTest extends TestCase
 
         self::assertTrue(is_array($chain));
 
-        if ($isPhp8OrAbove) {
-            self::assertCount(3, $chain);
-        } else {
-            self::assertCount(2, $chain);
-        }
+        self::assertCount(3, $chain);
 
         self::assertContainsOnlyInstancesOf(ExtractorInterface::class, $chain);
     }
 
     public function testItReturnsAnnotationExtractorIfNoneDefined(): void
     {
-        $isPhp8OrAbove = version_compare(PHP_VERSION, '8.0.0') >= 0;
-
         $moduleConfig = new Config([]);
 
         $annotationExtractor = $this->prophesize(AnnotationExtractor::class);
@@ -142,7 +128,7 @@ class ExtractorFactoryTest extends TestCase
             ->shouldBeCalled();
         $container->get(AttributeExtractor::class)
             ->willReturn($attributeExtractor->reveal())
-            ->shouldBeCalledTimes($isPhp8OrAbove ? 1 : 0);
+            ->shouldBeCalled();
 
         $factory = new ExtractorFactory();
 
@@ -158,11 +144,7 @@ class ExtractorFactoryTest extends TestCase
 
         self::assertTrue(is_array($chain));
 
-        if ($isPhp8OrAbove) {
-            self::assertCount(2, $chain);
-        } else {
-            self::assertCount(1, $chain);
-        }
+        self::assertCount(2, $chain);
 
         self::assertInstanceOf(AnnotationExtractor::class, $chain[0]);
 
