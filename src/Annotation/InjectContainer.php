@@ -14,7 +14,7 @@ use Psr\Container\ContainerInterface;
  */
 final class InjectContainer implements AnnotationInterface
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): mixed
     {
         return $container;
     }

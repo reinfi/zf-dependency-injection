@@ -15,12 +15,9 @@ use Psr\Container\ContainerInterface;
  */
 final class InjectParent implements AnnotationInterface
 {
-    /**
-     * @var string
-     */
-    public $value;
+    public string $value;
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): mixed
     {
         if ($container instanceof AbstractPluginManager) {
             $container = $container->getServiceLocator();

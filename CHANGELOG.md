@@ -1,4 +1,7 @@
 ## Changelog
+### v6.0.0
+- minimum required PHP version 8.1
+- added return types where possible
 ### v5.5.0
 - extractor configuration can now contain an array of extractors 
 ### v5.0.0

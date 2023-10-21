@@ -28,9 +28,7 @@ class ExtractorFactory
             $extractors[] = $container->get(AnnotationExtractor::class);
         }
 
-        if (version_compare(PHP_VERSION, '8.0.0') >= 0) {
-            $extractors[] = $container->get(AttributeExtractor::class);
-        }
+        $extractors[] = $container->get(AttributeExtractor::class);
 
         return new ExtractorChain($extractors);
     }

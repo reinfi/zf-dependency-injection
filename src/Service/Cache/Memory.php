@@ -11,7 +11,7 @@ class Memory implements CacheInterface
 {
     private array $cachedItems = [];
 
-    public function get($key, $default = null)
+    public function get($key, $default = null): mixed
     {
         return $this->cachedItems[$key] ?? $default;
     }
