@@ -8,18 +8,18 @@ on:
 
 jobs:
   run:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       extensions: intl,mbstring
     strategy:
       fail-fast: false
       max-parallel: 1
       matrix:
-        php: ['8.0']
+        php: ['8.1']
     name: PHP ${{ matrix.php }} ${{ matrix.description }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -45,7 +45,7 @@ jobs:
 
       # https://github.com/marketplace/actions/codecov
       - name: Submit coverage report
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           files: build/coverage.xml
           verbose: true

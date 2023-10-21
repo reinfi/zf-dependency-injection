@@ -25,7 +25,7 @@ abstract class AbstractInjectPluginManager extends AbstractAttribute
         $this->options = $options;
     }
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): mixed
     {
         $container = $this->determineContainer($container);
         $pluginManagerImplementation = $container->get(static::PLUGIN_MANAGER);

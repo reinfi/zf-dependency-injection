@@ -7,8 +7,6 @@ namespace Reinfi\DependencyInjection\Service\AutoWiring;
 use Psr\Container\ContainerInterface;
 
 /**
- * Class LazyResolverService
- *
  * @package Reinfi\DependencyInjection\Service\AutoWiring
  */
 class LazyResolverService implements ResolverServiceInterface

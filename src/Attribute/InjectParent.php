@@ -22,7 +22,7 @@ final class InjectParent implements InjectionInterface
         $this->value = $value;
     }
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): mixed
     {
         if ($container instanceof AbstractPluginManager) {
             $container = $container->getServiceLocator();

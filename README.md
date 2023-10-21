@@ -16,7 +16,7 @@ Heavily inspired by https://github.com/mikemix/mxdiModule.
 ### Installation
 
 1. Install with Composer: `composer require reinfi/zf-dependency-injection`.
-2. Enable the module via config in `appliation.config.php` under `modules` key:
+2. Enable the module via config in `application.config.php` under `modules` key:
 
 ```php
     return [

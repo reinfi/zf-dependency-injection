@@ -25,7 +25,7 @@ final class InjectConfig extends AbstractAttribute
         $this->asArray = $asArray;
     }
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): mixed
     {
         $container = $this->determineContainer($container);
 

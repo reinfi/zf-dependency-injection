@@ -10,10 +10,7 @@ use PHPStan\ShouldNotHappenException;
 
 final class ServiceManagerLoader
 {
-    /**
-     * @var ServiceManager|null
-     */
-    private $serviceLocator = null;
+    private ?ServiceManager $serviceLocator = null;
 
     public function __construct(?string $serviceManagerLoader)
     {
