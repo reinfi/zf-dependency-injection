@@ -47,7 +47,7 @@ class CacheServiceTest extends TestCase
         );
     }
 
-    public function getMethodDataProvider(): array
+    public static function getMethodDataProvider(): array
     {
         return [
             [

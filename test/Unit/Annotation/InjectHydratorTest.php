@@ -81,7 +81,7 @@ class InjectHydratorTest extends TestCase
         );
     }
 
-    public function getAnnotationValues(): array
+    public static function getAnnotationValues(): array
     {
         return [
             [

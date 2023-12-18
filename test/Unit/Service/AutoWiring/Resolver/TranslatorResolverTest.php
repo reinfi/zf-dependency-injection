@@ -157,7 +157,7 @@ class TranslatorResolverTest extends TestCase
         );
     }
 
-    public function containerHasCallsProvider(): array
+    public static function containerHasCallsProvider(): array
     {
         return [
             [

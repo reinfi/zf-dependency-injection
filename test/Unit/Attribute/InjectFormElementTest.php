@@ -81,7 +81,7 @@ class InjectFormElementTest extends TestCase
         );
     }
 
-    public function getAttributeValues(): array
+    public static function getAttributeValues(): array
     {
         return [
             [
