@@ -34,22 +34,15 @@ class ConfigService
 
         $configParts = explode('.', $configPath);
 
-        return $this->resolveConfigPath(
-            $this->config,
-            $configParts,
-            $nullAllowed
-        );
+        return $this->resolveConfigPath($this->config, $configParts, $nullAllowed);
     }
 
     /**
      * @return mixed|null
      * @throws ConfigPathNotFoundException
      */
-    private function resolveConfigPath(
-        Config $config,
-        array $configParts,
-        bool $nullAllowed
-    ) {
+    private function resolveConfigPath(Config $config, array $configParts, bool $nullAllowed)
+    {
         $currentKey = array_shift($configParts);
 
         if (! $config->offsetExists($currentKey)) {
@@ -67,10 +60,6 @@ class ConfigService
         $subConfig = $config->get($currentKey);
         assert($subConfig instanceof Config);
 
-        return $this->resolveConfigPath(
-            $subConfig,
-            $configParts,
-            $nullAllowed
-        );
+        return $this->resolveConfigPath($subConfig, $configParts, $nullAllowed);
     }
 }

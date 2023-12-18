@@ -63,9 +63,8 @@ class PluginManagerResolver implements ResolverInterface
         static::$pluginManagerMapping[$className] = $pluginManager;
     }
 
-    private function handleClass(
-        ReflectionClass $reflectionClass
-    ): ?AutoWiringPluginManager {
+    private function handleClass(ReflectionClass $reflectionClass): ?AutoWiringPluginManager
+    {
         $serviceName = $reflectionClass->getName();
 
         $interfaceNames = $reflectionClass->getInterfaceNames();
@@ -77,10 +76,7 @@ class PluginManagerResolver implements ResolverInterface
                     $pluginManagerImplementation instanceof ContainerInterface
                     && $pluginManagerImplementation->has($serviceName)
                 ) {
-                    return new AutoWiringPluginManager(
-                        $pluginManager,
-                        $serviceName
-                    );
+                    return new AutoWiringPluginManager($pluginManager, $serviceName);
                 }
             }
         }

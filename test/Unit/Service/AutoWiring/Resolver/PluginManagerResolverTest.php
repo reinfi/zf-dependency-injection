@@ -59,10 +59,8 @@ class PluginManagerResolverTest extends TestCase
     /**
      * @dataProvider getPluginManagerData
      */
-    public function testItReturnsServiceAndPluginManager(
-        string $serviceClass,
-        string $pluginManager
-    ): void {
+    public function testItReturnsServiceAndPluginManager(string $serviceClass, string $pluginManager): void
+    {
         $pluginManagerClass = $this->prophesize(ContainerInterface::class);
         $pluginManagerClass->has($serviceClass)
             ->willReturn(true);
@@ -80,35 +78,23 @@ class PluginManagerResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        self::assertNotNull(
-            $injection,
-            'injection could not resolved'
-        );
+        self::assertNotNull($injection, 'injection could not resolved');
 
         $reflectionClass = new ReflectionClass($injection);
         $property = $reflectionClass->getProperty('serviceName');
         $property->setAccessible(true);
 
-        self::assertEquals(
-            $serviceClass,
-            $property->getValue($injection)
-        );
+        self::assertEquals($serviceClass, $property->getValue($injection));
 
         $property = $reflectionClass->getProperty('pluginManager');
         $property->setAccessible(true);
 
-        self::assertEquals(
-            $pluginManager,
-            $property->getValue($injection)
-        );
+        self::assertEquals($pluginManager, $property->getValue($injection));
     }
 
     public function testItResolvesAdditionalInterfaceMappings(): void
     {
-        PluginManagerResolver::addMapping(
-            ServiceInterface::class,
-            'InjectionManager'
-        );
+        PluginManagerResolver::addMapping(ServiceInterface::class, 'InjectionManager');
 
         $pluginManagerClass = $this->prophesize(ContainerInterface::class);
         $pluginManagerClass->has(ServiceWithInterface::class)
@@ -126,19 +112,13 @@ class PluginManagerResolverTest extends TestCase
 
         $injection = $resolver->resolve($parameter->reveal());
 
-        self::assertNotNull(
-            $injection,
-            'injection could not resolved'
-        );
+        self::assertNotNull($injection, 'injection could not resolved');
 
         $reflCass = new ReflectionClass($injection);
         $property = $reflCass->getProperty('pluginManager');
         $property->setAccessible(true);
 
-        self::assertEquals(
-            'InjectionManager',
-            $property->getValue($injection)
-        );
+        self::assertEquals('InjectionManager', $property->getValue($injection));
     }
 
     public function testItReturnsNullIfNoPluginManagerFound(): void
@@ -151,10 +131,7 @@ class PluginManagerResolverTest extends TestCase
         $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getType()->willReturn($type->reveal());
 
-        self::assertNull(
-            $resolver->resolve($parameter->reveal()),
-            'return value should be null if not found'
-        );
+        self::assertNull($resolver->resolve($parameter->reveal()), 'return value should be null if not found');
     }
 
     public function testItReturnsNullIfParameterHasNoType(): void
@@ -174,30 +151,12 @@ class PluginManagerResolverTest extends TestCase
     public static function getPluginManagerData(): array
     {
         return [
-            [
-                ReflectionHydrator::class,
-                'HydratorManager',
-            ],
-            [
-                Url::class,
-                'ViewHelperManager',
-            ],
-            [
-                Digits::class,
-                'ValidatorManager',
-            ],
-            [
-                ToInt::class,
-                'FilterManager',
-            ],
-            [
-                InputFilter::class,
-                'InputFilterManager',
-            ],
-            [
-                Textarea::class,
-                'FormElementManager',
-            ],
+            [ReflectionHydrator::class, 'HydratorManager'],
+            [Url::class, 'ViewHelperManager'],
+            [Digits::class, 'ValidatorManager'],
+            [ToInt::class, 'FilterManager'],
+            [InputFilter::class, 'InputFilterManager'],
+            [Textarea::class, 'FormElementManager'],
         ];
     }
 }

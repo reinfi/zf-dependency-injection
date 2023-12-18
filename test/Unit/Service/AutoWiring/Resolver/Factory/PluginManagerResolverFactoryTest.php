@@ -23,9 +23,6 @@ class PluginManagerResolverFactoryTest extends TestCase
 
         $factory = new PluginManagerResolverFactory();
 
-        self::assertInstanceOf(
-            PluginManagerResolver::class,
-            $factory($container->reveal())
-        );
+        self::assertInstanceOf(PluginManagerResolver::class, $factory($container->reveal()));
     }
 }

@@ -36,10 +36,8 @@ class ExtractorFactory
     /**
      * @return ExtractorInterface[]
      */
-    private function extractorsFromConfig(
-        ContainerInterface $container,
-        array $config
-    ): array {
+    private function extractorsFromConfig(ContainerInterface $container, array $config): array
+    {
         $extractorConfiguration = $config['extractor'] ?? null;
 
         if ($extractorConfiguration === null) {
@@ -65,10 +63,7 @@ class ExtractorFactory
                 }
 
                 throw new InvalidArgumentException(
-                    sprintf(
-                        'Configuration property "extractor" must be of type %s',
-                        ExtractorInterface::class
-                    )
+                    sprintf('Configuration property "extractor" must be of type %s', ExtractorInterface::class)
                 );
             },
             $extractorConfiguration

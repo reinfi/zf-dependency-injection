@@ -53,11 +53,9 @@ class ResolverServiceFactoryTest extends TestCase
         $container = $this->prophesize(ContainerInterface::class);
 
         $container->get(ModuleConfig::class)
-            ->willReturn(
-                [
-                    'autowire_resolver' => [TestResolver::class],
-                ]
-            );
+            ->willReturn([
+                'autowire_resolver' => [TestResolver::class],
+            ]);
 
         $container->get(ContainerResolver::class)->shouldBeCalled();
         $container->get(PluginManagerResolver::class)->shouldBeCalled();

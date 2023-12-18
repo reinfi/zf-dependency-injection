@@ -38,25 +38,17 @@ class AutoWiringServiceTest extends TestCase
         );
 
         $resolver->resolve(Service1::class, null)
-            ->willReturn([
-                $injection->reveal(),
-            ]);
+            ->willReturn([$injection->reveal()]);
 
         $cache = $this->prophesize(CacheService::class);
         $cache->has($cacheKey)->willReturn(false);
         $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
 
-        $service = new AutoWiringService(
-            $resolver->reveal(),
-            $cache->reveal()
-        );
+        $service = new AutoWiringService($resolver->reveal(), $cache->reveal());
 
         $container = $this->prophesize(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection(
-            $container->reveal(),
-            Service1::class
-        );
+        $injections = $service->resolveConstructorInjection($container->reveal(), Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -84,27 +76,17 @@ class AutoWiringServiceTest extends TestCase
         );
 
         $resolver->resolve(Service1::class, $options)
-            ->willReturn([
-                $injection->reveal(),
-                $optionsInjection->reveal(),
-            ]);
+            ->willReturn([$injection->reveal(), $optionsInjection->reveal()]);
 
         $cache = $this->prophesize(CacheService::class);
         $cache->has($cacheKey)->willReturn(false);
         $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
 
-        $service = new AutoWiringService(
-            $resolver->reveal(),
-            $cache->reveal()
-        );
+        $service = new AutoWiringService($resolver->reveal(), $cache->reveal());
 
         $container = $this->prophesize(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection(
-            $container->reveal(),
-            Service1::class,
-            $options
-        );
+        $injections = $service->resolveConstructorInjection($container->reveal(), Service1::class, $options);
 
         self::assertCount(2, $injections);
     }
@@ -122,21 +104,13 @@ class AutoWiringServiceTest extends TestCase
 
         $cache = $this->prophesize(CacheService::class);
         $cache->has($cacheKey)->willReturn(true);
-        $cache->get($cacheKey)->willReturn([
-            $injection->reveal(),
-        ]);
+        $cache->get($cacheKey)->willReturn([$injection->reveal()]);
 
-        $service = new AutoWiringService(
-            $resolverService->reveal(),
-            $cache->reveal()
-        );
+        $service = new AutoWiringService($resolverService->reveal(), $cache->reveal());
 
         $container = $this->prophesize(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection(
-            $container->reveal(),
-            Service1::class
-        );
+        $injections = $service->resolveConstructorInjection($container->reveal(), Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -163,28 +137,18 @@ class AutoWiringServiceTest extends TestCase
         );
 
         $resolverService->resolve(Service1::class, $options)
-            ->willReturn([
-                $injection->reveal(),
-                $optionsInjection->reveal(),
-            ]);
+            ->willReturn([$injection->reveal(), $optionsInjection->reveal()]);
 
         $cache = $this->prophesize(CacheService::class);
         $cache->set($cacheKey, Argument::type('array'))->shouldNotBeCalled();
         $cache->has($cacheKey)->shouldNotBeCalled();
         $cache->get($cacheKey)->shouldNotBeCalled();
 
-        $service = new AutoWiringService(
-            $resolverService->reveal(),
-            $cache->reveal()
-        );
+        $service = new AutoWiringService($resolverService->reveal(), $cache->reveal());
 
         $container = $this->prophesize(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection(
-            $container->reveal(),
-            Service1::class,
-            $options
-        );
+        $injections = $service->resolveConstructorInjection($container->reveal(), Service1::class, $options);
 
         self::assertCount(2, $injections);
     }
@@ -208,17 +172,11 @@ class AutoWiringServiceTest extends TestCase
         $cache->get($cacheKey)->willReturn(null)->shouldBeCalled();
         $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
 
-        $service = new AutoWiringService(
-            $resolverService->reveal(),
-            $cache->reveal()
-        );
+        $service = new AutoWiringService($resolverService->reveal(), $cache->reveal());
 
         $container = $this->prophesize(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection(
-            $container->reveal(),
-            Service1::class
-        );
+        $injections = $service->resolveConstructorInjection($container->reveal(), Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -234,21 +192,12 @@ class AutoWiringServiceTest extends TestCase
         $cache->has($cacheKey)->willReturn(false);
         $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
 
-        $service = new AutoWiringService(
-            $resolverService->reveal(),
-            $cache->reveal()
-        );
+        $service = new AutoWiringService($resolverService->reveal(), $cache->reveal());
 
         $container = $this->prophesize(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection(
-            $container->reveal(),
-            Service2::class
-        );
+        $injections = $service->resolveConstructorInjection($container->reveal(), Service2::class);
 
-        self::assertNull(
-            $injections,
-            'Return value should be null if service has no injections'
-        );
+        self::assertNull($injections, 'Return value should be null if service has no injections');
     }
 }

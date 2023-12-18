@@ -21,10 +21,8 @@ class InjectViewHelperTest extends TestCase
     /**
      * @dataProvider getAttributeValues
      */
-    public function testItCallsPluginManagerWithValue(
-        array $values,
-        string $className
-    ): void {
+    public function testItCallsPluginManagerWithValue(array $values, string $className): void
+    {
         $inject = new InjectViewHelper(...array_values($values));
 
         $pluginManager = $this->prophesize(AbstractPluginManager::class);
@@ -41,19 +39,14 @@ class InjectViewHelperTest extends TestCase
         $container->get('ViewHelperManager')
             ->willReturn($pluginManager->reveal());
 
-        self::assertTrue(
-            $inject($container->reveal()),
-            'Invoke should return true'
-        );
+        self::assertTrue($inject($container->reveal()), 'Invoke should return true');
     }
 
     /**
      * @dataProvider getAttributeValues
      */
-    public function testItCallsPluginManagerFromParentServiceLocator(
-        array $values,
-        string $className
-    ): void {
+    public function testItCallsPluginManagerFromParentServiceLocator(array $values, string $className): void
+    {
         $inject = new InjectViewHelper(...array_values($values));
 
         $filterManager = $this->prophesize(AbstractPluginManager::class);
@@ -75,10 +68,7 @@ class InjectViewHelperTest extends TestCase
         $pluginManager->getServiceLocator()
             ->willReturn($container->reveal());
 
-        self::assertTrue(
-            $inject($pluginManager->reveal()),
-            'Invoke should return true'
-        );
+        self::assertTrue($inject($pluginManager->reveal()), 'Invoke should return true');
     }
 
     public static function getAttributeValues(): array

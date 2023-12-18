@@ -57,10 +57,7 @@ class YamlExtractor implements ExtractorInterface
 
             unset($spec['type']);
 
-            $injections[] = $this->buildInjection(
-                $type,
-                $spec
-            );
+            $injections[] = $this->buildInjection($type, $spec);
         }
 
         return $injections;
@@ -86,10 +83,8 @@ class YamlExtractor implements ExtractorInterface
     /**
      * @throws InjectionTypeUnknownException
      */
-    private function buildInjection(
-        string $type,
-        array $spec
-    ): InjectionInterface {
+    private function buildInjection(string $type, array $spec): InjectionInterface
+    {
         $injectionClass = $this->injectionNamespace . '\\' . $type;
 
         if (! class_exists($injectionClass)) {

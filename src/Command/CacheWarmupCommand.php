@@ -49,10 +49,7 @@ class CacheWarmupCommand extends Command
 
         $path = stream_resolve_include_path($config);
         if ($path === false || ! is_readable($path)) {
-            throw new InvalidArgumentException(sprintf(
-                'Invalid config path: %s',
-                $config
-            ));
+            throw new InvalidArgumentException(sprintf('Invalid config path: %s', $config));
         }
 
         $container = Application::init(include $path)

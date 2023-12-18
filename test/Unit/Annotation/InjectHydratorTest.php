@@ -21,10 +21,8 @@ class InjectHydratorTest extends TestCase
     /**
      * @dataProvider getAnnotationValues
      */
-    public function testItCallsPluginManagerWithValue(
-        array $values,
-        string $className
-    ): void {
+    public function testItCallsPluginManagerWithValue(array $values, string $className): void
+    {
         $inject = new InjectHydrator($values);
 
         $pluginManager = $this->prophesize(AbstractPluginManager::class);
@@ -41,19 +39,14 @@ class InjectHydratorTest extends TestCase
         $container->get('HydratorManager')
             ->willReturn($pluginManager->reveal());
 
-        self::assertTrue(
-            $inject($container->reveal()),
-            'Invoke should return true'
-        );
+        self::assertTrue($inject($container->reveal()), 'Invoke should return true');
     }
 
     /**
      * @dataProvider getAnnotationValues
      */
-    public function testItCallsPluginManagerFromParentServiceLocator(
-        array $values,
-        string $className
-    ): void {
+    public function testItCallsPluginManagerFromParentServiceLocator(array $values, string $className): void
+    {
         $inject = new InjectHydrator($values);
 
         $filterManager = $this->prophesize(AbstractPluginManager::class);
@@ -75,10 +68,7 @@ class InjectHydratorTest extends TestCase
         $pluginManager->getServiceLocator()
             ->willReturn($container->reveal());
 
-        self::assertTrue(
-            $inject($pluginManager->reveal()),
-            'Invoke should return true'
-        );
+        self::assertTrue($inject($pluginManager->reveal()), 'Invoke should return true');
     }
 
     public static function getAnnotationValues(): array

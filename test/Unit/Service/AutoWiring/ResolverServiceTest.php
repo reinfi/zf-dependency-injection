@@ -30,28 +30,21 @@ class ResolverServiceTest extends TestCase
     {
         $resolver = $this->prophesize(ResolverInterface::class);
         $resolver->resolve(Argument::type(ReflectionParameter::class))
-            ->willReturn(
-                new AutoWiring(Service2::class)
-            );
+            ->willReturn(new AutoWiring(Service2::class));
 
         $service = new ResolverService([$resolver->reveal()]);
 
         $injections = $service->resolve(Service1::class);
 
         self::assertCount(3, $injections);
-        self::assertContainsOnlyInstancesOf(
-            InjectionInterface::class,
-            $injections
-        );
+        self::assertContainsOnlyInstancesOf(InjectionInterface::class, $injections);
     }
 
     public function testItResolvesConstructorArgumentsWithOptionsParameter(): void
     {
         $resolver = $this->prophesize(ResolverInterface::class);
         $resolver->resolve(Argument::type(ReflectionParameter::class))
-            ->willReturn(
-                new AutoWiring(Service2::class)
-            );
+            ->willReturn(new AutoWiring(Service2::class));
 
         $service = new ResolverService([$resolver->reveal()]);
 
@@ -60,14 +53,8 @@ class ResolverServiceTest extends TestCase
         ]);
 
         self::assertCount(3, $injections);
-        self::assertContainsOnlyInstancesOf(
-            InjectionInterface::class,
-            $injections
-        );
-        self::assertSame(
-            'bar',
-            $injections[2]($this->prophesize(ContainerInterface::class)->reveal())
-        );
+        self::assertContainsOnlyInstancesOf(InjectionInterface::class, $injections);
+        self::assertSame('bar', $injections[2]($this->prophesize(ContainerInterface::class)->reveal()));
     }
 
     public function testItReturnsEmptyArrayIfNoConstructorArguments(): void
@@ -115,10 +102,6 @@ class ResolverServiceTest extends TestCase
 
     public static function exceptionServiceDataProvider(): array
     {
-        return [
-            [Service1::class],
-            [ServiceNoTypeHint::class],
-            [ServiceBuildInType::class],
-        ];
+        return [[Service1::class], [ServiceNoTypeHint::class], [ServiceBuildInType::class]];
     }
 }

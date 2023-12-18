@@ -33,15 +33,9 @@ class AutoWiringPluginManagerTest extends TestCase
         $container->get('PluginManager')
             ->willReturn($pluginManager->reveal());
 
-        $injection = new AutoWiringPluginManager(
-            'PluginManager',
-            Service1::class
-        );
+        $injection = new AutoWiringPluginManager('PluginManager', Service1::class);
 
-        self::assertInstanceOf(
-            Service1::class,
-            $injection($container->reveal())
-        );
+        self::assertInstanceOf(Service1::class, $injection($container->reveal()));
     }
 
     public function testItReturnsServiceFromParentLocator(): void
@@ -62,15 +56,9 @@ class AutoWiringPluginManagerTest extends TestCase
         $otherPluginManager->getServiceLocator()
             ->willReturn($container->reveal());
 
-        $injection = new AutoWiringPluginManager(
-            'PluginManager',
-            Service1::class
-        );
+        $injection = new AutoWiringPluginManager('PluginManager', Service1::class);
 
-        self::assertInstanceOf(
-            Service1::class,
-            $injection($otherPluginManager->reveal())
-        );
+        self::assertInstanceOf(Service1::class, $injection($otherPluginManager->reveal()));
     }
 
     public function testItThrowsExceptionIfServiceNotFound(): void
@@ -85,10 +73,7 @@ class AutoWiringPluginManagerTest extends TestCase
         $container->get('PluginManager')
             ->willReturn($pluginManager->reveal());
 
-        $injection = new AutoWiringPluginManager(
-            'PluginManager',
-            Service1::class
-        );
+        $injection = new AutoWiringPluginManager('PluginManager', Service1::class);
 
         $injection($container->reveal());
     }

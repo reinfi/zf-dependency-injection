@@ -19,9 +19,6 @@ class ModuleTest extends TestCase
     {
         $module = new Module();
 
-        self::assertIsArray(
-            $module->getConfig(),
-            'Modules config should be of type array'
-        );
+        self::assertIsArray($module->getConfig(), 'Modules config should be of type array');
     }
 }

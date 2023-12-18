@@ -25,11 +25,7 @@ class ConfigServiceTest extends TestCase
 
         $value = $service->resolve('test.value');
 
-        self::assertEquals(
-            1,
-            $value,
-            'Value from config should be equal'
-        );
+        self::assertEquals(1, $value, 'Value from config should be equal');
     }
 
     public function testItResolvesToNullIfValueNotFound(): void
@@ -40,10 +36,7 @@ class ConfigServiceTest extends TestCase
 
         $value = $service->resolve('test.valueNull');
 
-        self::assertNull(
-            $value,
-            'Value from config should be null'
-        );
+        self::assertNull($value, 'Value from config should be null');
     }
 
     public function testItThrowsExceptionIfValueMustExist(): void

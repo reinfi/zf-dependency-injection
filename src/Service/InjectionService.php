@@ -33,10 +33,8 @@ class InjectionService
      *
      * @return array|false
      */
-    public function resolveConstructorInjection(
-        ContainerInterface $container,
-        string $className
-    ) {
+    public function resolveConstructorInjection(ContainerInterface $container, string $className)
+    {
         $injections = $this->getInjections($className);
 
         if (count($injections) === 0) {

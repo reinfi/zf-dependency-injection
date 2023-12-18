@@ -24,11 +24,7 @@ class TranslatorResolver implements ResolverInterface
     /**
      * possible names for translator service within container
      */
-    private const TRANSLATOR_CONTAINER_SERVICE_NAME = [
-        'MvcTranslator',
-        self::TRANSLATOR_INTERFACE,
-        'Translator',
-    ];
+    private const TRANSLATOR_CONTAINER_SERVICE_NAME = ['MvcTranslator', self::TRANSLATOR_INTERFACE, 'Translator'];
 
     private ContainerInterface $container;
 

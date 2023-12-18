@@ -22,9 +22,6 @@ class AutoWiringContainerTest extends TestCase
 
         $injection = new AutoWiringContainer();
 
-        self::assertInstanceOf(
-            ContainerInterface::class,
-            $injection($container->reveal())
-        );
+        self::assertInstanceOf(ContainerInterface::class, $injection($container->reveal()));
     }
 }

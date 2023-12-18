@@ -31,10 +31,7 @@ class AutoWiringTest extends TestCase
 
         $injection = new AutoWiring(Service1::class);
 
-        self::assertInstanceOf(
-            Service1::class,
-            $injection($container->reveal())
-        );
+        self::assertInstanceOf(Service1::class, $injection($container->reveal()));
     }
 
     public function testItReturnsServiceFromParentLocator(): void
@@ -55,10 +52,7 @@ class AutoWiringTest extends TestCase
 
         $injection = new AutoWiring(Service1::class);
 
-        self::assertInstanceOf(
-            Service1::class,
-            $injection($pluginManager->reveal())
-        );
+        self::assertInstanceOf(Service1::class, $injection($pluginManager->reveal()));
     }
 
     public function testItThrowsExceptionIfServiceNotFound(): void

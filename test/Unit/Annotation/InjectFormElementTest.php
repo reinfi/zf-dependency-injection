@@ -21,10 +21,8 @@ class InjectFormElementTest extends TestCase
     /**
      * @dataProvider getAnnotationValues
      */
-    public function testItCallsPluginManagerWithValue(
-        array $values,
-        string $className
-    ): void {
+    public function testItCallsPluginManagerWithValue(array $values, string $className): void
+    {
         $inject = new InjectFormElement($values);
 
         $pluginManager = $this->prophesize(AbstractPluginManager::class);
@@ -41,19 +39,14 @@ class InjectFormElementTest extends TestCase
         $container->get('FormElementManager')
             ->willReturn($pluginManager->reveal());
 
-        self::assertTrue(
-            $inject($container->reveal()),
-            'Invoke should return true'
-        );
+        self::assertTrue($inject($container->reveal()), 'Invoke should return true');
     }
 
     /**
      * @dataProvider getAnnotationValues
      */
-    public function testItCallsPluginManagerFromParentServiceLocator(
-        array $values,
-        string $className
-    ): void {
+    public function testItCallsPluginManagerFromParentServiceLocator(array $values, string $className): void
+    {
         $inject = new InjectFormElement($values);
 
         $filterManager = $this->prophesize(AbstractPluginManager::class);
@@ -75,10 +68,7 @@ class InjectFormElementTest extends TestCase
         $pluginManager->getServiceLocator()
             ->willReturn($container->reveal());
 
-        self::assertTrue(
-            $inject($pluginManager->reveal()),
-            'Invoke should return true'
-        );
+        self::assertTrue($inject($pluginManager->reveal()), 'Invoke should return true');
     }
 
     public static function getAnnotationValues(): array

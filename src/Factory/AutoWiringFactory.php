@@ -25,11 +25,7 @@ final class AutoWiringFactory extends AbstractFactory
     ) {
         $autoWiringService = $this->getAutoWiringService($container);
 
-        $injections = $autoWiringService->resolveConstructorInjection(
-            $container,
-            $requestedName,
-            $options
-        );
+        $injections = $autoWiringService->resolveConstructorInjection($container, $requestedName, $options);
 
         if ($injections === null) {
             return new $requestedName();

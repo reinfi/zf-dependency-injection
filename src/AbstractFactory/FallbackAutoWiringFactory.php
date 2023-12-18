@@ -24,21 +24,16 @@ class FallbackAutoWiringFactory implements AbstractFactoryInterface
      *
      * @return mixed
      */
-    public function __invoke(
-        ContainerInterface $container,
-        $requestedName,
-        array $options = null
-    ) {
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
         return (new AutoWiringFactory())($container, $requestedName, $options);
     }
 
     /**
      * @param class-string       $requestedName
      */
-    public function canCreate(
-        ContainerInterface $container,
-        $requestedName
-    ): bool {
+    public function canCreate(ContainerInterface $container, $requestedName): bool
+    {
         return class_exists($requestedName);
     }
 }

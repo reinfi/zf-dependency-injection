@@ -28,10 +28,7 @@ class ResolverServiceFactory
         $resolverStackConfig = $this->getResolverStack($config);
 
         /** @var ResolverInterface[] $resolverStack */
-        $resolverStack = array_map(
-            [$container, 'get'],
-            $resolverStackConfig
-        );
+        $resolverStack = array_map([$container, 'get'], $resolverStackConfig);
 
         return new ResolverService($resolverStack);
     }
@@ -55,9 +52,6 @@ class ResolverServiceFactory
             return $defaultResolverStackConfig;
         }
 
-        return array_merge(
-            $defaultResolverStackConfig,
-            $resolverStackConfig
-        );
+        return array_merge($defaultResolverStackConfig, $resolverStackConfig);
     }
 }

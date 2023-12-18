@@ -31,10 +31,7 @@ class InjectConfigTest extends TestCase
         $container->get(ConfigService::class)
             ->willReturn($configService->reveal());
 
-        self::assertTrue(
-            $inject($container->reveal()),
-            'Invoke should return true'
-        );
+        self::assertTrue($inject($container->reveal()), 'Invoke should return true');
     }
 
     public function testItCallsConfigServiceFromPluginManagerWithValue(): void
@@ -53,10 +50,7 @@ class InjectConfigTest extends TestCase
         $pluginManager->getServiceLocator()
             ->willReturn($container->reveal());
 
-        self::assertTrue(
-            $inject($pluginManager->reveal()),
-            'Invoke should return true'
-        );
+        self::assertTrue($inject($pluginManager->reveal()), 'Invoke should return true');
     }
 
     public function testItReturnsArrayIfPropertyIsSet(): void
@@ -74,10 +68,6 @@ class InjectConfigTest extends TestCase
         $container->get(ConfigService::class)
             ->willReturn($configService->reveal());
 
-        self::assertEquals(
-            [true],
-            $inject($container->reveal()),
-            'Invoke should return array containing true'
-        );
+        self::assertEquals([true], $inject($container->reveal()), 'Invoke should return array containing true');
     }
 }

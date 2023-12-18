@@ -47,9 +47,7 @@ class AnnotationExtractorTest extends TestCase
         $annotation = $this->prophesize(AnnotationInterface::class);
 
         $reader = $this->prophesize(AnnotationReader::class);
-        $reader->getMethodAnnotations(
-            Argument::type(ReflectionMethod::class)
-        )->willReturn([$annotation->reveal()])
+        $reader->getMethodAnnotations(Argument::type(ReflectionMethod::class))->willReturn([$annotation->reveal()])
             ->shouldBeCalledTimes(1);
 
         $extractor = new AnnotationExtractor($reader->reveal());
@@ -74,9 +72,7 @@ class AnnotationExtractorTest extends TestCase
     public function testItReturnsEmptyArrayIfNoConstructorAnnotationIsDefined(): void
     {
         $reader = $this->prophesize(AnnotationReader::class);
-        $reader->getMethodAnnotations(
-            Argument::type(ReflectionMethod::class)
-        )->willReturn([])
+        $reader->getMethodAnnotations(Argument::type(ReflectionMethod::class))->willReturn([])
             ->shouldBeCalledTimes(1);
 
         $extractor = new AnnotationExtractor($reader->reveal());

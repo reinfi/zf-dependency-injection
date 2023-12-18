@@ -21,25 +21,17 @@ class AutoWiringClassesResolverTest extends TestCase
 
         $classesResolver = new AutoWiringClassesResolver($serviceManagerLoader);
 
-        self::assertFalse(
-            $classesResolver->isAutowired(Service1::class)
-        );
+        self::assertFalse($classesResolver->isAutowired(Service1::class));
     }
 
     public function testItReturnsTrueIfClassIsRegisteredForAutoWiring(): void
     {
-        $serviceManagerLoader = new ServiceManagerLoader(
-            __DIR__ . '/../../../../resources/container.php'
-        );
+        $serviceManagerLoader = new ServiceManagerLoader(__DIR__ . '/../../../../resources/container.php');
 
         $classesResolver = new AutoWiringClassesResolver($serviceManagerLoader);
 
-        self::assertTrue(
-            $classesResolver->isAutowired(Service1::class)
-        );
+        self::assertTrue($classesResolver->isAutowired(Service1::class));
 
-        self::assertFalse(
-            $classesResolver->isAutowired(Service2::class)
-        );
+        self::assertFalse($classesResolver->isAutowired(Service2::class));
     }
 }

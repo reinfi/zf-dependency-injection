@@ -58,10 +58,7 @@ class ResponseResolverTest extends TestCase
         $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getType()->willReturn($type->reveal());
 
-        self::assertNull(
-            $resolver->resolve($parameter->reveal()),
-            'return value should be null if not found'
-        );
+        self::assertNull($resolver->resolve($parameter->reveal()), 'return value should be null if not found');
     }
 
     public function testItReturnsNullIfClassDoesNotExists(): void
@@ -73,10 +70,7 @@ class ResponseResolverTest extends TestCase
         $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getType()->willReturn($type->reveal());
 
-        self::assertNull(
-            $resolver->resolve($parameter->reveal()),
-            'return value should be null if not found'
-        );
+        self::assertNull($resolver->resolve($parameter->reveal()), 'return value should be null if not found');
     }
 
     public function testItReturnsNullIfParameterHasNoClass(): void
@@ -86,9 +80,6 @@ class ResponseResolverTest extends TestCase
         $parameter = $this->prophesize(ReflectionParameter::class);
         $parameter->getType()->willReturn(null);
 
-        self::assertNull(
-            $resolver->resolve($parameter->reveal()),
-            'return value should be null if not found'
-        );
+        self::assertNull($resolver->resolve($parameter->reveal()), 'return value should be null if not found');
     }
 }

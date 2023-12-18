@@ -23,9 +23,6 @@ class AnnotationExtractorFactoryTest extends TestCase
 
         $factory = new AnnotationExtractorFactory();
 
-        self::assertInstanceOf(
-            AnnotationExtractor::class,
-            $factory($container->reveal())
-        );
+        self::assertInstanceOf(AnnotationExtractor::class, $factory($container->reveal()));
     }
 }

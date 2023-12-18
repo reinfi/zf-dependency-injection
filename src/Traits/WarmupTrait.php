@@ -25,25 +25,14 @@ trait WarmupTrait
     ) {
         array_walk(
             $factoriesConfig,
-            function (
-                $factoryClass,
-                $className
-            ) use ($extractor, $resolverService, $cache) {
+            function ($factoryClass, $className) use ($extractor, $resolverService, $cache) {
                 if (! is_string($factoryClass)) {
                     return;
                 }
-                $injections = $this->handleService(
-                    $className,
-                    $factoryClass,
-                    $extractor,
-                    $resolverService
-                );
+                $injections = $this->handleService($className, $factoryClass, $extractor, $resolverService);
 
                 if (count($injections) > 0) {
-                    $cache->set(
-                        $this->buildCacheKey($className),
-                        $injections
-                    );
+                    $cache->set($this->buildCacheKey($className), $injections);
                 }
             }
         );
@@ -56,36 +45,26 @@ trait WarmupTrait
         ResolverServiceInterface $resolverService
     ): array {
         if ($factoryClass === InjectionFactory::class) {
-            return $this->warmupInjection(
-                $extractor,
-                $className
-            );
+            return $this->warmupInjection($extractor, $className);
         }
 
         if ($factoryClass === AutoWiringFactory::class) {
-            return $this->warmupAutoWiring(
-                $resolverService,
-                $className
-            );
+            return $this->warmupAutoWiring($resolverService, $className);
         }
 
         return [];
     }
 
-    private function warmupInjection(
-        ExtractorInterface $extractor,
-        string $className
-    ): array {
+    private function warmupInjection(ExtractorInterface $extractor, string $className): array
+    {
         return array_merge(
             $extractor->getPropertiesInjections($className),
             $extractor->getConstructorInjections($className)
         );
     }
 
-    private function warmupAutoWiring(
-        ResolverServiceInterface $resolverService,
-        string $className
-    ) {
+    private function warmupAutoWiring(ResolverServiceInterface $resolverService, string $className)
+    {
         return $resolverService->resolve($className);
     }
 }

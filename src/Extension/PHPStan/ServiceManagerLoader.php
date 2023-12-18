@@ -24,7 +24,10 @@ final class ServiceManagerLoader
 
         $serviceManager = require $serviceManagerLoader;
         if (! $serviceManager instanceof ServiceManager) {
-            throw new ShouldNotHappenException(\sprintf('Loader "%s" doesn\'t return a ServiceManager instance', $serviceManagerLoader));
+            throw new ShouldNotHappenException(\sprintf(
+                'Loader "%s" doesn\'t return a ServiceManager instance',
+                $serviceManagerLoader
+            ));
         }
 
         $this->serviceLocator = $serviceManager;

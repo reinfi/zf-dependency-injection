@@ -24,10 +24,8 @@ class InjectDoctrineRepositoryTest extends TestCase
     /**
      * @dataProvider getAttributeValuesWithoutEntityManager
      */
-    public function testItGetsRepositoryWithoutEntityManagerSet(
-        array $values,
-        string $repositoryClass
-    ): void {
+    public function testItGetsRepositoryWithoutEntityManagerSet(array $values, string $repositoryClass): void
+    {
         $inject = new InjectDoctrineRepository(...array_values($values));
 
         $repository = $this->prophesize($repositoryClass);
@@ -77,10 +75,8 @@ class InjectDoctrineRepositoryTest extends TestCase
     /**
      * @dataProvider getAttributeValuesWithoutEntityManager
      */
-    public function testItGetsRepositoryFromPluginManager(
-        array $values,
-        string $repositoryClass
-    ): void {
+    public function testItGetsRepositoryFromPluginManager(array $values, string $repositoryClass): void
+    {
         $inject = new InjectDoctrineRepository(...array_values($values));
 
         $repository = $this->prophesize($repositoryClass);
@@ -151,9 +147,7 @@ class InjectDoctrineRepositoryTest extends TestCase
 
         $container = $this->prophesize(ContainerInterface::class);
 
-        $container->get('No-EntityManager')->willReturn(
-            $this->prophesize(Service2::class)->reveal()
-        );
+        $container->get('No-EntityManager')->willReturn($this->prophesize(Service2::class)->reveal());
 
         $inject($container->reveal());
     }

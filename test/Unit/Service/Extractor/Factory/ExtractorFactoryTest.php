@@ -70,9 +70,7 @@ class ExtractorFactoryTest extends TestCase
     public function testItReturnsArrayOfExtractorsDefinedInConfig(): void
     {
         $moduleConfig = new Config([
-            'extractor' => [
-                YamlExtractor::class,
-            ],
+            'extractor' => [YamlExtractor::class],
         ]);
 
         $yamlExtractor = $this->prophesize(YamlExtractor::class);

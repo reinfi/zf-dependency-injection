@@ -27,15 +27,9 @@ class AnnotationExtractor implements ExtractorInterface
         $injections = [];
         $reflection = new ReflectionClass($className);
         foreach ($reflection->getProperties() as $index => $property) {
-            $reflectionProperty = new ReflectionProperty(
-                $className,
-                $property->getName()
-            );
+            $reflectionProperty = new ReflectionProperty($className, $property->getName());
 
-            $inject = $this->reader->getPropertyAnnotation(
-                $reflectionProperty,
-                AnnotationInterface::class
-            );
+            $inject = $this->reader->getPropertyAnnotation($reflectionProperty, AnnotationInterface::class);
 
             if ($inject !== null) {
                 $injections[$index] = $inject;
@@ -51,9 +45,7 @@ class AnnotationExtractor implements ExtractorInterface
             return [];
         }
 
-        $injections = $this->reader->getMethodAnnotations(
-            new ReflectionMethod($className, '__construct')
-        );
+        $injections = $this->reader->getMethodAnnotations(new ReflectionMethod($className, '__construct'));
 
         return array_filter(
             $injections,

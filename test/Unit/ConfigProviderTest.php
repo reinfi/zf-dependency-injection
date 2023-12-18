@@ -13,10 +13,6 @@ class ConfigProviderTest extends TestCase
     {
         $configProvider = new ConfigProvider();
 
-        self::assertArrayHasKey(
-            'dependencies',
-            $configProvider(),
-            'Config provider should contain dependencies'
-        );
+        self::assertArrayHasKey('dependencies', $configProvider(), 'Config provider should contain dependencies');
     }
 }

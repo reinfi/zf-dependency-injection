@@ -16,10 +16,7 @@ class AttributeExtractor implements ExtractorInterface
         $injections = [];
         $reflection = new ReflectionClass($className);
         foreach ($reflection->getProperties() as $index => $property) {
-            $reflectionProperty = new ReflectionProperty(
-                $className,
-                $property->getName()
-            );
+            $reflectionProperty = new ReflectionProperty($className, $property->getName());
 
             $attributes = $reflectionProperty->getAttributes();
 

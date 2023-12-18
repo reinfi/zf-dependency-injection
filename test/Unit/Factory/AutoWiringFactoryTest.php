@@ -39,16 +39,9 @@ class AutoWiringFactoryTest extends TestCase
 
         $factory = new AutoWiringFactory();
 
-        $instance = $factory->createService(
-            $container->reveal(),
-            Service1::class,
-            Service1::class
-        );
+        $instance = $factory->createService($container->reveal(), Service1::class, Service1::class);
 
-        self::assertInstanceOf(
-            Service1::class,
-            $instance
-        );
+        self::assertInstanceOf(Service1::class, $instance);
     }
 
     public function testItCreatesServiceWithInjectionsWithOptions(): void
@@ -71,10 +64,7 @@ class AutoWiringFactoryTest extends TestCase
 
         $instance = $factory($container->reveal(), Service1::class, $options);
 
-        self::assertInstanceOf(
-            Service1::class,
-            $instance
-        );
+        self::assertInstanceOf(Service1::class, $instance);
     }
 
     public function testItCreatesServiceFromCanonicalName(): void
@@ -92,15 +82,9 @@ class AutoWiringFactoryTest extends TestCase
 
         $factory = new AutoWiringFactory();
 
-        $instance = $factory->createService(
-            $container->reveal(),
-            Service1::class
-        );
+        $instance = $factory->createService($container->reveal(), Service1::class);
 
-        self::assertInstanceOf(
-            Service1::class,
-            $instance
-        );
+        self::assertInstanceOf(Service1::class, $instance);
     }
 
     public function testItCreatesServiceFromPluginManager(): void
@@ -122,15 +106,9 @@ class AutoWiringFactoryTest extends TestCase
 
         $factory = new AutoWiringFactory();
 
-        $instance = $factory->createService(
-            $pluginManager->reveal(),
-            Service1::class
-        );
+        $instance = $factory->createService($pluginManager->reveal(), Service1::class);
 
-        self::assertInstanceOf(
-            Service1::class,
-            $instance
-        );
+        self::assertInstanceOf(Service1::class, $instance);
     }
 
     public function testItCreatesServiceWithNoInjections(): void
@@ -148,15 +126,9 @@ class AutoWiringFactoryTest extends TestCase
 
         $factory = new AutoWiringFactory();
 
-        $instance = $factory->createService(
-            $container->reveal(),
-            Service2::class
-        );
+        $instance = $factory->createService($container->reveal(), Service2::class);
 
-        self::assertInstanceOf(
-            Service2::class,
-            $instance
-        );
+        self::assertInstanceOf(Service2::class, $instance);
     }
 
     public function testItThrowsExceptionIfClassNotSet(): void
@@ -167,9 +139,7 @@ class AutoWiringFactoryTest extends TestCase
 
         $factory = new AutoWiringFactory();
 
-        $factory->createService(
-            $container->reveal()
-        );
+        $factory->createService($container->reveal());
     }
 
     public function testItThrowsExceptionIfClassNotFound(): void
@@ -180,10 +150,6 @@ class AutoWiringFactoryTest extends TestCase
 
         $factory = new AutoWiringFactory();
 
-        $factory->createService(
-            $container->reveal(),
-            'No\Existing\ClassName',
-            'No\Existing\ClassName'
-        );
+        $factory->createService($container->reveal(), 'No\Existing\ClassName', 'No\Existing\ClassName');
     }
 }

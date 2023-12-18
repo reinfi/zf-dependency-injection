@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
@@ -21,6 +22,8 @@ return static function (ECSConfig $configurator): void {
     $configurator->import(SetList::COMMON);
     $configurator->import(SetList::NAMESPACES);
     $configurator->import(SetList::CLEAN_CODE);
+
+    $configurator->rule(LineLengthFixer::class);
 
     $configurator->lineEnding("\n");
 };

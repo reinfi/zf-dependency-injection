@@ -33,10 +33,7 @@ abstract class AbstractIntegration extends TestCase
     protected function getServiceManager(array $config = []): ServiceManager
     {
         $moduleServices = require __DIR__ . '/../../config/module.config.php';
-        $services = ArrayUtils::merge(
-            $moduleServices['service_manager'] ?? [],
-            $config['service_manager'] ?? []
-        );
+        $services = ArrayUtils::merge($moduleServices['service_manager'] ?? [], $config['service_manager'] ?? []);
 
         $reflectionClass = new ReflectionClass(ServiceManager::class);
         $reflConstructor = $reflectionClass->getConstructor();

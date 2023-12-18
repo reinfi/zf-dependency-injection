@@ -56,12 +56,7 @@ class CacheServiceTest extends TestCase
                 ['itemKey'],
                 ['cachedItem'],
             ],
-            [
-                'has',
-                [Argument::exact('itemKey')],
-                ['itemKey'],
-                true,
-            ],
+            ['has', [Argument::exact('itemKey')], ['itemKey'], true],
             [
                 'set',
                 [Argument::exact('itemKey'), Argument::exact(['itemValue'])],

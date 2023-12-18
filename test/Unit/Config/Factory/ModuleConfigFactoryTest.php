@@ -28,10 +28,7 @@ class ModuleConfigFactoryTest extends TestCase
                 ModuleConfig::CONFIG_KEY => [],
             ]);
 
-        self::assertIsArray(
-            $factory($container->reveal()),
-            'Factory should return array'
-        );
+        self::assertIsArray($factory($container->reveal()), 'Factory should return array');
     }
 
     public function testItReturnsModuleConfigData(): void
@@ -48,11 +45,7 @@ class ModuleConfigFactoryTest extends TestCase
 
         $config = $factory($container->reveal());
 
-        self::assertArrayHasKey(
-            'extractor',
-            $config,
-            'Config should contain extractor key'
-        );
+        self::assertArrayHasKey('extractor', $config, 'Config should contain extractor key');
     }
 
     public function testItReturnsEmptyConfig(): void
@@ -65,11 +58,7 @@ class ModuleConfigFactoryTest extends TestCase
 
         $config = $factory($container->reveal());
 
-        self::assertCount(
-            0,
-            $config,
-            'Config should be empty'
-        );
+        self::assertCount(0, $config, 'Config should be empty');
     }
 
     public function testItThrowsExceptionIfModuleConfigIsNotArray(): void

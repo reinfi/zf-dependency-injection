@@ -58,10 +58,8 @@ class ResolverService implements ResolverServiceInterface
     /**
      * @throws AutoWiringNotPossibleException
      */
-    private function resolveParameter(
-        ReflectionParameter $parameter,
-        ?array $options = null
-    ): InjectionInterface {
+    private function resolveParameter(ReflectionParameter $parameter, ?array $options = null): InjectionInterface
+    {
         $options = $options ?: [];
 
         // Don't try to resolve parameters present in the options array using reflections
@@ -83,23 +81,17 @@ class ResolverService implements ResolverServiceInterface
     /**
      * @throws AutoWiringNotPossibleException
      */
-    private function handleUnresolvedParameter(
-        ReflectionParameter $parameter
-    ): Throwable {
+    private function handleUnresolvedParameter(ReflectionParameter $parameter): Throwable
+    {
         $type = $parameter->getType();
         if (! $type instanceof ReflectionNamedType) {
-            return AutoWiringNotPossibleException::fromMissingTypeHint(
-                $parameter
-            );
+            return AutoWiringNotPossibleException::fromMissingTypeHint($parameter);
         }
 
         if ($type->isBuiltin()) {
             throw AutoWiringNotPossibleException::fromBuildInType($parameter);
         }
 
-        return AutoWiringNotPossibleException::fromClassName(
-            $type->getName(),
-            $parameter->getDeclaringClass()
-        );
+        return AutoWiringNotPossibleException::fromClassName($type->getName(), $parameter->getDeclaringClass());
     }
 }

@@ -32,16 +32,9 @@ class InjectionFactoryTest extends AbstractIntegration
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService(
-            $container,
-            ServiceAnnotation::class,
-            ServiceAnnotation::class
-        );
+        $instance = $factory->createService($container, ServiceAnnotation::class, ServiceAnnotation::class);
 
-        self::assertInstanceOf(
-            ServiceAnnotation::class,
-            $instance
-        );
+        self::assertInstanceOf(ServiceAnnotation::class, $instance);
     }
 
     public function testItCreatesServiceWithDependenciesFromConstructor(): void
@@ -56,10 +49,7 @@ class InjectionFactoryTest extends AbstractIntegration
             ServiceAnnotationConstructor::class
         );
 
-        self::assertInstanceOf(
-            ServiceAnnotationConstructor::class,
-            $instance
-        );
+        self::assertInstanceOf(ServiceAnnotationConstructor::class, $instance);
     }
 
     public function testItCreatesServiceWithNoInjectionsDefined(): void
@@ -74,16 +64,9 @@ class InjectionFactoryTest extends AbstractIntegration
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService(
-            $container,
-            Service3::class,
-            Service3::class
-        );
+        $instance = $factory->createService($container, Service3::class, Service3::class);
 
-        self::assertInstanceOf(
-            Service3::class,
-            $instance
-        );
+        self::assertInstanceOf(Service3::class, $instance);
     }
 
     public function testItCreatesServiceFromCanonicalName(): void
@@ -92,16 +75,9 @@ class InjectionFactoryTest extends AbstractIntegration
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService(
-            $container,
-            ServiceAnnotation::class,
-            null
-        );
+        $instance = $factory->createService($container, ServiceAnnotation::class, null);
 
-        self::assertInstanceOf(
-            ServiceAnnotation::class,
-            $instance
-        );
+        self::assertInstanceOf(ServiceAnnotation::class, $instance);
     }
 
     public function testItCreatesServiceFromPluginManager(): void
@@ -115,16 +91,9 @@ class InjectionFactoryTest extends AbstractIntegration
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService(
-            $pluginManager->reveal(),
-            PluginService::class,
-            null
-        );
+        $instance = $factory->createService($pluginManager->reveal(), PluginService::class, null);
 
-        self::assertInstanceOf(
-            PluginService::class,
-            $instance
-        );
+        self::assertInstanceOf(PluginService::class, $instance);
     }
 
     public function testItThrowsExceptionIfServiceNotFound(): void
@@ -135,11 +104,7 @@ class InjectionFactoryTest extends AbstractIntegration
 
         $factory = new InjectionFactory();
 
-        $factory->createService(
-            $container,
-            'NoServiceClass',
-            'NoServiceClass'
-        );
+        $factory->createService($container, 'NoServiceClass', 'NoServiceClass');
     }
 
     public function testItResolvesYamlInjections(): void
@@ -159,15 +124,8 @@ class InjectionFactoryTest extends AbstractIntegration
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService(
-            $container,
-            Service1::class,
-            Service1::class
-        );
+        $instance = $factory->createService($container, Service1::class, Service1::class);
 
-        self::assertInstanceOf(
-            Service1::class,
-            $instance
-        );
+        self::assertInstanceOf(Service1::class, $instance);
     }
 }

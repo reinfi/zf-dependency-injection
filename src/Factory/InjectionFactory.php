@@ -25,10 +25,7 @@ final class InjectionFactory extends AbstractFactory
     ) {
         $injectionService = $this->getInjectionService($container);
 
-        $injections = $injectionService->resolveConstructorInjection(
-            $container,
-            $requestedName
-        );
+        $injections = $injectionService->resolveConstructorInjection($container, $requestedName);
 
         if ($injections === false) {
             return new $requestedName();
@@ -37,9 +34,8 @@ final class InjectionFactory extends AbstractFactory
         return $this->buildInstance($requestedName, $injections);
     }
 
-    private function getInjectionService(
-        ContainerInterface $container
-    ): InjectionService {
+    private function getInjectionService(ContainerInterface $container): InjectionService
+    {
         if ($container instanceof AbstractPluginManager) {
             $container = $container->getServiceLocator();
         }

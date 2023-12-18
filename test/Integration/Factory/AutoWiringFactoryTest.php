@@ -32,16 +32,9 @@ class AutoWiringFactoryTest extends AbstractIntegration
 
         $factory = new AutoWiringFactory();
 
-        $instance = $factory->createService(
-            $container,
-            Service1::class,
-            Service1::class
-        );
+        $instance = $factory->createService($container, Service1::class, Service1::class);
 
-        self::assertInstanceOf(
-            Service1::class,
-            $instance
-        );
+        self::assertInstanceOf(Service1::class, $instance);
     }
 
     public function testItCreatesServiceWithContainerAsDependency(): void
@@ -50,16 +43,9 @@ class AutoWiringFactoryTest extends AbstractIntegration
 
         $factory = new AutoWiringFactory();
 
-        $instance = $factory->createService(
-            $container,
-            ServiceContainer::class,
-            ServiceContainer::class
-        );
+        $instance = $factory->createService($container, ServiceContainer::class, ServiceContainer::class);
 
-        self::assertInstanceOf(
-            ServiceContainer::class,
-            $instance
-        );
+        self::assertInstanceOf(ServiceContainer::class, $instance);
     }
 
     public function testItCreatesServiceWithNoDependencies(): void
@@ -68,16 +54,9 @@ class AutoWiringFactoryTest extends AbstractIntegration
 
         $factory = new AutoWiringFactory();
 
-        $instance = $factory->createService(
-            $container,
-            Service3::class,
-            Service3::class
-        );
+        $instance = $factory->createService($container, Service3::class, Service3::class);
 
-        self::assertInstanceOf(
-            Service3::class,
-            $instance
-        );
+        self::assertInstanceOf(Service3::class, $instance);
     }
 
     public function testItCreatesServiceWithBuiltInType(): void
@@ -92,10 +71,7 @@ class AutoWiringFactoryTest extends AbstractIntegration
             ServiceBuildInTypeWithDefault::class
         );
 
-        self::assertInstanceOf(
-            ServiceBuildInTypeWithDefault::class,
-            $instance
-        );
+        self::assertInstanceOf(ServiceBuildInTypeWithDefault::class, $instance);
     }
 
     public function testItCreatesServiceWithBuiltInTypeUsingConstantAsDefault(): void
@@ -110,10 +86,7 @@ class AutoWiringFactoryTest extends AbstractIntegration
             ServiceBuildInTypeWithDefaultUsingConstant::class
         );
 
-        self::assertInstanceOf(
-            ServiceBuildInTypeWithDefaultUsingConstant::class,
-            $instance
-        );
+        self::assertInstanceOf(ServiceBuildInTypeWithDefaultUsingConstant::class, $instance);
     }
 
     public function testItCreatesServiceFromPluginManager(): void
@@ -130,16 +103,9 @@ class AutoWiringFactoryTest extends AbstractIntegration
 
         $factory = new AutoWiringFactory();
 
-        $instance = $factory->createService(
-            $pluginManager->reveal(),
-            PluginService::class,
-            null
-        );
+        $instance = $factory->createService($pluginManager->reveal(), PluginService::class, null);
 
-        self::assertInstanceOf(
-            PluginService::class,
-            $instance
-        );
+        self::assertInstanceOf(PluginService::class, $instance);
     }
 
     public function testItThrowsExceptionIfServiceNotFound(): void
@@ -150,10 +116,6 @@ class AutoWiringFactoryTest extends AbstractIntegration
 
         $factory = new AutoWiringFactory();
 
-        $factory->createService(
-            $container,
-            'NoServiceClass',
-            'NoServiceClass'
-        );
+        $factory->createService($container, 'NoServiceClass', 'NoServiceClass');
     }
 }

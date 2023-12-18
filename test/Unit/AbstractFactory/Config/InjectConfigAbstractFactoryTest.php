@@ -27,10 +27,7 @@ class InjectConfigAbstractFactoryTest extends TestCase
             ->reveal();
 
         self::assertTrue(
-            $factory->canCreate(
-                $container,
-                'Config.reinfi.di.test'
-            ),
+            $factory->canCreate($container, 'Config.reinfi.di.test'),
             'factory should be able to create service'
         );
     }
@@ -45,10 +42,7 @@ class InjectConfigAbstractFactoryTest extends TestCase
             ->reveal();
 
         self::assertFalse(
-            $factory->canCreate(
-                $container,
-                'service.reinfi.di.test'
-            ),
+            $factory->canCreate($container, 'service.reinfi.di.test'),
             'factory should not be able to create service'
         );
     }

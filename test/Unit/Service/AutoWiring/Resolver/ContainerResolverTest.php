@@ -58,10 +58,7 @@ class ContainerResolverTest extends TestCase
         $property = $reflCass->getProperty('serviceName');
         $property->setAccessible(true);
 
-        self::assertEquals(
-            Service1::class,
-            $property->getValue($injection)
-        );
+        self::assertEquals(Service1::class, $property->getValue($injection));
     }
 
     public function testItReturnsNullIfServiceNotFound(): void

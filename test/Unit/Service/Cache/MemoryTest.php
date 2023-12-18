@@ -14,36 +14,20 @@ class MemoryTest extends TestCase
     {
         $cache = new Memory();
 
-        self::assertTrue(
-            $cache->set('test', 'cachedValue'),
-            'Cache set should return true'
-        );
+        self::assertTrue($cache->set('test', 'cachedValue'), 'Cache set should return true');
 
-        self::assertTrue(
-            $cache->has('test'),
-            'Cache has should return true'
-        );
+        self::assertTrue($cache->has('test'), 'Cache has should return true');
 
-        self::assertEquals(
-            'cachedValue',
-            $cache->get('test'),
-            'Cache get should return stored value'
-        );
+        self::assertEquals('cachedValue', $cache->get('test'), 'Cache get should return stored value');
     }
 
     public function testItHandlesNotStoredContents(): void
     {
         $cache = new Memory();
 
-        self::assertFalse(
-            $cache->has('test'),
-            'Cache has should return false if not stored'
-        );
+        self::assertFalse($cache->has('test'), 'Cache has should return false if not stored');
 
-        self::assertNull(
-            $cache->get('test'),
-            'Cache get should return default value for not stored value'
-        );
+        self::assertNull($cache->get('test'), 'Cache get should return default value for not stored value');
     }
 
     public function testItDeletesStoredContents(): void
@@ -52,20 +36,11 @@ class MemoryTest extends TestCase
 
         $cache->set('test', 'cachedValue');
 
-        self::assertTrue(
-            $cache->has('test'),
-            'Cache has should return true'
-        );
+        self::assertTrue($cache->has('test'), 'Cache has should return true');
 
-        self::assertTrue(
-            $cache->delete('test'),
-            'Cache get should return stored value'
-        );
+        self::assertTrue($cache->delete('test'), 'Cache get should return stored value');
 
-        self::assertFalse(
-            $cache->has('test'),
-            'Cache has should return false for deleted item'
-        );
+        self::assertFalse($cache->has('test'), 'Cache has should return false for deleted item');
     }
 
     public function testItClearsStoredContents(): void
@@ -75,25 +50,13 @@ class MemoryTest extends TestCase
         $cache->set('test', 'cachedValue');
         $cache->set('test2', 'cachedValue');
 
-        self::assertTrue(
-            $cache->has('test'),
-            'Cache has should return true'
-        );
+        self::assertTrue($cache->has('test'), 'Cache has should return true');
 
-        self::assertTrue(
-            $cache->clear(),
-            'Cache get should return stored value'
-        );
+        self::assertTrue($cache->clear(), 'Cache get should return stored value');
 
-        self::assertFalse(
-            $cache->has('test'),
-            'Cache has should return false for cleared items'
-        );
+        self::assertFalse($cache->has('test'), 'Cache has should return false for cleared items');
 
-        self::assertFalse(
-            $cache->has('test2'),
-            'Cache has should return false for cleared items'
-        );
+        self::assertFalse($cache->has('test2'), 'Cache has should return false for cleared items');
     }
 
     /**
@@ -113,21 +76,15 @@ class MemoryTest extends TestCase
         return [
             [
                 'methodName' => 'getMultiple',
-                'methodParams' => [
-                    [],
-                ],
+                'methodParams' => [[]],
             ],
             [
                 'methodName' => 'setMultiple',
-                'methodParams' => [
-                    [],
-                ],
+                'methodParams' => [[]],
             ],
             [
                 'methodName' => 'deleteMultiple',
-                'methodParams' => [
-                    [],
-                ],
+                'methodParams' => [[]],
             ],
         ];
     }

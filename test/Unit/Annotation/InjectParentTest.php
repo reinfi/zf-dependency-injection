@@ -29,10 +29,7 @@ class InjectParentTest extends TestCase
         $container->get(InjectionService::class)
             ->willReturn(true);
 
-        self::assertTrue(
-            $inject($container->reveal()),
-            'Invoke should return true'
-        );
+        self::assertTrue($inject($container->reveal()), 'Invoke should return true');
     }
 
     public function testItCallsParentContainerWhenPluginManager(): void
@@ -49,9 +46,6 @@ class InjectParentTest extends TestCase
         $pluginManager->getServiceLocator()
             ->willReturn($container->reveal());
 
-        self::assertTrue(
-            $inject($pluginManager->reveal()),
-            'Invoke should return true'
-        );
+        self::assertTrue($inject($pluginManager->reveal()), 'Invoke should return true');
     }
 }

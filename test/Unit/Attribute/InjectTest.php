@@ -26,9 +26,6 @@ class InjectTest extends TestCase
         $container->get(InjectionService::class)
             ->willReturn(true);
 
-        self::assertTrue(
-            $inject($container->reveal()),
-            'Invoke should return true'
-        );
+        self::assertTrue($inject($container->reveal()), 'Invoke should return true');
     }
 }

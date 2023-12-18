@@ -14,8 +14,6 @@ class AnnotationExtractorFactory
 {
     public function __invoke(): AnnotationExtractor
     {
-        return new AnnotationExtractor(
-            new AnnotationReader()
-        );
+        return new AnnotationExtractor(new AnnotationReader());
     }
 }

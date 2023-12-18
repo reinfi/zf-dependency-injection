@@ -27,17 +27,9 @@ class ExtractorChainTest extends TestCase
             ->willReturn([])
             ->shouldBeCalled();
 
-        $extractor = new ExtractorChain(
-            [
-                $extractor1->reveal(),
-                $extractor2->reveal(),
-            ]
-        );
+        $extractor = new ExtractorChain([$extractor1->reveal(), $extractor2->reveal()]);
 
-        self::assertCount(
-            0,
-            $extractor->getPropertiesInjections(Service1::class)
-        );
+        self::assertCount(0, $extractor->getPropertiesInjections(Service1::class));
     }
 
     public function testItOnlyCallsOneExtractorIfInjectionsFoundInProperties(): void
@@ -54,17 +46,9 @@ class ExtractorChainTest extends TestCase
             ->willReturn([])
             ->shouldNotBeCalled();
 
-        $extractor = new ExtractorChain(
-            [
-                $extractor1->reveal(),
-                $extractor2->reveal(),
-            ]
-        );
+        $extractor = new ExtractorChain([$extractor1->reveal(), $extractor2->reveal()]);
 
-        self::assertCount(
-            1,
-            $extractor->getPropertiesInjections(Service1::class)
-        );
+        self::assertCount(1, $extractor->getPropertiesInjections(Service1::class));
     }
 
     public function testItCallExtractorsForConstructorInjections(): void
@@ -79,17 +63,9 @@ class ExtractorChainTest extends TestCase
             ->willReturn([])
             ->shouldBeCalled();
 
-        $extractor = new ExtractorChain(
-            [
-                $extractor1->reveal(),
-                $extractor2->reveal(),
-            ]
-        );
+        $extractor = new ExtractorChain([$extractor1->reveal(), $extractor2->reveal()]);
 
-        self::assertCount(
-            0,
-            $extractor->getConstructorInjections(Service1::class)
-        );
+        self::assertCount(0, $extractor->getConstructorInjections(Service1::class));
     }
 
     public function testItOnlyCallsOneExtractorIfInjectionsFoundInConstructor(): void
@@ -106,16 +82,8 @@ class ExtractorChainTest extends TestCase
             ->willReturn([])
             ->shouldNotBeCalled();
 
-        $extractor = new ExtractorChain(
-            [
-                $extractor1->reveal(),
-                $extractor2->reveal(),
-            ]
-        );
+        $extractor = new ExtractorChain([$extractor1->reveal(), $extractor2->reveal()]);
 
-        self::assertCount(
-            1,
-            $extractor->getConstructorInjections(Service1::class)
-        );
+        self::assertCount(1, $extractor->getConstructorInjections(Service1::class));
     }
 }

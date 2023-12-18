@@ -22,25 +22,16 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
      *
      * @return mixed|object|null
      */
-    public function __invoke(
-        ContainerInterface $container,
-        $requestedName,
-        array $options = null
-    ) {
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
         /** @var ConfigService $configService */
         $configService = $container->get(ConfigService::class);
 
         return $configService->resolve($this->matches[1]);
     }
 
-    public function canCreate(
-        ContainerInterface $container,
-        $requestedName
-    ): bool {
-        return preg_match(
-            self::MATCH_PATTERN,
-            $requestedName,
-            $this->matches
-        ) === 1;
+    public function canCreate(ContainerInterface $container, $requestedName): bool
+    {
+        return preg_match(self::MATCH_PATTERN, $requestedName, $this->matches) === 1;
     }
 }

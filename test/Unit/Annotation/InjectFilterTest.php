@@ -21,10 +21,8 @@ class InjectFilterTest extends TestCase
     /**
      * @dataProvider getAnnotationValues
      */
-    public function testItCallsPluginManagerWithValue(
-        array $values,
-        string $className
-    ): void {
+    public function testItCallsPluginManagerWithValue(array $values, string $className): void
+    {
         $inject = new InjectFilter($values);
 
         $pluginManager = $this->prophesize(AbstractPluginManager::class);
@@ -41,19 +39,14 @@ class InjectFilterTest extends TestCase
         $container->get('FilterManager')
             ->willReturn($pluginManager->reveal());
 
-        self::assertTrue(
-            $inject($container->reveal()),
-            'Invoke should return true'
-        );
+        self::assertTrue($inject($container->reveal()), 'Invoke should return true');
     }
 
     /**
      * @dataProvider getAnnotationValues
      */
-    public function testItCallsPluginManagerFromParentServiceLocator(
-        array $values,
-        string $className
-    ): void {
+    public function testItCallsPluginManagerFromParentServiceLocator(array $values, string $className): void
+    {
         $inject = new InjectFilter($values);
 
         $filterManager = $this->prophesize(AbstractPluginManager::class);
@@ -75,10 +68,7 @@ class InjectFilterTest extends TestCase
         $pluginManager->getServiceLocator()
             ->willReturn($container->reveal());
 
-        self::assertTrue(
-            $inject($pluginManager->reveal()),
-            'Invoke should return true'
-        );
+        self::assertTrue($inject($pluginManager->reveal()), 'Invoke should return true');
     }
 
     public static function getAnnotationValues(): array

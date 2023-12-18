@@ -38,16 +38,9 @@ class InjectionFactoryTest extends TestCase
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService(
-            $container->reveal(),
-            Service1::class,
-            Service1::class
-        );
+        $instance = $factory->createService($container->reveal(), Service1::class, Service1::class);
 
-        self::assertInstanceOf(
-            Service1::class,
-            $instance
-        );
+        self::assertInstanceOf(Service1::class, $instance);
     }
 
     public function testItCreatesServiceFromCanonicalName(): void
@@ -64,15 +57,9 @@ class InjectionFactoryTest extends TestCase
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService(
-            $container->reveal(),
-            Service1::class
-        );
+        $instance = $factory->createService($container->reveal(), Service1::class);
 
-        self::assertInstanceOf(
-            Service1::class,
-            $instance
-        );
+        self::assertInstanceOf(Service1::class, $instance);
     }
 
     public function testItCreatesServiceFromPluginManager(): void
@@ -93,15 +80,9 @@ class InjectionFactoryTest extends TestCase
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService(
-            $pluginManager->reveal(),
-            Service1::class
-        );
+        $instance = $factory->createService($pluginManager->reveal(), Service1::class);
 
-        self::assertInstanceOf(
-            Service1::class,
-            $instance
-        );
+        self::assertInstanceOf(Service1::class, $instance);
     }
 
     public function testItCreatesServiceWithNoInjections(): void
@@ -118,15 +99,9 @@ class InjectionFactoryTest extends TestCase
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService(
-            $container->reveal(),
-            Service2::class
-        );
+        $instance = $factory->createService($container->reveal(), Service2::class);
 
-        self::assertInstanceOf(
-            Service2::class,
-            $instance
-        );
+        self::assertInstanceOf(Service2::class, $instance);
     }
 
     public function testItThrowsExceptionIfClassNotFound(): void
@@ -137,8 +112,6 @@ class InjectionFactoryTest extends TestCase
 
         $factory = new InjectionFactory();
 
-        $factory->createService(
-            $container->reveal()
-        );
+        $factory->createService($container->reveal());
     }
 }

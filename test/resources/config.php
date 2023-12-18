@@ -15,9 +15,7 @@ return [
             \Reinfi\DependencyInjection\Test\Service\ServiceContainer::class => \Reinfi\DependencyInjection\Factory\AutoWiringFactory::class,
             \Reinfi\DependencyInjection\Test\Service\ServiceBuildInTypeWithDefault::class => \Reinfi\DependencyInjection\Factory\AutoWiringFactory::class,
             \Reinfi\DependencyInjection\Test\Service\ServiceBuildInTypeWithDefaultUsingConstant::class => \Reinfi\DependencyInjection\Factory\AutoWiringFactory::class,
-            'service_with_closure_as_factory' => function (
-                ServiceLocatorInterface $locator
-            ) {
+            'service_with_closure_as_factory' => function (ServiceLocatorInterface $locator) {
                 return new \stdClass();
             },
         ],

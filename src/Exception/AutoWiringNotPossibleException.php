@@ -26,9 +26,8 @@ class AutoWiringNotPossibleException extends Exception
         );
     }
 
-    public static function fromMissingTypeHint(
-        ReflectionParameter $reflParameter
-    ): self {
+    public static function fromMissingTypeHint(ReflectionParameter $reflParameter): self
+    {
         $declaringClass = $reflParameter->getDeclaringClass();
 
         return new self(
