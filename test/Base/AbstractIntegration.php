@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Reinfi\DependencyInjection\Test\Integration;
+namespace Reinfi\DependencyInjection\Test\Base;
 
 use Laminas\Mvc\Service\ServiceManagerConfig;
 use Laminas\ServiceManager\ServiceManager;

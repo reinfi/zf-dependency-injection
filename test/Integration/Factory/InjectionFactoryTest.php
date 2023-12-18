@@ -10,7 +10,7 @@ use Laminas\Stdlib\ArrayUtils;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Reinfi\DependencyInjection\Factory\InjectionFactory;
 use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
-use Reinfi\DependencyInjection\Test\Integration\AbstractIntegration;
+use Reinfi\DependencyInjection\Test\Base\AbstractIntegration;
 use Reinfi\DependencyInjection\Test\Service\PluginService;
 use Reinfi\DependencyInjection\Test\Service\Service1;
 use Reinfi\DependencyInjection\Test\Service\Service3;

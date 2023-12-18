@@ -8,7 +8,7 @@ use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
-use Reinfi\DependencyInjection\Test\Integration\AbstractIntegration;
+use Reinfi\DependencyInjection\Test\Base\AbstractIntegration;
 use Reinfi\DependencyInjection\Test\Service\PluginService;
 use Reinfi\DependencyInjection\Test\Service\Service1;
 use Reinfi\DependencyInjection\Test\Service\Service2;
