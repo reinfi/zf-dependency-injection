@@ -108,7 +108,7 @@ class MemoryTest extends TestCase
         call_user_func([$cache, $methodName], $methodParams);
     }
 
-    public function badMethodDataProvider(): array
+    public static function badMethodDataProvider(): array
     {
         return [
             [

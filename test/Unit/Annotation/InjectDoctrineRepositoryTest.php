@@ -102,7 +102,7 @@ class InjectDoctrineRepositoryTest extends TestCase
         );
     }
 
-    public function getAnnotationValuesWithoutEntityManager(): array
+    public static function getAnnotationValuesWithoutEntityManager(): array
     {
         return [
             [
@@ -120,7 +120,7 @@ class InjectDoctrineRepositoryTest extends TestCase
         ];
     }
 
-    public function getAnnotationValuesWithEntityManager(): array
+    public static function getAnnotationValuesWithEntityManager(): array
     {
         return [
             [

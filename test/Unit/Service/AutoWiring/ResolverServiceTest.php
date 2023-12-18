@@ -113,7 +113,7 @@ class ResolverServiceTest extends TestCase
         $service->resolve($serviceName);
     }
 
-    public function exceptionServiceDataProvider(): array
+    public static function exceptionServiceDataProvider(): array
     {
         return [
             [Service1::class],

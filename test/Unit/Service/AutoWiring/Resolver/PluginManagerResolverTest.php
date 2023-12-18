@@ -171,7 +171,7 @@ class PluginManagerResolverTest extends TestCase
         self::assertNull($injection);
     }
 
-    public function getPluginManagerData(): array
+    public static function getPluginManagerData(): array
     {
         return [
             [

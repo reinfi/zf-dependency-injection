@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Reinfi\DependencyInjection\Test\Integration;
+namespace Reinfi\DependencyInjection\Test\Base;
 
 use Laminas\Mvc\Service\ServiceManagerConfig;
 use Laminas\ServiceManager\ServiceManager;
@@ -17,7 +17,7 @@ use Reinfi\DependencyInjection\Annotation\InjectParent;
 /**
  * @package Reinfi\DependencyInjection\Test\Integration
  */
-abstract class AbstractIntegrationTest extends TestCase
+abstract class AbstractIntegration extends TestCase
 {
     public static function setUpBeforeClass(): void
     {

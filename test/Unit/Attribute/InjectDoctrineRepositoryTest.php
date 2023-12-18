@@ -104,7 +104,7 @@ class InjectDoctrineRepositoryTest extends TestCase
         );
     }
 
-    public function getAttributeValuesWithoutEntityManager(): array
+    public static function getAttributeValuesWithoutEntityManager(): array
     {
         return [
             [
@@ -116,7 +116,7 @@ class InjectDoctrineRepositoryTest extends TestCase
         ];
     }
 
-    public function getAttributeValuesWithEntityManager(): array
+    public static function getAttributeValuesWithEntityManager(): array
     {
         return [
             [
