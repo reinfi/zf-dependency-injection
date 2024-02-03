@@ -48,7 +48,7 @@
         "laminas/laminas-log": "^2.9",
         "laminas/laminas-i18n": "^2.7",
         "phpunit/phpunit": "^10.0",
-        "doctrine/orm": "^2.5",
+        "doctrine/orm": "^3.0",
         "php-coveralls/php-coveralls": "^2.0",
         "symfony/yaml": "^6.0 | ^7.0",
         "phpstan/phpstan": "^1.3",
