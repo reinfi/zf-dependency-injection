@@ -81,6 +81,7 @@ class TranslatorResolverTest extends TestCase
 
         $container->has('MvcTranslator')->willReturn(false);
         $container->has(TranslatorInterface::class)->willReturn(false);
+        $container->has(\Laminas\Translator\TranslatorInterface::class)->willReturn(false);
         $container->has('Translator')->willReturn(false);
 
         $resolver = new TranslatorResolver($container->reveal());
@@ -141,17 +142,25 @@ class TranslatorResolverTest extends TestCase
         return [
             [
                 [
+                    'Laminas\Translator\TranslatorInterface' => true,
+                ],
+            ],
+            [
+                [
+                    'Laminas\Translator\TranslatorInterface' => false,
                     'MvcTranslator' => true,
                 ],
             ],
             [
                 [
+                    'Laminas\Translator\TranslatorInterface' => false,
                     'MvcTranslator' => false,
                     'Laminas\I18n\Translator\TranslatorInterface' => true,
                 ],
             ],
             [
                 [
+                    'Laminas\Translator\TranslatorInterface' => false,
                     'MvcTranslator' => false,
                     'Laminas\I18n\Translator\TranslatorInterface' => false,
                     'Translator' => true,

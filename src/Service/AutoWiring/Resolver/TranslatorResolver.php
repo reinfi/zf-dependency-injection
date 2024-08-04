@@ -17,14 +17,24 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
 class TranslatorResolver implements ResolverInterface
 {
     /**
-     * used to avoid requirement of laminas/laminas-i18n module
+     * used to avoid requirement of laminas/laminas-i18n module, deprecated interface name.
      */
-    private const TRANSLATOR_INTERFACE = 'Laminas\I18n\Translator\TranslatorInterface';
+    private const TRANSLATOR_INTERFACE_OLD = 'Laminas\I18n\Translator\TranslatorInterface';
+
+    /**
+     * used to avoid requirement of laminas/laminas-translator module.
+     */
+    private const TRANSLATOR_INTERFACE = 'Laminas\Translator\TranslatorInterface';
 
     /**
      * possible names for translator service within container
      */
-    private const TRANSLATOR_CONTAINER_SERVICE_NAME = ['MvcTranslator', self::TRANSLATOR_INTERFACE, 'Translator'];
+    private const TRANSLATOR_CONTAINER_SERVICE_NAME = [
+        self::TRANSLATOR_INTERFACE,
+        'MvcTranslator',
+        self::TRANSLATOR_INTERFACE_OLD,
+        'Translator',
+    ];
 
     private ContainerInterface $container;
 
@@ -65,7 +75,9 @@ class TranslatorResolver implements ResolverInterface
         $reflectionClass = new ReflectionClass($type->getName());
         $interfaceNames = $reflectionClass->getInterfaceNames();
 
-        return $reflectionClass->getName() === self::TRANSLATOR_INTERFACE
+        return $reflectionClass->getName() === self::TRANSLATOR_INTERFACE_OLD
+            || in_array(self::TRANSLATOR_INTERFACE_OLD, $interfaceNames, true)
+            || $reflectionClass->getName() === self::TRANSLATOR_INTERFACE
             || in_array(self::TRANSLATOR_INTERFACE, $interfaceNames, true)
         ;
     }
