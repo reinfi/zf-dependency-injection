@@ -7,8 +7,6 @@ namespace Reinfi\DependencyInjection\Injection;
 use Psr\Container\ContainerInterface;
 
 /**
- * Interface InjectionInterface
- *
  * @package Reinfi\DependencyInjection\Injection
  */
 interface InjectionInterface

@@ -7,8 +7,6 @@ namespace Reinfi\DependencyInjection\Traits;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
 
 /**
- * Trait CacheKeyTrait
- *
  * @package Reinfi\DependencyInjection\Traits
  */
 trait CacheKeyTrait
