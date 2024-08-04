@@ -60,7 +60,8 @@
         "laminas/laminas-inputfilter": "^2.12",
         "bnf/phpstan-psr-container": "^1.0",
         "symplify/easy-coding-standard": "^12.0",
-        "doctrine/annotations": "^2.0"
+        "doctrine/annotations": "^2.0",
+        "laminas/laminas-translator": "^1.0"
     },
     "extra": {
         "zf": {

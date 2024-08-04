@@ -7,8 +7,6 @@ namespace Reinfi\DependencyInjection\Service\Extractor;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 
 /**
- * Interface ExtractorInterface
- *
  * @package Reinfi\DependencyInjection\Service\Extractor
  */
 interface ExtractorInterface

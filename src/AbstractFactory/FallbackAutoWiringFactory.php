@@ -9,8 +9,6 @@ use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
 
 /**
- * Class FallbackAutoWiringFactory
- *
  * Note: Please DO NOT use this factory for everything.
  * If you're implementing new classes, please write a concrete factory.
  *
