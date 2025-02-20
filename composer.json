@@ -45,7 +45,6 @@
         "laminas/laminas-mvc": "^2.7 | ^3.0",
         "laminas/laminas-view": "^2.6",
         "laminas/laminas-serializer": "^2.6",
-        "laminas/laminas-log": "^2.9",
         "laminas/laminas-i18n": "^2.7",
         "phpunit/phpunit": "^10.0",
         "doctrine/orm": "^2.5",
