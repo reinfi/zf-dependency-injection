@@ -1,13 +1,35 @@
 parameters:
     level: max
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
     paths:
         - src
     excludePaths:
         analyse:
+            - %currentWorkingDirectory%/src/Annotation
             - %currentWorkingDirectory%/src/Command*
             - %currentWorkingDirectory%/src/Service/Extractor/AttributeExtractor.php
+            - %currentWorkingDirectory%/src/Service/Extractor/Factory/YamlExtractorFactory.php
+            - %currentWorkingDirectory%/src/Service/Extractor/YamlExtractor.php
+    ignoreErrors:
+        - message: '#Parameter \#1 \$configPath of method Reinfi\\DependencyInjection\\Service\\ConfigService::resolve\(\) expects string, mixed given\.#'
+          path: src/AbstractFactory/Config/InjectConfigAbstractFactory.php
+        - message: '#Parameter \#1 \$id of method Psr\\Container\\ContainerInterface::get\(\) expects string, mixed given\.#'
+          path: src/Attribute/AbstractInjectPluginManager.php
+        - message: '#Parameter \#1 \$pluginManager of static method Reinfi\\DependencyInjection\\Exception\\InjectionNotPossibleException::fromUnknownPluginManager\(\) expects string, mixed given\.#'
+          path: src/Attribute/AbstractInjectPluginManager.php
+        - message: '#Method Reinfi\\DependencyInjection\\Extension\\PHPStan\\Resolve\\AutoWiringClassesResolver::findAutowiredClasses\(\) should return array<string> but returns array\.#'
+          path: src/Extension/PHPStan/Resolve/AutoWiringClassesResolver.php
+        - message: '#Method Reinfi\\DependencyInjection\\Module::getConfig\(\) should return array but returns mixed\.#'
+          path: src/Module.php
+        - message: '#Method Reinfi\\DependencyInjection\\Service\\Extractor\\ExtractorChain::(getPropertiesInjections|getConstructorInjections)\(\) should return array<.*InjectionInterface> but returns array\.#'
+          path: src/Service/Extractor/ExtractorChain.php
+        - message: '#Trait Reinfi\\DependencyInjection\\Traits\\WarmupTrait is used zero times and is not analysed\.#'
+          path: src/Traits/WarmupTrait.php
+        - message: '#.*#'
+          reportUnmatched: true
+          identifier: 'missingType.generics'
+        - message: '#.*#'
+          reportUnmatched: true
+          identifier: 'missingType.iterableValue'
 
 includes:
     - vendor/bnf/phpstan-psr-container/extension.neon

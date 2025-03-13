@@ -31,6 +31,9 @@ class AutoWiringClassesResolver
         return in_array($className, $this->autowiredClasses, true);
     }
 
+    /**
+     * @return string[]
+     */
     private function findAutowiredClasses(): array
     {
         $serviceManager = $this->serviceManagerLoader->getServiceLocator();

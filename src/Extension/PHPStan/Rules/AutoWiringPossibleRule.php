@@ -6,7 +6,9 @@ namespace Reinfi\DependencyInjection\Extension\PHPStan\Rules;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 use Reinfi\DependencyInjection\Extension\PHPStan\Resolve\AutoWiringClassesResolver;
 use Reinfi\DependencyInjection\Extension\PHPStan\Resolve\AutoWiringPossibleResolver;
@@ -32,7 +34,7 @@ final class AutoWiringPossibleRule implements Rule
 
     /**
      * @param Node\Stmt\Class_ $node
-     * @return string[]
+     * @return IdentifierRuleError[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -48,11 +50,11 @@ final class AutoWiringPossibleRule implements Rule
             $this->possibleResolver->resolve($node->namespacedName->toString());
         } catch (AutoWiringNotPossibleException $exception) {
             return [
-                sprintf(
+                RuleErrorBuilder::message(sprintf(
                     'AutoWiring of %s not possible, due to: %s',
                     $node->namespacedName->toString(),
                     $exception->getMessage()
-                ),
+                ))->identifier('autowiring.notPossible')->build(),
             ];
         }
 

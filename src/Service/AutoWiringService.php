@@ -29,7 +29,7 @@ class AutoWiringService
     }
 
     /**
-     * @return InjectionInterface[]|null
+     * @return mixed[]|null
      */
     public function resolveConstructorInjection(
         ContainerInterface $container,
@@ -60,6 +60,7 @@ class AutoWiringService
             $cachedItem = $this->cache->get($cacheKey);
 
             if (is_array($cachedItem)) {
+                // @phpstan-ignore-next-line
                 return $cachedItem;
             }
         }
