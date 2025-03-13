@@ -8,7 +8,7 @@ Heavily inspired by https://github.com/mikemix/mxdiModule.
 2. [AutoWiring](#autowiring)
 3. [Attributes](#attributes)
 4. [Annotations (Deprecated)](#annotations)
-5. [YAML](#yaml)
+5. [YAML (Deprecated)](#yaml)
 6. [Caching](#caching)
 7. [PHPStan Extension](#phpstan-extension)
 8. [Console commands](#console-commands)
@@ -194,7 +194,9 @@ public function __construct(MyService $service)
 The order is important and you should decide between constructor or property annotations.
 ##### Adding own annotations
 If you want to use your own annotation you just need to implement the AnnotationInterface.
-### YAML
+### YAML (Deprecated)
+> **Note**: YAML configuration is deprecated and will be removed in a future version. Please use Attributes or Autowiring instead, which provide the same functionality with a more modern approach.
+
 You can specify your dependencies within a yaml file.
 ```yaml
 YourService:
