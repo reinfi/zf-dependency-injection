@@ -54,6 +54,7 @@ class ExtractorFactory
             $extractorConfiguration = [$extractorConfiguration];
         }
 
+        /** @var string[] $extractorConfiguration */
         return array_map(
             function (string $extractorClassName) use ($container): ExtractorInterface {
                 $extractor = $container->get($extractorClassName);
