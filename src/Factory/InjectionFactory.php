@@ -21,7 +21,7 @@ final class InjectionFactory extends AbstractFactory
     public function __invoke(
         \Interop\Container\ContainerInterface $container,
         $requestedName,
-        array $options = null
+        ?array $options = null
     ) {
         $injectionService = $this->getInjectionService($container);
 

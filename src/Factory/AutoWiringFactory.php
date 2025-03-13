@@ -21,7 +21,7 @@ final class AutoWiringFactory extends AbstractFactory
     public function __invoke(
         \Interop\Container\ContainerInterface $container,
         $requestedName,
-        array $options = null
+        ?array $options = null
     ) {
         $autoWiringService = $this->getAutoWiringService($container);
 
