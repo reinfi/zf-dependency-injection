@@ -45,6 +45,10 @@ class ConfigService
     {
         $currentKey = array_shift($configParts);
 
+        if (! is_string($currentKey)) {
+            throw new ConfigPathNotFoundException('invalid key');
+        }
+
         if (! $config->offsetExists($currentKey)) {
             if ($nullAllowed) {
                 return null;

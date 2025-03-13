@@ -17,8 +17,14 @@ final class InjectDoctrineRepository extends AbstractAttribute
 {
     private string $entityManager = 'Doctrine\ORM\EntityManager';
 
+    /**
+     * @var class-string<object>
+     */
     private string $entity;
 
+    /**
+     * @param class-string<object> $entity
+     */
     public function __construct(string $entity, ?string $entityManager = null)
     {
         $this->entity = $entity;
@@ -37,6 +43,7 @@ final class InjectDoctrineRepository extends AbstractAttribute
         if (
             ! is_object($entityManager)
             || ! method_exists($entityManager, 'getRepository')
+            || ! is_a($entityManager, 'Doctrine\ORM\EntityManagerInterface')
         ) {
             throw new AutoWiringNotPossibleException($this->entity);
         }

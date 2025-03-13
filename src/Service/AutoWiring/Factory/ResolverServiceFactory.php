@@ -47,6 +47,7 @@ class ResolverServiceFactory
             BuildInTypeWithDefaultResolver::class,
         ];
 
+        /** @var class-string<ResolverInterface>[]|null $resolverStackConfig */
         $resolverStackConfig = $config['autowire_resolver'] ?? null;
         if ($resolverStackConfig === null) {
             return $defaultResolverStackConfig;
