@@ -15,9 +15,12 @@ use Psr\Container\ContainerInterface;
  */
 final class Inject implements AnnotationInterface
 {
-    public string $value;
+    public string $value = '';
 
-    public function __construct()
+    /**
+     * @param array<string, string>|string $value
+     */
+    public function __construct(array|string $value = [])
     {
         trigger_deprecation(
             'reinfi/dependency-injection',
@@ -25,6 +28,12 @@ final class Inject implements AnnotationInterface
             'The %s annotation is deprecated. Use \Reinfi\DependencyInjection\Attribute\Inject instead.',
             self::class
         );
+
+        if (is_string($value)) {
+            $this->value = $value;
+        } elseif (isset($value['value'])) {
+            $this->value = $value['value'];
+        }
     }
 
     public function __invoke(ContainerInterface $container): mixed
