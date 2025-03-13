@@ -1,5 +1,6 @@
 ## Changelog
 ### v7.0.0
+- minimum required PHP version 8.3, support for PHP 8.4
 - annotations will be deprecated, use attributes instead
 - YAML configuration will be deprecated, use attributes or autowiring instead
 ### v6.0.0

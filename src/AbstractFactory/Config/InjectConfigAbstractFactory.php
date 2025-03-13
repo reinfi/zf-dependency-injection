@@ -22,7 +22,7 @@ class InjectConfigAbstractFactory implements AbstractFactoryInterface
      *
      * @return mixed|object|null
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         /** @var ConfigService $configService */
         $configService = $container->get(ConfigService::class);
