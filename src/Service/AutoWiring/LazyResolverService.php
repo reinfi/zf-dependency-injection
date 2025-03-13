@@ -11,13 +11,11 @@ use Psr\Container\ContainerInterface;
  */
 class LazyResolverService implements ResolverServiceInterface
 {
-    private ContainerInterface $container;
-
     private ?ResolverServiceInterface $resolverService = null;
 
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
+    public function __construct(
+        private readonly ContainerInterface $container
+    ) {
     }
 
     public function resolve(string $className, ?array $options = null): array

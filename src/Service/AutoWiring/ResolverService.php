@@ -19,17 +19,11 @@ use Throwable;
 class ResolverService implements ResolverServiceInterface
 {
     /**
-     * @var ResolverInterface[]
-     */
-    private array $resolverStack;
-
-    /**
      * @param ResolverInterface[] $resolverStack
      */
     public function __construct(
-        array $resolverStack
+        private readonly array $resolverStack
     ) {
-        $this->resolverStack = $resolverStack;
     }
 
     /**

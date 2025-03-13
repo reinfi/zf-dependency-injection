@@ -13,25 +13,22 @@ use Reinfi\DependencyInjection\Exception\InjectionNotPossibleException;
  */
 abstract class AbstractInjectPluginManager extends AbstractAnnotation
 {
-    public const PLUGIN_MANAGER = '';
+    public const string PLUGIN_MANAGER = '';
 
-    private string $name;
+    private readonly string $name;
 
-    private ?array $options = null;
+    private readonly ?array $options;
 
     public function __construct(array $values)
     {
         if (! isset($values['value'])) {
-            if (isset($values['options'])) {
-                $this->options = $values['options'];
-            }
-
+            $this->options = $values['options'] ?? null;
             $this->name = $values['name'];
-
             return;
         }
 
         $this->name = $values['value'];
+        $this->options = null;
     }
 
     public function __invoke(ContainerInterface $container): mixed

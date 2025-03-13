@@ -12,5 +12,5 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
 final class InjectFormElement extends AbstractInjectPluginManager
 {
-    public const PLUGIN_MANAGER = 'FormElementManager';
+    public const string PLUGIN_MANAGER = 'FormElementManager';
 }

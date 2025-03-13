@@ -11,11 +11,9 @@ use Psr\SimpleCache\CacheInterface;
  */
 class CacheService
 {
-    private CacheInterface $cache;
-
-    public function __construct(CacheInterface $cache)
-    {
-        $this->cache = $cache;
+    public function __construct(
+        private readonly CacheInterface $cache
+    ) {
     }
 
     public function get(string $key): ?array

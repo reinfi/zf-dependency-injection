@@ -9,16 +9,11 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
 class ExtractorChain implements ExtractorInterface
 {
     /**
-     * @var array<ExtractorInterface>
-     */
-    private array $chain;
-
-    /**
      * @param array<ExtractorInterface> $chain
      */
-    public function __construct(array $chain)
-    {
-        $this->chain = $chain;
+    public function __construct(
+        private readonly array $chain
+    ) {
     }
 
     /**

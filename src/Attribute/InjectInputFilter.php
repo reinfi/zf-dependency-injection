@@ -12,5 +12,5 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
 final class InjectInputFilter extends AbstractInjectPluginManager
 {
-    public const PLUGIN_MANAGER = 'InputFilterManager';
+    public const string PLUGIN_MANAGER = 'InputFilterManager';
 }

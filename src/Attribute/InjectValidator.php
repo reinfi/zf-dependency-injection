@@ -12,5 +12,5 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
 final class InjectValidator extends AbstractInjectPluginManager
 {
-    public const PLUGIN_MANAGER = 'ValidatorManager';
+    public const string PLUGIN_MANAGER = 'ValidatorManager';
 }

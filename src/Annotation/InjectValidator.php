@@ -13,5 +13,5 @@ namespace Reinfi\DependencyInjection\Annotation;
  */
 final class InjectValidator extends AbstractInjectPluginManager
 {
-    public const PLUGIN_MANAGER = 'ValidatorManager';
+    public const string PLUGIN_MANAGER = 'ValidatorManager';
 }

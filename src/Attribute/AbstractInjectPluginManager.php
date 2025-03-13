@@ -13,7 +13,7 @@ use Reinfi\DependencyInjection\Exception\InjectionNotPossibleException;
  */
 abstract class AbstractInjectPluginManager extends AbstractAttribute
 {
-    public const PLUGIN_MANAGER = '';
+    public const string PLUGIN_MANAGER = '';
 
     private string $name;
 

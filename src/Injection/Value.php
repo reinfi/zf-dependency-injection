@@ -11,11 +11,9 @@ use Psr\Container\ContainerInterface;
  */
 class Value implements InjectionInterface
 {
-    private mixed $value;
-
-    public function __construct(mixed $value)
-    {
-        $this->value = $value;
+    public function __construct(
+        private readonly mixed $value
+    ) {
     }
 
     public function __invoke(ContainerInterface $container): mixed

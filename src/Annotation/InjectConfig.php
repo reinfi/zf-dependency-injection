@@ -17,16 +17,13 @@ use Reinfi\DependencyInjection\Service\ConfigService;
  */
 final class InjectConfig extends AbstractAnnotation
 {
-    private string $configPath;
+    private readonly string $configPath;
 
-    private bool $asArray = false;
+    private readonly bool $asArray;
 
     public function __construct(array $values)
     {
-        if (isset($values['asArray'])) {
-            $this->asArray = (bool) $values['asArray'];
-        }
-
+        $this->asArray = isset($values['asArray']) ? (bool) $values['asArray'] : false;
         $this->configPath = $values['value'];
     }
 

@@ -17,22 +17,13 @@ use Symfony\Component\Yaml\Yaml;
  */
 class YamlExtractor implements ExtractorInterface
 {
-    protected ?array $config = null;
-
-    protected Yaml $yaml;
-
-    protected string $filePath;
-
-    protected string $injectionNamespace;
+    private ?array $config = null;
 
     public function __construct(
-        Yaml $yaml,
-        string $filePath,
-        string $injectionNamespace
+        private readonly Yaml $yaml,
+        private readonly string $filePath,
+        private readonly string $injectionNamespace
     ) {
-        $this->yaml = $yaml;
-        $this->filePath = $filePath;
-        $this->injectionNamespace = $injectionNamespace;
     }
 
     public function getPropertiesInjections(string $className): array

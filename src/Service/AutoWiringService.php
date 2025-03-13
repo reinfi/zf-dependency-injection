@@ -16,16 +16,10 @@ class AutoWiringService
 {
     use CacheKeyTrait;
 
-    private ResolverServiceInterface $resolverService;
-
-    private CacheService $cache;
-
     public function __construct(
-        ResolverServiceInterface $resolverService,
-        CacheService $cache
+        private readonly ResolverServiceInterface $resolverService,
+        private readonly CacheService $cache
     ) {
-        $this->resolverService = $resolverService;
-        $this->cache = $cache;
     }
 
     /**

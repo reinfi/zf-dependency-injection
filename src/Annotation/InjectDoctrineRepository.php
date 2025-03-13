@@ -17,23 +17,20 @@ use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
  */
 final class InjectDoctrineRepository extends AbstractAnnotation
 {
-    private string $entityManager = 'Doctrine\ORM\EntityManager';
+    private readonly string $entityManager;
 
-    private string $entity;
+    private readonly string $entity;
 
     public function __construct(array $values)
     {
         if (! isset($values['value'])) {
-            if (isset($values['em']) || isset($values['entityManager'])) {
-                $this->entityManager = $values['entityManager'] ?? $values['em'];
-            }
-
+            $this->entityManager = $values['entityManager'] ?? $values['em'] ?? 'Doctrine\ORM\EntityManager';
             $this->entity = $values['entity'];
-
             return;
         }
 
         $this->entity = $values['value'];
+        $this->entityManager = 'Doctrine\ORM\EntityManager';
     }
 
     public function __invoke(ContainerInterface $container): EntityRepository
