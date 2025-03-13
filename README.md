@@ -1,4 +1,4 @@
-Configure dependency injection in Laminas or Mezzio using annotations, yaml or autowiring.
+Configure dependency injection in Laminas or Mezzio using attributes (PHP 8.0+), yaml or autowiring.
 
 Heavily inspired by https://github.com/mikemix/mxdiModule.
 
@@ -7,7 +7,7 @@ Heavily inspired by https://github.com/mikemix/mxdiModule.
 1. [Installation](#installation)
 2. [AutoWiring](#autowiring)
 3. [Attributes](#attributes)
-4. [Annotations](#annotations)
+4. [Annotations (Deprecated)](#annotations)
 5. [YAML](#yaml)
 6. [Caching](#caching)
 7. [PHPStan Extension](#phpstan-extension)
@@ -124,7 +124,9 @@ public function __construct(MyService $service)
 ```
 The order is important and you should decide between constructor or property annotations.
 
-### Annotations
+### Annotations (Deprecated)
+> **Note**: Annotations are deprecated and will be removed in a future version. Please use Attributes instead, which provide the same functionality with a more modern syntax.
+
 To use annotations for your dependencies you need to specify the 'InjectionFactory' within the service manager configuration.
 ```php
 'service_manager' => [
