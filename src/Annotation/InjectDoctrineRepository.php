@@ -10,6 +10,7 @@ use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 
 /**
  * @package Reinfi\DependencyInjection\Annotation
+ * @deprecated 7.0.0 Use attributes from \Reinfi\DependencyInjection\Attribute namespace instead. Will be removed in 8.0.0.
  *
  * @Annotation
  * @Target({"PROPERTY", "METHOD"})
