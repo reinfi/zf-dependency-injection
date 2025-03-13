@@ -15,14 +15,10 @@ use Reinfi\DependencyInjection\Service\ConfigService;
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
 final class InjectConfig extends AbstractAttribute
 {
-    private string $configPath;
-
-    private bool $asArray;
-
-    public function __construct(string $configPath, bool $asArray = false)
-    {
-        $this->configPath = $configPath;
-        $this->asArray = $asArray;
+    public function __construct(
+        private readonly string $configPath,
+        private readonly bool $asArray = false
+    ) {
     }
 
     public function __invoke(ContainerInterface $container): mixed

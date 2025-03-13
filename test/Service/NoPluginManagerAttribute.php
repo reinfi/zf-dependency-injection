@@ -10,5 +10,5 @@ use Reinfi\DependencyInjection\Attribute\AbstractInjectPluginManager;
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
 final class NoPluginManagerAttribute extends AbstractInjectPluginManager
 {
-    public const PLUGIN_MANAGER = 'NOT-A-PLUGIN-MANAGER';
+    public const string PLUGIN_MANAGER = 'NOT-A-PLUGIN-MANAGER';
 }

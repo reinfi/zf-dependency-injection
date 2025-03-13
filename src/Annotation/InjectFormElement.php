@@ -13,5 +13,5 @@ namespace Reinfi\DependencyInjection\Annotation;
  */
 final class InjectFormElement extends AbstractInjectPluginManager
 {
-    public const PLUGIN_MANAGER = 'FormElementManager';
+    public const string PLUGIN_MANAGER = 'FormElementManager';
 }

@@ -15,30 +15,20 @@ use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
 final class InjectDoctrineRepository extends AbstractAttribute
 {
-    private string $entityManager = 'Doctrine\ORM\EntityManager';
-
-    /**
-     * @var class-string<object>
-     */
-    private string $entity;
-
-    /**
-     * @param class-string<object> $entity
-     */
-    public function __construct(string $entity, ?string $entityManager = null)
-    {
-        $this->entity = $entity;
-
-        if ($entityManager !== null) {
-            $this->entityManager = $entityManager;
-        }
+    public function __construct(
+        /**
+         * @var class-string<object>
+         */
+        private readonly string $entity,
+        private readonly ?string $entityManager = null
+    ) {
     }
 
     public function __invoke(ContainerInterface $container): EntityRepository
     {
         $container = $this->determineContainer($container);
 
-        $entityManager = $container->get($this->entityManager);
+        $entityManager = $container->get($this->entityManager ?? 'Doctrine\ORM\EntityManager');
 
         if (
             ! is_object($entityManager)

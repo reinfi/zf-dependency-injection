@@ -15,7 +15,7 @@ use Psr\Container\ContainerInterface;
  */
 final class Inject implements AnnotationInterface
 {
-    public string $value = '';
+    public string $value;
 
     /**
      * @param array<string, string>|string $value
@@ -33,6 +33,8 @@ final class Inject implements AnnotationInterface
             $this->value = $value;
         } elseif (isset($value['value'])) {
             $this->value = $value['value'];
+        } else {
+            $this->value = '';
         }
     }
 

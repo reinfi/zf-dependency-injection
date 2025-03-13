@@ -15,11 +15,9 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
  */
 class ContainerResolver implements ResolverInterface
 {
-    private ContainerInterface $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
+    public function __construct(
+        private readonly ContainerInterface $container
+    ) {
     }
 
     public function resolve(ReflectionParameter $parameter): ?InjectionInterface

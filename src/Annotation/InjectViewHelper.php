@@ -13,5 +13,5 @@ namespace Reinfi\DependencyInjection\Annotation;
  */
 final class InjectViewHelper extends AbstractInjectPluginManager
 {
-    public const PLUGIN_MANAGER = 'ViewHelperManager';
+    public const string PLUGIN_MANAGER = 'ViewHelperManager';
 }

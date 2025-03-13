@@ -13,5 +13,5 @@ namespace Reinfi\DependencyInjection\Annotation;
  */
 final class InjectControllerPlugin extends AbstractInjectPluginManager
 {
-    public const PLUGIN_MANAGER = 'ControllerPluginManager';
+    public const string PLUGIN_MANAGER = 'ControllerPluginManager';
 }

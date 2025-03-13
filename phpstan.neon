@@ -12,10 +12,6 @@ parameters:
     ignoreErrors:
         - message: '#Parameter \#1 \$configPath of method Reinfi\\DependencyInjection\\Service\\ConfigService::resolve\(\) expects string, mixed given\.#'
           path: src/AbstractFactory/Config/InjectConfigAbstractFactory.php
-        - message: '#Parameter \#1 \$id of method Psr\\Container\\ContainerInterface::get\(\) expects string, mixed given\.#'
-          path: src/Attribute/AbstractInjectPluginManager.php
-        - message: '#Parameter \#1 \$pluginManager of static method Reinfi\\DependencyInjection\\Exception\\InjectionNotPossibleException::fromUnknownPluginManager\(\) expects string, mixed given\.#'
-          path: src/Attribute/AbstractInjectPluginManager.php
         - message: '#Method Reinfi\\DependencyInjection\\Extension\\PHPStan\\Resolve\\AutoWiringClassesResolver::findAutowiredClasses\(\) should return array<string> but returns array\.#'
           path: src/Extension/PHPStan/Resolve/AutoWiringClassesResolver.php
         - message: '#Method Reinfi\\DependencyInjection\\Module::getConfig\(\) should return array but returns mixed\.#'

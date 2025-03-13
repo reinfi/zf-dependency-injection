@@ -29,11 +29,9 @@ class PluginManagerResolver implements ResolverInterface
         'Laminas\Form\ElementInterface' => 'FormElementManager',
     ];
 
-    private ContainerInterface $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
+    public function __construct(
+        private readonly ContainerInterface $container
+    ) {
     }
 
     public function resolve(ReflectionParameter $parameter): ?InjectionInterface

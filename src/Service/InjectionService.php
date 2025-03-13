@@ -16,16 +16,10 @@ class InjectionService
 {
     use CacheKeyTrait;
 
-    private ExtractorInterface $extractor;
-
-    private CacheService $cache;
-
     public function __construct(
-        ExtractorInterface $extractor,
-        CacheService $cache
+        private readonly ExtractorInterface $extractor,
+        private readonly CacheService $cache
     ) {
-        $this->extractor = $extractor;
-        $this->cache = $cache;
     }
 
     /**

@@ -15,11 +15,9 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
 final class InjectParent implements InjectionInterface
 {
-    public string $value;
-
-    public function __construct(string $value)
-    {
-        $this->value = $value;
+    public function __construct(
+        private readonly string $value
+    ) {
     }
 
     public function __invoke(ContainerInterface $container): mixed

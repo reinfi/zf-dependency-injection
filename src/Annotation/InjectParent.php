@@ -18,6 +18,11 @@ final class InjectParent implements AnnotationInterface
 {
     public string $value;
 
+    public function __construct(array $values = [])
+    {
+        $this->value = $values['value'] ?? '';
+    }
+
     public function __invoke(ContainerInterface $container): mixed
     {
         if ($container instanceof AbstractPluginManager) {

@@ -15,11 +15,9 @@ use Reinfi\DependencyInjection\Annotation\AnnotationInterface;
  */
 class AnnotationExtractor implements ExtractorInterface
 {
-    protected AnnotationReader $reader;
-
-    public function __construct(AnnotationReader $reader)
-    {
-        $this->reader = $reader;
+    public function __construct(
+        private readonly AnnotationReader $reader
+    ) {
     }
 
     public function getPropertiesInjections(string $className): array
