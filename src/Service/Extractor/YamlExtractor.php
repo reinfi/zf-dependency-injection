@@ -13,6 +13,7 @@ use Symfony\Component\Yaml\Yaml;
 
 /**
  * @package Reinfi\DependencyInjection\Service\Extractor
+ * @deprecated Use attributes or autowiring instead. This class will be removed in version 8.0.0.
  */
 class YamlExtractor implements ExtractorInterface
 {

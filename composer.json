@@ -36,9 +36,9 @@
         }
     },
     "suggest": {
-        "doctrine/annotations": "To use annotation injections",
+        "doctrine/annotations": "To use annotation injections (deprecated, use attributes instead)",
         "symfony/console": "To use console warmup command script",
-        "symfony/yaml": "To use the yaml dependency definition"
+        "symfony/yaml": "To use the yaml dependency definition (deprecated, use attributes or autowiring instead)"
     },
     "require-dev": {
         "laminas/laminas-config-aggregator": "^1.0",

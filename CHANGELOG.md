@@ -1,6 +1,7 @@
 ## Changelog
 ### v7.0.0
 - annotations will be deprecated, use attributes instead
+- YAML configuration will be deprecated, use attributes or autowiring instead
 ### v6.0.0
 - minimum required PHP version 8.1
 - added return types where possible
