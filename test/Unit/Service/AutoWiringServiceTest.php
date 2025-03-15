@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Service;
 
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\MethodProphecy;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
@@ -22,95 +19,126 @@ use Reinfi\DependencyInjection\Traits\CacheKeyTrait;
  */
 class AutoWiringServiceTest extends TestCase
 {
-    use ProphecyTrait;
     use CacheKeyTrait;
 
-    public function testItResolvesConstructorArguments(): void
+    public function testItResolvesConstructorInjection(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
-        $resolver = $this->prophesize(ResolverService::class);
 
-        $injection = $this->prophesize(InjectionInterface::class);
-        $injection->addMethodProphecy(
-            (new MethodProphecy($injection, '__invoke', [Argument::type(ContainerInterface::class)]))
-                ->willReturn(new Service2())
-                ->shouldBeCalled()
-        );
-
-        $resolver->resolve(Service1::class, null)
-            ->willReturn([$injection->reveal()]);
-
-        $cache = $this->prophesize(CacheService::class);
-        $cache->has($cacheKey)->willReturn(false);
-        $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
-
-        $service = new AutoWiringService($resolver->reveal(), $cache->reveal());
-
-        $container = $this->prophesize(ContainerInterface::class);
-
-        $injections = $service->resolveConstructorInjection($container->reveal(), Service1::class);
-
-        self::assertCount(1, $injections);
-    }
-
-    public function testItResolvesConstructorArgumentsWithOptions(): void
-    {
-        $cacheKey = $this->buildCacheKey(Service1::class);
-        $resolver = $this->prophesize(ResolverService::class);
+        // Create and configure resolver mock
+        $resolver = $this->createMock(ResolverService::class);
         $options = [
             'foo' => 'bar',
         ];
 
-        $injection = $this->prophesize(InjectionInterface::class);
-        $injection->addMethodProphecy(
-            (new MethodProphecy($injection, '__invoke', [Argument::type(ContainerInterface::class)]))
-                ->willReturn(new Service2())
-                ->shouldBeCalled()
-        );
+        // Create injection mocks
+        $injection = $this->createMock(InjectionInterface::class);
+        $injection->expects($this->once())
+            ->method('__invoke')
+            ->with($this->isInstanceOf(ContainerInterface::class))
+            ->willReturn(new Service2());
 
-        $optionsInjection = $this->prophesize(InjectionInterface::class);
-        $optionsInjection->addMethodProphecy(
-            (new MethodProphecy($optionsInjection, '__invoke', [Argument::type(ContainerInterface::class)]))
-                ->willReturn('bar')
-                ->shouldBeCalled()
-        );
+        $optionsInjection = $this->createMock(InjectionInterface::class);
+        $optionsInjection->expects($this->once())
+            ->method('__invoke')
+            ->with($this->isInstanceOf(ContainerInterface::class))
+            ->willReturn('bar');
 
-        $resolver->resolve(Service1::class, $options)
-            ->willReturn([$injection->reveal(), $optionsInjection->reveal()]);
+        // Configure resolver expectations
+        $resolver->expects($this->once())
+            ->method('resolve')
+            ->with(Service1::class, $options)
+            ->willReturn([$injection, $optionsInjection]);
 
-        $cache = $this->prophesize(CacheService::class);
-        $cache->has($cacheKey)->willReturn(false);
-        $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
+        // Create cache mock - should not be used when options are provided
+        $cache = $this->createMock(CacheService::class);
+        $cache->expects($this->never())->method('has');
+        $cache->expects($this->never())->method('set');
 
-        $service = new AutoWiringService($resolver->reveal(), $cache->reveal());
+        $service = new AutoWiringService($resolver, $cache);
 
-        $container = $this->prophesize(ContainerInterface::class);
+        // Create container mock
+        $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container->reveal(), Service1::class, $options);
+        $injections = $service->resolveConstructorInjection($container, Service1::class, $options);
 
         self::assertCount(2, $injections);
+    }
+
+    public function testItResolvesConstructorArguments(): void
+    {
+        $cacheKey = $this->buildCacheKey(Service1::class);
+
+        // Create and configure resolver mock
+        $resolver = $this->createMock(ResolverService::class);
+
+        // Create injection mock
+        $injection = $this->createMock(InjectionInterface::class);
+        $injection->expects($this->once())
+            ->method('__invoke')
+            ->with($this->isInstanceOf(ContainerInterface::class))
+            ->willReturn(new Service2());
+
+        // Configure resolver expectations
+        $resolver->expects($this->once())
+            ->method('resolve')
+            ->with(Service1::class, null)
+            ->willReturn([$injection]);
+
+        // Create and configure cache mock
+        $cache = $this->createMock(CacheService::class);
+        $cache->expects($this->once())
+            ->method('has')
+            ->with($cacheKey)
+            ->willReturn(false);
+
+        $cache->expects($this->once())
+            ->method('set')
+            ->with($cacheKey, $this->isArray())
+            ->willReturn(true);
+
+        $service = new AutoWiringService($resolver, $cache);
+
+        // Create container mock
+        $container = $this->createMock(ContainerInterface::class);
+
+        $injections = $service->resolveConstructorInjection($container, Service1::class);
+
+        self::assertCount(1, $injections);
     }
 
     public function testItUsesCacheItemWhenFound(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
-        $resolverService = $this->prophesize(ResolverService::class);
 
-        $injection = $this->prophesize(InjectionInterface::class);
-        $injection->addMethodProphecy(
-            (new MethodProphecy($injection, '__invoke', [Argument::type(ContainerInterface::class)]))
-                ->willReturn(new Service2())
-        );
+        // Create resolver mock (no expectations needed)
+        $resolver = $this->createMock(ResolverService::class);
 
-        $cache = $this->prophesize(CacheService::class);
-        $cache->has($cacheKey)->willReturn(true);
-        $cache->get($cacheKey)->willReturn([$injection->reveal()]);
+        // Create injection mock
+        $injection = $this->createMock(InjectionInterface::class);
+        $injection->expects($this->once())
+            ->method('__invoke')
+            ->with($this->isInstanceOf(ContainerInterface::class))
+            ->willReturn(new Service2());
 
-        $service = new AutoWiringService($resolverService->reveal(), $cache->reveal());
+        // Create and configure cache mock
+        $cache = $this->createMock(CacheService::class);
+        $cache->expects($this->once())
+            ->method('has')
+            ->with($cacheKey)
+            ->willReturn(true);
 
-        $container = $this->prophesize(ContainerInterface::class);
+        $cache->expects($this->once())
+            ->method('get')
+            ->with($cacheKey)
+            ->willReturn([$injection]);
 
-        $injections = $service->resolveConstructorInjection($container->reveal(), Service1::class);
+        $service = new AutoWiringService($resolver, $cache);
+
+        // Create container mock
+        $container = $this->createMock(ContainerInterface::class);
+
+        $injections = $service->resolveConstructorInjection($container, Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -118,37 +146,44 @@ class AutoWiringServiceTest extends TestCase
     public function testItDoesNotCacheOptions(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
-        $resolverService = $this->prophesize(ResolverService::class);
+
+        // Create and configure resolver mock
+        $resolver = $this->createMock(ResolverService::class);
         $options = [
             'foo' => 'bar',
         ];
 
-        $injection = $this->prophesize(InjectionInterface::class);
-        $injection->addMethodProphecy(
-            (new MethodProphecy($injection, '__invoke', [Argument::type(ContainerInterface::class)]))
-                ->willReturn(new Service2())
-        );
+        // Create injection mocks
+        $injection = $this->createMock(InjectionInterface::class);
+        $injection->expects($this->once())
+            ->method('__invoke')
+            ->with($this->isInstanceOf(ContainerInterface::class))
+            ->willReturn(new Service2());
 
-        $optionsInjection = $this->prophesize(InjectionInterface::class);
-        $optionsInjection->addMethodProphecy(
-            (new MethodProphecy($optionsInjection, '__invoke', [Argument::type(ContainerInterface::class)]))
-                ->willReturn('bar')
-                ->shouldBeCalled()
-        );
+        $optionsInjection = $this->createMock(InjectionInterface::class);
+        $optionsInjection->expects($this->once())
+            ->method('__invoke')
+            ->with($this->isInstanceOf(ContainerInterface::class))
+            ->willReturn('bar');
 
-        $resolverService->resolve(Service1::class, $options)
-            ->willReturn([$injection->reveal(), $optionsInjection->reveal()]);
+        // Configure resolver expectations
+        $resolver->expects($this->once())
+            ->method('resolve')
+            ->with(Service1::class, $options)
+            ->willReturn([$injection, $optionsInjection]);
 
-        $cache = $this->prophesize(CacheService::class);
-        $cache->set($cacheKey, Argument::type('array'))->shouldNotBeCalled();
-        $cache->has($cacheKey)->shouldNotBeCalled();
-        $cache->get($cacheKey)->shouldNotBeCalled();
+        // Create cache mock with no expectations (should not be called)
+        $cache = $this->createMock(CacheService::class);
+        $cache->expects($this->never())->method('set');
+        $cache->expects($this->never())->method('has');
+        $cache->expects($this->never())->method('get');
 
-        $service = new AutoWiringService($resolverService->reveal(), $cache->reveal());
+        $service = new AutoWiringService($resolver, $cache);
 
-        $container = $this->prophesize(ContainerInterface::class);
+        // Create container mock
+        $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container->reveal(), Service1::class, $options);
+        $injections = $service->resolveConstructorInjection($container, Service1::class, $options);
 
         self::assertCount(2, $injections);
     }
@@ -156,27 +191,46 @@ class AutoWiringServiceTest extends TestCase
     public function testItUsesResolverWhenCacheItemIsNotAnArray(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
-        $resolverService = $this->prophesize(ResolverService::class);
 
-        $injection = $this->prophesize(InjectionInterface::class);
-        $injection->addMethodProphecy(
-            (new MethodProphecy($injection, '__invoke', [Argument::type(ContainerInterface::class)]))
-                ->willReturn(new Service2())
-        );
+        // Create and configure resolver mock
+        $resolver = $this->createMock(ResolverService::class);
 
-        $resolverService->resolve(Service1::class, null)
-            ->willReturn([$injection->reveal()]);
+        // Create injection mock
+        $injection = $this->createMock(InjectionInterface::class);
+        $injection->expects($this->once())
+            ->method('__invoke')
+            ->with($this->isInstanceOf(ContainerInterface::class))
+            ->willReturn(new Service2());
 
-        $cache = $this->prophesize(CacheService::class);
-        $cache->has($cacheKey)->willReturn(true)->shouldBeCalled();
-        $cache->get($cacheKey)->willReturn(null)->shouldBeCalled();
-        $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
+        // Configure resolver expectations
+        $resolver->expects($this->once())
+            ->method('resolve')
+            ->with(Service1::class, null)
+            ->willReturn([$injection]);
 
-        $service = new AutoWiringService($resolverService->reveal(), $cache->reveal());
+        // Create and configure cache mock
+        $cache = $this->createMock(CacheService::class);
+        $cache->expects($this->once())
+            ->method('has')
+            ->with($cacheKey)
+            ->willReturn(true);
 
-        $container = $this->prophesize(ContainerInterface::class);
+        $cache->expects($this->once())
+            ->method('get')
+            ->with($cacheKey)
+            ->willReturn(null);
 
-        $injections = $service->resolveConstructorInjection($container->reveal(), Service1::class);
+        $cache->expects($this->once())
+            ->method('set')
+            ->with($cacheKey, $this->isArray())
+            ->willReturn(true);
+
+        $service = new AutoWiringService($resolver, $cache);
+
+        // Create container mock
+        $container = $this->createMock(ContainerInterface::class);
+
+        $injections = $service->resolveConstructorInjection($container, Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -184,19 +238,32 @@ class AutoWiringServiceTest extends TestCase
     public function testItReturnsFalseWhenNoInjectionsAvailable(): void
     {
         $cacheKey = $this->buildCacheKey(Service2::class);
-        $resolverService = $this->prophesize(ResolverService::class);
-        $resolverService->resolve(Service2::class, null)
+
+        // Create and configure resolver mock
+        $resolver = $this->createMock(ResolverService::class);
+        $resolver->expects($this->once())
+            ->method('resolve')
+            ->with(Service2::class, null)
             ->willReturn([]);
 
-        $cache = $this->prophesize(CacheService::class);
-        $cache->has($cacheKey)->willReturn(false);
-        $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
+        // Create and configure cache mock
+        $cache = $this->createMock(CacheService::class);
+        $cache->expects($this->once())
+            ->method('has')
+            ->with($cacheKey)
+            ->willReturn(false);
 
-        $service = new AutoWiringService($resolverService->reveal(), $cache->reveal());
+        $cache->expects($this->once())
+            ->method('set')
+            ->with($cacheKey, $this->isArray())
+            ->willReturn(true);
 
-        $container = $this->prophesize(ContainerInterface::class);
+        $service = new AutoWiringService($resolver, $cache);
 
-        $injections = $service->resolveConstructorInjection($container->reveal(), Service2::class);
+        // Create container mock
+        $container = $this->createMock(ContainerInterface::class);
+
+        $injections = $service->resolveConstructorInjection($container, Service2::class);
 
         self::assertNull($injections, 'Return value should be null if service has no injections');
     }

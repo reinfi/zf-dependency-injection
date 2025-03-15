@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\AbstractFactory\Config;
 
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\AbstractFactory\Config\InjectConfigAbstractFactory;
 use Reinfi\DependencyInjection\Service\ConfigService;
@@ -15,16 +14,11 @@ use Reinfi\DependencyInjection\Service\ConfigService;
  */
 class InjectConfigAbstractFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItCanCreateServiceWithConfigPattern(): void
     {
         $factory = new InjectConfigAbstractFactory();
 
-        /** @var ContainerInterface $container */
-        $container = $this
-            ->prophesize(ContainerInterface::class)
-            ->reveal();
+        $container = $this->createMock(ContainerInterface::class);
 
         self::assertTrue(
             $factory->canCreate($container, 'Config.reinfi.di.test'),
@@ -36,10 +30,7 @@ class InjectConfigAbstractFactoryTest extends TestCase
     {
         $factory = new InjectConfigAbstractFactory();
 
-        /** @var ContainerInterface $container */
-        $container = $this
-            ->prophesize(ContainerInterface::class)
-            ->reveal();
+        $container = $this->createMock(ContainerInterface::class);
 
         self::assertFalse(
             $factory->canCreate($container, 'service.reinfi.di.test'),
@@ -51,21 +42,21 @@ class InjectConfigAbstractFactoryTest extends TestCase
     {
         $factory = new InjectConfigAbstractFactory();
 
-        $container = $this
-            ->prophesize(ContainerInterface::class);
+        $configService = $this->createMock(ConfigService::class);
+        $configService->expects($this->once())
+            ->method('resolve')
+            ->with('reinfi.di.test')
+            ->willReturn(true);
 
-        $configService = $this->prophesize(ConfigService::class);
-        $configService->resolve('reinfi.di.test')
-            ->willReturn(true)
-            ->shouldBeCalled();
+        $container = $this->createMock(ContainerInterface::class);
+        $container->method('get')
+            ->with(ConfigService::class)
+            ->willReturn($configService);
 
-        $container->get(ConfigService::class)
-            ->willReturn($configService->reveal());
-
-        $factory->canCreate($container->reveal(), 'Config.reinfi.di.test');
+        $factory->canCreate($container, 'Config.reinfi.di.test');
 
         $factory(
-            $container->reveal(),
+            $container,
             'config.reinfi.di.test',
         );
     }

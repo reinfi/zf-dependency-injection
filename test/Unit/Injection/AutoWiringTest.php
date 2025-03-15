@@ -6,7 +6,6 @@ namespace Reinfi\DependencyInjection\Test\Unit\Injection;
 
 use Laminas\ServiceManager\AbstractPluginManager;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
@@ -17,54 +16,58 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
  */
 class AutoWiringTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItReturnsServiceFromContainer(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->has(Service1::class)
-            ->willReturn(true);
+        $service1 = $this->createMock(Service1::class);
 
-        $service1 = $this->prophesize(Service1::class);
-        $container->get(Service1::class)
-            ->willReturn($service1->reveal());
+        $container = $this->createMock(ContainerInterface::class);
+        $container->method('has')
+            ->with(Service1::class)
+            ->willReturn(true);
+        $container->method('get')
+            ->with(Service1::class)
+            ->willReturn($service1);
 
         $injection = new AutoWiring(Service1::class);
 
-        self::assertInstanceOf(Service1::class, $injection($container->reveal()));
+        self::assertInstanceOf(Service1::class, $injection($container));
     }
 
     public function testItReturnsServiceFromParentLocator(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->has(Service1::class)
+        $service1 = $this->createMock(Service1::class);
+
+        $container = $this->createMock(ContainerInterface::class);
+        $container->method('has')
+            ->with(Service1::class)
             ->willReturn(true);
+        $container->method('get')
+            ->with(Service1::class)
+            ->willReturn($service1);
 
-        $service1 = $this->prophesize(Service1::class);
-        $container->get(Service1::class)
-            ->willReturn($service1->reveal());
-
-        $pluginManager = $this->prophesize(AbstractPluginManager::class);
-        $pluginManager->has(Service1::class)
+        $pluginManager = $this->createMock(AbstractPluginManager::class);
+        $pluginManager->method('has')
+            ->with(Service1::class)
             ->willReturn(false);
-        $pluginManager->getServiceLocator()
-            ->willReturn($container->reveal());
+        $pluginManager->method('getServiceLocator')
+            ->willReturn($container);
 
         $injection = new AutoWiring(Service1::class);
 
-        self::assertInstanceOf(Service1::class, $injection($pluginManager->reveal()));
+        self::assertInstanceOf(Service1::class, $injection($pluginManager));
     }
 
     public function testItThrowsExceptionIfServiceNotFound(): void
     {
         $this->expectException(AutoWiringNotPossibleException::class);
 
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->has(Service1::class)
+        $container = $this->createMock(ContainerInterface::class);
+        $container->method('has')
+            ->with(Service1::class)
             ->willReturn(false);
 
         $injection = new AutoWiring(Service1::class);
 
-        $injection($container->reveal());
+        $injection($container);
     }
 }

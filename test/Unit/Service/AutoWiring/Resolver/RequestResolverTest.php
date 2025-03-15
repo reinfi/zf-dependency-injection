@@ -7,7 +7,6 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 use Laminas\Http\Request;
 use Laminas\Stdlib\RequestInterface;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use ReflectionNamedType;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
@@ -19,18 +18,16 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
  */
 class RequestResolverTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItReturnsInjectionInterfaceForRequestInterface(): void
     {
         $resolver = new RequestResolver();
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn(RequestInterface::class);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn(RequestInterface::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertInstanceOf(AutoWiring::class, $injection);
     }
@@ -39,12 +36,12 @@ class RequestResolverTest extends TestCase
     {
         $resolver = new RequestResolver();
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn(Request::class);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn(Request::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertInstanceOf(AutoWiring::class, $injection);
     }
@@ -53,33 +50,33 @@ class RequestResolverTest extends TestCase
     {
         $resolver = new RequestResolver();
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn(Service1::class);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn(Service1::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
 
-        self::assertNull($resolver->resolve($parameter->reveal()), 'return value should be null if not found');
+        self::assertNull($resolver->resolve($parameter), 'return value should be null if not found');
     }
 
     public function testItReturnsNullIfClassDoesNotExists(): void
     {
         $resolver = new RequestResolver();
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn('ServiceWhichDoesNotExists');
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn('ServiceWhichDoesNotExists');
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
 
-        self::assertNull($resolver->resolve($parameter->reveal()), 'return value should be null if not found');
+        self::assertNull($resolver->resolve($parameter), 'return value should be null if not found');
     }
 
     public function testItReturnsNullIfParameterHasNoClass(): void
     {
         $resolver = new RequestResolver();
 
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn(null);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn(null);
 
-        self::assertNull($resolver->resolve($parameter->reveal()), 'return value should be null if not found');
+        self::assertNull($resolver->resolve($parameter), 'return value should be null if not found');
     }
 }

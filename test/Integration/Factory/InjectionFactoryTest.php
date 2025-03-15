@@ -7,7 +7,6 @@ namespace Reinfi\DependencyInjection\Test\Integration\Factory;
 use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\Stdlib\ArrayUtils;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Reinfi\DependencyInjection\Factory\InjectionFactory;
 use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
 use Reinfi\DependencyInjection\Test\Base\AbstractIntegration;
@@ -24,8 +23,6 @@ use Reinfi\DependencyInjection\Test\Service\ServiceAnnotationConstructor;
  */
 class InjectionFactoryTest extends AbstractIntegration
 {
-    use ProphecyTrait;
-
     public function testItCreatesServiceWithDependencies(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
@@ -84,14 +81,14 @@ class InjectionFactoryTest extends AbstractIntegration
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
-        $pluginManager = $this->prophesize(AbstractPluginManager::class);
-        $pluginManager->getServiceLocator()
-            ->willReturn($container)
-            ->shouldBeCalled();
+        $pluginManager = $this->createMock(AbstractPluginManager::class);
+        $pluginManager->expects($this->atLeastOnce())
+            ->method('getServiceLocator')
+            ->willReturn($container);
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService($pluginManager->reveal(), PluginService::class, null);
+        $instance = $factory->createService($pluginManager, PluginService::class, null);
 
         self::assertInstanceOf(PluginService::class, $instance);
     }

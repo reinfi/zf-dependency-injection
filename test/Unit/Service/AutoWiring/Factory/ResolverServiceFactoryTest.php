@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Factory;
 
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\AutoWiring\Factory\ResolverServiceFactory;
@@ -23,53 +22,63 @@ use Reinfi\DependencyInjection\Test\Service\Resolver\TestResolver;
  */
 class ResolverServiceFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItCreatesResolverServiceWithDefaultResolvers(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $container->get(ModuleConfig::class)
-            ->willReturn([]);
-
-        $container->get(ContainerResolver::class)->shouldBeCalled();
-        $container->get(PluginManagerResolver::class)->shouldBeCalled();
-        $container->get(ContainerInterfaceResolver::class)->shouldBeCalled();
-        $container->get(RequestResolver::class)->shouldBeCalled();
-        $container->get(ResponseResolver::class)->shouldBeCalled();
-        $container->get(BuildInTypeWithDefaultResolver::class)->shouldBeCalled();
+        $container->method('get')
+            ->willReturnCallback(function ($service) {
+                if ($service === ModuleConfig::class) {
+                    return [];
+                }
+                return match ($service) {
+                    ContainerResolver::class => $this->createMock(ContainerResolver::class),
+                    PluginManagerResolver::class => $this->createMock(PluginManagerResolver::class),
+                    ContainerInterfaceResolver::class => $this->createMock(ContainerInterfaceResolver::class),
+                    RequestResolver::class => $this->createMock(RequestResolver::class),
+                    ResponseResolver::class => $this->createMock(ResponseResolver::class),
+                    BuildInTypeWithDefaultResolver::class => $this->createMock(BuildInTypeWithDefaultResolver::class),
+                    default => null,
+                };
+            });
 
         $factory = new ResolverServiceFactory();
 
         self::assertInstanceOf(
             ResolverService::class,
-            $factory($container->reveal()),
+            $factory($container),
             'factory should return instance of ' . ResolverService::class
         );
     }
 
     public function testItCreatesResolverServiceWithAdditionalResolvers(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $container->get(ModuleConfig::class)
-            ->willReturn([
-                'autowire_resolver' => [TestResolver::class],
-            ]);
-
-        $container->get(ContainerResolver::class)->shouldBeCalled();
-        $container->get(PluginManagerResolver::class)->shouldBeCalled();
-        $container->get(ContainerInterfaceResolver::class)->shouldBeCalled();
-        $container->get(RequestResolver::class)->shouldBeCalled();
-        $container->get(ResponseResolver::class)->shouldBeCalled();
-        $container->get(BuildInTypeWithDefaultResolver::class)->shouldBeCalled();
-        $container->get(TestResolver::class)->shouldBeCalled();
+        $container->method('get')
+            ->willReturnCallback(function ($service) {
+                if ($service === ModuleConfig::class) {
+                    return [
+                        'autowire_resolver' => [TestResolver::class],
+                    ];
+                }
+                return match ($service) {
+                    ContainerResolver::class => $this->createMock(ContainerResolver::class),
+                    PluginManagerResolver::class => $this->createMock(PluginManagerResolver::class),
+                    ContainerInterfaceResolver::class => $this->createMock(ContainerInterfaceResolver::class),
+                    RequestResolver::class => $this->createMock(RequestResolver::class),
+                    ResponseResolver::class => $this->createMock(ResponseResolver::class),
+                    BuildInTypeWithDefaultResolver::class => $this->createMock(BuildInTypeWithDefaultResolver::class),
+                    TestResolver::class => $this->createMock(TestResolver::class),
+                    default => null,
+                };
+            });
 
         $factory = new ResolverServiceFactory();
 
         self::assertInstanceOf(
             ResolverService::class,
-            $factory($container->reveal()),
+            $factory($container),
             'factory should return instance of ' . ResolverService::class
         );
     }

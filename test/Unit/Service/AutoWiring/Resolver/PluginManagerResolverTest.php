@@ -10,8 +10,8 @@ use Laminas\Hydrator\ReflectionHydrator;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator\Digits;
 use Laminas\View\Helper\Url;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use ReflectionNamedType;
@@ -27,56 +27,58 @@ use Reinfi\DependencyInjection\Test\Service\ServiceWithInterface;
  */
 class PluginManagerResolverTest extends TestCase
 {
-    use ProphecyTrait;
-
-    /**
-     * @dataProvider getPluginManagerData
-     */
+    #[DataProvider('getPluginManagerData')]
     public function testItReturnsInjectionInterfaceForPluginManager(
         string $serviceClass,
         string $pluginManager
     ): void {
-        $pluginManagerClass = $this->prophesize(ContainerInterface::class);
-        $pluginManagerClass->has($serviceClass)
+        $pluginManagerClass = $this->createMock(ContainerInterface::class);
+        $pluginManagerClass->method('has')
+            ->with($serviceClass)
             ->willReturn(true);
 
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->get($pluginManager)
-            ->willReturn($pluginManagerClass->reveal());
+        $container = $this->createMock(ContainerInterface::class);
+        $container->method('get')
+            ->with($pluginManager)
+            ->willReturn($pluginManagerClass);
 
-        $resolver = new PluginManagerResolver($container->reveal());
+        $resolver = new PluginManagerResolver($container);
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn($serviceClass);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')
+            ->willReturn($serviceClass);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')
+            ->willReturn($type);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertInstanceOf(AutoWiringPluginManager::class, $injection);
     }
 
-    /**
-     * @dataProvider getPluginManagerData
-     */
+    #[DataProvider('getPluginManagerData')]
     public function testItReturnsServiceAndPluginManager(string $serviceClass, string $pluginManager): void
     {
-        $pluginManagerClass = $this->prophesize(ContainerInterface::class);
-        $pluginManagerClass->has($serviceClass)
+        $pluginManagerClass = $this->createMock(ContainerInterface::class);
+        $pluginManagerClass->method('has')
+            ->with($serviceClass)
             ->willReturn(true);
 
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->get($pluginManager)
-            ->willReturn($pluginManagerClass->reveal());
+        $container = $this->createMock(ContainerInterface::class);
+        $container->method('get')
+            ->with($pluginManager)
+            ->willReturn($pluginManagerClass);
 
-        $resolver = new PluginManagerResolver($container->reveal());
+        $resolver = new PluginManagerResolver($container);
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn($serviceClass);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')
+            ->willReturn($serviceClass);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')
+            ->willReturn($type);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertNotNull($injection, 'injection could not resolved');
 
@@ -96,21 +98,25 @@ class PluginManagerResolverTest extends TestCase
     {
         PluginManagerResolver::addMapping(ServiceInterface::class, 'InjectionManager');
 
-        $pluginManagerClass = $this->prophesize(ContainerInterface::class);
-        $pluginManagerClass->has(ServiceWithInterface::class)
+        $pluginManagerClass = $this->createMock(ContainerInterface::class);
+        $pluginManagerClass->method('has')
+            ->with(ServiceWithInterface::class)
             ->willReturn(true);
 
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->get('InjectionManager')
-            ->willReturn($pluginManagerClass->reveal());
-        $resolver = new PluginManagerResolver($container->reveal());
+        $container = $this->createMock(ContainerInterface::class);
+        $container->method('get')
+            ->with('InjectionManager')
+            ->willReturn($pluginManagerClass);
+        $resolver = new PluginManagerResolver($container);
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn(ServiceWithInterface::class);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')
+            ->willReturn(ServiceWithInterface::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')
+            ->willReturn($type);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertNotNull($injection, 'injection could not resolved');
 
@@ -123,27 +129,30 @@ class PluginManagerResolverTest extends TestCase
 
     public function testItReturnsNullIfNoPluginManagerFound(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
-        $resolver = new PluginManagerResolver($container->reveal());
+        $container = $this->createMock(ContainerInterface::class);
+        $resolver = new PluginManagerResolver($container);
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn(Service1::class);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')
+            ->willReturn(Service1::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')
+            ->willReturn($type);
 
-        self::assertNull($resolver->resolve($parameter->reveal()), 'return value should be null if not found');
+        self::assertNull($resolver->resolve($parameter), 'return value should be null if not found');
     }
 
     public function testItReturnsNullIfParameterHasNoType(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $resolver = new PluginManagerResolver($container->reveal());
+        $resolver = new PluginManagerResolver($container);
 
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn(null);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')
+            ->willReturn(null);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertNull($injection);
     }

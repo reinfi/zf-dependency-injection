@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Service;
 
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\MethodProphecy;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use Reinfi\DependencyInjection\Service\CacheService;
@@ -22,35 +19,43 @@ use Reinfi\DependencyInjection\Traits\CacheKeyTrait;
  */
 class InjectionServiceTest extends TestCase
 {
-    use ProphecyTrait;
     use CacheKeyTrait;
 
     public function testItResolvesConstructorArguments(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
-        $extractor = $this->prophesize(ExtractorInterface::class);
+        $extractor = $this->createMock(ExtractorInterface::class);
 
-        $injection = $this->prophesize(InjectionInterface::class);
-        $injection->addMethodProphecy(
-            (new MethodProphecy($injection, '__invoke', [Argument::type(ContainerInterface::class)]))
-                ->willReturn(new Service2())
-                ->shouldBeCalled()
-        );
+        $injection = $this->createMock(InjectionInterface::class);
+        $injection->expects($this->once())
+            ->method('__invoke')
+            ->with($this->isInstanceOf(ContainerInterface::class))
+            ->willReturn(new Service2());
 
-        $extractor->getPropertiesInjections(Service1::class)
+        $extractor->expects($this->once())
+            ->method('getPropertiesInjections')
+            ->with(Service1::class)
             ->willReturn([]);
-        $extractor->getConstructorInjections(Service1::class)
-            ->willReturn([$injection->reveal()]);
+        $extractor->expects($this->once())
+            ->method('getConstructorInjections')
+            ->with(Service1::class)
+            ->willReturn([$injection]);
 
-        $cache = $this->prophesize(CacheService::class);
-        $cache->has($cacheKey)->willReturn(false);
-        $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
+        $cache = $this->createMock(CacheService::class);
+        $cache->expects($this->once())
+            ->method('has')
+            ->with($cacheKey)
+            ->willReturn(false);
+        $cache->expects($this->once())
+            ->method('set')
+            ->with($cacheKey, $this->isArray())
+            ->willReturn(true);
 
-        $service = new InjectionService($extractor->reveal(), $cache->reveal());
+        $service = new InjectionService($extractor, $cache);
 
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container->reveal(), Service1::class);
+        $injections = $service->resolveConstructorInjection($container, Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -58,28 +63,38 @@ class InjectionServiceTest extends TestCase
     public function testItResolvesPropertyInjections(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
-        $extractor = $this->prophesize(ExtractorInterface::class);
+        $extractor = $this->createMock(ExtractorInterface::class);
 
-        $injection = $this->prophesize(InjectionInterface::class);
-        $injection->addMethodProphecy(
-            (new MethodProphecy($injection, '__invoke', [Argument::type(ContainerInterface::class)]))
-                ->willReturn(new Service2())
-        );
+        $injection = $this->createMock(InjectionInterface::class);
+        $injection->expects($this->once())
+            ->method('__invoke')
+            ->with($this->isInstanceOf(ContainerInterface::class))
+            ->willReturn(new Service2());
 
-        $extractor->getConstructorInjections(Service1::class)
+        $extractor->expects($this->once())
+            ->method('getConstructorInjections')
+            ->with(Service1::class)
             ->willReturn([]);
-        $extractor->getPropertiesInjections(Service1::class)
-            ->willReturn([$injection->reveal()]);
+        $extractor->expects($this->once())
+            ->method('getPropertiesInjections')
+            ->with(Service1::class)
+            ->willReturn([$injection]);
 
-        $cache = $this->prophesize(CacheService::class);
-        $cache->has($cacheKey)->willReturn(false);
-        $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
+        $cache = $this->createMock(CacheService::class);
+        $cache->expects($this->once())
+            ->method('has')
+            ->with($cacheKey)
+            ->willReturn(false);
+        $cache->expects($this->once())
+            ->method('set')
+            ->with($cacheKey, $this->isArray())
+            ->willReturn(true);
 
-        $service = new InjectionService($extractor->reveal(), $cache->reveal());
+        $service = new InjectionService($extractor, $cache);
 
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container->reveal(), Service1::class);
+        $injections = $service->resolveConstructorInjection($container, Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -87,23 +102,29 @@ class InjectionServiceTest extends TestCase
     public function testItUsesCacheItemWhenFound(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
-        $extrator = $this->prophesize(ExtractorInterface::class);
+        $extractor = $this->createMock(ExtractorInterface::class);
 
-        $injection = $this->prophesize(InjectionInterface::class);
-        $injection->addMethodProphecy(
-            (new MethodProphecy($injection, '__invoke', [Argument::type(ContainerInterface::class)]))
-                ->willReturn(new Service2())
-        );
+        $injection = $this->createMock(InjectionInterface::class);
+        $injection->expects($this->once())
+            ->method('__invoke')
+            ->with($this->isInstanceOf(ContainerInterface::class))
+            ->willReturn(new Service2());
 
-        $cache = $this->prophesize(CacheService::class);
-        $cache->has($cacheKey)->willReturn(true);
-        $cache->get($cacheKey)->willReturn([$injection->reveal()]);
+        $cache = $this->createMock(CacheService::class);
+        $cache->expects($this->once())
+            ->method('has')
+            ->with($cacheKey)
+            ->willReturn(true);
+        $cache->expects($this->once())
+            ->method('get')
+            ->with($cacheKey)
+            ->willReturn([$injection]);
 
-        $service = new InjectionService($extrator->reveal(), $cache->reveal());
+        $service = new InjectionService($extractor, $cache);
 
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container->reveal(), Service1::class);
+        $injections = $service->resolveConstructorInjection($container, Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -111,29 +132,42 @@ class InjectionServiceTest extends TestCase
     public function testItUsesExtractorWhenCacheItemIsNotAnArray(): void
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
-        $extractor = $this->prophesize(ExtractorInterface::class);
+        $extractor = $this->createMock(ExtractorInterface::class);
 
-        $injection = $this->prophesize(InjectionInterface::class);
-        $injection->addMethodProphecy(
-            (new MethodProphecy($injection, '__invoke', [Argument::type(ContainerInterface::class)]))
-                ->willReturn(new Service2())
-        );
+        $injection = $this->createMock(InjectionInterface::class);
+        $injection->expects($this->once())
+            ->method('__invoke')
+            ->with($this->isInstanceOf(ContainerInterface::class))
+            ->willReturn(new Service2());
 
-        $extractor->getConstructorInjections(Service1::class)
+        $extractor->expects($this->once())
+            ->method('getConstructorInjections')
+            ->with(Service1::class)
             ->willReturn([]);
-        $extractor->getPropertiesInjections(Service1::class)
-            ->willReturn([$injection->reveal()]);
+        $extractor->expects($this->once())
+            ->method('getPropertiesInjections')
+            ->with(Service1::class)
+            ->willReturn([$injection]);
 
-        $cache = $this->prophesize(CacheService::class);
-        $cache->has($cacheKey)->willReturn(true)->shouldBeCalled();
-        $cache->get($cacheKey)->willReturn(null)->shouldBeCalled();
-        $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
+        $cache = $this->createMock(CacheService::class);
+        $cache->expects($this->once())
+            ->method('has')
+            ->with($cacheKey)
+            ->willReturn(true);
+        $cache->expects($this->once())
+            ->method('get')
+            ->with($cacheKey)
+            ->willReturn(null);
+        $cache->expects($this->once())
+            ->method('set')
+            ->with($cacheKey, $this->isArray())
+            ->willReturn(true);
 
-        $service = new InjectionService($extractor->reveal(), $cache->reveal());
+        $service = new InjectionService($extractor, $cache);
 
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container->reveal(), Service1::class);
+        $injections = $service->resolveConstructorInjection($container, Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -141,21 +175,31 @@ class InjectionServiceTest extends TestCase
     public function testItReturnsFalseWhenNoInjectionsAvaible(): void
     {
         $cacheKey = $this->buildCacheKey(Service2::class);
-        $extractor = $this->prophesize(ExtractorInterface::class);
-        $extractor->getConstructorInjections(Service2::class)
+        $extractor = $this->createMock(ExtractorInterface::class);
+        $extractor->expects($this->once())
+            ->method('getConstructorInjections')
+            ->with(Service2::class)
             ->willReturn([]);
-        $extractor->getPropertiesInjections(Service2::class)
+        $extractor->expects($this->once())
+            ->method('getPropertiesInjections')
+            ->with(Service2::class)
             ->willReturn([]);
 
-        $cache = $this->prophesize(CacheService::class);
-        $cache->has($cacheKey)->willReturn(false);
-        $cache->set($cacheKey, Argument::type('array'))->willReturn(true);
+        $cache = $this->createMock(CacheService::class);
+        $cache->expects($this->once())
+            ->method('has')
+            ->with($cacheKey)
+            ->willReturn(false);
+        $cache->expects($this->once())
+            ->method('set')
+            ->with($cacheKey, $this->isArray())
+            ->willReturn(true);
 
-        $service = new InjectionService($extractor->reveal(), $cache->reveal());
+        $service = new InjectionService($extractor, $cache);
 
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container->reveal(), Service2::class);
+        $injections = $service->resolveConstructorInjection($container, Service2::class);
 
         self::assertFalse($injections);
     }

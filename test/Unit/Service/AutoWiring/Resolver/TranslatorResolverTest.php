@@ -6,10 +6,8 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
 use Laminas\I18n\Translator\Translator;
 use Laminas\I18n\Translator\TranslatorInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\MethodProphecy;
 use Psr\Container\ContainerInterface;
 use ReflectionNamedType;
 use ReflectionParameter;
@@ -21,120 +19,114 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver;
  */
 class TranslatorResolverTest extends TestCase
 {
-    use ProphecyTrait;
-
-    /**
-     * @dataProvider containerHasCallsProvider
-     */
+    #[DataProvider('containerHasCallsProvider')]
     public function testItReturnsInjectionInterfaceForTranslatorInterface(array $containerHasCalls): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        foreach ($containerHasCalls as $serviceName => $result) {
-            $container->addMethodProphecy(
-                (new MethodProphecy($container, 'has', [Argument::exact($serviceName)]))
-                    ->willReturn($result)
-                    ->shouldBeCalled()
-            );
-        }
+        $container->expects($this->exactly(count($containerHasCalls)))
+            ->method('has')
+            ->willReturnCallback(function ($serviceName) use ($containerHasCalls) {
+                return $containerHasCalls[$serviceName] ?? false;
+            });
 
-        $resolver = new TranslatorResolver($container->reveal());
+        $resolver = new TranslatorResolver($container);
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn(TranslatorInterface::class);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn(TranslatorInterface::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertInstanceOf(AutoWiring::class, $injection);
     }
 
-    /**
-     * @dataProvider containerHasCallsProvider
-     */
+    #[DataProvider('containerHasCallsProvider')]
     public function testItReturnsInjectionInterfaceForTranslatorClass(array $containerHasCalls): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        foreach ($containerHasCalls as $serviceName => $result) {
-            $container->addMethodProphecy(
-                (new MethodProphecy($container, 'has', [Argument::exact($serviceName)]))
-                    ->willReturn($result)
-            );
-        }
-        $resolver = new TranslatorResolver($container->reveal());
+        $container->expects($this->exactly(count($containerHasCalls)))
+            ->method('has')
+            ->willReturnCallback(function ($serviceName) use ($containerHasCalls) {
+                return $containerHasCalls[$serviceName] ?? false;
+            });
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn(Translator::class);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $resolver = new TranslatorResolver($container);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn(Translator::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
+
+        $injection = $resolver->resolve($parameter);
 
         self::assertInstanceOf(AutoWiring::class, $injection);
     }
 
     public function testItReturnsNullIfNoTranslatorRegistered(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $container->has('MvcTranslator')->willReturn(false);
-        $container->has(TranslatorInterface::class)->willReturn(false);
-        $container->has(\Laminas\Translator\TranslatorInterface::class)->willReturn(false);
-        $container->has('Translator')->willReturn(false);
+        $container->expects($this->exactly(4))
+            ->method('has')
+            ->willReturnMap([
+                ['MvcTranslator', false],
+                [TranslatorInterface::class, false],
+                ['Laminas\Translator\TranslatorInterface', false],
+                ['Translator', false],
+            ]);
 
-        $resolver = new TranslatorResolver($container->reveal());
+        $resolver = new TranslatorResolver($container);
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn(Translator::class);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn(Translator::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
 
-        self::assertNull($resolver->resolve($parameter->reveal()), 'return value should be null if not found');
+        self::assertNull($resolver->resolve($parameter), 'return value should be null if not found');
     }
 
     public function testItReturnsNullIfReflectionParameterHasNoType(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $container->has(TranslatorInterface::class)->willReturn(false)->shouldNotBeCalled();
+        $container->expects($this->never())
+            ->method('has');
 
-        $resolver = new TranslatorResolver($container->reveal());
+        $resolver = new TranslatorResolver($container);
 
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn(null);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn(null);
 
-        self::assertNull(
-            $resolver->resolve($parameter->reveal()),
-            'return value should be null parameter has no class'
-        );
+        self::assertNull($resolver->resolve($parameter), 'return value should be null parameter has no class');
     }
 
     public function testItReturnsNullIfNoTranslatorInterface(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $resolver = new TranslatorResolver($container->reveal());
+        $resolver = new TranslatorResolver($container);
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn('');
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn('');
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
 
-        self::assertNull($resolver->resolve($parameter->reveal()), 'return value should be null if not found');
+        self::assertNull($resolver->resolve($parameter), 'return value should be null if not found');
     }
 
     public function testItReturnsNullIfParameterHasNoType(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $resolver = new TranslatorResolver($container->reveal());
+        $resolver = new TranslatorResolver($container);
 
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn(null);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn(null);
 
-        self::assertNull($resolver->resolve($parameter->reveal()), 'return value should be null if not found');
+        self::assertNull($resolver->resolve($parameter), 'return value should be null if not found');
     }
 
     public static function containerHasCallsProvider(): array

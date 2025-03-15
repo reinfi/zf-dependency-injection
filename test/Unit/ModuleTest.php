@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Reinfi\DependencyInjection\Module;
 
 /**
@@ -13,8 +12,6 @@ use Reinfi\DependencyInjection\Module;
  */
 class ModuleTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItReturnsConfig(): void
     {
         $module = new Module();

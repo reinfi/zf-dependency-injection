@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Service\Cache;
 
 use BadMethodCallException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Service\Cache\Memory;
 
@@ -59,9 +60,7 @@ class MemoryTest extends TestCase
         self::assertFalse($cache->has('test2'), 'Cache has should return false for cleared items');
     }
 
-    /**
-     * @dataProvider badMethodDataProvider
-     */
+    #[DataProvider('badMethodDataProvider')]
     public function testItThrowsExceptionForNotImplementedMethods(string $methodName, array $methodParams): void
     {
         $this->expectException(BadMethodCallException::class);

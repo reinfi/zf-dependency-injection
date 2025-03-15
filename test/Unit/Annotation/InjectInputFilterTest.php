@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
 use Laminas\ServiceManager\AbstractPluginManager;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Annotation\InjectInputFilter;
 use Reinfi\DependencyInjection\Test\Service\Service1;
@@ -16,59 +16,65 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
  */
 class InjectInputFilterTest extends TestCase
 {
-    use ProphecyTrait;
-
-    /**
-     * @dataProvider getAnnotationValues
-     */
+    #[DataProvider('getAnnotationValues')]
     public function testItCallsPluginManagerWithValue(array $values, string $className): void
     {
         $inject = new InjectInputFilter($values);
 
-        $pluginManager = $this->prophesize(AbstractPluginManager::class);
+        $pluginManager = $this->createMock(AbstractPluginManager::class);
 
         if (isset($values['options'])) {
-            $pluginManager->get($className, $values['options'])
+            $pluginManager->expects($this->once())
+                ->method('get')
+                ->with($className, $values['options'])
                 ->willReturn(true);
         } else {
-            $pluginManager->get($className)
+            $pluginManager->expects($this->once())
+                ->method('get')
+                ->with($className)
                 ->willReturn(true);
         }
 
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->get('InputFilterManager')
-            ->willReturn($pluginManager->reveal());
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with('InputFilterManager')
+            ->willReturn($pluginManager);
 
-        self::assertTrue($inject($container->reveal()), 'Invoke should return true');
+        self::assertTrue($inject($container), 'Invoke should return true');
     }
 
-    /**
-     * @dataProvider getAnnotationValues
-     */
+    #[DataProvider('getAnnotationValues')]
     public function testItCallsPluginManagerFromParentServiceLocator(array $values, string $className): void
     {
         $inject = new InjectInputFilter($values);
 
-        $filterManager = $this->prophesize(AbstractPluginManager::class);
+        $filterManager = $this->createMock(AbstractPluginManager::class);
 
         if (isset($values['options'])) {
-            $filterManager->get($className, $values['options'])
+            $filterManager->expects($this->once())
+                ->method('get')
+                ->with($className, $values['options'])
                 ->willReturn(true);
         } else {
-            $filterManager->get($className)
+            $filterManager->expects($this->once())
+                ->method('get')
+                ->with($className)
                 ->willReturn(true);
         }
 
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with('InputFilterManager')
+            ->willReturn($filterManager);
 
-        $container->get('InputFilterManager')
-            ->willReturn($filterManager->reveal());
+        $pluginManager = $this->createMock(AbstractPluginManager::class);
+        $pluginManager->expects($this->once())
+            ->method('getServiceLocator')
+            ->willReturn($container);
 
-        $pluginManager = $this->prophesize(AbstractPluginManager::class);
-        $pluginManager->getServiceLocator()
-            ->willReturn($container->reveal());
-
-        self::assertTrue($inject($pluginManager->reveal()), 'Invoke should return true');
+        self::assertTrue($inject($pluginManager), 'Invoke should return true');
     }
 
     public static function getAnnotationValues(): array

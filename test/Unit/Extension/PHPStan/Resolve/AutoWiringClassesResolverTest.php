@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Extension\PHPStan\Resolve;
 
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Reinfi\DependencyInjection\Extension\PHPStan\Resolve\AutoWiringClassesResolver;
 use Reinfi\DependencyInjection\Extension\PHPStan\ServiceManagerLoader;
 use Reinfi\DependencyInjection\Test\Service\Service1;
@@ -13,8 +12,6 @@ use Reinfi\DependencyInjection\Test\Service\Service2;
 
 class AutoWiringClassesResolverTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItReturnsFalseIfNoServiceManagerIsProvided(): void
     {
         $serviceManagerLoader = new ServiceManagerLoader(null);
