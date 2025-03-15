@@ -81,7 +81,7 @@ class InjectHydratorTest extends TestCase
     public function testItShouldReturnContainerServiceKey(array $values, string $expectedValue): void
     {
         $inject = new InjectHydrator($values);
-        
+
         // Create a mock container to verify the service name through the __invoke method
         $pluginManager = $this->createMock(AbstractPluginManager::class);
         $pluginManager->expects($this->once())
@@ -102,17 +102,14 @@ class InjectHydratorTest extends TestCase
     public function testItShouldBuildWithValues(array $values): void
     {
         $inject = new InjectHydrator($values);
-        
+
         // Create a mock container to verify the values through the __invoke method
         $pluginManager = $this->createMock(AbstractPluginManager::class);
-        
+
         if (isset($values['options'])) {
             $pluginManager->expects($this->once())
                 ->method('get')
-                ->with(
-                    $this->equalTo($values['value'] ?? $values['name']),
-                    $this->equalTo($values['options'])
-                )
+                ->with($this->equalTo($values['value'] ?? $values['name']), $this->equalTo($values['options']))
                 ->willReturn(true);
         } else {
             $pluginManager->expects($this->once())
