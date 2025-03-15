@@ -6,6 +6,7 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
 use Laminas\I18n\Translator\Translator;
 use Laminas\I18n\Translator\TranslatorInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use ReflectionNamedType;
@@ -18,9 +19,7 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver;
  */
 class TranslatorResolverTest extends TestCase
 {
-    /**
-     * @dataProvider containerHasCallsProvider
-     */
+    #[DataProvider('containerHasCallsProvider')]
     public function testItReturnsInjectionInterfaceForTranslatorInterface(array $containerHasCalls): void
     {
         $container = $this->createMock(ContainerInterface::class);
@@ -43,9 +42,7 @@ class TranslatorResolverTest extends TestCase
         self::assertInstanceOf(AutoWiring::class, $injection);
     }
 
-    /**
-     * @dataProvider containerHasCallsProvider
-     */
+    #[DataProvider('containerHasCallsProvider')]
     public function testItReturnsInjectionInterfaceForTranslatorClass(array $containerHasCalls): void
     {
         $container = $this->createMock(ContainerInterface::class);

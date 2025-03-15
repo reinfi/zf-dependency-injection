@@ -7,6 +7,7 @@ namespace Reinfi\DependencyInjection\Test\Unit\Attribute;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Laminas\ServiceManager\AbstractPluginManager;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Attribute\InjectDoctrineRepository;
@@ -18,9 +19,7 @@ use Reinfi\DependencyInjection\Test\Service\Service2;
  */
 class InjectDoctrineRepositoryTest extends TestCase
 {
-    /**
-     * @dataProvider getAttributeValuesWithoutEntityManager
-     */
+    #[DataProvider('getAttributeValuesWithoutEntityManager')]
     public function testItGetsRepositoryWithoutEntityManagerSet(array $values, string $repositoryClass): void
     {
         $inject = new InjectDoctrineRepository(...array_values($values));
@@ -46,9 +45,7 @@ class InjectDoctrineRepositoryTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider getAttributeValuesWithEntityManager
-     */
+    #[DataProvider('getAttributeValuesWithEntityManager')]
     public function testItGetsRepositoryWithEntityManagerSet(
         array $values,
         string $entityManagerIdentifier,
@@ -77,9 +74,7 @@ class InjectDoctrineRepositoryTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider getAttributeValuesWithoutEntityManager
-     */
+    #[DataProvider('getAttributeValuesWithoutEntityManager')]
     public function testItGetsRepositoryFromPluginManager(array $values, string $repositoryClass): void
     {
         $inject = new InjectDoctrineRepository(...array_values($values));

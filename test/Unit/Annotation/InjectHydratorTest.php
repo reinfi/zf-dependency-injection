@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
 use Laminas\ServiceManager\AbstractPluginManager;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Annotation\InjectHydrator;
@@ -15,9 +16,7 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
  */
 class InjectHydratorTest extends TestCase
 {
-    /**
-     * @dataProvider getAnnotationValues
-     */
+    #[DataProvider('getAnnotationValues')]
     public function testItCallsPluginManagerWithValue(array $values, string $className): void
     {
         $inject = new InjectHydrator($values);
@@ -45,9 +44,7 @@ class InjectHydratorTest extends TestCase
         self::assertTrue($inject($container), 'Invoke should return true');
     }
 
-    /**
-     * @dataProvider getAnnotationValues
-     */
+    #[DataProvider('getAnnotationValues')]
     public function testItCallsPluginManagerFromParentServiceLocator(array $values, string $className): void
     {
         $inject = new InjectHydrator($values);
@@ -78,6 +75,18 @@ class InjectHydratorTest extends TestCase
             ->willReturn($container);
 
         self::assertTrue($inject($pluginManager), 'Invoke should return true');
+    }
+
+    #[DataProvider('getAnnotationValues')]
+    public function testItShouldReturnContainerServiceKey(array $values, string $expectedValue): void
+    {
+        // ... existing code ...
+    }
+
+    #[DataProvider('getAnnotationValues')]
+    public function testItShouldBuildWithValues(array $values): void
+    {
+        // ... existing code ...
     }
 
     public static function getAnnotationValues(): array

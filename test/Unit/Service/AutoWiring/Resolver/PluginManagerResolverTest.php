@@ -10,6 +10,7 @@ use Laminas\Hydrator\ReflectionHydrator;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator\Digits;
 use Laminas\View\Helper\Url;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use ReflectionClass;
@@ -26,9 +27,7 @@ use Reinfi\DependencyInjection\Test\Service\ServiceWithInterface;
  */
 class PluginManagerResolverTest extends TestCase
 {
-    /**
-     * @dataProvider getPluginManagerData
-     */
+    #[DataProvider('getPluginManagerData')]
     public function testItReturnsInjectionInterfaceForPluginManager(
         string $serviceClass,
         string $pluginManager
@@ -57,9 +56,7 @@ class PluginManagerResolverTest extends TestCase
         self::assertInstanceOf(AutoWiringPluginManager::class, $injection);
     }
 
-    /**
-     * @dataProvider getPluginManagerData
-     */
+    #[DataProvider('getPluginManagerData')]
     public function testItReturnsServiceAndPluginManager(string $serviceClass, string $pluginManager): void
     {
         $pluginManagerClass = $this->createMock(ContainerInterface::class);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\SimpleCache\CacheInterface;
 use Reinfi\DependencyInjection\Service\CacheService;
@@ -14,9 +15,7 @@ use stdClass;
  */
 class CacheServiceTest extends TestCase
 {
-    /**
-     * @dataProvider getMethodDataProvider
-     */
+    #[DataProvider('getMethodDataProvider')]
     public function testItProxiesCallToUnderlyingCache(
         string $method,
         array $arguments,

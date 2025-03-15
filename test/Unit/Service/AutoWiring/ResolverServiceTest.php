@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring;
 
 use Interop\Container\ContainerInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
@@ -67,10 +68,8 @@ class ResolverServiceTest extends TestCase
         self::assertCount(0, $injections);
     }
 
-    /**
-     * @dataProvider exceptionServiceDataProvider
-     */
-    public function testItThrowsExceptionIfDependencyCouldNotResolved(string $serviceName): void
+    #[DataProvider('exceptionServiceDataProvider')]
+    public function testItThrowsExceptionIfServiceCannotResolved(string $service): void
     {
         $this->expectException(AutoWiringNotPossibleException::class);
 
@@ -81,15 +80,13 @@ class ResolverServiceTest extends TestCase
 
         $service = new ResolverService([$resolver]);
 
-        $service->resolve($serviceName);
+        $service->resolve($service);
     }
 
-    /**
-     * @dataProvider exceptionServiceDataProvider
-     */
-    public function testItShouldAddTheResolveClassToExceptionIfDependencyCouldNotResolved(string $serviceName): void
+    #[DataProvider('exceptionServiceDataProvider')]
+    public function testItThrowsExceptionIfServiceCannotBeResolved(string $service): void
     {
-        $this->expectExceptionMessage($serviceName);
+        $this->expectExceptionMessage($service);
 
         $resolver = $this->createMock(ResolverInterface::class);
         $resolver->method('resolve')
@@ -98,7 +95,7 @@ class ResolverServiceTest extends TestCase
 
         $service = new ResolverService([$resolver]);
 
-        $service->resolve($serviceName);
+        $service->resolve($service);
     }
 
     public static function exceptionServiceDataProvider(): array

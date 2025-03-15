@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
 use Laminas\ServiceManager\AbstractPluginManager;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Annotation\InjectControllerPlugin;
@@ -15,9 +16,7 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
  */
 class InjectControllerPluginTest extends TestCase
 {
-    /**
-     * @dataProvider getAnnotationValues
-     */
+    #[DataProvider('getAnnotationValues')]
     public function testItCallsPluginManagerWithValue(array $values, string $className): void
     {
         $inject = new InjectControllerPlugin($values);
@@ -45,9 +44,7 @@ class InjectControllerPluginTest extends TestCase
         self::assertTrue($inject($container), 'Invoke should return true');
     }
 
-    /**
-     * @dataProvider getAnnotationValues
-     */
+    #[DataProvider('getAnnotationValues')]
     public function testItCallsPluginManagerFromParentServiceLocator(array $values, string $className): void
     {
         $inject = new InjectControllerPlugin($values);

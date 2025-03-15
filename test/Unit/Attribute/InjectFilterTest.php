@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Attribute;
 
 use Laminas\ServiceManager\AbstractPluginManager;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Attribute\InjectFilter;
@@ -15,9 +16,7 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
  */
 class InjectFilterTest extends TestCase
 {
-    /**
-     * @dataProvider getAttributeValues
-     */
+    #[DataProvider('getAttributeValues')]
     public function testItCallsPluginManagerWithValue(array $values, string $className): void
     {
         $inject = new InjectFilter(...array_values($values));
@@ -45,9 +44,7 @@ class InjectFilterTest extends TestCase
         self::assertTrue($inject($container), 'Invoke should return true');
     }
 
-    /**
-     * @dataProvider getAttributeValues
-     */
+    #[DataProvider('getAttributeValues')]
     public function testItCallsPluginManagerFromParentServiceLocator(array $values, string $className): void
     {
         $inject = new InjectFilter(...array_values($values));

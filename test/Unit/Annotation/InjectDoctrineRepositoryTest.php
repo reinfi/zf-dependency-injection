@@ -7,6 +7,7 @@ namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Laminas\ServiceManager\AbstractPluginManager;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Annotation\InjectDoctrineRepository;
@@ -16,9 +17,7 @@ use Reinfi\DependencyInjection\Annotation\InjectDoctrineRepository;
  */
 class InjectDoctrineRepositoryTest extends TestCase
 {
-    /**
-     * @dataProvider getAnnotationValuesWithoutEntityManager
-     */
+    #[DataProvider('getAnnotationValuesWithoutEntityManager')]
     public function testItGetsRepositoryWithoutEntityManagerSet(array $values, string $repositoryClass): void
     {
         $inject = new InjectDoctrineRepository($values);
@@ -44,9 +43,7 @@ class InjectDoctrineRepositoryTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider getAnnotationValuesWithEntityManager
-     */
+    #[DataProvider('getAnnotationValuesWithEntityManager')]
     public function testItGetsRepositoryWithEntityManagerSet(
         array $values,
         string $entityManagerIdentifier,
@@ -76,8 +73,10 @@ class InjectDoctrineRepositoryTest extends TestCase
     }
 
     /**
-     * @dataProvider getAnnotationValuesWithoutEntityManager
+     * use PHPUnit\Framework\Attributes\DataProvider;
+    #[DataProvider getAnnotationValuesWithoutEntityManager
      */
+    #[DataProvider('getAnnotationValuesWithoutEntityManager')]
     public function testItGetsRepositoryFromPluginManager(array $values, string $repositoryClass): void
     {
         $inject = new InjectDoctrineRepository($values);
