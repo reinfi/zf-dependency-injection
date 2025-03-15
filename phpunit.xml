@@ -6,7 +6,8 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/12.0/phpunit.xsd"
          cacheDirectory=".phpunit.cache"
          backupStaticProperties="false"
-         requireCoverageMetadata="false">
+         requireCoverageMetadata="false"
+         displayDetailsOnTestsThatTriggerDeprecations="true">
   <coverage/>
   <testsuites>
     <testsuite name="unit">

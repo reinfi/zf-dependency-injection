@@ -42,7 +42,7 @@ class CacheWarmupCommandTest extends TestCase
         $output = $this->createMock(OutputInterface::class);
         $output->expects($this->atLeastOnce())
             ->method('writeln')
-            ->with($this->isType('string'));
+            ->with($this->isString());
 
         $command = new CacheWarmupCommand();
         $command->run($input, $output);

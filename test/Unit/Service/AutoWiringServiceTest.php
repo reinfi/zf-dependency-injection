@@ -94,7 +94,7 @@ class AutoWiringServiceTest extends TestCase
 
         $cache->expects($this->once())
             ->method('set')
-            ->with($cacheKey, $this->isType('array'))
+            ->with($cacheKey, $this->isArray())
             ->willReturn(true);
 
         $service = new AutoWiringService($resolver, $cache);
@@ -222,7 +222,7 @@ class AutoWiringServiceTest extends TestCase
 
         $cache->expects($this->once())
             ->method('set')
-            ->with($cacheKey, $this->isType('array'))
+            ->with($cacheKey, $this->isArray())
             ->willReturn(true);
 
         $service = new AutoWiringService($resolver, $cache);
@@ -255,7 +255,7 @@ class AutoWiringServiceTest extends TestCase
 
         $cache->expects($this->once())
             ->method('set')
-            ->with($cacheKey, $this->isType('array'))
+            ->with($cacheKey, $this->isArray())
             ->willReturn(true);
 
         $service = new AutoWiringService($resolver, $cache);

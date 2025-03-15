@@ -48,7 +48,7 @@ class InjectionServiceTest extends TestCase
             ->willReturn(false);
         $cache->expects($this->once())
             ->method('set')
-            ->with($cacheKey, $this->isType('array'))
+            ->with($cacheKey, $this->isArray())
             ->willReturn(true);
 
         $service = new InjectionService($extractor, $cache);
@@ -87,7 +87,7 @@ class InjectionServiceTest extends TestCase
             ->willReturn(false);
         $cache->expects($this->once())
             ->method('set')
-            ->with($cacheKey, $this->isType('array'))
+            ->with($cacheKey, $this->isArray())
             ->willReturn(true);
 
         $service = new InjectionService($extractor, $cache);
@@ -160,7 +160,7 @@ class InjectionServiceTest extends TestCase
             ->willReturn(null);
         $cache->expects($this->once())
             ->method('set')
-            ->with($cacheKey, $this->isType('array'))
+            ->with($cacheKey, $this->isArray())
             ->willReturn(true);
 
         $service = new InjectionService($extractor, $cache);
@@ -192,7 +192,7 @@ class InjectionServiceTest extends TestCase
             ->willReturn(false);
         $cache->expects($this->once())
             ->method('set')
-            ->with($cacheKey, $this->isType('array'))
+            ->with($cacheKey, $this->isArray())
             ->willReturn(true);
 
         $service = new InjectionService($extractor, $cache);
