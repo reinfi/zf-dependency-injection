@@ -69,7 +69,7 @@ class ResolverServiceTest extends TestCase
     }
 
     #[DataProvider('exceptionServiceDataProvider')]
-    public function testItThrowsExceptionIfServiceCannotResolved(string $service): void
+    public function testItThrowsExceptionIfServiceCannotResolved(string $serviceClass): void
     {
         $this->expectException(AutoWiringNotPossibleException::class);
 
@@ -80,13 +80,13 @@ class ResolverServiceTest extends TestCase
 
         $service = new ResolverService([$resolver]);
 
-        $service->resolve($service);
+        $service->resolve($serviceClass);
     }
 
     #[DataProvider('exceptionServiceDataProvider')]
-    public function testItThrowsExceptionIfServiceCannotBeResolved(string $service): void
+    public function testItThrowsExceptionIfServiceCannotBeResolved(string $serviceClass): void
     {
-        $this->expectExceptionMessage($service);
+        $this->expectExceptionMessage($serviceClass);
 
         $resolver = $this->createMock(ResolverInterface::class);
         $resolver->method('resolve')
@@ -95,7 +95,7 @@ class ResolverServiceTest extends TestCase
 
         $service = new ResolverService([$resolver]);
 
-        $service->resolve($service);
+        $service->resolve($serviceClass);
     }
 
     public static function exceptionServiceDataProvider(): array
