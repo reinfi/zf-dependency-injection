@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Service;
 
-use Laminas\Config\Config;
 use Reinfi\DependencyInjection\Exception\ConfigPathNotFoundException;
 
 /**
@@ -13,7 +12,7 @@ use Reinfi\DependencyInjection\Exception\ConfigPathNotFoundException;
 class ConfigService
 {
     public function __construct(
-        private readonly Config $config
+        private readonly array $config
     ) {
     }
 
@@ -39,7 +38,7 @@ class ConfigService
      * @return mixed|null
      * @throws ConfigPathNotFoundException
      */
-    private function resolveConfigPath(Config $config, array $configParts, bool $nullAllowed)
+    private function resolveConfigPath(array $config, array $configParts, bool $nullAllowed)
     {
         $currentKey = array_shift($configParts);
 
@@ -47,7 +46,7 @@ class ConfigService
             throw new ConfigPathNotFoundException('invalid key');
         }
 
-        if (! $config->offsetExists($currentKey)) {
+        if (! array_key_exists($currentKey, $config)) {
             if ($nullAllowed) {
                 return null;
             }
@@ -56,11 +55,16 @@ class ConfigService
         }
 
         if (count($configParts) === 0) {
-            return $config->get($currentKey);
+            return $config[$currentKey];
         }
 
-        $subConfig = $config->get($currentKey);
-        assert($subConfig instanceof Config);
+        $subConfig = $config[$currentKey];
+        if (! is_array($subConfig)) {
+            if ($nullAllowed) {
+                return null;
+            }
+            throw new ConfigPathNotFoundException($currentKey);
+        }
 
         return $this->resolveConfigPath($subConfig, $configParts, $nullAllowed);
     }

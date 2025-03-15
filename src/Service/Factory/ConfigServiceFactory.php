@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Service\Factory;
 
-use Laminas\Config\Config;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\ConfigService;
 
@@ -15,10 +14,8 @@ class ConfigServiceFactory
 {
     public function __invoke(ContainerInterface $container): ConfigService
     {
-        $containerConfig = $container->get('config');
-
-        assert(is_array($containerConfig));
-        $config = new Config($containerConfig);
+        $config = $container->get('config');
+        assert(is_array($config));
 
         return new ConfigService($config);
     }
