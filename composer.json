@@ -51,7 +51,6 @@
         "php-coveralls/php-coveralls": "^2.0",
         "symfony/yaml": "^6.0 | ^7.0",
         "phpstan/phpstan": "^2.0",
-        "phpspec/prophecy-phpunit": "^2.0",
         "laminas/laminas-hydrator": "^4.2",
         "laminas/laminas-validator": "^2.14",
         "laminas/laminas-filter": "^2.11",
