@@ -80,13 +80,54 @@ class InjectHydratorTest extends TestCase
     #[DataProvider('getAnnotationValues')]
     public function testItShouldReturnContainerServiceKey(array $values, string $expectedValue): void
     {
-        // ... existing code ...
+        $inject = new InjectHydrator($values);
+        
+        // Create a mock container to verify the service name through the __invoke method
+        $pluginManager = $this->createMock(AbstractPluginManager::class);
+        $pluginManager->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo($expectedValue))
+            ->willReturn(true);
+
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo('HydratorManager'))
+            ->willReturn($pluginManager);
+
+        $inject($container);
     }
 
     #[DataProvider('getAnnotationValues')]
     public function testItShouldBuildWithValues(array $values): void
     {
-        // ... existing code ...
+        $inject = new InjectHydrator($values);
+        
+        // Create a mock container to verify the values through the __invoke method
+        $pluginManager = $this->createMock(AbstractPluginManager::class);
+        
+        if (isset($values['options'])) {
+            $pluginManager->expects($this->once())
+                ->method('get')
+                ->with(
+                    $this->equalTo($values['value'] ?? $values['name']),
+                    $this->equalTo($values['options'])
+                )
+                ->willReturn(true);
+        } else {
+            $pluginManager->expects($this->once())
+                ->method('get')
+                ->with($this->equalTo($values['value'] ?? $values['name']))
+                ->willReturn(true);
+        }
+
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo('HydratorManager'))
+            ->willReturn($pluginManager);
+
+        $inject($container);
     }
 
     public static function getAnnotationValues(): array
