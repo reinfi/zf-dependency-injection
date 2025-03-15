@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Laminas\ServiceManager\AbstractPluginManager;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Attribute\InjectDoctrineRepository;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
@@ -19,8 +18,6 @@ use Reinfi\DependencyInjection\Test\Service\Service2;
  */
 class InjectDoctrineRepositoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     /**
      * @dataProvider getAttributeValuesWithoutEntityManager
      */
@@ -28,19 +25,23 @@ class InjectDoctrineRepositoryTest extends TestCase
     {
         $inject = new InjectDoctrineRepository(...array_values($values));
 
-        $repository = $this->prophesize($repositoryClass);
+        $repository = $this->createMock($repositoryClass);
 
-        $entityManager = $this->prophesize(EntityManager::class);
-        $entityManager->getRepository($repositoryClass)
-            ->willReturn($repository->reveal());
+        $entityManager = $this->createMock(EntityManager::class);
+        $entityManager->expects($this->once())
+            ->method('getRepository')
+            ->with($repositoryClass)
+            ->willReturn($repository);
 
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->get('Doctrine\ORM\EntityManager')
-            ->willReturn($entityManager->reveal());
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with('Doctrine\ORM\EntityManager')
+            ->willReturn($entityManager);
 
         self::assertInstanceOf(
             $repositoryClass,
-            $inject($container->reveal()),
+            $inject($container),
             'Should be instance of repositoryClass ' . $repositoryClass
         );
     }
@@ -55,19 +56,23 @@ class InjectDoctrineRepositoryTest extends TestCase
     ): void {
         $inject = new InjectDoctrineRepository(...array_values($values));
 
-        $repository = $this->prophesize($repositoryClass);
+        $repository = $this->createMock($repositoryClass);
 
-        $entityManager = $this->prophesize(EntityManager::class);
-        $entityManager->getRepository($repositoryClass)
-            ->willReturn($repository->reveal());
+        $entityManager = $this->createMock(EntityManager::class);
+        $entityManager->expects($this->once())
+            ->method('getRepository')
+            ->with($repositoryClass)
+            ->willReturn($repository);
 
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->get($entityManagerIdentifier)
-            ->willReturn($entityManager->reveal());
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with($entityManagerIdentifier)
+            ->willReturn($entityManager);
 
         self::assertInstanceOf(
             $repositoryClass,
-            $inject($container->reveal()),
+            $inject($container),
             'Should be instance of repositoryClass ' . $repositoryClass
         );
     }
@@ -79,23 +84,28 @@ class InjectDoctrineRepositoryTest extends TestCase
     {
         $inject = new InjectDoctrineRepository(...array_values($values));
 
-        $repository = $this->prophesize($repositoryClass);
+        $repository = $this->createMock($repositoryClass);
 
-        $entityManager = $this->prophesize(EntityManager::class);
-        $entityManager->getRepository($repositoryClass)
-            ->willReturn($repository->reveal());
+        $entityManager = $this->createMock(EntityManager::class);
+        $entityManager->expects($this->once())
+            ->method('getRepository')
+            ->with($repositoryClass)
+            ->willReturn($repository);
 
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->get('Doctrine\ORM\EntityManager')
-            ->willReturn($entityManager->reveal());
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with('Doctrine\ORM\EntityManager')
+            ->willReturn($entityManager);
 
-        $pluginManager = $this->prophesize(AbstractPluginManager::class);
-        $pluginManager->getServiceLocator()
-            ->willReturn($container->reveal());
+        $pluginManager = $this->createMock(AbstractPluginManager::class);
+        $pluginManager->expects($this->once())
+            ->method('getServiceLocator')
+            ->willReturn($container);
 
         self::assertInstanceOf(
             $repositoryClass,
-            $inject($pluginManager->reveal()),
+            $inject($pluginManager),
             'Should be instance of repositoryClass ' . $repositoryClass
         );
     }
@@ -132,11 +142,13 @@ class InjectDoctrineRepositoryTest extends TestCase
 
         $inject = new InjectDoctrineRepository(EntityRepository::class, 'No-EntityManager');
 
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with('No-EntityManager')
+            ->willReturn('1');
 
-        $container->get('No-EntityManager')->willReturn('1');
-
-        $inject($container->reveal());
+        $inject($container);
     }
 
     public function testItThrowsExceptionIfEntityManagerHasNotGetRepositoryMethod(): void
@@ -145,10 +157,13 @@ class InjectDoctrineRepositoryTest extends TestCase
 
         $inject = new InjectDoctrineRepository(EntityRepository::class, 'No-EntityManager');
 
-        $container = $this->prophesize(ContainerInterface::class);
+        $service2 = $this->createMock(Service2::class);
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with('No-EntityManager')
+            ->willReturn($service2);
 
-        $container->get('No-EntityManager')->willReturn($this->prophesize(Service2::class)->reveal());
-
-        $inject($container->reveal());
+        $inject($container);
     }
 }

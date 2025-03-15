@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use ReflectionNamedType;
@@ -19,40 +18,42 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
  */
 class ContainerResolverTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItReturnsInjectionInterface(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->has(Service1::class)
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('has')
+            ->with(Service1::class)
             ->willReturn(true);
 
-        $resolver = new ContainerResolver($container->reveal());
+        $resolver = new ContainerResolver($container);
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn(Service1::class);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn(Service1::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertInstanceOf(InjectionInterface::class, $injection);
     }
 
     public function testItReturnsClassName(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->has(Service1::class)
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('has')
+            ->with(Service1::class)
             ->willReturn(true);
 
-        $resolver = new ContainerResolver($container->reveal());
+        $resolver = new ContainerResolver($container);
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn(Service1::class);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn(Service1::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         $reflCass = new ReflectionClass($injection);
         $property = $reflCass->getProperty('serviceName');
@@ -63,32 +64,34 @@ class ContainerResolverTest extends TestCase
 
     public function testItReturnsNullIfServiceNotFound(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->has(Service1::class)
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('has')
+            ->with(Service1::class)
             ->willReturn(false);
 
-        $resolver = new ContainerResolver($container->reveal());
+        $resolver = new ContainerResolver($container);
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn(Service1::class);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn(Service1::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertNull($injection);
     }
 
     public function testItReturnsNullIfParameterHasNoType(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $resolver = new ContainerResolver($container->reveal());
+        $resolver = new ContainerResolver($container);
 
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn(null);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn(null);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertNull($injection);
     }

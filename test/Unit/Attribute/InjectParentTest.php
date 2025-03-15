@@ -6,7 +6,6 @@ namespace Reinfi\DependencyInjection\Test\Unit\Attribute;
 
 use Laminas\ServiceManager\AbstractPluginManager;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Attribute\InjectParent;
 use Reinfi\DependencyInjection\Service\InjectionService;
@@ -16,32 +15,31 @@ use Reinfi\DependencyInjection\Service\InjectionService;
  */
 class InjectParentTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItCallsContainerWithValue(): void
     {
         $inject = new InjectParent(InjectionService::class);
 
-        $container = $this->prophesize(ContainerInterface::class);
-
-        $container->get(InjectionService::class)
+        $container = $this->createMock(ContainerInterface::class);
+        $container->method('get')
+            ->with(InjectionService::class)
             ->willReturn(true);
 
-        self::assertTrue($inject($container->reveal()), 'Invoke should return true');
+        self::assertTrue($inject($container), 'Invoke should return true');
     }
 
     public function testItCallsParentContainerWhenPluginManager(): void
     {
         $inject = new InjectParent(InjectionService::class);
 
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->get(InjectionService::class)
+        $container = $this->createMock(ContainerInterface::class);
+        $container->method('get')
+            ->with(InjectionService::class)
             ->willReturn(true);
 
-        $pluginManager = $this->prophesize(AbstractPluginManager::class);
-        $pluginManager->getServiceLocator()
-            ->willReturn($container->reveal());
+        $pluginManager = $this->createMock(AbstractPluginManager::class);
+        $pluginManager->method('getServiceLocator')
+            ->willReturn($container);
 
-        self::assertTrue($inject($pluginManager->reveal()), 'Invoke should return true');
+        self::assertTrue($inject($pluginManager), 'Invoke should return true');
     }
 }

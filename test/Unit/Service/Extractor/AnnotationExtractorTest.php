@@ -6,14 +6,10 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
 use ReflectionMethod;
 use ReflectionProperty;
 use Reinfi\DependencyInjection\Annotation\AnnotationInterface;
 use Reinfi\DependencyInjection\Service\Extractor\AnnotationExtractor;
-use Reinfi\DependencyInjection\Test\Service\Service1;
-use Reinfi\DependencyInjection\Test\Service\Service2;
 use Reinfi\DependencyInjection\Test\Service\ServiceAnnotation;
 
 /**
@@ -21,20 +17,17 @@ use Reinfi\DependencyInjection\Test\Service\ServiceAnnotation;
  */
 class AnnotationExtractorTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItResolvesPropertyAnnotations(): void
     {
-        $annotation = $this->prophesize(AnnotationInterface::class);
+        $annotation = $this->createMock(AnnotationInterface::class);
 
-        $reader = $this->prophesize(AnnotationReader::class);
-        $reader->getPropertyAnnotation(
-            Argument::type(ReflectionProperty::class),
-            Argument::exact(AnnotationInterface::class)
-        )->willReturn($annotation->reveal())
-            ->shouldBeCalledTimes(3);
+        $reader = $this->createMock(AnnotationReader::class);
+        $reader->expects($this->exactly(3))
+            ->method('getPropertyAnnotation')
+            ->with($this->isInstanceOf(ReflectionProperty::class), $this->equalTo(AnnotationInterface::class))
+            ->willReturn($annotation);
 
-        $extractor = new AnnotationExtractor($reader->reveal());
+        $extractor = new AnnotationExtractor($reader);
 
         $injections = $extractor->getPropertiesInjections(ServiceAnnotation::class);
 
@@ -44,40 +37,48 @@ class AnnotationExtractorTest extends TestCase
 
     public function testItResolvesConstructorAnnotations(): void
     {
-        $annotation = $this->prophesize(AnnotationInterface::class);
+        $annotation = $this->createMock(AnnotationInterface::class);
 
-        $reader = $this->prophesize(AnnotationReader::class);
-        $reader->getMethodAnnotations(Argument::type(ReflectionMethod::class))->willReturn([$annotation->reveal()])
-            ->shouldBeCalledTimes(1);
+        $reader = $this->createMock(AnnotationReader::class);
+        $reader->expects($this->once())
+            ->method('getMethodAnnotations')
+            ->with($this->isInstanceOf(ReflectionMethod::class))
+            ->willReturn([$annotation, $annotation]);
 
-        $extractor = new AnnotationExtractor($reader->reveal());
+        $extractor = new AnnotationExtractor($reader);
 
         $injections = $extractor->getConstructorInjections(ServiceAnnotation::class);
 
-        self::assertCount(1, $injections);
+        self::assertCount(2, $injections);
         self::assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
     }
 
-    public function testItReturnsEmptyArrayIfNoConstructorIsDefined(): void
+    public function testItReturnsEmptyArrayIfNoPropertyAnnotationsFound(): void
     {
-        $reader = $this->prophesize(AnnotationReader::class);
+        $reader = $this->createMock(AnnotationReader::class);
+        $reader->expects($this->exactly(3))
+            ->method('getPropertyAnnotation')
+            ->with($this->isInstanceOf(ReflectionProperty::class), $this->equalTo(AnnotationInterface::class))
+            ->willReturn(null);
 
-        $extractor = new AnnotationExtractor($reader->reveal());
+        $extractor = new AnnotationExtractor($reader);
 
-        $injections = $extractor->getConstructorInjections(Service2::class);
+        $injections = $extractor->getPropertiesInjections(ServiceAnnotation::class);
 
         self::assertCount(0, $injections);
     }
 
-    public function testItReturnsEmptyArrayIfNoConstructorAnnotationIsDefined(): void
+    public function testItReturnsEmptyArrayIfNoConstructorAnnotationsFound(): void
     {
-        $reader = $this->prophesize(AnnotationReader::class);
-        $reader->getMethodAnnotations(Argument::type(ReflectionMethod::class))->willReturn([])
-            ->shouldBeCalledTimes(1);
+        $reader = $this->createMock(AnnotationReader::class);
+        $reader->expects($this->once())
+            ->method('getMethodAnnotations')
+            ->with($this->isInstanceOf(ReflectionMethod::class))
+            ->willReturn([]);
 
-        $extractor = new AnnotationExtractor($reader->reveal());
+        $extractor = new AnnotationExtractor($reader);
 
-        $injections = $extractor->getConstructorInjections(Service1::class);
+        $injections = $extractor->getConstructorInjections(ServiceAnnotation::class);
 
         self::assertCount(0, $injections);
     }

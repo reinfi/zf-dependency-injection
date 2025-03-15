@@ -6,7 +6,6 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring;
 
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Reinfi\DependencyInjection\Service\AutoWiring\LazyResolverService;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverServiceInterface;
@@ -18,20 +17,21 @@ use Reinfi\DependencyInjection\Service\AutoWiring\ResolverServiceInterface;
  */
 class LazyResolverServiceTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItResolvesResolverServiceLazy(): void
     {
-        $resolverService = $this->prophesize(ResolverServiceInterface::class);
-        $resolverService->resolve('test', null)
+        $resolverService = $this->createMock(ResolverServiceInterface::class);
+        $resolverService->expects($this->once())
+            ->method('resolve')
+            ->with('test', null)
             ->willReturn([]);
 
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->get(ResolverService::class)
-            ->willReturn($resolverService->reveal())
-            ->shouldBeCalled();
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with(ResolverService::class)
+            ->willReturn($resolverService);
 
-        $service = new LazyResolverService($container->reveal());
+        $service = new LazyResolverService($container);
 
         $service->resolve('test');
     }
@@ -42,34 +42,48 @@ class LazyResolverServiceTest extends TestCase
             'foo' => 'bar',
         ];
 
-        $resolverService = $this->prophesize(ResolverServiceInterface::class);
-        $resolverService->resolve('test', $options)
+        $resolverService = $this->createMock(ResolverServiceInterface::class);
+        $resolverService->expects($this->once())
+            ->method('resolve')
+            ->with('test', $options)
             ->willReturn([]);
 
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->get(ResolverService::class)
-            ->willReturn($resolverService->reveal())
-            ->shouldBeCalled();
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with(ResolverService::class)
+            ->willReturn($resolverService);
 
-        $service = new LazyResolverService($container->reveal());
+        $service = new LazyResolverService($container);
 
         $service->resolve('test', $options);
     }
 
     public function testItResolvesResolverServiceOnlyOnce(): void
     {
-        $resolverService = $this->prophesize(ResolverServiceInterface::class);
-        $resolverService->resolve('test', null)
-            ->willReturn([]);
-        $resolverService->resolve('test2', null)
-            ->willReturn([]);
+        $resolverService = $this->createMock(ResolverServiceInterface::class);
+        $resolverService->expects($this->exactly(2))
+            ->method('resolve')
+            ->willReturnCallback(function (string $class, ?array $options) {
+                static $calls = 0;
+                $calls++;
+                if ($calls === 1) {
+                    $this->assertEquals('test', $class);
+                    $this->assertNull($options);
+                } else {
+                    $this->assertEquals('test2', $class);
+                    $this->assertNull($options);
+                }
+                return [];
+            });
 
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->get(ResolverService::class)
-            ->willReturn($resolverService->reveal())
-            ->shouldBeCalledTimes(1);
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with(ResolverService::class)
+            ->willReturn($resolverService);
 
-        $service = new LazyResolverService($container->reveal());
+        $service = new LazyResolverService($container);
 
         $service->resolve('test');
         $service->resolve('test2');

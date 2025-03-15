@@ -6,8 +6,6 @@ namespace Reinfi\DependencyInjection\Test\Integration\Command;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Reinfi\DependencyInjection\Annotation\Inject;
 use Reinfi\DependencyInjection\Annotation\InjectConfig;
 use Reinfi\DependencyInjection\Annotation\InjectConstant;
@@ -22,8 +20,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class CacheWarmupCommandTest extends TestCase
 {
-    use ProphecyTrait;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -43,11 +39,13 @@ class CacheWarmupCommandTest extends TestCase
                 'applicationConfig' => $config,
             ]
         );
-        $output = $this->prophesize(OutputInterface::class);
-        $output->writeln(Argument::type('string'))->shouldBeCalled();
+        $output = $this->createMock(OutputInterface::class);
+        $output->expects($this->atLeastOnce())
+            ->method('writeln')
+            ->with($this->isType('string'));
 
         $command = new CacheWarmupCommand();
-        $command->run($input, $output->reveal());
+        $command->run($input, $output);
     }
 
     public function testItThrowsExceptionIfPathNotValid(): void
@@ -62,9 +60,9 @@ class CacheWarmupCommandTest extends TestCase
                 'applicationConfig' => $config,
             ]
         );
-        $output = $this->prophesize(OutputInterface::class);
+        $output = $this->createMock(OutputInterface::class);
 
         $command = new CacheWarmupCommand();
-        $command->run($input, $output->reveal());
+        $command->run($input, $output);
     }
 }

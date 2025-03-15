@@ -7,7 +7,6 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use ReflectionNamedType;
 use ReflectionParameter;
@@ -20,18 +19,16 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
  */
 class ContainerInterfaceResolverTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItReturnsInjectionInterfaceIfIsInterfaceTypeHint(): void
     {
         $resolver = new ContainerInterfaceResolver();
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn(ContainerInterface::class);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn(ContainerInterface::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertInstanceOf(InjectionInterface::class, $injection);
     }
@@ -40,12 +37,12 @@ class ContainerInterfaceResolverTest extends TestCase
     {
         $resolver = new ContainerInterfaceResolver();
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn(ServiceLocatorInterface::class);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn(ServiceLocatorInterface::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertInstanceOf(InjectionInterface::class, $injection);
     }
@@ -53,12 +50,12 @@ class ContainerInterfaceResolverTest extends TestCase
     public function testItReturnsNullIfIsAbstractPluginManager(): void
     {
         $resolver = new ContainerInterfaceResolver();
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn(AbstractPluginManager::class);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn(AbstractPluginManager::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertNull($injection);
     }
@@ -67,12 +64,12 @@ class ContainerInterfaceResolverTest extends TestCase
     {
         $resolver = new ContainerInterfaceResolver();
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn(Service1::class);
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn(Service1::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertNull($injection);
     }
@@ -81,12 +78,12 @@ class ContainerInterfaceResolverTest extends TestCase
     {
         $resolver = new ContainerInterfaceResolver();
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->getName()->willReturn('ServiceWhichDoesNotExists');
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('getName')->willReturn('ServiceWhichDoesNotExists');
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertNull($injection);
     }
@@ -95,10 +92,10 @@ class ContainerInterfaceResolverTest extends TestCase
     {
         $resolver = new ContainerInterfaceResolver();
 
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn(null);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn(null);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertNull($injection);
     }

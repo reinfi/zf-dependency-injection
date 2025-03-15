@@ -6,7 +6,6 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory;
 
 use Laminas\Config\Config;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
 use Reinfi\DependencyInjection\Service\Extractor\Factory\YamlExtractorFactory;
@@ -17,8 +16,6 @@ use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
  */
 class YamlExtractorFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItReturnsYamlExtractor(): void
     {
         $moduleConfig = new Config([
@@ -27,12 +24,13 @@ class YamlExtractorFactoryTest extends TestCase
             ],
         ]);
 
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->get(ModuleConfig::class)
+        $container = $this->createMock(ContainerInterface::class);
+        $container->method('get')
+            ->with(ModuleConfig::class)
             ->willReturn($moduleConfig);
 
         $factory = new YamlExtractorFactory();
 
-        self::assertInstanceOf(YamlExtractor::class, $factory($container->reveal()));
+        self::assertInstanceOf(YamlExtractor::class, $factory($container));
     }
 }

@@ -8,8 +8,6 @@ use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Factory\InjectionFactory;
 use Reinfi\DependencyInjection\Service\InjectionService;
@@ -22,84 +20,91 @@ use Reinfi\DependencyInjection\Test\Service\Service3;
  */
 class InjectionFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItCreatesServiceWithInjections(): void
     {
-        $service = $this->prophesize(InjectionService::class);
-        $service->resolveConstructorInjection(
-            Argument::type(ContainerInterface::class),
-            Service1::class
-        )->willReturn([new Service2(), new Service3()]);
+        $service = $this->createMock(InjectionService::class);
+        $service->expects($this->once())
+            ->method('resolveConstructorInjection')
+            ->with($this->isInstanceOf(ContainerInterface::class), $this->equalTo(Service1::class))
+            ->willReturn([new Service2(), new Service3()]);
 
-        $container = $this->prophesize(ServiceLocatorInterface::class);
-        $container->get(InjectionService::class)
-            ->willReturn($service->reveal());
+        $container = $this->createMock(ServiceLocatorInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with(InjectionService::class)
+            ->willReturn($service);
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService($container->reveal(), Service1::class, Service1::class);
+        $instance = $factory->createService($container, Service1::class, Service1::class);
 
         self::assertInstanceOf(Service1::class, $instance);
     }
 
     public function testItCreatesServiceFromCanonicalName(): void
     {
-        $service = $this->prophesize(InjectionService::class);
-        $service->resolveConstructorInjection(
-            Argument::type(ContainerInterface::class),
-            Service1::class
-        )->willReturn([new Service2(), new Service3()]);
+        $service = $this->createMock(InjectionService::class);
+        $service->expects($this->once())
+            ->method('resolveConstructorInjection')
+            ->with($this->isInstanceOf(ContainerInterface::class), $this->equalTo(Service1::class))
+            ->willReturn([new Service2(), new Service3()]);
 
-        $container = $this->prophesize(ServiceLocatorInterface::class);
-        $container->get(InjectionService::class)
-            ->willReturn($service->reveal());
+        $container = $this->createMock(ServiceLocatorInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with(InjectionService::class)
+            ->willReturn($service);
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService($container->reveal(), Service1::class);
+        $instance = $factory->createService($container, Service1::class);
 
         self::assertInstanceOf(Service1::class, $instance);
     }
 
     public function testItCreatesServiceFromPluginManager(): void
     {
-        $service = $this->prophesize(InjectionService::class);
-        $service->resolveConstructorInjection(
-            Argument::type(ContainerInterface::class),
-            Service1::class
-        )->willReturn([new Service2(), new Service3()]);
+        $service = $this->createMock(InjectionService::class);
+        $service->expects($this->once())
+            ->method('resolveConstructorInjection')
+            ->with($this->isInstanceOf(ContainerInterface::class), $this->equalTo(Service1::class))
+            ->willReturn([new Service2(), new Service3()]);
 
-        $container = $this->prophesize(ServiceLocatorInterface::class);
-        $container->get(InjectionService::class)
-            ->willReturn($service->reveal());
+        $container = $this->createMock(ServiceLocatorInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with(InjectionService::class)
+            ->willReturn($service);
 
-        $pluginManager = $this->prophesize(AbstractPluginManager::class);
-        $pluginManager->getServiceLocator()
-            ->willReturn($container->reveal());
+        $pluginManager = $this->createMock(AbstractPluginManager::class);
+        $pluginManager->expects($this->once())
+            ->method('getServiceLocator')
+            ->willReturn($container);
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService($pluginManager->reveal(), Service1::class);
+        $instance = $factory->createService($pluginManager, Service1::class);
 
         self::assertInstanceOf(Service1::class, $instance);
     }
 
     public function testItCreatesServiceWithNoInjections(): void
     {
-        $service = $this->prophesize(InjectionService::class);
-        $service->resolveConstructorInjection(
-            Argument::type(ContainerInterface::class),
-            Service2::class
-        )->willReturn(false);
+        $service = $this->createMock(InjectionService::class);
+        $service->expects($this->once())
+            ->method('resolveConstructorInjection')
+            ->with($this->isInstanceOf(ContainerInterface::class), $this->equalTo(Service2::class))
+            ->willReturn(false);
 
-        $container = $this->prophesize(ServiceLocatorInterface::class);
-        $container->get(InjectionService::class)
-            ->willReturn($service->reveal());
+        $container = $this->createMock(ServiceLocatorInterface::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->with(InjectionService::class)
+            ->willReturn($service);
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService($container->reveal(), Service2::class);
+        $instance = $factory->createService($container, Service2::class);
 
         self::assertInstanceOf(Service2::class, $instance);
     }
@@ -108,10 +113,10 @@ class InjectionFactoryTest extends TestCase
     {
         $this->expectException(InvalidServiceException::class);
 
-        $container = $this->prophesize(ServiceLocatorInterface::class);
+        $container = $this->createMock(ServiceLocatorInterface::class);
 
         $factory = new InjectionFactory();
 
-        $factory->createService($container->reveal());
+        $factory->createService($container);
     }
 }

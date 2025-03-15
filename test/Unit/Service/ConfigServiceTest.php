@@ -6,7 +6,6 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service;
 
 use Laminas\Config\Config;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Reinfi\DependencyInjection\Exception\ConfigPathNotFoundException;
 use Reinfi\DependencyInjection\Service\ConfigService;
 
@@ -15,8 +14,6 @@ use Reinfi\DependencyInjection\Service\ConfigService;
  */
 class ConfigServiceTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItResolvesConfigPath(): void
     {
         $config = new Config(require __DIR__ . '/../../resources/config.php');
@@ -43,17 +40,20 @@ class ConfigServiceTest extends TestCase
     {
         $this->expectException(ConfigPathNotFoundException::class);
 
-        $config = $this->prophesize(Config::class);
-        $config->offsetExists('test')
-            ->willReturn(true)
-            ->shouldBeCalled();
-        $config->offsetExists('valueMustExist')
-            ->willReturn(false)
-            ->shouldBeCalled();
-        $config->get('test')
-            ->willReturn($config->reveal());
+        $config = $this->createMock(Config::class);
 
-        $service = new ConfigService($config->reveal());
+        // Configure the mock to return true for first offsetExists call ('test')
+        $config->expects($this->exactly(2))
+            ->method('offsetExists')
+            ->willReturnMap([['test', true], ['valueMustExist', false]]);
+
+        // Configure the mock to return itself for the 'test' key
+        $config->expects($this->once())
+            ->method('get')
+            ->with('test')
+            ->willReturn($config);
+
+        $service = new ConfigService($config);
 
         $service->resolve('test.valueMustExist!');
     }

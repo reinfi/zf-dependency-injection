@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Attribute;
 
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Attribute\InjectContainer;
 
@@ -14,18 +13,12 @@ use Reinfi\DependencyInjection\Attribute\InjectContainer;
  */
 class InjectContainerTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItCallsContainerWithValue(): void
     {
         $inject = new InjectContainer();
 
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        self::assertEquals(
-            $container->reveal(),
-            $inject($container->reveal()),
-            'Invoke should return provided container'
-        );
+        self::assertEquals($container, $inject($container), 'Invoke should return provided container');
     }
 }

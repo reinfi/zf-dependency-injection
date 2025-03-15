@@ -6,7 +6,6 @@ namespace Reinfi\DependencyInjection\Test\Integration\Factory;
 
 use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
 use Reinfi\DependencyInjection\Test\Base\AbstractIntegration;
 use Reinfi\DependencyInjection\Test\Service\PluginService;
@@ -24,8 +23,6 @@ use Reinfi\DependencyInjection\Test\Service\ServiceContainer;
  */
 class AutoWiringFactoryTest extends AbstractIntegration
 {
-    use ProphecyTrait;
-
     public function testItCreatesServiceWithDependencies(): void
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
@@ -93,17 +90,18 @@ class AutoWiringFactoryTest extends AbstractIntegration
     {
         $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
-        $pluginManager = $this->prophesize(AbstractPluginManager::class);
-        $pluginManager->getServiceLocator()
-            ->willReturn($container)
-            ->shouldBeCalled();
-        $pluginManager->has(Service2::class)
-            ->willReturn(false)
-            ->shouldBeCalled();
+        $pluginManager = $this->createMock(AbstractPluginManager::class);
+        $pluginManager->expects($this->atLeastOnce())
+            ->method('getServiceLocator')
+            ->willReturn($container);
+        $pluginManager->expects($this->once())
+            ->method('has')
+            ->with(Service2::class)
+            ->willReturn(false);
 
         $factory = new AutoWiringFactory();
 
-        $instance = $factory->createService($pluginManager->reveal(), PluginService::class, null);
+        $instance = $factory->createService($pluginManager, PluginService::class, null);
 
         self::assertInstanceOf(PluginService::class, $instance);
     }

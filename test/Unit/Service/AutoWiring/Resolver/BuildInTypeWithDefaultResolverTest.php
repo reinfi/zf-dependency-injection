@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use ReflectionNamedType;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
@@ -16,21 +15,21 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\BuildInTypeWithDefaul
  */
 class BuildInTypeWithDefaultResolverTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItReturnsInjectionInterface(): void
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->isBuiltin()->willReturn(true);
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('isBuiltin')->willReturn(true);
 
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
-        $parameter->isDefaultValueAvailable()->willReturn(true);
-        $parameter->getDefaultValue()->willReturn(0)->shouldBeCalled();
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
+        $parameter->method('isDefaultValueAvailable')->willReturn(true);
+        $parameter->expects($this->once())
+            ->method('getDefaultValue')
+            ->willReturn(0);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertInstanceOf(InjectionInterface::class, $injection);
     }
@@ -39,10 +38,10 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn(null);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn(null);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertNull($injection, 'Should be null if parameter has no type');
     }
@@ -51,14 +50,14 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->isBuiltin()->willReturn(false);
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('isBuiltin')->willReturn(false);
 
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->hasType()->willReturn(true);
-        $parameter->getType()->willReturn($type->reveal());
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('hasType')->willReturn(true);
+        $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertNull($injection, 'Should be null if parameter is not a buildin type');
     }
@@ -67,14 +66,14 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
     {
         $resolver = new BuildInTypeWithDefaultResolver();
 
-        $type = $this->prophesize(ReflectionNamedType::class);
-        $type->isBuiltin()->willReturn(true);
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->method('isBuiltin')->willReturn(true);
 
-        $parameter = $this->prophesize(ReflectionParameter::class);
-        $parameter->getType()->willReturn($type->reveal());
-        $parameter->isDefaultValueAvailable()->willReturn(false);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->method('getType')->willReturn($type);
+        $parameter->method('isDefaultValueAvailable')->willReturn(false);
 
-        $injection = $resolver->resolve($parameter->reveal());
+        $injection = $resolver->resolve($parameter);
 
         self::assertNull($injection, 'Should be null if parameter is not a buildin type');
     }

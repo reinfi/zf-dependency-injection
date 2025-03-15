@@ -6,7 +6,6 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory;
 
 use Laminas\Config\Config;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use Reinfi\DependencyInjection\Config\ModuleConfig;
@@ -22,35 +21,36 @@ use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
  */
 class ExtractorFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItReturnsExtractorDefinedInConfig(): void
     {
         $moduleConfig = new Config([
             'extractor' => YamlExtractor::class,
         ]);
 
-        $yamlExtractor = $this->prophesize(YamlExtractor::class);
-        $annotationExtractor = $this->prophesize(AnnotationExtractor::class);
-        $attributeExtractor = $this->prophesize(AttributeExtractor::class);
-        $container = $this->prophesize(ContainerInterface::class);
+        $yamlExtractor = $this->createMock(YamlExtractor::class);
+        $annotationExtractor = $this->createMock(AnnotationExtractor::class);
+        $attributeExtractor = $this->createMock(AttributeExtractor::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $container->get(ModuleConfig::class)
-            ->willReturn($moduleConfig->toArray())
-            ->shouldBeCalled();
-        $container->get(YamlExtractor::class)
-            ->willReturn($yamlExtractor->reveal())
-            ->shouldBeCalled();
-        $container->get(AnnotationExtractor::class)
-            ->willReturn($annotationExtractor->reveal())
-            ->shouldBeCalled();
-        $container->get(AttributeExtractor::class)
-            ->willReturn($attributeExtractor->reveal())
-            ->shouldBeCalled();
+        $container->method('get')
+            ->willReturnCallback(function ($service) use (
+                $moduleConfig,
+                $yamlExtractor,
+                $annotationExtractor,
+                $attributeExtractor
+            ) {
+                return match ($service) {
+                    ModuleConfig::class => $moduleConfig->toArray(),
+                    YamlExtractor::class => $yamlExtractor,
+                    AnnotationExtractor::class => $annotationExtractor,
+                    AttributeExtractor::class => $attributeExtractor,
+                    default => null,
+                };
+            });
 
         $factory = new ExtractorFactory();
 
-        $extractor = $factory($container->reveal());
+        $extractor = $factory($container);
 
         self::assertInstanceOf(ExtractorChain::class, $extractor);
 
@@ -73,27 +73,30 @@ class ExtractorFactoryTest extends TestCase
             'extractor' => [YamlExtractor::class],
         ]);
 
-        $yamlExtractor = $this->prophesize(YamlExtractor::class);
-        $annotationExtractor = $this->prophesize(AnnotationExtractor::class);
-        $attributeExtractor = $this->prophesize(AttributeExtractor::class);
-        $container = $this->prophesize(ContainerInterface::class);
+        $yamlExtractor = $this->createMock(YamlExtractor::class);
+        $annotationExtractor = $this->createMock(AnnotationExtractor::class);
+        $attributeExtractor = $this->createMock(AttributeExtractor::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $container->get(ModuleConfig::class)
-            ->willReturn($moduleConfig->toArray())
-            ->shouldBeCalled();
-        $container->get(YamlExtractor::class)
-            ->willReturn($yamlExtractor->reveal())
-            ->shouldBeCalled();
-        $container->get(AnnotationExtractor::class)
-            ->willReturn($annotationExtractor->reveal())
-            ->shouldBeCalled();
-        $container->get(AttributeExtractor::class)
-            ->willReturn($attributeExtractor->reveal())
-            ->shouldBeCalled();
+        $container->method('get')
+            ->willReturnCallback(function ($service) use (
+                $moduleConfig,
+                $yamlExtractor,
+                $annotationExtractor,
+                $attributeExtractor
+            ) {
+                return match ($service) {
+                    ModuleConfig::class => $moduleConfig->toArray(),
+                    YamlExtractor::class => $yamlExtractor,
+                    AnnotationExtractor::class => $annotationExtractor,
+                    AttributeExtractor::class => $attributeExtractor,
+                    default => null,
+                };
+            });
 
         $factory = new ExtractorFactory();
 
-        $extractor = $factory($container->reveal());
+        $extractor = $factory($container);
 
         self::assertInstanceOf(ExtractorChain::class, $extractor);
 
@@ -114,23 +117,23 @@ class ExtractorFactoryTest extends TestCase
     {
         $moduleConfig = new Config([]);
 
-        $annotationExtractor = $this->prophesize(AnnotationExtractor::class);
-        $attributeExtractor = $this->prophesize(AttributeExtractor::class);
-        $container = $this->prophesize(ContainerInterface::class);
+        $annotationExtractor = $this->createMock(AnnotationExtractor::class);
+        $attributeExtractor = $this->createMock(AttributeExtractor::class);
+        $container = $this->createMock(ContainerInterface::class);
 
-        $container->get(ModuleConfig::class)
-            ->willReturn($moduleConfig->toArray())
-            ->shouldBeCalled();
-        $container->get(AnnotationExtractor::class)
-            ->willReturn($annotationExtractor->reveal())
-            ->shouldBeCalled();
-        $container->get(AttributeExtractor::class)
-            ->willReturn($attributeExtractor->reveal())
-            ->shouldBeCalled();
+        $container->method('get')
+            ->willReturnCallback(function ($service) use ($moduleConfig, $annotationExtractor, $attributeExtractor) {
+                return match ($service) {
+                    ModuleConfig::class => $moduleConfig->toArray(),
+                    AnnotationExtractor::class => $annotationExtractor,
+                    AttributeExtractor::class => $attributeExtractor,
+                    default => null,
+                };
+            });
 
         $factory = new ExtractorFactory();
 
-        $extractor = $factory($container->reveal());
+        $extractor = $factory($container);
 
         self::assertInstanceOf(ExtractorChain::class, $extractor);
 

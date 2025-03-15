@@ -6,8 +6,6 @@ namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring;
 
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 use Reinfi\DependencyInjection\Injection\AutoWiring;
@@ -24,15 +22,14 @@ use Reinfi\DependencyInjection\Test\Service\ServiceNoTypeHint;
  */
 class ResolverServiceTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItResolvesConstructorArguments(): void
     {
-        $resolver = $this->prophesize(ResolverInterface::class);
-        $resolver->resolve(Argument::type(ReflectionParameter::class))
+        $resolver = $this->createMock(ResolverInterface::class);
+        $resolver->method('resolve')
+            ->with($this->isInstanceOf(ReflectionParameter::class))
             ->willReturn(new AutoWiring(Service2::class));
 
-        $service = new ResolverService([$resolver->reveal()]);
+        $service = new ResolverService([$resolver]);
 
         $injections = $service->resolve(Service1::class);
 
@@ -42,26 +39,28 @@ class ResolverServiceTest extends TestCase
 
     public function testItResolvesConstructorArgumentsWithOptionsParameter(): void
     {
-        $resolver = $this->prophesize(ResolverInterface::class);
-        $resolver->resolve(Argument::type(ReflectionParameter::class))
+        $resolver = $this->createMock(ResolverInterface::class);
+        $resolver->method('resolve')
+            ->with($this->isInstanceOf(ReflectionParameter::class))
             ->willReturn(new AutoWiring(Service2::class));
 
-        $service = new ResolverService([$resolver->reveal()]);
+        $service = new ResolverService([$resolver]);
 
+        $container = $this->createMock(ContainerInterface::class);
         $injections = $service->resolve(Service1::class, [
             'foo' => 'bar',
         ]);
 
         self::assertCount(3, $injections);
         self::assertContainsOnlyInstancesOf(InjectionInterface::class, $injections);
-        self::assertSame('bar', $injections[2]($this->prophesize(ContainerInterface::class)->reveal()));
+        self::assertSame('bar', $injections[2]($container));
     }
 
     public function testItReturnsEmptyArrayIfNoConstructorArguments(): void
     {
-        $resolver = $this->prophesize(ResolverInterface::class);
+        $resolver = $this->createMock(ResolverInterface::class);
 
-        $service = new ResolverService([$resolver->reveal()]);
+        $service = new ResolverService([$resolver]);
 
         $injections = $service->resolve(Service2::class);
 
@@ -75,11 +74,12 @@ class ResolverServiceTest extends TestCase
     {
         $this->expectException(AutoWiringNotPossibleException::class);
 
-        $resolver = $this->prophesize(ResolverInterface::class);
-        $resolver->resolve(Argument::type(ReflectionParameter::class))
+        $resolver = $this->createMock(ResolverInterface::class);
+        $resolver->method('resolve')
+            ->with($this->isInstanceOf(ReflectionParameter::class))
             ->willReturn(null);
 
-        $service = new ResolverService([$resolver->reveal()]);
+        $service = new ResolverService([$resolver]);
 
         $service->resolve($serviceName);
     }
@@ -91,11 +91,12 @@ class ResolverServiceTest extends TestCase
     {
         $this->expectExceptionMessage($serviceName);
 
-        $resolver = $this->prophesize(ResolverInterface::class);
-        $resolver->resolve(Argument::type(ReflectionParameter::class))
+        $resolver = $this->createMock(ResolverInterface::class);
+        $resolver->method('resolve')
+            ->with($this->isInstanceOf(ReflectionParameter::class))
             ->willReturn(null);
 
-        $service = new ResolverService([$resolver->reveal()]);
+        $service = new ResolverService([$resolver]);
 
         $service->resolve($serviceName);
     }

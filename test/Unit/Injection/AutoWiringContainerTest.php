@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Injection;
 
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Injection\AutoWiringContainer;
 
@@ -14,14 +13,12 @@ use Reinfi\DependencyInjection\Injection\AutoWiringContainer;
  */
 class AutoWiringContainerTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testItReturnsContainer(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
         $injection = new AutoWiringContainer();
 
-        self::assertInstanceOf(ContainerInterface::class, $injection($container->reveal()));
+        self::assertInstanceOf(ContainerInterface::class, $injection($container));
     }
 }
