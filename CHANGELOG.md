@@ -1,4 +1,6 @@
 ## Changelog
+### v7.1.0
+- added rector set to upgrade from annotations to attributes
 ### v7.0.0
 - minimum required PHP version 8.3, support for PHP 8.4
 - annotations will be deprecated, use attributes instead
