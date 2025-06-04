@@ -11,7 +11,8 @@ Heavily inspired by https://github.com/mikemix/mxdiModule.
 5. [YAML (Deprecated)](#yaml)
 6. [Caching](#caching)
 7. [PHPStan Extension](#phpstan-extension)
-8. [Console commands](#console-commands)
+8. [Rector Sets](#rector-sets)
+9. [Console commands](#console-commands)
 
 ### Installation
 
@@ -266,6 +267,18 @@ $app = \Laminas\Mvc\Application::init($config);
 return $app->getServiceManager();
 ```
 
+### Rector Sets
+If you want to migrate your codebase to use attributes instead of annotations, you can use the provided rector sets.
+
+You can use the following rector set to migrate your codebase:
+```php
+use Rector\Config\RectorConfig;
+use Reinfi\DependencyInjection\Extension\Rector\Set\ReinfiDependencyInjectionSetList;
+
+return static function (RectorConfig $rectorConfig): void {
+  $rectorConfig->sets([ReinfiDependencyInjectionSetList::REINFI_DEPENDENCY_INJECTION_70]);
+};
+```
 
 ### Console commands
 * Warmup script for Laminas: php bin/zf-dependency-injection-cache-warmup
