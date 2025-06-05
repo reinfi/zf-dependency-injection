@@ -17,7 +17,7 @@ use Reinfi\DependencyInjection\Traits\CacheKeyTrait;
 /**
  * @package Reinfi\DependencyInjection\Test\Test\Unit\Service
  */
-class InjectionServiceTest extends TestCase
+final class InjectionServiceTest extends TestCase
 {
     use CacheKeyTrait;
 
@@ -51,11 +51,11 @@ class InjectionServiceTest extends TestCase
             ->with($cacheKey, $this->isArray())
             ->willReturn(true);
 
-        $service = new InjectionService($extractor, $cache);
+        $injectionService = new InjectionService($extractor, $cache);
 
         $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container, Service1::class);
+        $injections = $injectionService->resolveConstructorInjection($container, Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -90,11 +90,11 @@ class InjectionServiceTest extends TestCase
             ->with($cacheKey, $this->isArray())
             ->willReturn(true);
 
-        $service = new InjectionService($extractor, $cache);
+        $injectionService = new InjectionService($extractor, $cache);
 
         $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container, Service1::class);
+        $injections = $injectionService->resolveConstructorInjection($container, Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -120,11 +120,11 @@ class InjectionServiceTest extends TestCase
             ->with($cacheKey)
             ->willReturn([$injection]);
 
-        $service = new InjectionService($extractor, $cache);
+        $injectionService = new InjectionService($extractor, $cache);
 
         $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container, Service1::class);
+        $injections = $injectionService->resolveConstructorInjection($container, Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -163,11 +163,11 @@ class InjectionServiceTest extends TestCase
             ->with($cacheKey, $this->isArray())
             ->willReturn(true);
 
-        $service = new InjectionService($extractor, $cache);
+        $injectionService = new InjectionService($extractor, $cache);
 
         $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container, Service1::class);
+        $injections = $injectionService->resolveConstructorInjection($container, Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -195,11 +195,11 @@ class InjectionServiceTest extends TestCase
             ->with($cacheKey, $this->isArray())
             ->willReturn(true);
 
-        $service = new InjectionService($extractor, $cache);
+        $injectionService = new InjectionService($extractor, $cache);
 
         $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container, Service2::class);
+        $injections = $injectionService->resolveConstructorInjection($container, Service2::class);
 
         self::assertFalse($injections);
     }

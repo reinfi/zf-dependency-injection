@@ -17,7 +17,7 @@ use Reinfi\DependencyInjection\Traits\CacheKeyTrait;
 /**
  * @package Reinfi\DependencyInjection\Test\Test\Unit\Service
  */
-class AutoWiringServiceTest extends TestCase
+final class AutoWiringServiceTest extends TestCase
 {
     use CacheKeyTrait;
 
@@ -55,12 +55,12 @@ class AutoWiringServiceTest extends TestCase
         $cache->expects($this->never())->method('has');
         $cache->expects($this->never())->method('set');
 
-        $service = new AutoWiringService($resolver, $cache);
+        $autoWiringService = new AutoWiringService($resolver, $cache);
 
         // Create container mock
         $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container, Service1::class, $options);
+        $injections = $autoWiringService->resolveConstructorInjection($container, Service1::class, $options);
 
         self::assertCount(2, $injections);
     }
@@ -97,12 +97,12 @@ class AutoWiringServiceTest extends TestCase
             ->with($cacheKey, $this->isArray())
             ->willReturn(true);
 
-        $service = new AutoWiringService($resolver, $cache);
+        $autoWiringService = new AutoWiringService($resolver, $cache);
 
         // Create container mock
         $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container, Service1::class);
+        $injections = $autoWiringService->resolveConstructorInjection($container, Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -133,12 +133,12 @@ class AutoWiringServiceTest extends TestCase
             ->with($cacheKey)
             ->willReturn([$injection]);
 
-        $service = new AutoWiringService($resolver, $cache);
+        $autoWiringService = new AutoWiringService($resolver, $cache);
 
         // Create container mock
         $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container, Service1::class);
+        $injections = $autoWiringService->resolveConstructorInjection($container, Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -178,12 +178,12 @@ class AutoWiringServiceTest extends TestCase
         $cache->expects($this->never())->method('has');
         $cache->expects($this->never())->method('get');
 
-        $service = new AutoWiringService($resolver, $cache);
+        $autoWiringService = new AutoWiringService($resolver, $cache);
 
         // Create container mock
         $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container, Service1::class, $options);
+        $injections = $autoWiringService->resolveConstructorInjection($container, Service1::class, $options);
 
         self::assertCount(2, $injections);
     }
@@ -225,12 +225,12 @@ class AutoWiringServiceTest extends TestCase
             ->with($cacheKey, $this->isArray())
             ->willReturn(true);
 
-        $service = new AutoWiringService($resolver, $cache);
+        $autoWiringService = new AutoWiringService($resolver, $cache);
 
         // Create container mock
         $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container, Service1::class);
+        $injections = $autoWiringService->resolveConstructorInjection($container, Service1::class);
 
         self::assertCount(1, $injections);
     }
@@ -258,12 +258,12 @@ class AutoWiringServiceTest extends TestCase
             ->with($cacheKey, $this->isArray())
             ->willReturn(true);
 
-        $service = new AutoWiringService($resolver, $cache);
+        $autoWiringService = new AutoWiringService($resolver, $cache);
 
         // Create container mock
         $container = $this->createMock(ContainerInterface::class);
 
-        $injections = $service->resolveConstructorInjection($container, Service2::class);
+        $injections = $autoWiringService->resolveConstructorInjection($container, Service2::class);
 
         self::assertNull($injections, 'Return value should be null if service has no injections');
     }

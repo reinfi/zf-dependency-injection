@@ -79,6 +79,7 @@
         "phpstan": "./vendor/bin/phpstan analyse -c phpstan.neon",
         "test": "vendor/bin/phpunit --no-coverage",
         "test-with-coverage": "vendor/bin/phpunit --coverage-clover=build/coverage.xml",
-        "infection": "infection --test-framework-options=\" --exclude-group integration\" --threads=4"
+        "infection": "infection --test-framework-options=\" --exclude-group integration\" --threads=4",
+        "rector": "vendor/bin/rector process --config rector.config.php"
     }
 }

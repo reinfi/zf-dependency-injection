@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Extension\PHPStan\Rules;
 
 use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
@@ -13,27 +14,21 @@ use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 use Reinfi\DependencyInjection\Extension\PHPStan\Resolve\AutoWiringClassesResolver;
 use Reinfi\DependencyInjection\Extension\PHPStan\Resolve\AutoWiringPossibleResolver;
 
-final class AutoWiringPossibleRule implements Rule
+final readonly class AutoWiringPossibleRule implements Rule
 {
-    private AutoWiringClassesResolver $classesResolver;
-
-    private AutoWiringPossibleResolver $possibleResolver;
-
     public function __construct(
-        AutoWiringClassesResolver $classesResolver,
-        AutoWiringPossibleResolver $possibleResolver
+        private AutoWiringClassesResolver $autoWiringClassesResolver,
+        private AutoWiringPossibleResolver $autoWiringPossibleResolver
     ) {
-        $this->classesResolver = $classesResolver;
-        $this->possibleResolver = $possibleResolver;
     }
 
     public function getNodeType(): string
     {
-        return Node\Stmt\Class_::class;
+        return Class_::class;
     }
 
     /**
-     * @param Node\Stmt\Class_ $node
+     * @param Class_ $node
      * @return IdentifierRuleError[]
      */
     public function processNode(Node $node, Scope $scope): array
@@ -42,18 +37,18 @@ final class AutoWiringPossibleRule implements Rule
             return [];
         }
 
-        if (! $this->classesResolver->isAutowired($node->namespacedName->toString())) {
+        if (! $this->autoWiringClassesResolver->isAutowired($node->namespacedName->toString())) {
             return [];
         }
 
         try {
-            $this->possibleResolver->resolve($node->namespacedName->toString());
-        } catch (AutoWiringNotPossibleException $exception) {
+            $this->autoWiringPossibleResolver->resolve($node->namespacedName->toString());
+        } catch (AutoWiringNotPossibleException $autoWiringNotPossibleException) {
             return [
                 RuleErrorBuilder::message(sprintf(
                     'AutoWiring of %s not possible, due to: %s',
                     $node->namespacedName->toString(),
-                    $exception->getMessage()
+                    $autoWiringNotPossibleException->getMessage()
                 ))->identifier('autowiring.notPossible')->build(),
             ];
         }

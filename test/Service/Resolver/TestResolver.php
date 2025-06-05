@@ -13,7 +13,7 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResolverInterface;
  */
 class TestResolver implements ResolverInterface
 {
-    public function resolve(ReflectionParameter $parameter): ?InjectionInterface
+    public function resolve(ReflectionParameter $reflectionParameter): ?InjectionInterface
     {
         return null;
     }

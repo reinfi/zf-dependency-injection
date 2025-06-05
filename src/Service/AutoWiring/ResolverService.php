@@ -33,18 +33,19 @@ class ResolverService implements ResolverServiceInterface
      */
     public function resolve(string $className, ?array $options = null): array
     {
-        $reflClass = new ReflectionClass($className);
+        $reflectionClass = new ReflectionClass($className);
 
-        $constructor = $reflClass->getConstructor();
+        $constructor = $reflectionClass->getConstructor();
 
         if ($constructor === null) {
             return [];
         }
 
         return array_map(
-            function (ReflectionParameter $parameter) use ($options) {
-                return $this->resolveParameter($parameter, $options);
-            },
+            fn (ReflectionParameter $reflectionParameter): InjectionInterface => $this->resolveParameter(
+                $reflectionParameter,
+                $options
+            ),
             $constructor->getParameters()
         );
     }
@@ -52,40 +53,45 @@ class ResolverService implements ResolverServiceInterface
     /**
      * @throws AutoWiringNotPossibleException
      */
-    private function resolveParameter(ReflectionParameter $parameter, ?array $options = null): InjectionInterface
-    {
-        $options = $options ?: [];
+    private function resolveParameter(
+        ReflectionParameter $reflectionParameter,
+        ?array $options = null
+    ): InjectionInterface {
+        $options = $options !== null && $options !== [] ? $options : [];
 
         // Don't try to resolve parameters present in the options array using reflections
-        if (array_key_exists($parameter->getName(), $options)) {
-            return new Value($options[$parameter->getName()]);
+        if (array_key_exists($reflectionParameter->getName(), $options)) {
+            return new Value($options[$reflectionParameter->getName()]);
         }
 
         foreach ($this->resolverStack as $resolver) {
-            $injection = $resolver->resolve($parameter);
+            $injection = $resolver->resolve($reflectionParameter);
 
             if ($injection instanceof InjectionInterface) {
                 return $injection;
             }
         }
 
-        throw $this->handleUnresolvedParameter($parameter);
+        throw $this->handleUnresolvedParameter($reflectionParameter);
     }
 
     /**
      * @throws AutoWiringNotPossibleException
      */
-    private function handleUnresolvedParameter(ReflectionParameter $parameter): Throwable
+    private function handleUnresolvedParameter(ReflectionParameter $reflectionParameter): Throwable
     {
-        $type = $parameter->getType();
+        $type = $reflectionParameter->getType();
         if (! $type instanceof ReflectionNamedType) {
-            return AutoWiringNotPossibleException::fromMissingTypeHint($parameter);
+            return AutoWiringNotPossibleException::fromMissingTypeHint($reflectionParameter);
         }
 
         if ($type->isBuiltin()) {
-            throw AutoWiringNotPossibleException::fromBuildInType($parameter);
+            throw AutoWiringNotPossibleException::fromBuildInType($reflectionParameter);
         }
 
-        return AutoWiringNotPossibleException::fromClassName($type->getName(), $parameter->getDeclaringClass());
+        return AutoWiringNotPossibleException::fromClassName(
+            $type->getName(),
+            $reflectionParameter->getDeclaringClass()
+        );
     }
 }

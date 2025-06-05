@@ -19,17 +19,17 @@ class TranslatorResolver implements ResolverInterface
     /**
      * used to avoid requirement of laminas/laminas-i18n module, deprecated interface name.
      */
-    private const TRANSLATOR_INTERFACE_OLD = 'Laminas\I18n\Translator\TranslatorInterface';
+    private const string TRANSLATOR_INTERFACE_OLD = 'Laminas\I18n\Translator\TranslatorInterface';
 
     /**
      * used to avoid requirement of laminas/laminas-translator module.
      */
-    private const TRANSLATOR_INTERFACE = 'Laminas\Translator\TranslatorInterface';
+    private const string TRANSLATOR_INTERFACE = 'Laminas\Translator\TranslatorInterface';
 
     /**
      * possible names for translator service within container
      */
-    private const TRANSLATOR_CONTAINER_SERVICE_NAME = [
+    private const array TRANSLATOR_CONTAINER_SERVICE_NAME = [
         self::TRANSLATOR_INTERFACE,
         'MvcTranslator',
         self::TRANSLATOR_INTERFACE_OLD,
@@ -41,9 +41,9 @@ class TranslatorResolver implements ResolverInterface
     ) {
     }
 
-    public function resolve(ReflectionParameter $parameter): ?InjectionInterface
+    public function resolve(ReflectionParameter $reflectionParameter): ?InjectionInterface
     {
-        if (! $this->isValid($parameter)) {
+        if (! $this->isValid($reflectionParameter)) {
             return null;
         }
 
@@ -56,9 +56,9 @@ class TranslatorResolver implements ResolverInterface
         return null;
     }
 
-    private function isValid(ReflectionParameter $parameter): bool
+    private function isValid(ReflectionParameter $reflectionParameter): bool
     {
-        $type = $parameter->getType();
+        $type = $reflectionParameter->getType();
         if (! $type instanceof ReflectionNamedType) {
             return false;
         }
@@ -72,11 +72,18 @@ class TranslatorResolver implements ResolverInterface
 
         $reflectionClass = new ReflectionClass($type->getName());
         $interfaceNames = $reflectionClass->getInterfaceNames();
+        if ($reflectionClass->getName() === self::TRANSLATOR_INTERFACE_OLD) {
+            return true;
+        }
 
-        return $reflectionClass->getName() === self::TRANSLATOR_INTERFACE_OLD
-            || in_array(self::TRANSLATOR_INTERFACE_OLD, $interfaceNames, true)
-            || $reflectionClass->getName() === self::TRANSLATOR_INTERFACE
-            || in_array(self::TRANSLATOR_INTERFACE, $interfaceNames, true)
-        ;
+        if (in_array(self::TRANSLATOR_INTERFACE_OLD, $interfaceNames, true)) {
+            return true;
+        }
+
+        if ($reflectionClass->getName() === self::TRANSLATOR_INTERFACE) {
+            return true;
+        }
+
+        return in_array(self::TRANSLATOR_INTERFACE, $interfaceNames, true);
     }
 }

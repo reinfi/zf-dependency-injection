@@ -15,38 +15,38 @@ use ReflectionParameter;
  */
 class AutoWiringNotPossibleException extends Exception
 {
-    public static function fromClassName(string $className, ?ReflectionClass $constructedClass): self
+    public static function fromClassName(string $className, ?ReflectionClass $reflectionClass): self
     {
         return new self(
             sprintf(
                 'Could not resolve class %s to inject into class %s',
                 $className,
-                $constructedClass === null ? '<unknown>' : $constructedClass->getName()
+                $reflectionClass instanceof ReflectionClass ? $reflectionClass->getName() : '<unknown>'
             )
         );
     }
 
-    public static function fromMissingTypeHint(ReflectionParameter $reflParameter): self
+    public static function fromMissingTypeHint(ReflectionParameter $reflectionParameter): self
     {
-        $declaringClass = $reflParameter->getDeclaringClass();
+        $declaringClass = $reflectionParameter->getDeclaringClass();
 
         return new self(
             sprintf(
                 'Could not resolve variable %s as it is missing a typehint to inject into class %s',
-                $reflParameter->getName(),
+                $reflectionParameter->getName(),
                 $declaringClass === null ? '<unknown>' : $declaringClass->getName()
             )
         );
     }
 
-    public static function fromBuildInType(ReflectionParameter $reflParameter): self
+    public static function fromBuildInType(ReflectionParameter $reflectionParameter): self
     {
-        $declaringClass = $reflParameter->getDeclaringClass();
+        $declaringClass = $reflectionParameter->getDeclaringClass();
 
         return new self(
             sprintf(
                 'Could not resolve variable %s as it is of a buildin type to inject into class %s',
-                $reflParameter->getName(),
+                $reflectionParameter->getName(),
                 $declaringClass === null ? '<unknown>' : $declaringClass->getName()
             )
         );

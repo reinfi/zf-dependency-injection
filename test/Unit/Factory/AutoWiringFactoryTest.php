@@ -18,18 +18,14 @@ use Reinfi\DependencyInjection\Test\Service\Service3;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Factory
  */
-class AutoWiringFactoryTest extends TestCase
+final class AutoWiringFactoryTest extends TestCase
 {
     public function testItCreatesServiceWithInjections(): void
     {
         $service = $this->createMock(AutoWiringService::class);
         $service->expects($this->once())
             ->method('resolveConstructorInjection')
-            ->with(
-                $this->isInstanceOf(ContainerInterface::class),
-                $this->equalTo(Service1::class),
-                $this->equalTo(null)
-            )
+            ->with($this->isInstanceOf(ContainerInterface::class), Service1::class, null)
             ->willReturn([new Service2(), new Service3()]);
 
         $container = $this->createMock(ServiceLocatorInterface::class);
@@ -38,9 +34,9 @@ class AutoWiringFactoryTest extends TestCase
             ->with(AutoWiringService::class)
             ->willReturn($service);
 
-        $factory = new AutoWiringFactory();
+        $autoWiringFactory = new AutoWiringFactory();
 
-        $instance = $factory->createService($container, Service1::class, Service1::class);
+        $instance = $autoWiringFactory->createService($container, Service1::class, Service1::class);
 
         self::assertInstanceOf(Service1::class, $instance);
     }
@@ -53,11 +49,7 @@ class AutoWiringFactoryTest extends TestCase
         $service = $this->createMock(AutoWiringService::class);
         $service->expects($this->once())
             ->method('resolveConstructorInjection')
-            ->with(
-                $this->isInstanceOf(ContainerInterface::class),
-                $this->equalTo(Service1::class),
-                $this->equalTo($options)
-            )
+            ->with($this->isInstanceOf(ContainerInterface::class), Service1::class, $options)
             ->willReturn([new Service2(), new Service3()]);
 
         $container = $this->createMock(ServiceLocatorInterface::class);
@@ -66,9 +58,9 @@ class AutoWiringFactoryTest extends TestCase
             ->with(AutoWiringService::class)
             ->willReturn($service);
 
-        $factory = new AutoWiringFactory();
+        $autoWiringFactory = new AutoWiringFactory();
 
-        $instance = $factory($container, Service1::class, $options);
+        $instance = $autoWiringFactory($container, Service1::class, $options);
 
         self::assertInstanceOf(Service1::class, $instance);
     }
@@ -78,11 +70,7 @@ class AutoWiringFactoryTest extends TestCase
         $service = $this->createMock(AutoWiringService::class);
         $service->expects($this->once())
             ->method('resolveConstructorInjection')
-            ->with(
-                $this->isInstanceOf(ContainerInterface::class),
-                $this->equalTo(Service1::class),
-                $this->equalTo(null)
-            )
+            ->with($this->isInstanceOf(ContainerInterface::class), Service1::class, null)
             ->willReturn([new Service2(), new Service3()]);
 
         $container = $this->createMock(ServiceLocatorInterface::class);
@@ -91,9 +79,9 @@ class AutoWiringFactoryTest extends TestCase
             ->with(AutoWiringService::class)
             ->willReturn($service);
 
-        $factory = new AutoWiringFactory();
+        $autoWiringFactory = new AutoWiringFactory();
 
-        $instance = $factory->createService($container, Service1::class);
+        $instance = $autoWiringFactory->createService($container, Service1::class);
 
         self::assertInstanceOf(Service1::class, $instance);
     }
@@ -103,11 +91,7 @@ class AutoWiringFactoryTest extends TestCase
         $service = $this->createMock(AutoWiringService::class);
         $service->expects($this->once())
             ->method('resolveConstructorInjection')
-            ->with(
-                $this->isInstanceOf(ContainerInterface::class),
-                $this->equalTo(Service1::class),
-                $this->equalTo(null)
-            )
+            ->with($this->isInstanceOf(ContainerInterface::class), Service1::class, null)
             ->willReturn([new Service2(), new Service3()]);
 
         $container = $this->createMock(ServiceLocatorInterface::class);
@@ -121,9 +105,9 @@ class AutoWiringFactoryTest extends TestCase
             ->method('getServiceLocator')
             ->willReturn($container);
 
-        $factory = new AutoWiringFactory();
+        $autoWiringFactory = new AutoWiringFactory();
 
-        $instance = $factory->createService($pluginManager, Service1::class);
+        $instance = $autoWiringFactory->createService($pluginManager, Service1::class);
 
         self::assertInstanceOf(Service1::class, $instance);
     }
@@ -133,11 +117,7 @@ class AutoWiringFactoryTest extends TestCase
         $service = $this->createMock(AutoWiringService::class);
         $service->expects($this->once())
             ->method('resolveConstructorInjection')
-            ->with(
-                $this->isInstanceOf(ContainerInterface::class),
-                $this->equalTo(Service2::class),
-                $this->equalTo(null)
-            )
+            ->with($this->isInstanceOf(ContainerInterface::class), Service2::class, null)
             ->willReturn(null);
 
         $container = $this->createMock(ServiceLocatorInterface::class);
@@ -146,9 +126,9 @@ class AutoWiringFactoryTest extends TestCase
             ->with(AutoWiringService::class)
             ->willReturn($service);
 
-        $factory = new AutoWiringFactory();
+        $autoWiringFactory = new AutoWiringFactory();
 
-        $instance = $factory->createService($container, Service2::class);
+        $instance = $autoWiringFactory->createService($container, Service2::class);
 
         self::assertInstanceOf(Service2::class, $instance);
     }
@@ -159,9 +139,9 @@ class AutoWiringFactoryTest extends TestCase
 
         $container = $this->createMock(ServiceLocatorInterface::class);
 
-        $factory = new AutoWiringFactory();
+        $autoWiringFactory = new AutoWiringFactory();
 
-        $factory->createService($container);
+        $autoWiringFactory->createService($container);
     }
 
     public function testItThrowsExceptionIfClassNotFound(): void
@@ -170,8 +150,8 @@ class AutoWiringFactoryTest extends TestCase
 
         $container = $this->createMock(ServiceLocatorInterface::class);
 
-        $factory = new AutoWiringFactory();
+        $autoWiringFactory = new AutoWiringFactory();
 
-        $factory->createService($container, 'No\Existing\ClassName', 'No\Existing\ClassName');
+        $autoWiringFactory->createService($container, 'No\Existing\ClassName', 'No\Existing\ClassName');
     }
 }

@@ -11,14 +11,14 @@ use Reinfi\DependencyInjection\Injection\AutoWiringContainer;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Injection
  */
-class AutoWiringContainerTest extends TestCase
+final class AutoWiringContainerTest extends TestCase
 {
     public function testItReturnsContainer(): void
     {
         $container = $this->createMock(ContainerInterface::class);
 
-        $injection = new AutoWiringContainer();
+        $autoWiringContainer = new AutoWiringContainer();
 
-        self::assertInstanceOf(ContainerInterface::class, $injection($container));
+        self::assertInstanceOf(ContainerInterface::class, $autoWiringContainer($container));
     }
 }

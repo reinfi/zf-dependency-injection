@@ -13,11 +13,11 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\BuildInTypeWithDefaul
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver
  */
-class BuildInTypeWithDefaultResolverTest extends TestCase
+final class BuildInTypeWithDefaultResolverTest extends TestCase
 {
     public function testItReturnsInjectionInterface(): void
     {
-        $resolver = new BuildInTypeWithDefaultResolver();
+        $buildInTypeWithDefaultResolver = new BuildInTypeWithDefaultResolver();
 
         $type = $this->createMock(ReflectionNamedType::class);
         $type->method('isBuiltin')->willReturn(true);
@@ -29,26 +29,26 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
             ->method('getDefaultValue')
             ->willReturn(0);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $buildInTypeWithDefaultResolver->resolve($parameter);
 
         self::assertInstanceOf(InjectionInterface::class, $injection);
     }
 
     public function testItReturnsNullIfNoType(): void
     {
-        $resolver = new BuildInTypeWithDefaultResolver();
+        $buildInTypeWithDefaultResolver = new BuildInTypeWithDefaultResolver();
 
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn(null);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $buildInTypeWithDefaultResolver->resolve($parameter);
 
         self::assertNull($injection, 'Should be null if parameter has no type');
     }
 
     public function testItReturnsNullIfNoBuildInType(): void
     {
-        $resolver = new BuildInTypeWithDefaultResolver();
+        $buildInTypeWithDefaultResolver = new BuildInTypeWithDefaultResolver();
 
         $type = $this->createMock(ReflectionNamedType::class);
         $type->method('isBuiltin')->willReturn(false);
@@ -57,14 +57,14 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
         $parameter->method('hasType')->willReturn(true);
         $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $buildInTypeWithDefaultResolver->resolve($parameter);
 
         self::assertNull($injection, 'Should be null if parameter is not a buildin type');
     }
 
     public function testItReturnsNullIfNoDefaultValueAvailable(): void
     {
-        $resolver = new BuildInTypeWithDefaultResolver();
+        $buildInTypeWithDefaultResolver = new BuildInTypeWithDefaultResolver();
 
         $type = $this->createMock(ReflectionNamedType::class);
         $type->method('isBuiltin')->willReturn(true);
@@ -73,7 +73,7 @@ class BuildInTypeWithDefaultResolverTest extends TestCase
         $parameter->method('getType')->willReturn($type);
         $parameter->method('isDefaultValueAvailable')->willReturn(false);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $buildInTypeWithDefaultResolver->resolve($parameter);
 
         self::assertNull($injection, 'Should be null if parameter is not a buildin type');
     }

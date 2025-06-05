@@ -13,23 +13,23 @@ use Reinfi\DependencyInjection\Service\InjectionService;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Attribute
  */
-class InjectParentTest extends TestCase
+final class InjectParentTest extends TestCase
 {
     public function testItCallsContainerWithValue(): void
     {
-        $inject = new InjectParent(InjectionService::class);
+        $injectParent = new InjectParent(InjectionService::class);
 
         $container = $this->createMock(ContainerInterface::class);
         $container->method('get')
             ->with(InjectionService::class)
             ->willReturn(true);
 
-        self::assertTrue($inject($container), 'Invoke should return true');
+        self::assertTrue($injectParent($container), 'Invoke should return true');
     }
 
     public function testItCallsParentContainerWhenPluginManager(): void
     {
-        $inject = new InjectParent(InjectionService::class);
+        $injectParent = new InjectParent(InjectionService::class);
 
         $container = $this->createMock(ContainerInterface::class);
         $container->method('get')
@@ -40,6 +40,6 @@ class InjectParentTest extends TestCase
         $pluginManager->method('getServiceLocator')
             ->willReturn($container);
 
-        self::assertTrue($inject($pluginManager), 'Invoke should return true');
+        self::assertTrue($injectParent($pluginManager), 'Invoke should return true');
     }
 }

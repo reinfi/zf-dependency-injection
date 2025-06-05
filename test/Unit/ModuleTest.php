@@ -10,7 +10,7 @@ use Reinfi\DependencyInjection\Module;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit
  */
-class ModuleTest extends TestCase
+final class ModuleTest extends TestCase
 {
     public function testItReturnsConfig(): void
     {

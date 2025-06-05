@@ -13,31 +13,31 @@ use Reinfi\DependencyInjection\Service\InjectionService;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Annotation
  */
-class InjectParentTest extends TestCase
+final class InjectParentTest extends TestCase
 {
     public function testItCallsContainerWithValue(): void
     {
-        $inject = new InjectParent();
-        $inject->value = InjectionService::class;
+        $injectParent = new InjectParent();
+        $injectParent->value = InjectionService::class;
 
         $container = $this->createMock(ContainerInterface::class);
         $container->expects($this->once())
             ->method('get')
-            ->with($this->equalTo(InjectionService::class))
+            ->with(InjectionService::class)
             ->willReturn(true);
 
-        self::assertTrue($inject($container), 'Invoke should return true');
+        self::assertTrue($injectParent($container), 'Invoke should return true');
     }
 
     public function testItCallsParentContainerWhenPluginManager(): void
     {
-        $inject = new InjectParent();
-        $inject->value = InjectionService::class;
+        $injectParent = new InjectParent();
+        $injectParent->value = InjectionService::class;
 
         $container = $this->createMock(ContainerInterface::class);
         $container->expects($this->once())
             ->method('get')
-            ->with($this->equalTo(InjectionService::class))
+            ->with(InjectionService::class)
             ->willReturn(true);
 
         $pluginManager = $this->createMock(AbstractPluginManager::class);
@@ -45,6 +45,6 @@ class InjectParentTest extends TestCase
             ->method('getServiceLocator')
             ->willReturn($container);
 
-        self::assertTrue($inject($pluginManager), 'Invoke should return true');
+        self::assertTrue($injectParent($pluginManager), 'Invoke should return true');
     }
 }

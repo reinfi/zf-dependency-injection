@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver;
 
+use Iterator;
 use Laminas\I18n\Translator\Translator;
 use Laminas\I18n\Translator\TranslatorInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -17,7 +18,7 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver
  */
-class TranslatorResolverTest extends TestCase
+final class TranslatorResolverTest extends TestCase
 {
     #[DataProvider('containerHasCallsProvider')]
     public function testItReturnsInjectionInterfaceForTranslatorInterface(array $containerHasCalls): void
@@ -26,18 +27,16 @@ class TranslatorResolverTest extends TestCase
 
         $container->expects($this->exactly(count($containerHasCalls)))
             ->method('has')
-            ->willReturnCallback(function ($serviceName) use ($containerHasCalls) {
-                return $containerHasCalls[$serviceName] ?? false;
-            });
+            ->willReturnCallback(fn ($serviceName) => $containerHasCalls[$serviceName] ?? false);
 
-        $resolver = new TranslatorResolver($container);
+        $translatorResolver = new TranslatorResolver($container);
 
         $type = $this->createMock(ReflectionNamedType::class);
         $type->method('getName')->willReturn(TranslatorInterface::class);
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $translatorResolver->resolve($parameter);
 
         self::assertInstanceOf(AutoWiring::class, $injection);
     }
@@ -49,18 +48,16 @@ class TranslatorResolverTest extends TestCase
 
         $container->expects($this->exactly(count($containerHasCalls)))
             ->method('has')
-            ->willReturnCallback(function ($serviceName) use ($containerHasCalls) {
-                return $containerHasCalls[$serviceName] ?? false;
-            });
+            ->willReturnCallback(fn ($serviceName) => $containerHasCalls[$serviceName] ?? false);
 
-        $resolver = new TranslatorResolver($container);
+        $translatorResolver = new TranslatorResolver($container);
 
         $type = $this->createMock(ReflectionNamedType::class);
         $type->method('getName')->willReturn(Translator::class);
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $translatorResolver->resolve($parameter);
 
         self::assertInstanceOf(AutoWiring::class, $injection);
     }
@@ -78,14 +75,14 @@ class TranslatorResolverTest extends TestCase
                 ['Translator', false],
             ]);
 
-        $resolver = new TranslatorResolver($container);
+        $translatorResolver = new TranslatorResolver($container);
 
         $type = $this->createMock(ReflectionNamedType::class);
         $type->method('getName')->willReturn(Translator::class);
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn($type);
 
-        self::assertNull($resolver->resolve($parameter), 'return value should be null if not found');
+        self::assertNull($translatorResolver->resolve($parameter), 'return value should be null if not found');
     }
 
     public function testItReturnsNullIfReflectionParameterHasNoType(): void
@@ -95,68 +92,69 @@ class TranslatorResolverTest extends TestCase
         $container->expects($this->never())
             ->method('has');
 
-        $resolver = new TranslatorResolver($container);
+        $translatorResolver = new TranslatorResolver($container);
 
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn(null);
 
-        self::assertNull($resolver->resolve($parameter), 'return value should be null parameter has no class');
+        self::assertNull(
+            $translatorResolver->resolve($parameter),
+            'return value should be null parameter has no class'
+        );
     }
 
     public function testItReturnsNullIfNoTranslatorInterface(): void
     {
         $container = $this->createMock(ContainerInterface::class);
 
-        $resolver = new TranslatorResolver($container);
+        $translatorResolver = new TranslatorResolver($container);
 
         $type = $this->createMock(ReflectionNamedType::class);
         $type->method('getName')->willReturn('');
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn($type);
 
-        self::assertNull($resolver->resolve($parameter), 'return value should be null if not found');
+        self::assertNull($translatorResolver->resolve($parameter), 'return value should be null if not found');
     }
 
     public function testItReturnsNullIfParameterHasNoType(): void
     {
         $container = $this->createMock(ContainerInterface::class);
 
-        $resolver = new TranslatorResolver($container);
+        $translatorResolver = new TranslatorResolver($container);
 
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn(null);
 
-        self::assertNull($resolver->resolve($parameter), 'return value should be null if not found');
+        self::assertNull($translatorResolver->resolve($parameter), 'return value should be null if not found');
     }
 
-    public static function containerHasCallsProvider(): array
+    public static function containerHasCallsProvider(): Iterator
     {
-        return [
+        yield [
             [
-                [
-                    'Laminas\Translator\TranslatorInterface' => true,
-                ],
+                'Laminas\Translator\TranslatorInterface' => true,
             ],
+        ];
+        yield [
             [
-                [
-                    'Laminas\Translator\TranslatorInterface' => false,
-                    'MvcTranslator' => true,
-                ],
+                'Laminas\Translator\TranslatorInterface' => false,
+                'MvcTranslator' => true,
             ],
+        ];
+        yield [
             [
-                [
-                    'Laminas\Translator\TranslatorInterface' => false,
-                    'MvcTranslator' => false,
-                    'Laminas\I18n\Translator\TranslatorInterface' => true,
-                ],
+                'Laminas\Translator\TranslatorInterface' => false,
+                'MvcTranslator' => false,
+                'Laminas\I18n\Translator\TranslatorInterface' => true,
             ],
+        ];
+        yield [
             [
-                [
-                    'Laminas\Translator\TranslatorInterface' => false,
-                    'MvcTranslator' => false,
-                    'Laminas\I18n\Translator\TranslatorInterface' => false,
-                    'Translator' => true,
-                ],
+                'Laminas\Translator\TranslatorInterface' => false,
+                'MvcTranslator' => false,
+                'Laminas\I18n\Translator\TranslatorInterface' => false,
+                'Translator' => true,
             ],
         ];
     }

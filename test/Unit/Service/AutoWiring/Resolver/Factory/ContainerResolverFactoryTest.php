@@ -12,14 +12,14 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\ContainerReso
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver\Factory
  */
-class ContainerResolverFactoryTest extends TestCase
+final class ContainerResolverFactoryTest extends TestCase
 {
     public function testItReturnsContainerResolver(): void
     {
         $container = $this->createMock(ContainerInterface::class);
 
-        $factory = new ContainerResolverFactory();
+        $containerResolverFactory = new ContainerResolverFactory();
 
-        self::assertInstanceOf(ContainerResolver::class, $factory($container));
+        self::assertInstanceOf(ContainerResolver::class, $containerResolverFactory($container));
     }
 }

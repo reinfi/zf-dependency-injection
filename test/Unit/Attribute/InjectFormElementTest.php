@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Test\Unit\Attribute;
 
+use Iterator;
 use Laminas\ServiceManager\AbstractPluginManager;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -14,12 +15,12 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Attribute
  */
-class InjectFormElementTest extends TestCase
+final class InjectFormElementTest extends TestCase
 {
     #[DataProvider('getAttributeValues')]
     public function testItCallsPluginManagerWithValue(array $values, string $className): void
     {
-        $inject = new InjectFormElement(...array_values($values));
+        $injectFormElement = new InjectFormElement(...array_values($values));
 
         $pluginManager = $this->createMock(AbstractPluginManager::class);
 
@@ -41,13 +42,13 @@ class InjectFormElementTest extends TestCase
             ->with('FormElementManager')
             ->willReturn($pluginManager);
 
-        self::assertTrue($inject($container), 'Invoke should return true');
+        self::assertTrue($injectFormElement($container), 'Invoke should return true');
     }
 
     #[DataProvider('getAttributeValues')]
     public function testItCallsPluginManagerFromParentServiceLocator(array $values, string $className): void
     {
-        $inject = new InjectFormElement(...array_values($values));
+        $injectFormElement = new InjectFormElement(...array_values($values));
 
         $filterManager = $this->createMock(AbstractPluginManager::class);
 
@@ -74,27 +75,25 @@ class InjectFormElementTest extends TestCase
             ->method('getServiceLocator')
             ->willReturn($container);
 
-        self::assertTrue($inject($pluginManager), 'Invoke should return true');
+        self::assertTrue($injectFormElement($pluginManager), 'Invoke should return true');
     }
 
-    public static function getAttributeValues(): array
+    public static function getAttributeValues(): Iterator
     {
-        return [
+        yield [
             [
-                [
-                    'name' => Service1::class,
-                ],
-                Service1::class,
+                'name' => Service1::class,
             ],
+            Service1::class,
+        ];
+        yield [
             [
-                [
-                    'name' => Service1::class,
-                    'options' => [
-                        'field' => true,
-                    ],
+                'name' => Service1::class,
+                'options' => [
+                    'field' => true,
                 ],
-                Service1::class,
             ],
+            Service1::class,
         ];
     }
 }

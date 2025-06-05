@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Integration\Command;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Annotation\Inject;
 use Reinfi\DependencyInjection\Annotation\InjectConfig;
@@ -15,10 +16,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Integration\Command
- *
- * @group integration
  */
-class CacheWarmupCommandTest extends TestCase
+#[Group('integration')]
+final class CacheWarmupCommandTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -33,7 +33,7 @@ class CacheWarmupCommandTest extends TestCase
     {
         $config = __DIR__ . '/../../resources/application_config.php';
 
-        $input = new ArgvInput(
+        $argvInput = new ArgvInput(
             [
                 'command' => 'reinfi:di:cache',
                 'applicationConfig' => $config,
@@ -44,8 +44,8 @@ class CacheWarmupCommandTest extends TestCase
             ->method('writeln')
             ->with($this->isString());
 
-        $command = new CacheWarmupCommand();
-        $command->run($input, $output);
+        $cacheWarmupCommand = new CacheWarmupCommand();
+        $cacheWarmupCommand->run($argvInput, $output);
     }
 
     public function testItThrowsExceptionIfPathNotValid(): void
@@ -54,7 +54,7 @@ class CacheWarmupCommandTest extends TestCase
 
         $config = __DIR__ . '/../resources/application_config.php';
 
-        $input = new ArgvInput(
+        $argvInput = new ArgvInput(
             [
                 'command' => 'reinfi:di:cache',
                 'applicationConfig' => $config,
@@ -62,7 +62,7 @@ class CacheWarmupCommandTest extends TestCase
         );
         $output = $this->createMock(OutputInterface::class);
 
-        $command = new CacheWarmupCommand();
-        $command->run($input, $output);
+        $cacheWarmupCommand = new CacheWarmupCommand();
+        $cacheWarmupCommand->run($argvInput, $output);
     }
 }

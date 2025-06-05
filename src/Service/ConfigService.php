@@ -24,7 +24,7 @@ class ConfigService
     {
         $nullAllowed = true;
 
-        if (substr($configPath, -1) === '!') {
+        if (str_ends_with($configPath, '!')) {
             $nullAllowed = false;
             $configPath = substr($configPath, 0, -1);
         }
@@ -54,7 +54,7 @@ class ConfigService
             throw new ConfigPathNotFoundException($currentKey);
         }
 
-        if (count($configParts) === 0) {
+        if ($configParts === []) {
             return $config[$currentKey];
         }
 
@@ -63,6 +63,7 @@ class ConfigService
             if ($nullAllowed) {
                 return null;
             }
+
             throw new ConfigPathNotFoundException($currentKey);
         }
 

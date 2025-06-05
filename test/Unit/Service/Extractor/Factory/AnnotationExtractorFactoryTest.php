@@ -12,14 +12,14 @@ use Reinfi\DependencyInjection\Service\Extractor\Factory\AnnotationExtractorFact
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory
  */
-class AnnotationExtractorFactoryTest extends TestCase
+final class AnnotationExtractorFactoryTest extends TestCase
 {
     public function testItReturnsAnnotationExtractor(): void
     {
         $container = $this->createMock(ContainerInterface::class);
 
-        $factory = new AnnotationExtractorFactory();
+        $annotationExtractorFactory = new AnnotationExtractorFactory();
 
-        self::assertInstanceOf(AnnotationExtractor::class, $factory($container));
+        self::assertInstanceOf(AnnotationExtractor::class, $annotationExtractorFactory($container));
     }
 }

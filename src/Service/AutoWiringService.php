@@ -18,7 +18,7 @@ class AutoWiringService
 
     public function __construct(
         private readonly ResolverServiceInterface $resolverService,
-        private readonly CacheService $cache
+        private readonly CacheService $cacheService
     ) {
     }
 
@@ -32,7 +32,7 @@ class AutoWiringService
     ): ?array {
         $injections = $this->getInjections($className, $options);
 
-        if (count($injections) === 0 && $options === null) {
+        if ($injections === [] && $options === null) {
             return null;
         }
 
@@ -50,8 +50,8 @@ class AutoWiringService
     {
         $cacheKey = $this->buildCacheKey($className);
 
-        if ($options === null && $this->cache->has($cacheKey)) {
-            $cachedItem = $this->cache->get($cacheKey);
+        if ($options === null && $this->cacheService->has($cacheKey)) {
+            $cachedItem = $this->cacheService->get($cacheKey);
 
             if (is_array($cachedItem)) {
                 // @phpstan-ignore-next-line
@@ -62,7 +62,7 @@ class AutoWiringService
         $injections = $this->resolverService->resolve($className, $options);
 
         if ($options === null) {
-            $this->cache->set($cacheKey, $injections);
+            $this->cacheService->set($cacheKey, $injections);
         }
 
         return $injections;

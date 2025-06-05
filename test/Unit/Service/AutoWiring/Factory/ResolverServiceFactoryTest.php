@@ -20,17 +20,18 @@ use Reinfi\DependencyInjection\Test\Service\Resolver\TestResolver;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Factory
  */
-class ResolverServiceFactoryTest extends TestCase
+final class ResolverServiceFactoryTest extends TestCase
 {
     public function testItCreatesResolverServiceWithDefaultResolvers(): void
     {
         $container = $this->createMock(ContainerInterface::class);
 
         $container->method('get')
-            ->willReturnCallback(function ($service) {
+            ->willReturnCallback(function (string $service): mixed {
                 if ($service === ModuleConfig::class) {
                     return [];
                 }
+
                 return match ($service) {
                     ContainerResolver::class => $this->createMock(ContainerResolver::class),
                     PluginManagerResolver::class => $this->createMock(PluginManagerResolver::class),
@@ -42,11 +43,11 @@ class ResolverServiceFactoryTest extends TestCase
                 };
             });
 
-        $factory = new ResolverServiceFactory();
+        $resolverServiceFactory = new ResolverServiceFactory();
 
         self::assertInstanceOf(
             ResolverService::class,
-            $factory($container),
+            $resolverServiceFactory($container),
             'factory should return instance of ' . ResolverService::class
         );
     }
@@ -56,12 +57,13 @@ class ResolverServiceFactoryTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
 
         $container->method('get')
-            ->willReturnCallback(function ($service) {
+            ->willReturnCallback(function (string $service): mixed {
                 if ($service === ModuleConfig::class) {
                     return [
                         'autowire_resolver' => [TestResolver::class],
                     ];
                 }
+
                 return match ($service) {
                     ContainerResolver::class => $this->createMock(ContainerResolver::class),
                     PluginManagerResolver::class => $this->createMock(PluginManagerResolver::class),
@@ -74,11 +76,11 @@ class ResolverServiceFactoryTest extends TestCase
                 };
             });
 
-        $factory = new ResolverServiceFactory();
+        $resolverServiceFactory = new ResolverServiceFactory();
 
         self::assertInstanceOf(
             ResolverService::class,
-            $factory($container),
+            $resolverServiceFactory($container),
             'factory should return instance of ' . ResolverService::class
         );
     }

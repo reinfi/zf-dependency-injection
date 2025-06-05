@@ -14,11 +14,11 @@ use Reinfi\DependencyInjection\Service\ConfigService;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Attribute
  */
-class InjectConfigTest extends TestCase
+final class InjectConfigTest extends TestCase
 {
     public function testItCallsConfigServiceFromContainerWithValue(): void
     {
-        $inject = new InjectConfig('reinfi.di.test');
+        $injectConfig = new InjectConfig('reinfi.di.test');
 
         $configService = $this->createMock(ConfigService::class);
         $configService->method('resolve')
@@ -30,12 +30,12 @@ class InjectConfigTest extends TestCase
             ->with(ConfigService::class)
             ->willReturn($configService);
 
-        self::assertTrue($inject($container), 'Invoke should return true');
+        self::assertTrue($injectConfig($container), 'Invoke should return true');
     }
 
     public function testItCallsConfigServiceFromPluginManagerWithValue(): void
     {
-        $inject = new InjectConfig('reinfi.di.test');
+        $injectConfig = new InjectConfig('reinfi.di.test');
 
         $configService = $this->createMock(ConfigService::class);
         $configService->method('resolve')
@@ -51,12 +51,12 @@ class InjectConfigTest extends TestCase
         $pluginManager->method('getServiceLocator')
             ->willReturn($container);
 
-        self::assertTrue($inject($pluginManager), 'Invoke should return true');
+        self::assertTrue($injectConfig($pluginManager), 'Invoke should return true');
     }
 
     public function testItReturnsArrayIfPropertyIsSet(): void
     {
-        $inject = new InjectConfig('reinfi.di.test', true);
+        $injectConfig = new InjectConfig('reinfi.di.test', true);
 
         $config = $this->createMock(Config::class);
         $config->expects($this->once())
@@ -73,6 +73,6 @@ class InjectConfigTest extends TestCase
             ->with(ConfigService::class)
             ->willReturn($configService);
 
-        self::assertEquals([true], $inject($container), 'Invoke should return array containing true');
+        self::assertEquals([true], $injectConfig($container), 'Invoke should return array containing true');
     }
 }

@@ -7,6 +7,7 @@ namespace Reinfi\DependencyInjection\Test\Integration\Factory;
 use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\Stdlib\ArrayUtils;
+use PHPUnit\Framework\Attributes\Group;
 use Reinfi\DependencyInjection\Factory\InjectionFactory;
 use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
 use Reinfi\DependencyInjection\Test\Base\AbstractIntegration;
@@ -18,30 +19,29 @@ use Reinfi\DependencyInjection\Test\Service\ServiceAnnotationConstructor;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Integration\Factory
- *
- * @group integration
  */
-class InjectionFactoryTest extends AbstractIntegration
+#[Group('integration')]
+final class InjectionFactoryTest extends AbstractIntegration
 {
     public function testItCreatesServiceWithDependencies(): void
     {
-        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+        $serviceManager = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService($container, ServiceAnnotation::class, ServiceAnnotation::class);
+        $instance = $factory->createService($serviceManager, ServiceAnnotation::class, ServiceAnnotation::class);
 
         self::assertInstanceOf(ServiceAnnotation::class, $instance);
     }
 
     public function testItCreatesServiceWithDependenciesFromConstructor(): void
     {
-        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+        $serviceManager = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
         $factory = new InjectionFactory();
 
         $instance = $factory->createService(
-            $container,
+            $serviceManager,
             ServiceAnnotationConstructor::class,
             ServiceAnnotationConstructor::class
         );
@@ -51,7 +51,7 @@ class InjectionFactoryTest extends AbstractIntegration
 
     public function testItCreatesServiceWithNoInjectionsDefined(): void
     {
-        $container = $this->getServiceManager([
+        $serviceManager = $this->getServiceManager([
             'service_manager' => [
                 'factories' => [
                     Service3::class => InjectionFactory::class,
@@ -59,32 +59,32 @@ class InjectionFactoryTest extends AbstractIntegration
             ],
         ]);
 
-        $factory = new InjectionFactory();
+        $injectionFactory = new InjectionFactory();
 
-        $instance = $factory->createService($container, Service3::class, Service3::class);
+        $instance = $injectionFactory->createService($serviceManager, Service3::class, Service3::class);
 
         self::assertInstanceOf(Service3::class, $instance);
     }
 
     public function testItCreatesServiceFromCanonicalName(): void
     {
-        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+        $serviceManager = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
         $factory = new InjectionFactory();
 
-        $instance = $factory->createService($container, ServiceAnnotation::class, null);
+        $instance = $factory->createService($serviceManager, ServiceAnnotation::class, null);
 
         self::assertInstanceOf(ServiceAnnotation::class, $instance);
     }
 
     public function testItCreatesServiceFromPluginManager(): void
     {
-        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+        $serviceManager = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
         $pluginManager = $this->createMock(AbstractPluginManager::class);
         $pluginManager->expects($this->atLeastOnce())
             ->method('getServiceLocator')
-            ->willReturn($container);
+            ->willReturn($serviceManager);
 
         $factory = new InjectionFactory();
 
@@ -97,11 +97,11 @@ class InjectionFactoryTest extends AbstractIntegration
     {
         $this->expectException(InvalidServiceException::class);
 
-        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+        $serviceManager = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
         $factory = new InjectionFactory();
 
-        $factory->createService($container, 'NoServiceClass', 'NoServiceClass');
+        $factory->createService($serviceManager, 'NoServiceClass', 'NoServiceClass');
     }
 
     public function testItResolvesYamlInjections(): void

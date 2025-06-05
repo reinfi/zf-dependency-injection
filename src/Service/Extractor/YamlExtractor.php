@@ -6,6 +6,7 @@ namespace Reinfi\DependencyInjection\Service\Extractor;
 
 use InvalidArgumentException;
 use ReflectionClass;
+use ReflectionMethod;
 use Reinfi\DependencyInjection\Exception\InjectionTypeUnknownException;
 use Reinfi\DependencyInjection\Injection\InjectionInterface;
 use RuntimeException;
@@ -35,7 +36,7 @@ class YamlExtractor implements ExtractorInterface
     {
         $config = $this->getConfig($className);
 
-        if (count($config) === 0) {
+        if ($config === []) {
             return [];
         }
 
@@ -84,11 +85,11 @@ class YamlExtractor implements ExtractorInterface
         }
 
         $reflectionClass = new ReflectionClass($injectionClass);
-        if ($reflectionClass->getConstructor() !== null) {
+        if ($reflectionClass->getConstructor() instanceof ReflectionMethod) {
             $injection = $reflectionClass->newInstance($spec);
 
             if (! $injection instanceof InjectionInterface) {
-                throw new InjectionTypeUnknownException('Invalid class of type ' . get_class($injection));
+                throw new InjectionTypeUnknownException('Invalid class of type ' . $injection::class);
             }
 
             return $injection;
@@ -97,7 +98,7 @@ class YamlExtractor implements ExtractorInterface
         $injection = new $injectionClass();
 
         if (! $injection instanceof InjectionInterface) {
-            throw new InjectionTypeUnknownException('Invalid class of type ' . get_class($injection));
+            throw new InjectionTypeUnknownException('Invalid class of type ' . $injection::class);
         }
 
         foreach ($spec as $key => $value) {

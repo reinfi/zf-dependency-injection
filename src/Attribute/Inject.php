@@ -12,10 +12,10 @@ use Reinfi\DependencyInjection\Injection\InjectionInterface;
  * @package Reinfi\DependencyInjection\Attribute
  */
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
-final class Inject implements InjectionInterface
+final readonly class Inject implements InjectionInterface
 {
     public function __construct(
-        public readonly string $value
+        public string $value
     ) {
     }
 

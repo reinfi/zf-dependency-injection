@@ -14,11 +14,11 @@ use Reinfi\DependencyInjection\Service\ConfigService;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Annotation
  */
-class InjectConfigTest extends TestCase
+final class InjectConfigTest extends TestCase
 {
     public function testItCallsConfigServiceFromContainerWithValue(): void
     {
-        $inject = new InjectConfig([
+        $injectConfig = new InjectConfig([
             'value' => 'reinfi.di.test',
         ]);
 
@@ -34,12 +34,12 @@ class InjectConfigTest extends TestCase
             ->with(ConfigService::class)
             ->willReturn($configService);
 
-        self::assertTrue($inject($container), 'Invoke should return true');
+        self::assertTrue($injectConfig($container), 'Invoke should return true');
     }
 
     public function testItCallsConfigServiceFromPluginManagerWithValue(): void
     {
-        $inject = new InjectConfig([
+        $injectConfig = new InjectConfig([
             'value' => 'reinfi.di.test',
         ]);
 
@@ -60,12 +60,12 @@ class InjectConfigTest extends TestCase
             ->method('getServiceLocator')
             ->willReturn($container);
 
-        self::assertTrue($inject($pluginManager), 'Invoke should return true');
+        self::assertTrue($injectConfig($pluginManager), 'Invoke should return true');
     }
 
     public function testItReturnsArrayIfPropertyIsSet(): void
     {
-        $inject = new InjectConfig([
+        $injectConfig = new InjectConfig([
             'value' => 'reinfi.di.test',
             'asArray' => true,
         ]);
@@ -87,6 +87,6 @@ class InjectConfigTest extends TestCase
             ->with(ConfigService::class)
             ->willReturn($configService);
 
-        self::assertEquals([true], $inject($container), 'Invoke should return array containing true');
+        self::assertEquals([true], $injectConfig($container), 'Invoke should return array containing true');
     }
 }

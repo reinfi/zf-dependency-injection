@@ -14,8 +14,8 @@ class AttributeExtractor implements ExtractorInterface
     public function getPropertiesInjections(string $className): array
     {
         $injections = [];
-        $reflection = new ReflectionClass($className);
-        foreach ($reflection->getProperties() as $index => $property) {
+        $reflectionClass = new ReflectionClass($className);
+        foreach ($reflectionClass->getProperties() as $index => $property) {
             $reflectionProperty = new ReflectionProperty($className, $property->getName());
 
             $attributes = $reflectionProperty->getAttributes();
@@ -39,9 +39,9 @@ class AttributeExtractor implements ExtractorInterface
     public function getConstructorInjections(string $className): array
     {
         $injections = [];
-        $reflection = new ReflectionClass($className);
+        $reflectionClass = new ReflectionClass($className);
 
-        $reflectionConstructor = $reflection->getConstructor();
+        $reflectionConstructor = $reflectionClass->getConstructor();
 
         if ($reflectionConstructor === null) {
             return $injections;
@@ -61,14 +61,14 @@ class AttributeExtractor implements ExtractorInterface
         return $injections;
     }
 
-    private function getInjectionFromAttribute(ReflectionAttribute $attribute): ?InjectionInterface
+    private function getInjectionFromAttribute(ReflectionAttribute $reflectionAttribute): ?InjectionInterface
     {
-        $attributeName = $attribute->getName();
+        $attributeName = $reflectionAttribute->getName();
         if (! is_subclass_of($attributeName, InjectionInterface::class)) {
             return null;
         }
 
-        $instance = $attribute->newInstance();
+        $instance = $reflectionAttribute->newInstance();
         if (! $instance instanceof InjectionInterface) {
             return null;
         }

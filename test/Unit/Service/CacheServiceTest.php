@@ -13,7 +13,7 @@ use stdClass;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service
  */
-class CacheServiceTest extends TestCase
+final class CacheServiceTest extends TestCase
 {
     #[DataProvider('getMethodDataProvider')]
     public function testItProxiesCallToUnderlyingCache(
@@ -29,11 +29,11 @@ class CacheServiceTest extends TestCase
             ->with(...$arguments)
             ->willReturn($returnValue);
 
-        $service = new CacheService($cache);
+        $cacheService = new CacheService($cache);
 
-        $result = call_user_func_array([$service, $method], $params);
+        $result = call_user_func_array([$cacheService, $method], $params);
 
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function getMethodDataProvider(): array
@@ -56,6 +56,6 @@ class CacheServiceTest extends TestCase
 
         $cacheService = new CacheService($cache);
 
-        $this->assertNull($cacheService->get('key'));
+        self::assertNull($cacheService->get('key'));
     }
 }

@@ -6,6 +6,7 @@ namespace Reinfi\DependencyInjection\Test\Unit\Attribute;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Iterator;
 use Laminas\ServiceManager\AbstractPluginManager;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -17,20 +18,20 @@ use Reinfi\DependencyInjection\Test\Service\Service2;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Attribute
  */
-class InjectDoctrineRepositoryTest extends TestCase
+final class InjectDoctrineRepositoryTest extends TestCase
 {
     #[DataProvider('getAttributeValuesWithoutEntityManager')]
     public function testItGetsRepositoryWithoutEntityManagerSet(array $values, string $repositoryClass): void
     {
-        $inject = new InjectDoctrineRepository(...array_values($values));
+        $injectDoctrineRepository = new InjectDoctrineRepository(...array_values($values));
 
-        $repository = $this->createMock($repositoryClass);
+        $mockObject = $this->createMock($repositoryClass);
 
         $entityManager = $this->createMock(EntityManager::class);
         $entityManager->expects($this->once())
             ->method('getRepository')
             ->with($repositoryClass)
-            ->willReturn($repository);
+            ->willReturn($mockObject);
 
         $container = $this->createMock(ContainerInterface::class);
         $container->expects($this->once())
@@ -40,7 +41,7 @@ class InjectDoctrineRepositoryTest extends TestCase
 
         self::assertInstanceOf(
             $repositoryClass,
-            $inject($container),
+            $injectDoctrineRepository($container),
             'Should be instance of repositoryClass ' . $repositoryClass
         );
     }
@@ -51,15 +52,15 @@ class InjectDoctrineRepositoryTest extends TestCase
         string $entityManagerIdentifier,
         string $repositoryClass
     ): void {
-        $inject = new InjectDoctrineRepository(...array_values($values));
+        $injectDoctrineRepository = new InjectDoctrineRepository(...array_values($values));
 
-        $repository = $this->createMock($repositoryClass);
+        $mockObject = $this->createMock($repositoryClass);
 
         $entityManager = $this->createMock(EntityManager::class);
         $entityManager->expects($this->once())
             ->method('getRepository')
             ->with($repositoryClass)
-            ->willReturn($repository);
+            ->willReturn($mockObject);
 
         $container = $this->createMock(ContainerInterface::class);
         $container->expects($this->once())
@@ -69,7 +70,7 @@ class InjectDoctrineRepositoryTest extends TestCase
 
         self::assertInstanceOf(
             $repositoryClass,
-            $inject($container),
+            $injectDoctrineRepository($container),
             'Should be instance of repositoryClass ' . $repositoryClass
         );
     }
@@ -77,15 +78,15 @@ class InjectDoctrineRepositoryTest extends TestCase
     #[DataProvider('getAttributeValuesWithoutEntityManager')]
     public function testItGetsRepositoryFromPluginManager(array $values, string $repositoryClass): void
     {
-        $inject = new InjectDoctrineRepository(...array_values($values));
+        $injectDoctrineRepository = new InjectDoctrineRepository(...array_values($values));
 
-        $repository = $this->createMock($repositoryClass);
+        $mockObject = $this->createMock($repositoryClass);
 
         $entityManager = $this->createMock(EntityManager::class);
         $entityManager->expects($this->once())
             ->method('getRepository')
             ->with($repositoryClass)
-            ->willReturn($repository);
+            ->willReturn($mockObject);
 
         $container = $this->createMock(ContainerInterface::class);
         $container->expects($this->once())
@@ -100,34 +101,30 @@ class InjectDoctrineRepositoryTest extends TestCase
 
         self::assertInstanceOf(
             $repositoryClass,
-            $inject($pluginManager),
+            $injectDoctrineRepository($pluginManager),
             'Should be instance of repositoryClass ' . $repositoryClass
         );
     }
 
-    public static function getAttributeValuesWithoutEntityManager(): array
+    public static function getAttributeValuesWithoutEntityManager(): Iterator
     {
-        return [
+        yield [
             [
-                [
-                    'entity' => EntityRepository::class,
-                ],
-                EntityRepository::class,
+                'entity' => EntityRepository::class,
             ],
+            EntityRepository::class,
         ];
     }
 
-    public static function getAttributeValuesWithEntityManager(): array
+    public static function getAttributeValuesWithEntityManager(): Iterator
     {
-        return [
+        yield [
             [
-                [
-                    'entity' => EntityRepository::class,
-                    'entityManager' => 'doctrine.entityManager',
-                ],
-                'doctrine.entityManager',
-                EntityRepository::class,
+                'entity' => EntityRepository::class,
+                'entityManager' => 'doctrine.entityManager',
             ],
+            'doctrine.entityManager',
+            EntityRepository::class,
         ];
     }
 
@@ -135,7 +132,7 @@ class InjectDoctrineRepositoryTest extends TestCase
     {
         $this->expectException(AutoWiringNotPossibleException::class);
 
-        $inject = new InjectDoctrineRepository(EntityRepository::class, 'No-EntityManager');
+        $injectDoctrineRepository = new InjectDoctrineRepository(EntityRepository::class, 'No-EntityManager');
 
         $container = $this->createMock(ContainerInterface::class);
         $container->expects($this->once())
@@ -143,14 +140,14 @@ class InjectDoctrineRepositoryTest extends TestCase
             ->with('No-EntityManager')
             ->willReturn('1');
 
-        $inject($container);
+        $injectDoctrineRepository($container);
     }
 
     public function testItThrowsExceptionIfEntityManagerHasNotGetRepositoryMethod(): void
     {
         $this->expectException(AutoWiringNotPossibleException::class);
 
-        $inject = new InjectDoctrineRepository(EntityRepository::class, 'No-EntityManager');
+        $injectDoctrineRepository = new InjectDoctrineRepository(EntityRepository::class, 'No-EntityManager');
 
         $service2 = $this->createMock(Service2::class);
         $container = $this->createMock(ContainerInterface::class);
@@ -159,6 +156,6 @@ class InjectDoctrineRepositoryTest extends TestCase
             ->with('No-EntityManager')
             ->willReturn($service2);
 
-        $inject($container);
+        $injectDoctrineRepository($container);
     }
 }

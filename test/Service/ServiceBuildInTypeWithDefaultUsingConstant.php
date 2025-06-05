@@ -9,7 +9,7 @@ namespace Reinfi\DependencyInjection\Test\Service;
  */
 class ServiceBuildInTypeWithDefaultUsingConstant
 {
-    private const DEFAULT = 1;
+    private const int DEFAULT = 1;
 
     public function __construct(
         Service1 $service1,

@@ -13,7 +13,7 @@ use Reinfi\DependencyInjection\Service\ConfigService;
  */
 class InjectConfigAbstractFactory implements AbstractFactoryInterface
 {
-    private const MATCH_PATTERN = '/^Config\.(.*)$/';
+    private const string MATCH_PATTERN = '/^Config\.(.*)$/';
 
     private array $matches = [];
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring;
 
 use Interop\Container\ContainerInterface;
+use Iterator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionParameter;
@@ -21,7 +22,7 @@ use Reinfi\DependencyInjection\Test\Service\ServiceNoTypeHint;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring
  */
-class ResolverServiceTest extends TestCase
+final class ResolverServiceTest extends TestCase
 {
     public function testItResolvesConstructorArguments(): void
     {
@@ -30,9 +31,9 @@ class ResolverServiceTest extends TestCase
             ->with($this->isInstanceOf(ReflectionParameter::class))
             ->willReturn(new AutoWiring(Service2::class));
 
-        $service = new ResolverService([$resolver]);
+        $resolverService = new ResolverService([$resolver]);
 
-        $injections = $service->resolve(Service1::class);
+        $injections = $resolverService->resolve(Service1::class);
 
         self::assertCount(3, $injections);
         self::assertContainsOnlyInstancesOf(InjectionInterface::class, $injections);
@@ -45,10 +46,10 @@ class ResolverServiceTest extends TestCase
             ->with($this->isInstanceOf(ReflectionParameter::class))
             ->willReturn(new AutoWiring(Service2::class));
 
-        $service = new ResolverService([$resolver]);
+        $resolverService = new ResolverService([$resolver]);
 
         $container = $this->createMock(ContainerInterface::class);
-        $injections = $service->resolve(Service1::class, [
+        $injections = $resolverService->resolve(Service1::class, [
             'foo' => 'bar',
         ]);
 
@@ -61,9 +62,9 @@ class ResolverServiceTest extends TestCase
     {
         $resolver = $this->createMock(ResolverInterface::class);
 
-        $service = new ResolverService([$resolver]);
+        $resolverService = new ResolverService([$resolver]);
 
-        $injections = $service->resolve(Service2::class);
+        $injections = $resolverService->resolve(Service2::class);
 
         self::assertCount(0, $injections);
     }
@@ -78,9 +79,9 @@ class ResolverServiceTest extends TestCase
             ->with($this->isInstanceOf(ReflectionParameter::class))
             ->willReturn(null);
 
-        $service = new ResolverService([$resolver]);
+        $resolverService = new ResolverService([$resolver]);
 
-        $service->resolve($serviceClass);
+        $resolverService->resolve($serviceClass);
     }
 
     #[DataProvider('exceptionServiceDataProvider')]
@@ -93,13 +94,15 @@ class ResolverServiceTest extends TestCase
             ->with($this->isInstanceOf(ReflectionParameter::class))
             ->willReturn(null);
 
-        $service = new ResolverService([$resolver]);
+        $resolverService = new ResolverService([$resolver]);
 
-        $service->resolve($serviceClass);
+        $resolverService->resolve($serviceClass);
     }
 
-    public static function exceptionServiceDataProvider(): array
+    public static function exceptionServiceDataProvider(): Iterator
     {
-        return [[Service1::class], [ServiceNoTypeHint::class], [ServiceBuildInType::class]];
+        yield [Service1::class];
+        yield [ServiceNoTypeHint::class];
+        yield [ServiceBuildInType::class];
     }
 }

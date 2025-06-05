@@ -6,6 +6,7 @@ namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Iterator;
 use Laminas\ServiceManager\AbstractPluginManager;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -15,30 +16,30 @@ use Reinfi\DependencyInjection\Annotation\InjectDoctrineRepository;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Annotation
  */
-class InjectDoctrineRepositoryTest extends TestCase
+final class InjectDoctrineRepositoryTest extends TestCase
 {
     #[DataProvider('getAnnotationValuesWithoutEntityManager')]
     public function testItGetsRepositoryWithoutEntityManagerSet(array $values, string $repositoryClass): void
     {
-        $inject = new InjectDoctrineRepository($values);
+        $injectDoctrineRepository = new InjectDoctrineRepository($values);
 
-        $repository = $this->createMock($repositoryClass);
+        $mockObject = $this->createMock($repositoryClass);
 
         $entityManager = $this->createMock(EntityManager::class);
         $entityManager->expects($this->once())
             ->method('getRepository')
-            ->with($this->equalTo($repositoryClass))
-            ->willReturn($repository);
+            ->with($repositoryClass)
+            ->willReturn($mockObject);
 
         $container = $this->createMock(ContainerInterface::class);
         $container->expects($this->once())
             ->method('get')
-            ->with($this->equalTo('Doctrine\ORM\EntityManager'))
+            ->with('Doctrine\ORM\EntityManager')
             ->willReturn($entityManager);
 
         self::assertInstanceOf(
             $repositoryClass,
-            $inject($container),
+            $injectDoctrineRepository($container),
             'Should be instance of repositoryClass ' . $repositoryClass
         );
     }
@@ -49,25 +50,25 @@ class InjectDoctrineRepositoryTest extends TestCase
         string $entityManagerIdentifier,
         string $repositoryClass
     ): void {
-        $inject = new InjectDoctrineRepository($values);
+        $injectDoctrineRepository = new InjectDoctrineRepository($values);
 
-        $repository = $this->createMock($repositoryClass);
+        $mockObject = $this->createMock($repositoryClass);
 
         $entityManager = $this->createMock(EntityManager::class);
         $entityManager->expects($this->once())
             ->method('getRepository')
-            ->with($this->equalTo($repositoryClass))
-            ->willReturn($repository);
+            ->with($repositoryClass)
+            ->willReturn($mockObject);
 
         $container = $this->createMock(ContainerInterface::class);
         $container->expects($this->once())
             ->method('get')
-            ->with($this->equalTo($entityManagerIdentifier))
+            ->with($entityManagerIdentifier)
             ->willReturn($entityManager);
 
         self::assertInstanceOf(
             $repositoryClass,
-            $inject($container),
+            $injectDoctrineRepository($container),
             'Should be instance of repositoryClass ' . $repositoryClass
         );
     }
@@ -79,20 +80,20 @@ class InjectDoctrineRepositoryTest extends TestCase
     #[DataProvider('getAnnotationValuesWithoutEntityManager')]
     public function testItGetsRepositoryFromPluginManager(array $values, string $repositoryClass): void
     {
-        $inject = new InjectDoctrineRepository($values);
+        $injectDoctrineRepository = new InjectDoctrineRepository($values);
 
-        $repository = $this->createMock($repositoryClass);
+        $mockObject = $this->createMock($repositoryClass);
 
         $entityManager = $this->createMock(EntityManager::class);
         $entityManager->expects($this->once())
             ->method('getRepository')
-            ->with($this->equalTo($repositoryClass))
-            ->willReturn($repository);
+            ->with($repositoryClass)
+            ->willReturn($mockObject);
 
         $container = $this->createMock(ContainerInterface::class);
         $container->expects($this->once())
             ->method('get')
-            ->with($this->equalTo('Doctrine\ORM\EntityManager'))
+            ->with('Doctrine\ORM\EntityManager')
             ->willReturn($entityManager);
 
         $pluginManager = $this->createMock(AbstractPluginManager::class);
@@ -102,48 +103,44 @@ class InjectDoctrineRepositoryTest extends TestCase
 
         self::assertInstanceOf(
             $repositoryClass,
-            $inject($pluginManager),
+            $injectDoctrineRepository($pluginManager),
             'Should be instance of repositoryClass ' . $repositoryClass
         );
     }
 
-    public static function getAnnotationValuesWithoutEntityManager(): array
+    public static function getAnnotationValuesWithoutEntityManager(): Iterator
     {
-        return [
+        yield [
             [
-                [
-                    'value' => EntityRepository::class,
-                ],
-                EntityRepository::class,
+                'value' => EntityRepository::class,
             ],
+            EntityRepository::class,
+        ];
+        yield [
             [
-                [
-                    'entity' => EntityRepository::class,
-                ],
-                EntityRepository::class,
+                'entity' => EntityRepository::class,
             ],
+            EntityRepository::class,
         ];
     }
 
-    public static function getAnnotationValuesWithEntityManager(): array
+    public static function getAnnotationValuesWithEntityManager(): Iterator
     {
-        return [
+        yield [
             [
-                [
-                    'entity' => EntityRepository::class,
-                    'em' => 'doctrine.entityManager',
-                ],
-                'doctrine.entityManager',
-                EntityRepository::class,
+                'entity' => EntityRepository::class,
+                'em' => 'doctrine.entityManager',
             ],
+            'doctrine.entityManager',
+            EntityRepository::class,
+        ];
+        yield [
             [
-                [
-                    'entity' => EntityRepository::class,
-                    'entityManager' => 'doctrine.entityManager',
-                ],
-                'doctrine.entityManager',
-                EntityRepository::class,
+                'entity' => EntityRepository::class,
+                'entityManager' => 'doctrine.entityManager',
             ],
+            'doctrine.entityManager',
+            EntityRepository::class,
         ];
     }
 }

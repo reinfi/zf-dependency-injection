@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Test\Unit\Annotation;
 
+use Iterator;
 use Laminas\ServiceManager\AbstractPluginManager;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -14,12 +15,12 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Annotation
  */
-class InjectControllerPluginTest extends TestCase
+final class InjectControllerPluginTest extends TestCase
 {
     #[DataProvider('getAnnotationValues')]
     public function testItCallsPluginManagerWithValue(array $values, string $className): void
     {
-        $inject = new InjectControllerPlugin($values);
+        $injectControllerPlugin = new InjectControllerPlugin($values);
 
         $pluginManager = $this->createMock(AbstractPluginManager::class);
 
@@ -41,13 +42,13 @@ class InjectControllerPluginTest extends TestCase
             ->with('ControllerPluginManager')
             ->willReturn($pluginManager);
 
-        self::assertTrue($inject($container), 'Invoke should return true');
+        self::assertTrue($injectControllerPlugin($container), 'Invoke should return true');
     }
 
     #[DataProvider('getAnnotationValues')]
     public function testItCallsPluginManagerFromParentServiceLocator(array $values, string $className): void
     {
-        $inject = new InjectControllerPlugin($values);
+        $injectControllerPlugin = new InjectControllerPlugin($values);
 
         $filterManager = $this->createMock(AbstractPluginManager::class);
 
@@ -74,33 +75,31 @@ class InjectControllerPluginTest extends TestCase
             ->method('getServiceLocator')
             ->willReturn($container);
 
-        self::assertTrue($inject($pluginManager), 'Invoke should return true');
+        self::assertTrue($injectControllerPlugin($pluginManager), 'Invoke should return true');
     }
 
-    public static function getAnnotationValues(): array
+    public static function getAnnotationValues(): Iterator
     {
-        return [
+        yield [
             [
-                [
-                    'value' => Service1::class,
-                ],
-                Service1::class,
+                'value' => Service1::class,
             ],
+            Service1::class,
+        ];
+        yield [
             [
-                [
-                    'name' => Service1::class,
-                    'options' => [
-                        'field' => true,
-                    ],
+                'name' => Service1::class,
+                'options' => [
+                    'field' => true,
                 ],
-                Service1::class,
             ],
+            Service1::class,
+        ];
+        yield [
             [
-                [
-                    'name' => Service1::class,
-                ],
-                Service1::class,
+                'name' => Service1::class,
             ],
+            Service1::class,
         ];
     }
 }

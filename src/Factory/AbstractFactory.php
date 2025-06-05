@@ -36,7 +36,7 @@ abstract class AbstractFactory implements FactoryInterface
         throw new InvalidServiceException(
             sprintf(
                 '%s requires that the requested name is provided on invocation; please update your tests or consuming container',
-                __CLASS__
+                self::class
             )
         );
     }

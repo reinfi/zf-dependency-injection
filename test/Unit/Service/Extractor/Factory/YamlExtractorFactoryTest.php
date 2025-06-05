@@ -14,7 +14,7 @@ use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory
  */
-class YamlExtractorFactoryTest extends TestCase
+final class YamlExtractorFactoryTest extends TestCase
 {
     public function testItReturnsYamlExtractor(): void
     {
@@ -29,8 +29,8 @@ class YamlExtractorFactoryTest extends TestCase
             ->with(ModuleConfig::class)
             ->willReturn($moduleConfig);
 
-        $factory = new YamlExtractorFactory();
+        $yamlExtractorFactory = new YamlExtractorFactory();
 
-        self::assertInstanceOf(YamlExtractor::class, $factory($container));
+        self::assertInstanceOf(YamlExtractor::class, $yamlExtractorFactory($container));
     }
 }

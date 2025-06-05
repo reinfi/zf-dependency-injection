@@ -11,7 +11,7 @@ use Reinfi\DependencyInjection\Service\ConfigService;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service
  */
-class ConfigServiceTest extends TestCase
+final class ConfigServiceTest extends TestCase
 {
     public function testItResolvesConfigPath(): void
     {
@@ -43,8 +43,8 @@ class ConfigServiceTest extends TestCase
             'test' => [],
         ];
 
-        $service = new ConfigService($config);
+        $configService = new ConfigService($config);
 
-        $service->resolve('test.valueMustExist!');
+        $configService->resolve('test.valueMustExist!');
     }
 }

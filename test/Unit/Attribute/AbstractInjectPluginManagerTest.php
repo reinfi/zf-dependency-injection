@@ -11,13 +11,13 @@ use Reinfi\DependencyInjection\Test\Service\NoPluginManagerAttribute;
 use Reinfi\DependencyInjection\Test\Service\Service1;
 use Reinfi\DependencyInjection\Test\Service\Service2;
 
-class AbstractInjectPluginManagerTest extends TestCase
+final class AbstractInjectPluginManagerTest extends TestCase
 {
     public function testItThrowsExceptionIfNotInstanceOfPluginManager(): void
     {
         $this->expectException(InjectionNotPossibleException::class);
 
-        $attribute = new NoPluginManagerAttribute(Service1::class);
+        $noPluginManagerAttribute = new NoPluginManagerAttribute(Service1::class);
 
         $noPluginManagerClass = $this->createMock(Service2::class);
 
@@ -26,6 +26,6 @@ class AbstractInjectPluginManagerTest extends TestCase
             ->with('NOT-A-PLUGIN-MANAGER')
             ->willReturn($noPluginManagerClass);
 
-        $attribute($container);
+        $noPluginManagerAttribute($container);
     }
 }

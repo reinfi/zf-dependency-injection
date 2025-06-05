@@ -7,7 +7,7 @@ namespace Reinfi\DependencyInjection\Test\Unit;
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\ConfigProvider;
 
-class ConfigProviderTest extends TestCase
+final class ConfigProviderTest extends TestCase
 {
     public function testItReturnsDependencies(): void
     {

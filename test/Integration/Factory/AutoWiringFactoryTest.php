@@ -6,6 +6,7 @@ namespace Reinfi\DependencyInjection\Test\Integration\Factory;
 
 use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
+use PHPUnit\Framework\Attributes\Group;
 use Reinfi\DependencyInjection\Factory\AutoWiringFactory;
 use Reinfi\DependencyInjection\Test\Base\AbstractIntegration;
 use Reinfi\DependencyInjection\Test\Service\PluginService;
@@ -18,52 +19,51 @@ use Reinfi\DependencyInjection\Test\Service\ServiceContainer;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Integration\Factory
- *
- * @group integration
  */
-class AutoWiringFactoryTest extends AbstractIntegration
+#[Group('integration')]
+final class AutoWiringFactoryTest extends AbstractIntegration
 {
     public function testItCreatesServiceWithDependencies(): void
     {
-        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+        $serviceManager = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
         $factory = new AutoWiringFactory();
 
-        $instance = $factory->createService($container, Service1::class, Service1::class);
+        $instance = $factory->createService($serviceManager, Service1::class, Service1::class);
 
         self::assertInstanceOf(Service1::class, $instance);
     }
 
     public function testItCreatesServiceWithContainerAsDependency(): void
     {
-        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+        $serviceManager = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
         $factory = new AutoWiringFactory();
 
-        $instance = $factory->createService($container, ServiceContainer::class, ServiceContainer::class);
+        $instance = $factory->createService($serviceManager, ServiceContainer::class, ServiceContainer::class);
 
         self::assertInstanceOf(ServiceContainer::class, $instance);
     }
 
     public function testItCreatesServiceWithNoDependencies(): void
     {
-        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+        $serviceManager = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
         $factory = new AutoWiringFactory();
 
-        $instance = $factory->createService($container, Service3::class, Service3::class);
+        $instance = $factory->createService($serviceManager, Service3::class, Service3::class);
 
         self::assertInstanceOf(Service3::class, $instance);
     }
 
     public function testItCreatesServiceWithBuiltInType(): void
     {
-        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+        $serviceManager = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
         $factory = new AutoWiringFactory();
 
         $instance = $factory->createService(
-            $container,
+            $serviceManager,
             ServiceBuildInTypeWithDefault::class,
             ServiceBuildInTypeWithDefault::class
         );
@@ -73,12 +73,12 @@ class AutoWiringFactoryTest extends AbstractIntegration
 
     public function testItCreatesServiceWithBuiltInTypeUsingConstantAsDefault(): void
     {
-        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+        $serviceManager = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
         $factory = new AutoWiringFactory();
 
         $instance = $factory->createService(
-            $container,
+            $serviceManager,
             ServiceBuildInTypeWithDefaultUsingConstant::class,
             ServiceBuildInTypeWithDefaultUsingConstant::class
         );
@@ -88,12 +88,12 @@ class AutoWiringFactoryTest extends AbstractIntegration
 
     public function testItCreatesServiceFromPluginManager(): void
     {
-        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+        $serviceManager = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
         $pluginManager = $this->createMock(AbstractPluginManager::class);
         $pluginManager->expects($this->atLeastOnce())
             ->method('getServiceLocator')
-            ->willReturn($container);
+            ->willReturn($serviceManager);
         $pluginManager->expects($this->once())
             ->method('has')
             ->with(Service2::class)
@@ -110,10 +110,10 @@ class AutoWiringFactoryTest extends AbstractIntegration
     {
         $this->expectException(InvalidServiceException::class);
 
-        $container = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
+        $serviceManager = $this->getServiceManager(require __DIR__ . '/../../resources/config.php');
 
         $factory = new AutoWiringFactory();
 
-        $factory->createService($container, 'NoServiceClass', 'NoServiceClass');
+        $factory->createService($serviceManager, 'NoServiceClass', 'NoServiceClass');
     }
 }

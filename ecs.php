@@ -6,11 +6,11 @@ use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
-return static function (ECSConfig $configurator): void {
+return static function (ECSConfig $ecsConfig): void {
     // make ECS 16x faster
-    $configurator->parallel();
+    $ecsConfig->parallel();
 
-    $configurator->paths([
+    $ecsConfig->paths([
         __DIR__ . '/config/',
         __DIR__ . '/src/',
         __DIR__ . '/test/',
@@ -18,12 +18,12 @@ return static function (ECSConfig $configurator): void {
 
     // import SetList here in the end of ecs. is on purpose
     // to avoid overridden by existing Skip Option in current config
-    $configurator->import(SetList::PSR_12);
-    $configurator->import(SetList::COMMON);
-    $configurator->import(SetList::NAMESPACES);
-    $configurator->import(SetList::CLEAN_CODE);
+    $ecsConfig->import(SetList::PSR_12);
+    $ecsConfig->import(SetList::COMMON);
+    $ecsConfig->import(SetList::NAMESPACES);
+    $ecsConfig->import(SetList::CLEAN_CODE);
 
-    $configurator->rule(LineLengthFixer::class);
+    $ecsConfig->rule(LineLengthFixer::class);
 
-    $configurator->lineEnding("\n");
+    $ecsConfig->lineEnding("\n");
 };

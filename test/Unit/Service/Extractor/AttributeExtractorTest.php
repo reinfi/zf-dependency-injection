@@ -12,7 +12,7 @@ use Reinfi\DependencyInjection\Test\Service\Service2;
 use Reinfi\DependencyInjection\Test\Service\ServiceAttribute;
 use Reinfi\DependencyInjection\Test\Service\ServiceAttributeConstructor;
 
-class AttributeExtractorTest extends TestCase
+final class AttributeExtractorTest extends TestCase
 {
     public function testItResolvesPropertyAnnotations(): void
     {
@@ -22,9 +22,9 @@ class AttributeExtractorTest extends TestCase
             $this->markTestSkipped('Not a php version of 8.0 or above');
         }
 
-        $extractor = new AttributeExtractor();
+        $attributeExtractor = new AttributeExtractor();
 
-        $injections = $extractor->getPropertiesInjections(ServiceAttribute::class);
+        $injections = $attributeExtractor->getPropertiesInjections(ServiceAttribute::class);
 
         self::assertCount(3, $injections);
         self::assertContainsOnlyInstancesOf(InjectionInterface::class, $injections);
@@ -38,9 +38,9 @@ class AttributeExtractorTest extends TestCase
             $this->markTestSkipped('Not a php version of 8.0 or above');
         }
 
-        $extractor = new AttributeExtractor();
+        $attributeExtractor = new AttributeExtractor();
 
-        $injections = $extractor->getConstructorInjections(ServiceAttributeConstructor::class);
+        $injections = $attributeExtractor->getConstructorInjections(ServiceAttributeConstructor::class);
 
         self::assertCount(1, $injections);
         self::assertContainsOnlyInstancesOf(InjectionInterface::class, $injections);
@@ -48,9 +48,9 @@ class AttributeExtractorTest extends TestCase
 
     public function testItReturnsEmptyArrayIfNoConstructorIsDefined(): void
     {
-        $extractor = new AttributeExtractor();
+        $attributeExtractor = new AttributeExtractor();
 
-        $injections = $extractor->getConstructorInjections(Service2::class);
+        $injections = $attributeExtractor->getConstructorInjections(Service2::class);
 
         self::assertCount(0, $injections);
     }
@@ -63,9 +63,9 @@ class AttributeExtractorTest extends TestCase
             $this->markTestSkipped('Not a php version of 8.0 or above');
         }
 
-        $extractor = new AttributeExtractor();
+        $attributeExtractor = new AttributeExtractor();
 
-        $injections = $extractor->getConstructorInjections(Service1::class);
+        $injections = $attributeExtractor->getConstructorInjections(Service1::class);
 
         self::assertCount(0, $injections);
     }
