@@ -12,7 +12,7 @@ use Reinfi\DependencyInjection\Service\InjectionService;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Annotation
  */
-class InjectTest extends TestCase
+final class InjectTest extends TestCase
 {
     public function testItCallsContainerWithValue(): void
     {
@@ -22,7 +22,7 @@ class InjectTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
         $container->expects($this->once())
             ->method('get')
-            ->with($this->equalTo(InjectionService::class))
+            ->with(InjectionService::class)
             ->willReturn(true);
 
         self::assertTrue($inject($container), 'Invoke should return true');

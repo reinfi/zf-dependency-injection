@@ -24,8 +24,8 @@ class YamlExtractorFactory
         /** @var array $config */
         $config = $container->get(ModuleConfig::class);
 
-        $reflClass = new ReflectionClass(AnnotationInterface::class);
+        $reflectionClass = new ReflectionClass(AnnotationInterface::class);
 
-        return new YamlExtractor($yaml, $config['extractor_options']['file'], $reflClass->getNamespaceName());
+        return new YamlExtractor($yaml, $config['extractor_options']['file'], $reflectionClass->getNamespaceName());
     }
 }

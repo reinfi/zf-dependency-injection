@@ -15,14 +15,10 @@ abstract class AbstractInjectPluginManager extends AbstractAttribute
 {
     public const string PLUGIN_MANAGER = '';
 
-    private string $name;
-
-    private ?array $options;
-
-    public function __construct(string $name, ?array $options = null)
-    {
-        $this->name = $name;
-        $this->options = $options;
+    public function __construct(
+        private readonly string $name,
+        private readonly ?array $options = null
+    ) {
     }
 
     public function __invoke(ContainerInterface $container): mixed

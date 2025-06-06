@@ -23,7 +23,7 @@ final class InjectConfig extends AbstractAnnotation
 
     public function __construct(array $values)
     {
-        $this->asArray = isset($values['asArray']) ? (bool) $values['asArray'] : false;
+        $this->asArray = isset($values['asArray']) && (bool) $values['asArray'];
         $this->configPath = $values['value'];
     }
 

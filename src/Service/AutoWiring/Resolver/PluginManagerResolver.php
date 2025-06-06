@@ -34,9 +34,9 @@ class PluginManagerResolver implements ResolverInterface
     ) {
     }
 
-    public function resolve(ReflectionParameter $parameter): ?InjectionInterface
+    public function resolve(ReflectionParameter $reflectionParameter): ?InjectionInterface
     {
-        $type = $parameter->getType();
+        $type = $reflectionParameter->getType();
         if (! $type instanceof ReflectionNamedType) {
             return null;
         }

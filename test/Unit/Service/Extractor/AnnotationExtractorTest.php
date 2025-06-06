@@ -15,7 +15,7 @@ use Reinfi\DependencyInjection\Test\Service\ServiceAnnotation;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\Extractor
  */
-class AnnotationExtractorTest extends TestCase
+final class AnnotationExtractorTest extends TestCase
 {
     public function testItResolvesPropertyAnnotations(): void
     {
@@ -24,12 +24,12 @@ class AnnotationExtractorTest extends TestCase
         $reader = $this->createMock(AnnotationReader::class);
         $reader->expects($this->exactly(3))
             ->method('getPropertyAnnotation')
-            ->with($this->isInstanceOf(ReflectionProperty::class), $this->equalTo(AnnotationInterface::class))
+            ->with($this->isInstanceOf(ReflectionProperty::class), AnnotationInterface::class)
             ->willReturn($annotation);
 
-        $extractor = new AnnotationExtractor($reader);
+        $annotationExtractor = new AnnotationExtractor($reader);
 
-        $injections = $extractor->getPropertiesInjections(ServiceAnnotation::class);
+        $injections = $annotationExtractor->getPropertiesInjections(ServiceAnnotation::class);
 
         self::assertCount(3, $injections);
         self::assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
@@ -45,9 +45,9 @@ class AnnotationExtractorTest extends TestCase
             ->with($this->isInstanceOf(ReflectionMethod::class))
             ->willReturn([$annotation, $annotation]);
 
-        $extractor = new AnnotationExtractor($reader);
+        $annotationExtractor = new AnnotationExtractor($reader);
 
-        $injections = $extractor->getConstructorInjections(ServiceAnnotation::class);
+        $injections = $annotationExtractor->getConstructorInjections(ServiceAnnotation::class);
 
         self::assertCount(2, $injections);
         self::assertContainsOnlyInstancesOf(AnnotationInterface::class, $injections);
@@ -58,12 +58,12 @@ class AnnotationExtractorTest extends TestCase
         $reader = $this->createMock(AnnotationReader::class);
         $reader->expects($this->exactly(3))
             ->method('getPropertyAnnotation')
-            ->with($this->isInstanceOf(ReflectionProperty::class), $this->equalTo(AnnotationInterface::class))
+            ->with($this->isInstanceOf(ReflectionProperty::class), AnnotationInterface::class)
             ->willReturn(null);
 
-        $extractor = new AnnotationExtractor($reader);
+        $annotationExtractor = new AnnotationExtractor($reader);
 
-        $injections = $extractor->getPropertiesInjections(ServiceAnnotation::class);
+        $injections = $annotationExtractor->getPropertiesInjections(ServiceAnnotation::class);
 
         self::assertCount(0, $injections);
     }
@@ -76,9 +76,9 @@ class AnnotationExtractorTest extends TestCase
             ->with($this->isInstanceOf(ReflectionMethod::class))
             ->willReturn([]);
 
-        $extractor = new AnnotationExtractor($reader);
+        $annotationExtractor = new AnnotationExtractor($reader);
 
-        $injections = $extractor->getConstructorInjections(ServiceAnnotation::class);
+        $injections = $annotationExtractor->getConstructorInjections(ServiceAnnotation::class);
 
         self::assertCount(0, $injections);
     }

@@ -13,11 +13,11 @@ use Reinfi\DependencyInjection\Config\ModuleConfig;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Config\Factory
  */
-class ModuleConfigFactoryTest extends TestCase
+final class ModuleConfigFactoryTest extends TestCase
 {
     public function testItReturnsModuleConfig(): void
     {
-        $factory = new ModuleConfigFactory();
+        $moduleConfigFactory = new ModuleConfigFactory();
 
         $container = $this->createMock(ContainerInterface::class);
         $container->expects($this->once())
@@ -27,12 +27,12 @@ class ModuleConfigFactoryTest extends TestCase
                 ModuleConfig::CONFIG_KEY => [],
             ]);
 
-        self::assertIsArray($factory($container), 'Factory should return array');
+        self::assertIsArray($moduleConfigFactory($container), 'Factory should return array');
     }
 
     public function testItReturnsModuleConfigData(): void
     {
-        $factory = new ModuleConfigFactory();
+        $moduleConfigFactory = new ModuleConfigFactory();
 
         $container = $this->createMock(ContainerInterface::class);
         $container->expects($this->once())
@@ -44,14 +44,14 @@ class ModuleConfigFactoryTest extends TestCase
                 ],
             ]);
 
-        $config = $factory($container);
+        $config = $moduleConfigFactory($container);
 
         self::assertArrayHasKey('extractor', $config, 'Config should contain extractor key');
     }
 
     public function testItReturnsEmptyConfig(): void
     {
-        $factory = new ModuleConfigFactory();
+        $moduleConfigFactory = new ModuleConfigFactory();
 
         $container = $this->createMock(ContainerInterface::class);
         $container->expects($this->once())
@@ -59,7 +59,7 @@ class ModuleConfigFactoryTest extends TestCase
             ->with('config')
             ->willReturn([]);
 
-        $config = $factory($container);
+        $config = $moduleConfigFactory($container);
 
         self::assertCount(0, $config, 'Config should be empty');
     }
@@ -68,7 +68,7 @@ class ModuleConfigFactoryTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $factory = new ModuleConfigFactory();
+        $moduleConfigFactory = new ModuleConfigFactory();
 
         $container = $this->createMock(ContainerInterface::class);
         $container->expects($this->once())
@@ -78,6 +78,6 @@ class ModuleConfigFactoryTest extends TestCase
                 ModuleConfig::CONFIG_KEY => true,
             ]);
 
-        $factory($container);
+        $moduleConfigFactory($container);
     }
 }

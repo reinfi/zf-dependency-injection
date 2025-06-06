@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-return (static function (): Psr\Container\ContainerInterface {
-    return Laminas\Mvc\Application::init(require __DIR__ . '/application_config.php')
-        ->getServiceManager();
-})();
+use Laminas\Mvc\Application;
+use Psr\Container\ContainerInterface;
+
+return (static fn (): ContainerInterface => Application::init(require __DIR__ . '/application_config.php')
+    ->getServiceManager())();

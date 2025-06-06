@@ -18,14 +18,14 @@ use Reinfi\DependencyInjection\Test\Service\Service3;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Factory
  */
-class InjectionFactoryTest extends TestCase
+final class InjectionFactoryTest extends TestCase
 {
     public function testItCreatesServiceWithInjections(): void
     {
         $service = $this->createMock(InjectionService::class);
         $service->expects($this->once())
             ->method('resolveConstructorInjection')
-            ->with($this->isInstanceOf(ContainerInterface::class), $this->equalTo(Service1::class))
+            ->with($this->isInstanceOf(ContainerInterface::class), Service1::class)
             ->willReturn([new Service2(), new Service3()]);
 
         $container = $this->createMock(ServiceLocatorInterface::class);
@@ -34,9 +34,9 @@ class InjectionFactoryTest extends TestCase
             ->with(InjectionService::class)
             ->willReturn($service);
 
-        $factory = new InjectionFactory();
+        $injectionFactory = new InjectionFactory();
 
-        $instance = $factory->createService($container, Service1::class, Service1::class);
+        $instance = $injectionFactory->createService($container, Service1::class, Service1::class);
 
         self::assertInstanceOf(Service1::class, $instance);
     }
@@ -46,7 +46,7 @@ class InjectionFactoryTest extends TestCase
         $service = $this->createMock(InjectionService::class);
         $service->expects($this->once())
             ->method('resolveConstructorInjection')
-            ->with($this->isInstanceOf(ContainerInterface::class), $this->equalTo(Service1::class))
+            ->with($this->isInstanceOf(ContainerInterface::class), Service1::class)
             ->willReturn([new Service2(), new Service3()]);
 
         $container = $this->createMock(ServiceLocatorInterface::class);
@@ -55,9 +55,9 @@ class InjectionFactoryTest extends TestCase
             ->with(InjectionService::class)
             ->willReturn($service);
 
-        $factory = new InjectionFactory();
+        $injectionFactory = new InjectionFactory();
 
-        $instance = $factory->createService($container, Service1::class);
+        $instance = $injectionFactory->createService($container, Service1::class);
 
         self::assertInstanceOf(Service1::class, $instance);
     }
@@ -67,7 +67,7 @@ class InjectionFactoryTest extends TestCase
         $service = $this->createMock(InjectionService::class);
         $service->expects($this->once())
             ->method('resolveConstructorInjection')
-            ->with($this->isInstanceOf(ContainerInterface::class), $this->equalTo(Service1::class))
+            ->with($this->isInstanceOf(ContainerInterface::class), Service1::class)
             ->willReturn([new Service2(), new Service3()]);
 
         $container = $this->createMock(ServiceLocatorInterface::class);
@@ -81,9 +81,9 @@ class InjectionFactoryTest extends TestCase
             ->method('getServiceLocator')
             ->willReturn($container);
 
-        $factory = new InjectionFactory();
+        $injectionFactory = new InjectionFactory();
 
-        $instance = $factory->createService($pluginManager, Service1::class);
+        $instance = $injectionFactory->createService($pluginManager, Service1::class);
 
         self::assertInstanceOf(Service1::class, $instance);
     }
@@ -93,7 +93,7 @@ class InjectionFactoryTest extends TestCase
         $service = $this->createMock(InjectionService::class);
         $service->expects($this->once())
             ->method('resolveConstructorInjection')
-            ->with($this->isInstanceOf(ContainerInterface::class), $this->equalTo(Service2::class))
+            ->with($this->isInstanceOf(ContainerInterface::class), Service2::class)
             ->willReturn(false);
 
         $container = $this->createMock(ServiceLocatorInterface::class);
@@ -102,9 +102,9 @@ class InjectionFactoryTest extends TestCase
             ->with(InjectionService::class)
             ->willReturn($service);
 
-        $factory = new InjectionFactory();
+        $injectionFactory = new InjectionFactory();
 
-        $instance = $factory->createService($container, Service2::class);
+        $instance = $injectionFactory->createService($container, Service2::class);
 
         self::assertInstanceOf(Service2::class, $instance);
     }
@@ -115,8 +115,8 @@ class InjectionFactoryTest extends TestCase
 
         $container = $this->createMock(ServiceLocatorInterface::class);
 
-        $factory = new InjectionFactory();
+        $injectionFactory = new InjectionFactory();
 
-        $factory->createService($container);
+        $injectionFactory->createService($container);
     }
 }

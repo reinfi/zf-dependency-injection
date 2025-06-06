@@ -12,7 +12,7 @@ use Reinfi\DependencyInjection\Service\InjectionService;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Attribute
  */
-class InjectTest extends TestCase
+final class InjectTest extends TestCase
 {
     public function testItCallsContainerWithValue(): void
     {

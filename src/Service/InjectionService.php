@@ -18,7 +18,7 @@ class InjectionService
 
     public function __construct(
         private readonly ExtractorInterface $extractor,
-        private readonly CacheService $cache
+        private readonly CacheService $cacheService
     ) {
     }
 
@@ -31,7 +31,7 @@ class InjectionService
     {
         $injections = $this->getInjections($className);
 
-        if (count($injections) === 0) {
+        if ($injections === []) {
             return false;
         }
 
@@ -51,8 +51,8 @@ class InjectionService
     {
         $cacheKey = $this->buildCacheKey($className);
 
-        if ($this->cache->has($cacheKey)) {
-            $cachedItem = $this->cache->get($cacheKey);
+        if ($this->cacheService->has($cacheKey)) {
+            $cachedItem = $this->cacheService->get($cacheKey);
 
             if (is_array($cachedItem)) {
                 // @phpstan-ignore-next-line
@@ -64,7 +64,7 @@ class InjectionService
             $this->extractor->getPropertiesInjections($className),
             $this->extractor->getConstructorInjections($className)
         );
-        $this->cache->set($cacheKey, $injections);
+        $this->cacheService->set($cacheKey, $injections);
 
         return $injections;
     }

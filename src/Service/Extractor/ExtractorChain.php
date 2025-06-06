@@ -24,7 +24,7 @@ class ExtractorChain implements ExtractorInterface
         return array_reduce(
             $this->chain,
             function (array $injections, ExtractorInterface $extractor) use ($className): array {
-                if (count($injections) > 0) {
+                if ($injections !== []) {
                     return $injections;
                 }
 
@@ -42,7 +42,7 @@ class ExtractorChain implements ExtractorInterface
         return array_reduce(
             $this->chain,
             function (array $injections, ExtractorInterface $extractor) use ($className): array {
-                if (count($injections) > 0) {
+                if ($injections !== []) {
                     return $injections;
                 }
 

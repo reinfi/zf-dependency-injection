@@ -12,31 +12,19 @@ use Reinfi\DependencyInjection\Annotation\InjectConfig;
  */
 class ServiceAnnotation
 {
-    /**
-     * @Inject("Reinfi\DependencyInjection\Test\Service\Service2")
-     *
-     * @var Service2
-     */
-    protected $service2;
-
-    /**
-     * @InjectConfig("test.value")
-     *
-     * @var int
-     */
-    protected $value;
-
-    /**
-     * @InjectConfig("test", asArray=true)
-     *
-     * @var array
-     */
-    protected $valueAsArray;
-
-    public function __construct(Service2 $service2, int $value, array $valueAsArray)
-    {
-        $this->service2 = $service2;
-        $this->value = $value;
-        $this->valueAsArray = $valueAsArray;
+    public function __construct(
+        /**
+         * @Inject("Reinfi\DependencyInjection\Test\Service\Service2")
+         */
+        protected Service2 $service2,
+        /**
+         * @InjectConfig("test.value")
+         */
+        protected int $value,
+        /**
+         * @InjectConfig("test", asArray=true)
+         */
+        protected array $valueAsArray
+    ) {
     }
 }

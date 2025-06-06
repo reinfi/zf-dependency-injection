@@ -14,7 +14,7 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Injection
  */
-class AutoWiringPluginManagerTest extends TestCase
+final class AutoWiringPluginManagerTest extends TestCase
 {
     public function testItReturnsServiceFromContainer(): void
     {
@@ -33,9 +33,9 @@ class AutoWiringPluginManagerTest extends TestCase
             ->with('PluginManager')
             ->willReturn($pluginManager);
 
-        $injection = new AutoWiringPluginManager('PluginManager', Service1::class);
+        $autoWiringPluginManager = new AutoWiringPluginManager('PluginManager', Service1::class);
 
-        self::assertInstanceOf(Service1::class, $injection($container));
+        self::assertInstanceOf(Service1::class, $autoWiringPluginManager($container));
     }
 
     public function testItReturnsServiceFromParentLocator(): void
@@ -59,9 +59,9 @@ class AutoWiringPluginManagerTest extends TestCase
         $otherPluginManager->method('getServiceLocator')
             ->willReturn($container);
 
-        $injection = new AutoWiringPluginManager('PluginManager', Service1::class);
+        $autoWiringPluginManager = new AutoWiringPluginManager('PluginManager', Service1::class);
 
-        self::assertInstanceOf(Service1::class, $injection($otherPluginManager));
+        self::assertInstanceOf(Service1::class, $autoWiringPluginManager($otherPluginManager));
     }
 
     public function testItThrowsExceptionIfServiceNotFound(): void
@@ -78,8 +78,8 @@ class AutoWiringPluginManagerTest extends TestCase
             ->with('PluginManager')
             ->willReturn($pluginManager);
 
-        $injection = new AutoWiringPluginManager('PluginManager', Service1::class);
+        $autoWiringPluginManager = new AutoWiringPluginManager('PluginManager', Service1::class);
 
-        $injection($container);
+        $autoWiringPluginManager($container);
     }
 }

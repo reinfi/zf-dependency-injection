@@ -2,32 +2,65 @@
 
 declare(strict_types=1);
 
+use Laminas\ServiceManager\Factory\InvokableFactory;
+use Reinfi\DependencyInjection\AbstractFactory\Config\InjectConfigAbstractFactory;
+use Reinfi\DependencyInjection\Command\CacheWarmupCommand;
+use Reinfi\DependencyInjection\Config\Factory\ModuleConfigFactory;
+use Reinfi\DependencyInjection\Config\ModuleConfig;
+use Reinfi\DependencyInjection\Service\AutoWiring\Factory\LazyResolverServiceFactory;
+use Reinfi\DependencyInjection\Service\AutoWiring\Factory\ResolverServiceFactory;
+use Reinfi\DependencyInjection\Service\AutoWiring\LazyResolverService;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\BuildInTypeWithDefaultResolver;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerInterfaceResolver;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerResolver;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\ContainerResolverFactory;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\PluginManagerResolverFactory;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\TranslatorResolverFactory;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\PluginManagerResolver;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\RequestResolver;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResponseResolver;
+use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver;
+use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
+use Reinfi\DependencyInjection\Service\AutoWiringService;
+use Reinfi\DependencyInjection\Service\CacheService;
+use Reinfi\DependencyInjection\Service\ConfigService;
+use Reinfi\DependencyInjection\Service\Extractor\AnnotationExtractor;
+use Reinfi\DependencyInjection\Service\Extractor\AttributeExtractor;
+use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
+use Reinfi\DependencyInjection\Service\Extractor\Factory\AnnotationExtractorFactory;
+use Reinfi\DependencyInjection\Service\Extractor\Factory\ExtractorFactory;
+use Reinfi\DependencyInjection\Service\Extractor\Factory\YamlExtractorFactory;
+use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
+use Reinfi\DependencyInjection\Service\Factory\AutoWiringServiceFactory;
+use Reinfi\DependencyInjection\Service\Factory\CacheServiceFactory;
+use Reinfi\DependencyInjection\Service\Factory\ConfigServiceFactory;
+use Reinfi\DependencyInjection\Service\Factory\InjectionServiceFactory;
+use Reinfi\DependencyInjection\Service\InjectionService;
+
 return [
     'service_manager' => [
         'factories' => [
-            \Reinfi\DependencyInjection\Config\ModuleConfig::class => \Reinfi\DependencyInjection\Config\Factory\ModuleConfigFactory::class,
-            \Reinfi\DependencyInjection\Service\Extractor\AnnotationExtractor::class => \Reinfi\DependencyInjection\Service\Extractor\Factory\AnnotationExtractorFactory::class,
-            \Reinfi\DependencyInjection\Service\Extractor\AttributeExtractor::class => \Laminas\ServiceManager\Factory\InvokableFactory::class,
-            \Reinfi\DependencyInjection\Service\Extractor\YamlExtractor::class => \Reinfi\DependencyInjection\Service\Extractor\Factory\YamlExtractorFactory::class,
-            \Reinfi\DependencyInjection\Service\InjectionService::class => \Reinfi\DependencyInjection\Service\Factory\InjectionServiceFactory::class,
-            \Reinfi\DependencyInjection\Service\CacheService::class => \Reinfi\DependencyInjection\Service\Factory\CacheServiceFactory::class,
-            \Reinfi\DependencyInjection\Service\ConfigService::class => \Reinfi\DependencyInjection\Service\Factory\ConfigServiceFactory::class,
-            \Reinfi\DependencyInjection\Service\AutoWiringService::class => \Reinfi\DependencyInjection\Service\Factory\AutoWiringServiceFactory::class,
-            \Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface::class => \Reinfi\DependencyInjection\Service\Extractor\Factory\ExtractorFactory::class,
-            \Reinfi\DependencyInjection\Service\AutoWiring\ResolverService::class => \Reinfi\DependencyInjection\Service\AutoWiring\Factory\ResolverServiceFactory::class,
-            \Reinfi\DependencyInjection\Service\AutoWiring\LazyResolverService::class => \Reinfi\DependencyInjection\Service\AutoWiring\Factory\LazyResolverServiceFactory::class,
-            \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerResolver::class => \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\ContainerResolverFactory::class,
-            \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ContainerInterfaceResolver::class => \Laminas\ServiceManager\Factory\InvokableFactory::class,
-            \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\PluginManagerResolver::class => \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\PluginManagerResolverFactory::class,
-            \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\RequestResolver::class => \Laminas\ServiceManager\Factory\InvokableFactory::class,
-            \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\ResponseResolver::class => \Laminas\ServiceManager\Factory\InvokableFactory::class,
-            \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\TranslatorResolver::class => \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\Factory\TranslatorResolverFactory::class,
-            \Reinfi\DependencyInjection\Service\AutoWiring\Resolver\BuildInTypeWithDefaultResolver::class => \Laminas\ServiceManager\Factory\InvokableFactory::class,
+            ModuleConfig::class => ModuleConfigFactory::class,
+            AnnotationExtractor::class => AnnotationExtractorFactory::class,
+            AttributeExtractor::class => InvokableFactory::class,
+            YamlExtractor::class => YamlExtractorFactory::class,
+            InjectionService::class => InjectionServiceFactory::class,
+            CacheService::class => CacheServiceFactory::class,
+            ConfigService::class => ConfigServiceFactory::class,
+            AutoWiringService::class => AutoWiringServiceFactory::class,
+            ExtractorInterface::class => ExtractorFactory::class,
+            ResolverService::class => ResolverServiceFactory::class,
+            LazyResolverService::class => LazyResolverServiceFactory::class,
+            ContainerResolver::class => ContainerResolverFactory::class,
+            ContainerInterfaceResolver::class => InvokableFactory::class,
+            PluginManagerResolver::class => PluginManagerResolverFactory::class,
+            RequestResolver::class => InvokableFactory::class,
+            ResponseResolver::class => InvokableFactory::class,
+            TranslatorResolver::class => TranslatorResolverFactory::class,
+            BuildInTypeWithDefaultResolver::class => InvokableFactory::class,
 
-            \Reinfi\DependencyInjection\Command\CacheWarmupCommand::class => \Laminas\ServiceManager\Factory\InvokableFactory::class,
+            CacheWarmupCommand::class => InvokableFactory::class,
         ],
-        'abstract_factories' => [
-            \Reinfi\DependencyInjection\AbstractFactory\Config\InjectConfigAbstractFactory::class,
-        ],
+        'abstract_factories' => [InjectConfigAbstractFactory::class],
     ],
 ];

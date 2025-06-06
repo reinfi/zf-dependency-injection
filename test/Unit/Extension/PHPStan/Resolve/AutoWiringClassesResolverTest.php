@@ -10,25 +10,25 @@ use Reinfi\DependencyInjection\Extension\PHPStan\ServiceManagerLoader;
 use Reinfi\DependencyInjection\Test\Service\Service1;
 use Reinfi\DependencyInjection\Test\Service\Service2;
 
-class AutoWiringClassesResolverTest extends TestCase
+final class AutoWiringClassesResolverTest extends TestCase
 {
     public function testItReturnsFalseIfNoServiceManagerIsProvided(): void
     {
         $serviceManagerLoader = new ServiceManagerLoader(null);
 
-        $classesResolver = new AutoWiringClassesResolver($serviceManagerLoader);
+        $autoWiringClassesResolver = new AutoWiringClassesResolver($serviceManagerLoader);
 
-        self::assertFalse($classesResolver->isAutowired(Service1::class));
+        self::assertFalse($autoWiringClassesResolver->isAutowired(Service1::class));
     }
 
     public function testItReturnsTrueIfClassIsRegisteredForAutoWiring(): void
     {
         $serviceManagerLoader = new ServiceManagerLoader(__DIR__ . '/../../../../resources/container.php');
 
-        $classesResolver = new AutoWiringClassesResolver($serviceManagerLoader);
+        $autoWiringClassesResolver = new AutoWiringClassesResolver($serviceManagerLoader);
 
-        self::assertTrue($classesResolver->isAutowired(Service1::class));
+        self::assertTrue($autoWiringClassesResolver->isAutowired(Service1::class));
 
-        self::assertFalse($classesResolver->isAutowired(Service2::class));
+        self::assertFalse($autoWiringClassesResolver->isAutowired(Service2::class));
     }
 }

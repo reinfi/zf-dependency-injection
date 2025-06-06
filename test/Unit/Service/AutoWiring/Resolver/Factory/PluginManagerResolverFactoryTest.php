@@ -12,14 +12,14 @@ use Reinfi\DependencyInjection\Service\AutoWiring\Resolver\PluginManagerResolver
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver\Factory
  */
-class PluginManagerResolverFactoryTest extends TestCase
+final class PluginManagerResolverFactoryTest extends TestCase
 {
     public function testItReturnsPluginManagerResolver(): void
     {
         $container = $this->createMock(ContainerInterface::class);
 
-        $factory = new PluginManagerResolverFactory();
+        $pluginManagerResolverFactory = new PluginManagerResolverFactory();
 
-        self::assertInstanceOf(PluginManagerResolver::class, $factory($container));
+        self::assertInstanceOf(PluginManagerResolver::class, $pluginManagerResolverFactory($container));
     }
 }

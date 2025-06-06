@@ -13,14 +13,10 @@ use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
  */
 class AutoWiringPluginManager implements InjectionInterface
 {
-    private string $pluginManager;
-
-    private string $serviceName;
-
-    public function __construct(string $pluginManager, string $serviceName)
-    {
-        $this->pluginManager = $pluginManager;
-        $this->serviceName = $serviceName;
+    public function __construct(
+        private readonly string $pluginManager,
+        private readonly string $serviceName
+    ) {
     }
 
     /**

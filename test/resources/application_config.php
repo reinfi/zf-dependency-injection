@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-$modules = [\Reinfi\DependencyInjection\Module::class];
+use Reinfi\DependencyInjection\Module;
+
+$modules = [Module::class];
 
 if (class_exists('Laminas\Router\Module')) {
     $modules[] = 'Laminas\Router\Module';

@@ -9,55 +9,55 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Service\Cache\Memory;
 
-class MemoryTest extends TestCase
+final class MemoryTest extends TestCase
 {
     public function testItStoresCachedContents(): void
     {
-        $cache = new Memory();
+        $memory = new Memory();
 
-        self::assertTrue($cache->set('test', 'cachedValue'), 'Cache set should return true');
+        self::assertTrue($memory->set('test', 'cachedValue'), 'Cache set should return true');
 
-        self::assertTrue($cache->has('test'), 'Cache has should return true');
+        self::assertTrue($memory->has('test'), 'Cache has should return true');
 
-        self::assertEquals('cachedValue', $cache->get('test'), 'Cache get should return stored value');
+        self::assertEquals('cachedValue', $memory->get('test'), 'Cache get should return stored value');
     }
 
     public function testItHandlesNotStoredContents(): void
     {
-        $cache = new Memory();
+        $memory = new Memory();
 
-        self::assertFalse($cache->has('test'), 'Cache has should return false if not stored');
+        self::assertFalse($memory->has('test'), 'Cache has should return false if not stored');
 
-        self::assertNull($cache->get('test'), 'Cache get should return default value for not stored value');
+        self::assertNull($memory->get('test'), 'Cache get should return default value for not stored value');
     }
 
     public function testItDeletesStoredContents(): void
     {
-        $cache = new Memory();
+        $memory = new Memory();
 
-        $cache->set('test', 'cachedValue');
+        $memory->set('test', 'cachedValue');
 
-        self::assertTrue($cache->has('test'), 'Cache has should return true');
+        self::assertTrue($memory->has('test'), 'Cache has should return true');
 
-        self::assertTrue($cache->delete('test'), 'Cache get should return stored value');
+        self::assertTrue($memory->delete('test'), 'Cache get should return stored value');
 
-        self::assertFalse($cache->has('test'), 'Cache has should return false for deleted item');
+        self::assertFalse($memory->has('test'), 'Cache has should return false for deleted item');
     }
 
     public function testItClearsStoredContents(): void
     {
-        $cache = new Memory();
+        $memory = new Memory();
 
-        $cache->set('test', 'cachedValue');
-        $cache->set('test2', 'cachedValue');
+        $memory->set('test', 'cachedValue');
+        $memory->set('test2', 'cachedValue');
 
-        self::assertTrue($cache->has('test'), 'Cache has should return true');
+        self::assertTrue($memory->has('test'), 'Cache has should return true');
 
-        self::assertTrue($cache->clear(), 'Cache get should return stored value');
+        self::assertTrue($memory->clear(), 'Cache get should return stored value');
 
-        self::assertFalse($cache->has('test'), 'Cache has should return false for cleared items');
+        self::assertFalse($memory->has('test'), 'Cache has should return false for cleared items');
 
-        self::assertFalse($cache->has('test2'), 'Cache has should return false for cleared items');
+        self::assertFalse($memory->has('test2'), 'Cache has should return false for cleared items');
     }
 
     #[DataProvider('badMethodDataProvider')]
@@ -65,9 +65,9 @@ class MemoryTest extends TestCase
     {
         $this->expectException(BadMethodCallException::class);
 
-        $cache = new Memory();
+        $memory = new Memory();
 
-        call_user_func([$cache, $methodName], $methodParams);
+        call_user_func([$memory, $methodName], $methodParams);
     }
 
     public static function badMethodDataProvider(): array

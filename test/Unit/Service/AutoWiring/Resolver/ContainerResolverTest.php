@@ -16,7 +16,7 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver
  */
-class ContainerResolverTest extends TestCase
+final class ContainerResolverTest extends TestCase
 {
     public function testItReturnsInjectionInterface(): void
     {
@@ -26,14 +26,14 @@ class ContainerResolverTest extends TestCase
             ->with(Service1::class)
             ->willReturn(true);
 
-        $resolver = new ContainerResolver($container);
+        $containerResolver = new ContainerResolver($container);
 
         $type = $this->createMock(ReflectionNamedType::class);
         $type->method('getName')->willReturn(Service1::class);
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $containerResolver->resolve($parameter);
 
         self::assertInstanceOf(InjectionInterface::class, $injection);
     }
@@ -46,20 +46,20 @@ class ContainerResolverTest extends TestCase
             ->with(Service1::class)
             ->willReturn(true);
 
-        $resolver = new ContainerResolver($container);
+        $containerResolver = new ContainerResolver($container);
 
         $type = $this->createMock(ReflectionNamedType::class);
         $type->method('getName')->willReturn(Service1::class);
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $containerResolver->resolve($parameter);
 
-        $reflCass = new ReflectionClass($injection);
-        $property = $reflCass->getProperty('serviceName');
-        $property->setAccessible(true);
+        $reflectionClass = new ReflectionClass($injection);
+        $reflectionProperty = $reflectionClass->getProperty('serviceName');
+        $reflectionProperty->setAccessible(true);
 
-        self::assertEquals(Service1::class, $property->getValue($injection));
+        self::assertEquals(Service1::class, $reflectionProperty->getValue($injection));
     }
 
     public function testItReturnsNullIfServiceNotFound(): void
@@ -70,14 +70,14 @@ class ContainerResolverTest extends TestCase
             ->with(Service1::class)
             ->willReturn(false);
 
-        $resolver = new ContainerResolver($container);
+        $containerResolver = new ContainerResolver($container);
 
         $type = $this->createMock(ReflectionNamedType::class);
         $type->method('getName')->willReturn(Service1::class);
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $containerResolver->resolve($parameter);
 
         self::assertNull($injection);
     }
@@ -86,12 +86,12 @@ class ContainerResolverTest extends TestCase
     {
         $container = $this->createMock(ContainerInterface::class);
 
-        $resolver = new ContainerResolver($container);
+        $containerResolver = new ContainerResolver($container);
 
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn(null);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $containerResolver->resolve($parameter);
 
         self::assertNull($injection);
     }

@@ -21,18 +21,19 @@ trait WarmupTrait
         array $factoriesConfig,
         ExtractorInterface $extractor,
         ResolverServiceInterface $resolverService,
-        CacheService $cache
-    ) {
+        CacheService $cacheService
+    ): void {
         array_walk(
             $factoriesConfig,
-            function ($factoryClass, $className) use ($extractor, $resolverService, $cache) {
+            function ($factoryClass, $className) use ($extractor, $resolverService, $cacheService): void {
                 if (! is_string($factoryClass)) {
                     return;
                 }
+
                 $injections = $this->handleService($className, $factoryClass, $extractor, $resolverService);
 
                 if (count($injections) > 0) {
-                    $cache->set($this->buildCacheKey($className), $injections);
+                    $cacheService->set($this->buildCacheKey($className), $injections);
                 }
             }
         );
@@ -63,7 +64,7 @@ trait WarmupTrait
         );
     }
 
-    private function warmupAutoWiring(ResolverServiceInterface $resolverService, string $className)
+    private function warmupAutoWiring(ResolverServiceInterface $resolverService, string $className): array
     {
         return $resolverService->resolve($className);
     }

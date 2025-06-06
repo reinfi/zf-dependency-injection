@@ -14,7 +14,7 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Injection
  */
-class AutoWiringTest extends TestCase
+final class AutoWiringTest extends TestCase
 {
     public function testItReturnsServiceFromContainer(): void
     {
@@ -28,9 +28,9 @@ class AutoWiringTest extends TestCase
             ->with(Service1::class)
             ->willReturn($service1);
 
-        $injection = new AutoWiring(Service1::class);
+        $autoWiring = new AutoWiring(Service1::class);
 
-        self::assertInstanceOf(Service1::class, $injection($container));
+        self::assertInstanceOf(Service1::class, $autoWiring($container));
     }
 
     public function testItReturnsServiceFromParentLocator(): void
@@ -52,9 +52,9 @@ class AutoWiringTest extends TestCase
         $pluginManager->method('getServiceLocator')
             ->willReturn($container);
 
-        $injection = new AutoWiring(Service1::class);
+        $autoWiring = new AutoWiring(Service1::class);
 
-        self::assertInstanceOf(Service1::class, $injection($pluginManager));
+        self::assertInstanceOf(Service1::class, $autoWiring($pluginManager));
     }
 
     public function testItThrowsExceptionIfServiceNotFound(): void
@@ -66,8 +66,8 @@ class AutoWiringTest extends TestCase
             ->with(Service1::class)
             ->willReturn(false);
 
-        $injection = new AutoWiring(Service1::class);
+        $autoWiring = new AutoWiring(Service1::class);
 
-        $injection($container);
+        $autoWiring($container);
     }
 }

@@ -10,7 +10,7 @@ use Reinfi\DependencyInjection\Service\Extractor\ExtractorChain;
 use Reinfi\DependencyInjection\Service\Extractor\ExtractorInterface;
 use Reinfi\DependencyInjection\Test\Service\Service1;
 
-class ExtractorChainTest extends TestCase
+final class ExtractorChainTest extends TestCase
 {
     public function testItCallExtractorsForPropertyAnnotations(): void
     {
@@ -27,9 +27,9 @@ class ExtractorChainTest extends TestCase
             ->with(Service1::class)
             ->willReturn([]);
 
-        $extractor = new ExtractorChain([$extractor1, $extractor2]);
+        $extractorChain = new ExtractorChain([$extractor1, $extractor2]);
 
-        self::assertCount(0, $extractor->getPropertiesInjections(Service1::class));
+        self::assertCount(0, $extractorChain->getPropertiesInjections(Service1::class));
     }
 
     public function testItOnlyCallsOneExtractorIfInjectionsFoundInProperties(): void
@@ -47,9 +47,9 @@ class ExtractorChainTest extends TestCase
         $extractor2->expects($this->never())
             ->method('getPropertiesInjections');
 
-        $extractor = new ExtractorChain([$extractor1, $extractor2]);
+        $extractorChain = new ExtractorChain([$extractor1, $extractor2]);
 
-        self::assertCount(1, $extractor->getPropertiesInjections(Service1::class));
+        self::assertCount(1, $extractorChain->getPropertiesInjections(Service1::class));
     }
 
     public function testItCallsAllExtractorsForConstructorInjections(): void
@@ -67,9 +67,9 @@ class ExtractorChainTest extends TestCase
             ->with(Service1::class)
             ->willReturn([]);
 
-        $extractor = new ExtractorChain([$extractor1, $extractor2]);
+        $extractorChain = new ExtractorChain([$extractor1, $extractor2]);
 
-        self::assertCount(0, $extractor->getConstructorInjections(Service1::class));
+        self::assertCount(0, $extractorChain->getConstructorInjections(Service1::class));
     }
 
     public function testItOnlyCallsOneExtractorIfInjectionsFoundInConstructor(): void
@@ -87,8 +87,8 @@ class ExtractorChainTest extends TestCase
         $extractor2->expects($this->never())
             ->method('getConstructorInjections');
 
-        $extractor = new ExtractorChain([$extractor1, $extractor2]);
+        $extractorChain = new ExtractorChain([$extractor1, $extractor2]);
 
-        self::assertCount(1, $extractor->getConstructorInjections(Service1::class));
+        self::assertCount(1, $extractorChain->getConstructorInjections(Service1::class));
     }
 }

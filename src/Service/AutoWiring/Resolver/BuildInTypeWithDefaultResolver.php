@@ -14,9 +14,9 @@ use Reinfi\DependencyInjection\Injection\Value;
  */
 class BuildInTypeWithDefaultResolver implements ResolverInterface
 {
-    public function resolve(ReflectionParameter $parameter): ?InjectionInterface
+    public function resolve(ReflectionParameter $reflectionParameter): ?InjectionInterface
     {
-        $type = $parameter->getType();
+        $type = $reflectionParameter->getType();
         if (! $type instanceof ReflectionNamedType) {
             return null;
         }
@@ -25,10 +25,10 @@ class BuildInTypeWithDefaultResolver implements ResolverInterface
             return null;
         }
 
-        if (! $parameter->isDefaultValueAvailable()) {
+        if (! $reflectionParameter->isDefaultValueAvailable()) {
             return null;
         }
 
-        return new Value($parameter->getDefaultValue());
+        return new Value($reflectionParameter->getDefaultValue());
     }
 }

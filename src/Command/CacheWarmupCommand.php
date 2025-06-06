@@ -52,16 +52,16 @@ class CacheWarmupCommand extends Command
             throw new InvalidArgumentException(sprintf('Invalid config path: %s', $config));
         }
 
-        $container = Application::init(include $path)
+        $serviceManager = Application::init(include $path)
             ->getServiceManager();
 
-        $serviceManagerConfig = $this->getServiceManagerConfig($container);
+        $serviceManagerConfig = $this->getServiceManagerConfig($serviceManager);
 
         $this->warmupConfig(
             $serviceManagerConfig['factories'] ?? [],
-            $container->get(ExtractorInterface::class),
-            $container->get(ResolverService::class),
-            $container->get(CacheService::class)
+            $serviceManager->get(ExtractorInterface::class),
+            $serviceManager->get(ResolverService::class),
+            $serviceManager->get(CacheService::class)
         );
 
         $output->writeln('Finished cache warmup');

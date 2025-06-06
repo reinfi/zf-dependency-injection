@@ -17,85 +17,85 @@ use Reinfi\DependencyInjection\Test\Service\Service1;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring\Resolver
  */
-class ContainerInterfaceResolverTest extends TestCase
+final class ContainerInterfaceResolverTest extends TestCase
 {
     public function testItReturnsInjectionInterfaceIfIsInterfaceTypeHint(): void
     {
-        $resolver = new ContainerInterfaceResolver();
+        $containerInterfaceResolver = new ContainerInterfaceResolver();
 
         $type = $this->createMock(ReflectionNamedType::class);
         $type->method('getName')->willReturn(ContainerInterface::class);
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $containerInterfaceResolver->resolve($parameter);
 
         self::assertInstanceOf(InjectionInterface::class, $injection);
     }
 
     public function testItReturnsInjectionInterfaceIfHasInterfaceImplemented(): void
     {
-        $resolver = new ContainerInterfaceResolver();
+        $containerInterfaceResolver = new ContainerInterfaceResolver();
 
         $type = $this->createMock(ReflectionNamedType::class);
         $type->method('getName')->willReturn(ServiceLocatorInterface::class);
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $containerInterfaceResolver->resolve($parameter);
 
         self::assertInstanceOf(InjectionInterface::class, $injection);
     }
 
     public function testItReturnsNullIfIsAbstractPluginManager(): void
     {
-        $resolver = new ContainerInterfaceResolver();
+        $containerInterfaceResolver = new ContainerInterfaceResolver();
         $type = $this->createMock(ReflectionNamedType::class);
         $type->method('getName')->willReturn(AbstractPluginManager::class);
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $containerInterfaceResolver->resolve($parameter);
 
         self::assertNull($injection);
     }
 
     public function testItReturnsNullIfOtherClass(): void
     {
-        $resolver = new ContainerInterfaceResolver();
+        $containerInterfaceResolver = new ContainerInterfaceResolver();
 
         $type = $this->createMock(ReflectionNamedType::class);
         $type->method('getName')->willReturn(Service1::class);
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $containerInterfaceResolver->resolve($parameter);
 
         self::assertNull($injection);
     }
 
     public function testItReturnsNullIfClassDoesNotExists(): void
     {
-        $resolver = new ContainerInterfaceResolver();
+        $containerInterfaceResolver = new ContainerInterfaceResolver();
 
         $type = $this->createMock(ReflectionNamedType::class);
         $type->method('getName')->willReturn('ServiceWhichDoesNotExists');
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn($type);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $containerInterfaceResolver->resolve($parameter);
 
         self::assertNull($injection);
     }
 
     public function testItReturnsNullIfParameterHasNoType(): void
     {
-        $resolver = new ContainerInterfaceResolver();
+        $containerInterfaceResolver = new ContainerInterfaceResolver();
 
         $parameter = $this->createMock(ReflectionParameter::class);
         $parameter->method('getType')->willReturn(null);
 
-        $injection = $resolver->resolve($parameter);
+        $injection = $containerInterfaceResolver->resolve($parameter);
 
         self::assertNull($injection);
     }

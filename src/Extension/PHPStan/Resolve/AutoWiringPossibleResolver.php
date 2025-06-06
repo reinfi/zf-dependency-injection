@@ -4,24 +4,23 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Extension\PHPStan\Resolve;
 
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Reinfi\DependencyInjection\Extension\PHPStan\ServiceManagerLoader;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverServiceInterface;
 
 class AutoWiringPossibleResolver
 {
-    private ServiceManagerLoader $serviceManagerLoader;
-
-    public function __construct(ServiceManagerLoader $serviceManagerLoader)
-    {
-        $this->serviceManagerLoader = $serviceManagerLoader;
+    public function __construct(
+        private readonly ServiceManagerLoader $serviceManagerLoader
+    ) {
     }
 
     public function resolve(string $className): void
     {
         $resolverService = $this->getResolverService();
 
-        if ($resolverService === null) {
+        if (! $resolverService instanceof ResolverServiceInterface) {
             return;
         }
 
@@ -32,7 +31,7 @@ class AutoWiringPossibleResolver
     {
         $serviceLocator = $this->serviceManagerLoader->getServiceLocator();
 
-        if ($serviceLocator === null) {
+        if (! $serviceLocator instanceof ServiceLocatorInterface) {
             return null;
         }
 

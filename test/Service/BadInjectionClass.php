@@ -11,13 +11,8 @@ namespace Reinfi\DependencyInjection\Test\Service;
  */
 class BadInjectionClass
 {
-    /**
-     * @var array
-     */
-    private $property;
-
-    public function __construct(array $property)
-    {
-        $this->property = $property;
+    public function __construct(
+        private readonly array $property
+    ) {
     }
 }

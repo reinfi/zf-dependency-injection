@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring;
 
 use Interop\Container\ContainerInterface;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use Reinfi\DependencyInjection\Service\AutoWiring\LazyResolverService;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
@@ -12,10 +13,9 @@ use Reinfi\DependencyInjection\Service\AutoWiring\ResolverServiceInterface;
 
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring
- *
- * @group unit
  */
-class LazyResolverServiceTest extends TestCase
+#[Group('unit')]
+final class LazyResolverServiceTest extends TestCase
 {
     public function testItResolvesResolverServiceLazy(): void
     {
@@ -31,9 +31,9 @@ class LazyResolverServiceTest extends TestCase
             ->with(ResolverService::class)
             ->willReturn($resolverService);
 
-        $service = new LazyResolverService($container);
+        $lazyResolverService = new LazyResolverService($container);
 
-        $service->resolve('test');
+        $lazyResolverService->resolve('test');
     }
 
     public function testItResolvesResolverServiceLazyWithOptions(): void
@@ -54,9 +54,9 @@ class LazyResolverServiceTest extends TestCase
             ->with(ResolverService::class)
             ->willReturn($resolverService);
 
-        $service = new LazyResolverService($container);
+        $lazyResolverService = new LazyResolverService($container);
 
-        $service->resolve('test', $options);
+        $lazyResolverService->resolve('test', $options);
     }
 
     public function testItResolvesResolverServiceOnlyOnce(): void
@@ -64,16 +64,17 @@ class LazyResolverServiceTest extends TestCase
         $resolverService = $this->createMock(ResolverServiceInterface::class);
         $resolverService->expects($this->exactly(2))
             ->method('resolve')
-            ->willReturnCallback(function (string $class, ?array $options) {
+            ->willReturnCallback(function (string $class, ?array $options): array {
                 static $calls = 0;
-                $calls++;
+                ++$calls;
                 if ($calls === 1) {
-                    $this->assertEquals('test', $class);
-                    $this->assertNull($options);
+                    self::assertSame('test', $class);
+                    self::assertNull($options);
                 } else {
-                    $this->assertEquals('test2', $class);
-                    $this->assertNull($options);
+                    self::assertSame('test2', $class);
+                    self::assertNull($options);
                 }
+
                 return [];
             });
 
@@ -83,9 +84,9 @@ class LazyResolverServiceTest extends TestCase
             ->with(ResolverService::class)
             ->willReturn($resolverService);
 
-        $service = new LazyResolverService($container);
+        $lazyResolverService = new LazyResolverService($container);
 
-        $service->resolve('test');
-        $service->resolve('test2');
+        $lazyResolverService->resolve('test');
+        $lazyResolverService->resolve('test2');
     }
 }

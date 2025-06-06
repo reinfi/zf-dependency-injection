@@ -12,15 +12,15 @@ use Reinfi\DependencyInjection\Test\Service\Service2;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Annotation
  */
-class InjectConstantTest extends TestCase
+final class InjectConstantTest extends TestCase
 {
     public function testItShouldConvertScalarTypes(): void
     {
-        $injectScalar = new InjectConstant();
-        $injectScalar->value = Service2::class . '::CONSTANT';
+        $injectConstant = new InjectConstant();
+        $injectConstant->value = Service2::class . '::CONSTANT';
 
         $container = $this->createMock(ContainerInterface::class);
 
-        self::assertSame(Service2::CONSTANT, $injectScalar($container));
+        self::assertSame(Service2::CONSTANT, $injectConstant($container));
     }
 }

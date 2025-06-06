@@ -13,11 +13,9 @@ use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
  */
 class AutoWiring implements InjectionInterface
 {
-    private string $serviceName;
-
-    public function __construct(string $serviceName)
-    {
-        $this->serviceName = $serviceName;
+    public function __construct(
+        private readonly string $serviceName
+    ) {
     }
 
     /**
@@ -29,10 +27,8 @@ class AutoWiring implements InjectionInterface
             return $container->get($this->serviceName);
         }
 
-        if ($container instanceof AbstractPluginManager) {
-            if ($container->getServiceLocator()->has($this->serviceName)) {
-                return $container->getServiceLocator()->get($this->serviceName);
-            }
+        if ($container instanceof AbstractPluginManager && $container->getServiceLocator()->has($this->serviceName)) {
+            return $container->getServiceLocator()->get($this->serviceName);
         }
 
         throw new AutoWiringNotPossibleException($this->serviceName);

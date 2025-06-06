@@ -13,17 +13,17 @@ use Reinfi\DependencyInjection\Test\Service\Service2;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Attribute
  */
-class InjectConstantTest extends TestCase
+final class InjectConstantTest extends TestCase
 {
     public function testItShouldConvertScalarTypes(): void
     {
-        $injectScalar = new InjectConstant(Service2::class . '::CONSTANT');
+        $injectConstant = new InjectConstant(Service2::class . '::CONSTANT');
 
         $container = $this->createMock(ContainerInterface::class);
         $container->method('get')
             ->with(InjectionService::class)
             ->willReturn(true);
 
-        self::assertSame(Service2::CONSTANT, $injectScalar($container));
+        self::assertSame(Service2::CONSTANT, $injectConstant($container));
     }
 }

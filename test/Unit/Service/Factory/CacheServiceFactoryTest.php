@@ -14,7 +14,7 @@ use Reinfi\DependencyInjection\Service\Factory\CacheServiceFactory;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\Factory
  */
-class CacheServiceFactoryTest extends TestCase
+final class CacheServiceFactoryTest extends TestCase
 {
     public function testItInstancesCacheServiceWithoutConfig(): void
     {
@@ -25,13 +25,13 @@ class CacheServiceFactoryTest extends TestCase
             ->with(ModuleConfig::class)
             ->willReturn([]);
 
-        $factory = new CacheServiceFactory();
+        $cacheServiceFactory = new CacheServiceFactory();
 
-        $instance = $factory($container);
+        $cacheService = $cacheServiceFactory($container);
 
         self::assertInstanceOf(
             CacheService::class,
-            $instance,
+            $cacheService,
             'factory should return instance of ' . CacheService::class
         );
     }
@@ -42,25 +42,27 @@ class CacheServiceFactoryTest extends TestCase
 
         $container->expects($this->exactly(2))
             ->method('get')
-            ->willReturnCallback(function ($service) {
+            ->willReturnCallback(function ($service): array|Memory|null {
                 if ($service === ModuleConfig::class) {
                     return [
                         'cache' => Memory::class,
                     ];
                 }
+
                 if ($service === Memory::class) {
                     return new Memory();
                 }
+
                 return null;
             });
 
-        $factory = new CacheServiceFactory();
+        $cacheServiceFactory = new CacheServiceFactory();
 
-        $instance = $factory($container);
+        $cacheService = $cacheServiceFactory($container);
 
         self::assertInstanceOf(
             CacheService::class,
-            $instance,
+            $cacheService,
             'factory should return instance of ' . CacheService::class
         );
     }
@@ -73,19 +75,19 @@ class CacheServiceFactoryTest extends TestCase
             ->method('get')
             ->with(ModuleConfig::class)
             ->willReturn([
-                'cache' => static function (ContainerInterface $containerArgument) use ($container) {
+                'cache' => static function (ContainerInterface $containerArgument) use ($container): Memory {
                     self::assertSame($container, $containerArgument);
                     return new Memory();
                 },
             ]);
 
-        $factory = new CacheServiceFactory();
+        $cacheServiceFactory = new CacheServiceFactory();
 
-        $instance = $factory($container);
+        $cacheService = $cacheServiceFactory($container);
 
         self::assertInstanceOf(
             CacheService::class,
-            $instance,
+            $cacheService,
             'factory should return instance of ' . CacheService::class
         );
     }

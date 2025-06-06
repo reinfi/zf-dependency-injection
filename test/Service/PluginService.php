@@ -11,15 +11,11 @@ use Reinfi\DependencyInjection\Annotation\InjectParent;
  */
 class PluginService
 {
-    /**
-     * @InjectParent("Reinfi\DependencyInjection\Test\Service\Service2")
-     *
-     * @var Service2
-     */
-    protected $service2;
-
-    public function __construct(Service2 $service2)
-    {
-        $this->service2 = $service2;
+    public function __construct(
+        /**
+         * @InjectParent("Reinfi\DependencyInjection\Test\Service\Service2")
+         */
+        protected Service2 $service2
+    ) {
     }
 }

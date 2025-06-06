@@ -19,7 +19,7 @@ use Reinfi\DependencyInjection\Service\Extractor\YamlExtractor;
 /**
  * @package Reinfi\DependencyInjection\Test\Unit\Service\Extractor\Factory
  */
-class ExtractorFactoryTest extends TestCase
+final class ExtractorFactoryTest extends TestCase
 {
     public function testItReturnsExtractorDefinedInConfig(): void
     {
@@ -33,32 +33,25 @@ class ExtractorFactoryTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
 
         $container->method('get')
-            ->willReturnCallback(function ($service) use (
-                $moduleConfig,
-                $yamlExtractor,
-                $annotationExtractor,
-                $attributeExtractor
-            ) {
-                return match ($service) {
-                    ModuleConfig::class => $moduleConfig->toArray(),
-                    YamlExtractor::class => $yamlExtractor,
-                    AnnotationExtractor::class => $annotationExtractor,
-                    AttributeExtractor::class => $attributeExtractor,
-                    default => null,
-                };
+            ->willReturnCallback(fn (string $service): mixed => match ($service) {
+                ModuleConfig::class => $moduleConfig->toArray(),
+                YamlExtractor::class => $yamlExtractor,
+                AnnotationExtractor::class => $annotationExtractor,
+                AttributeExtractor::class => $attributeExtractor,
+                default => null,
             });
 
-        $factory = new ExtractorFactory();
+        $extractorFactory = new ExtractorFactory();
 
-        $extractor = $factory($container);
+        $extractor = $extractorFactory($container);
 
         self::assertInstanceOf(ExtractorChain::class, $extractor);
 
         $reflectionClass = new ReflectionClass($extractor);
-        $chainProperty = $reflectionClass->getProperty('chain');
-        $chainProperty->setAccessible(true);
+        $reflectionProperty = $reflectionClass->getProperty('chain');
+        $reflectionProperty->setAccessible(true);
 
-        $chain = $chainProperty->getValue($extractor);
+        $chain = $reflectionProperty->getValue($extractor);
 
         self::assertTrue(is_array($chain));
 
@@ -79,32 +72,25 @@ class ExtractorFactoryTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
 
         $container->method('get')
-            ->willReturnCallback(function ($service) use (
-                $moduleConfig,
-                $yamlExtractor,
-                $annotationExtractor,
-                $attributeExtractor
-            ) {
-                return match ($service) {
-                    ModuleConfig::class => $moduleConfig->toArray(),
-                    YamlExtractor::class => $yamlExtractor,
-                    AnnotationExtractor::class => $annotationExtractor,
-                    AttributeExtractor::class => $attributeExtractor,
-                    default => null,
-                };
+            ->willReturnCallback(fn (string $service): mixed => match ($service) {
+                ModuleConfig::class => $moduleConfig->toArray(),
+                YamlExtractor::class => $yamlExtractor,
+                AnnotationExtractor::class => $annotationExtractor,
+                AttributeExtractor::class => $attributeExtractor,
+                default => null,
             });
 
-        $factory = new ExtractorFactory();
+        $extractorFactory = new ExtractorFactory();
 
-        $extractor = $factory($container);
+        $extractor = $extractorFactory($container);
 
         self::assertInstanceOf(ExtractorChain::class, $extractor);
 
         $reflectionClass = new ReflectionClass($extractor);
-        $chainProperty = $reflectionClass->getProperty('chain');
-        $chainProperty->setAccessible(true);
+        $reflectionProperty = $reflectionClass->getProperty('chain');
+        $reflectionProperty->setAccessible(true);
 
-        $chain = $chainProperty->getValue($extractor);
+        $chain = $reflectionProperty->getValue($extractor);
 
         self::assertTrue(is_array($chain));
 
@@ -122,26 +108,24 @@ class ExtractorFactoryTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
 
         $container->method('get')
-            ->willReturnCallback(function ($service) use ($moduleConfig, $annotationExtractor, $attributeExtractor) {
-                return match ($service) {
-                    ModuleConfig::class => $moduleConfig->toArray(),
-                    AnnotationExtractor::class => $annotationExtractor,
-                    AttributeExtractor::class => $attributeExtractor,
-                    default => null,
-                };
+            ->willReturnCallback(fn (string $service): mixed => match ($service) {
+                ModuleConfig::class => $moduleConfig->toArray(),
+                AnnotationExtractor::class => $annotationExtractor,
+                AttributeExtractor::class => $attributeExtractor,
+                default => null,
             });
 
-        $factory = new ExtractorFactory();
+        $extractorFactory = new ExtractorFactory();
 
-        $extractor = $factory($container);
+        $extractor = $extractorFactory($container);
 
         self::assertInstanceOf(ExtractorChain::class, $extractor);
 
         $reflectionClass = new ReflectionClass($extractor);
-        $chainProperty = $reflectionClass->getProperty('chain');
-        $chainProperty->setAccessible(true);
+        $reflectionProperty = $reflectionClass->getProperty('chain');
+        $reflectionProperty->setAccessible(true);
 
-        $chain = $chainProperty->getValue($extractor);
+        $chain = $reflectionProperty->getValue($extractor);
 
         self::assertTrue(is_array($chain));
 
