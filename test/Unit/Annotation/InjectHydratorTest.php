@@ -99,7 +99,7 @@ class InjectHydratorTest extends TestCase
     }
 
     #[DataProvider('getAnnotationValues')]
-    public function testItShouldBuildWithValues(array $values): void
+    public function testItShouldBuildWithValues(array $values, string $className): void
     {
         $inject = new InjectHydrator($values);
 
