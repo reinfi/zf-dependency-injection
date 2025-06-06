@@ -9,10 +9,7 @@ namespace Reinfi\DependencyInjection\Test\Service;
  */
 class Service1
 {
-    public function __construct(
-        Service2 $service2,
-        Service3 $service3,
-        string $foo = ''
-    ) {
+    public function __construct(Service2 $service2, Service3 $service3, string $foo = '')
+    {
     }
 }
