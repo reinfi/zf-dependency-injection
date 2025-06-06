@@ -19,11 +19,8 @@ class ServiceAttribute
     #[InjectConfig('test.value')]
     private int $testValue;
 
-    public function __construct(
-        Service2 $service2,
-        string $version,
-        int $testValue
-    ) {
+    public function __construct(Service2 $service2, string $version, int $testValue)
+    {
         $this->service2 = $service2;
         $this->version = $version;
         $this->testValue = $testValue;

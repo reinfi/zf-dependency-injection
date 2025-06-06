@@ -9,8 +9,7 @@ namespace Reinfi\DependencyInjection\Test\Service;
  */
 class ServiceBuildInType
 {
-    public function __construct(
-        int $service2
-    ) {
+    public function __construct(int $service2)
+    {
     }
 }
