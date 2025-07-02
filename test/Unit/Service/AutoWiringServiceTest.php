@@ -23,9 +23,7 @@ final class AutoWiringServiceTest extends TestCase
 
     public function testItResolvesConstructorInjection(): void
     {
-        $cacheKey = $this->buildCacheKey(Service1::class);
-
-        // Create and configure resolver mock
+        // Create and configure a resolver mock
         $resolver = $this->createMock(ResolverService::class);
         $options = [
             'foo' => 'bar',
@@ -57,7 +55,7 @@ final class AutoWiringServiceTest extends TestCase
 
         $autoWiringService = new AutoWiringService($resolver, $cache);
 
-        // Create container mock
+        // Create a container mock
         $container = $this->createMock(ContainerInterface::class);
 
         $injections = $autoWiringService->resolveConstructorInjection($container, Service1::class, $options);
@@ -69,10 +67,10 @@ final class AutoWiringServiceTest extends TestCase
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
 
-        // Create and configure resolver mock
+        // Create and configure a resolver mock
         $resolver = $this->createMock(ResolverService::class);
 
-        // Create injection mock
+        // Create an injection mock
         $injection = $this->createMock(InjectionInterface::class);
         $injection->expects($this->once())
             ->method('__invoke')
@@ -99,7 +97,7 @@ final class AutoWiringServiceTest extends TestCase
 
         $autoWiringService = new AutoWiringService($resolver, $cache);
 
-        // Create container mock
+        // Create a container mock
         $container = $this->createMock(ContainerInterface::class);
 
         $injections = $autoWiringService->resolveConstructorInjection($container, Service1::class);
@@ -111,10 +109,10 @@ final class AutoWiringServiceTest extends TestCase
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
 
-        // Create resolver mock (no expectations needed)
+        // Create a resolver mock (no expectations needed)
         $resolver = $this->createMock(ResolverService::class);
 
-        // Create injection mock
+        // Create an injection mock
         $injection = $this->createMock(InjectionInterface::class);
         $injection->expects($this->once())
             ->method('__invoke')
@@ -135,7 +133,7 @@ final class AutoWiringServiceTest extends TestCase
 
         $autoWiringService = new AutoWiringService($resolver, $cache);
 
-        // Create container mock
+        // Create a container mock
         $container = $this->createMock(ContainerInterface::class);
 
         $injections = $autoWiringService->resolveConstructorInjection($container, Service1::class);
@@ -145,9 +143,7 @@ final class AutoWiringServiceTest extends TestCase
 
     public function testItDoesNotCacheOptions(): void
     {
-        $cacheKey = $this->buildCacheKey(Service1::class);
-
-        // Create and configure resolver mock
+        // Create and configure a resolver mock
         $resolver = $this->createMock(ResolverService::class);
         $options = [
             'foo' => 'bar',
@@ -172,7 +168,7 @@ final class AutoWiringServiceTest extends TestCase
             ->with(Service1::class, $options)
             ->willReturn([$injection, $optionsInjection]);
 
-        // Create cache mock with no expectations (should not be called)
+        // Create a cache mock with no expectations (should not be called)
         $cache = $this->createMock(CacheService::class);
         $cache->expects($this->never())->method('set');
         $cache->expects($this->never())->method('has');
@@ -180,7 +176,7 @@ final class AutoWiringServiceTest extends TestCase
 
         $autoWiringService = new AutoWiringService($resolver, $cache);
 
-        // Create container mock
+        // Create a container mock
         $container = $this->createMock(ContainerInterface::class);
 
         $injections = $autoWiringService->resolveConstructorInjection($container, Service1::class, $options);
@@ -192,10 +188,10 @@ final class AutoWiringServiceTest extends TestCase
     {
         $cacheKey = $this->buildCacheKey(Service1::class);
 
-        // Create and configure resolver mock
+        // Create and configure a resolver mock
         $resolver = $this->createMock(ResolverService::class);
 
-        // Create injection mock
+        // Create an injection mock
         $injection = $this->createMock(InjectionInterface::class);
         $injection->expects($this->once())
             ->method('__invoke')
@@ -239,7 +235,7 @@ final class AutoWiringServiceTest extends TestCase
     {
         $cacheKey = $this->buildCacheKey(Service2::class);
 
-        // Create and configure resolver mock
+        // Create and configure a resolver mock
         $resolver = $this->createMock(ResolverService::class);
         $resolver->expects($this->once())
             ->method('resolve')
@@ -260,7 +256,7 @@ final class AutoWiringServiceTest extends TestCase
 
         $autoWiringService = new AutoWiringService($resolver, $cache);
 
-        // Create container mock
+        // Create a container mock
         $container = $this->createMock(ContainerInterface::class);
 
         $injections = $autoWiringService->resolveConstructorInjection($container, Service2::class);

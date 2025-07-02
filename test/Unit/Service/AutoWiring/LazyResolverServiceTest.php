@@ -69,11 +69,10 @@ final class LazyResolverServiceTest extends TestCase
                 ++$calls;
                 if ($calls === 1) {
                     self::assertSame('test', $class);
-                    self::assertNull($options);
                 } else {
                     self::assertSame('test2', $class);
-                    self::assertNull($options);
                 }
+                self::assertNull($options);
 
                 return [];
             });

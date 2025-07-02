@@ -9,5 +9,5 @@ namespace Reinfi\DependencyInjection\Config;
  */
 interface ModuleConfig
 {
-    public const CONFIG_KEY = 'reinfi.dependencyInjection';
+    public const string CONFIG_KEY = 'reinfi.dependencyInjection';
 }

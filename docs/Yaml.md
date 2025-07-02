@@ -1,8 +1,8 @@
 # Configuring YAML driver
 
-In the `reinfi-di.local.php` file, you can uncomment the `extractor` and `extractor_options` keys to change the default extractor to Yaml as mapping source.
+In the `reinfi-di.local.php` file, you can uncomment the `extractor` and `extractor_options` keys to change the default extractor to Yaml as a mapping source.
 
-Make sure the `file` key under `extractor_options` points to a valid yml file with mapping information. Example configuration can look as follows:
+Make sure the `file` key under `extractor_options` points to a valid yml file with mapping information. An example configuration can look as follows:
 
 ```php
 // config/autoload/reinfi-di.local.php file

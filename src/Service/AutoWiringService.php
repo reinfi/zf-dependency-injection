@@ -23,7 +23,7 @@ class AutoWiringService
     }
 
     /**
-     * @return mixed[]|null
+     * @return array<int|string, mixed>|null
      */
     public function resolveConstructorInjection(
         ContainerInterface $container,
@@ -40,6 +40,7 @@ class AutoWiringService
             $injections[$index] = $injection($container);
         }
 
+        /** @var array<int|string, mixed> $injections */
         return $injections;
     }
 

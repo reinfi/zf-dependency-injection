@@ -15,15 +15,15 @@ use ReflectionClass;
 abstract class AbstractFactory implements FactoryInterface
 {
     /**
-     * @param class-string            $canonicalName
-     * @param class-string            $requestedName
+     * @param class-string|null $canonicalName
+     * @param class-string|null $requestedName
      *
      * @return object
      */
     public function createService(
         ServiceLocatorInterface $serviceLocator,
-        $canonicalName = null,
-        $requestedName = null
+        ?string $canonicalName = null,
+        ?string $requestedName = null
     ) {
         if (is_string($requestedName) && class_exists($requestedName)) {
             return $this($serviceLocator, $requestedName);
@@ -43,6 +43,8 @@ abstract class AbstractFactory implements FactoryInterface
 
     /**
      * @param class-string $className
+     * @param array<int|string, mixed> $injections
+     * @throws \ReflectionException
      */
     protected function buildInstance(string $className, array $injections): object
     {

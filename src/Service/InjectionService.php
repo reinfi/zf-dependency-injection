@@ -25,7 +25,7 @@ class InjectionService
     /**
      * @param class-string       $className
      *
-     * @return array|false
+     * @return array<int|string, mixed>|false
      */
     public function resolveConstructorInjection(ContainerInterface $container, string $className)
     {
@@ -39,6 +39,7 @@ class InjectionService
             $injections[$index] = $injection($container);
         }
 
+        /** @var array<int|string, mixed> $injections */
         return $injections;
     }
 
