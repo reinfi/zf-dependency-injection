@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring;
 
-use Interop\Container\ContainerInterface;
 use Iterator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 use ReflectionParameter;
 use Reinfi\DependencyInjection\Exception\AutoWiringNotPossibleException;
 use Reinfi\DependencyInjection\Injection\AutoWiring;

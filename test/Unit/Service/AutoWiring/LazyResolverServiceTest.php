@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring;
 
-use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\LazyResolverService;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverServiceInterface;
