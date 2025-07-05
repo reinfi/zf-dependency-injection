@@ -59,7 +59,7 @@ class ResolverService implements ResolverServiceInterface
     ): InjectionInterface {
         $options = $options !== null && $options !== [] ? $options : [];
 
-        // Don't try to resolve parameters present in the options array using reflections
+        // Don't try to resolve parameters present in the option array using reflections
         if (array_key_exists($reflectionParameter->getName(), $options)) {
             return new Value($options[$reflectionParameter->getName()]);
         }

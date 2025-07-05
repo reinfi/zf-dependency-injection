@@ -28,7 +28,7 @@ Heavily inspired by https://github.com/mikemix/mxdiModule.
     ];
 ```
 ### AutoWiring
-To use autowiring for your service you need to specify the 'AutoWiringFactory' within the service manager configuration.
+To use autowiring for your service, you need to specify the 'AutoWiringFactory' within the service manager configuration.
 ```php
 'service_manager' => [
     'factories' => [
@@ -52,13 +52,13 @@ Please make sure that you don't use the fallback mechanism for everything. You s
 
 ##### What can be autowired?
 Every service registered within the service manager can be autowired.
-Plugins within the plugin manager can also be autowired. If you need to register another mapping you can simply add the following:
+Plugins within the plugin manager can also be autowired. If you need to register another mapping, you can add the following:
 ```php
 PluginManagerResolver::addMapping('MyInterfaceClass', 'MyPluginManager');
 ```
-If your service needs the container as dependency this can also be autowired.
+If your service needs the container as a dependency, this can also be autowired.
 ##### Add another resolver
-If you like to add another resolver you can simply add one through the configuration.
+If you like to add another resolver, you can add one through the configuration.
 ```php
 'reinfi.dependencyInjection' => [
     'autowire_resolver' => [
@@ -70,7 +70,7 @@ It needs to implement the ResolverInterface.
 
 ### Attributes
 Attributes are activated if you are using a php version 8.0 or higher.
-To use attributes for your dependencies you need to specify the 'InjectionFactory' within the service manager configuration.
+To use attributes for your dependencies, you need to specify the 'InjectionFactory' within the service manager configuration.
 ```php
 'service_manager' => [
     'factories' => [
@@ -78,13 +78,13 @@ To use attributes for your dependencies you need to specify the 'InjectionFactor
     ],
 ]
 ```
-Following attributes are supported:
+The following attributes are supported:
 * Inject (directly injects a service from the service locator)
 * InjectParent (must be used if you inject a service from a plugin manager)
-* InjectConfig (dot separated path to a config value, e.g. service_manager.factories)
+* InjectConfig (dot-separated path to a config value, e.g., service_manager.factories)
 * InjectContainer (directly inject container interface)
 
-Also in addition there a several annotations to inject from plugin managers.
+Also, in addition, there are several annotations to inject from plugin managers.
 * InjectViewHelper
 * InjectFilter
 * InjectInputFilter
@@ -92,15 +92,15 @@ Also in addition there a several annotations to inject from plugin managers.
 * InjectHydrator
 * InjectFormElement
 
-You can either pass directly the required service name or if you need options you can pass them as following:
+You can either pass directly the required service name, or if you need options, you can pass them as follows:
 ```php
 #[InjectFormElement(name="Service", options={"field": "value"}]
 ```
 
-If you need a doctrine repository there is also an attribute.
+If you need a doctrine repository, there is also an attribute.
 * InjectDoctrineRepository
 
-It is only constructor injection supported, if you need di from setters you need to use delegator factories.
+It is only constructor injection supported, if you need di from setters, you need to use delegator factories.
 
 You can add the attributes at properties or at the __construct method.
 
@@ -136,13 +136,13 @@ To use annotations for your dependencies you need to specify the 'InjectionFacto
     ],
 ]
 ```
-Following annotations are supported:
+The following annotations are supported:
 * Inject (directly injects a service from the service locator)
 * InjectParent (must be used if you inject a service from a plugin manager)
-* InjectConfig (dot separated path to a config value, e.g. service_manager.factories)
+* InjectConfig (dot-separated path to a config value, e.g., service_manager.factories)
 * InjectContainer (directly inject container interface)
 
-Also in addition there a several annotations to inject from plugin managers.
+Also, in addition, there are several annotations to inject from plugin managers.
 * InjectViewHelper
 * InjectFilter
 * InjectInputFilter
@@ -150,15 +150,15 @@ Also in addition there a several annotations to inject from plugin managers.
 * InjectHydrator
 * InjectFormElement
 
-You can either pass directly the required service name or if you need options you can pass them as following:
+You can either pass directly the required service name, or if you need options, you can pass them as follows:
 ```php
 @InjectFormElement(name="Service", options={"field": "value"})
 ```
 
-If you need a doctrine repository there is also an annotation.
+If you need a doctrine repository, there is also an annotation.
 * InjectDoctrineRepository
 
-It is only constructor injection supported, if you need di from setters you need to use delegator factories.
+It is only constructor injection supported, if you need di from setters, you need to use delegator factories.
 
 You can add the annotations at properties or at the __construct method.
 
@@ -192,9 +192,9 @@ public function __construct(MyService $service)
     $this->service = $service;
 }
 ```
-The order is important and you should decide between constructor or property annotations.
+The order is important, and you should decide between constructor or property annotations.
 ##### Adding own annotations
-If you want to use your own annotation you just need to implement the AnnotationInterface.
+If you want to use your own annotation, you need to implement the AnnotationInterface.
 ### YAML (Deprecated)
 > **Note**: YAML configuration is deprecated and will be removed in a future version. Please use Attributes or Autowiring instead, which provide the same functionality with a more modern approach.
 
@@ -203,7 +203,7 @@ You can specify your dependencies within a yaml file.
 YourService:
   - {type: Inject, value: AnotherService}
 ```
-To enable YAML usage you need to specify the following configuration
+To enable YAML usage, you need to specify the following configuration
 ```php
 'reinfi.dependencyInjection' => [
     'extractor' => YamlExtractor::class,
@@ -234,7 +234,7 @@ or you provide a factory for a cache adapter.
 ```
 
 ### PHPStan Extension
-As "autowiring" is always kind of magic this library ships with a PHPStan extension to solve that problem.
+As "autowiring" is always kind of magic, this library ships with a PHPStan extension to solve that problem.
 
 If you also install [phpstan/extension-installer](https://github.com/phpstan/extension-installer) then you're all set!
 
@@ -250,7 +250,7 @@ includes:
 
 </details>
 
-The extension requires to know your service manager to find all the classes you configured for autowiring.
+The extension requires knowing your service manager to find all the classes you configured for autowiring.
 
 If you do not provide it, the PHPStan extension will simply do nothing.
 
@@ -286,4 +286,4 @@ return static function (RectorConfig $rectorConfig): void {
   This can either be via AutoWiringFactory or InjectionFactory.
 
 ### FAQ
-Feel free to ask any questions or open own pull requests.
+Feel free to ask any questions or open your own pull requests.

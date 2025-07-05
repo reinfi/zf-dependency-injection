@@ -18,11 +18,8 @@ final class AutoWiringFactory extends AbstractFactory
      *
      * @return mixed
      */
-    public function __invoke(
-        \Interop\Container\ContainerInterface $container,
-        $requestedName,
-        ?array $options = null
-    ) {
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    {
         $autoWiringService = $this->getAutoWiringService($container);
 
         $injections = $autoWiringService->resolveConstructorInjection($container, $requestedName, $options);

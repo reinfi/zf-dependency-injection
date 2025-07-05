@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\AbstractFactory\Config;
 
-use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
+use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\ConfigService;
 
 /**

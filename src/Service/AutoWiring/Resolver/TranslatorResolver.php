@@ -22,12 +22,12 @@ class TranslatorResolver implements ResolverInterface
     private const string TRANSLATOR_INTERFACE_OLD = 'Laminas\I18n\Translator\TranslatorInterface';
 
     /**
-     * used to avoid requirement of laminas/laminas-translator module.
+     * used to avoid the requirement of laminas/laminas-translator module.
      */
     private const string TRANSLATOR_INTERFACE = 'Laminas\Translator\TranslatorInterface';
 
     /**
-     * possible names for translator service within container
+     * possible names for translator service within a container
      */
     private const array TRANSLATOR_CONTAINER_SERVICE_NAME = [
         self::TRANSLATOR_INTERFACE,

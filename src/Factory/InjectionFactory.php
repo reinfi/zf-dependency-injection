@@ -18,11 +18,8 @@ final class InjectionFactory extends AbstractFactory
      *
      * @return mixed
      */
-    public function __invoke(
-        \Interop\Container\ContainerInterface $container,
-        $requestedName,
-        ?array $options = null
-    ) {
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    {
         $injectionService = $this->getInjectionService($container);
 
         $injections = $injectionService->resolveConstructorInjection($container, $requestedName);

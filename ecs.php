@@ -16,8 +16,8 @@ return static function (ECSConfig $ecsConfig): void {
         __DIR__ . '/test/',
     ]);
 
-    // import SetList here in the end of ecs. is on purpose
-    // to avoid overridden by existing Skip Option in current config
+    // import SetList here at the end of ecs. is on purpose
+    // to avoid overridden by the existing Skip Option in the current config
     $ecsConfig->import(SetList::PSR_12);
     $ecsConfig->import(SetList::COMMON);
     $ecsConfig->import(SetList::NAMESPACES);

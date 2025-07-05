@@ -23,7 +23,7 @@ abstract class AbstractIntegration extends TestCase
     {
         parent::setUpBeforeClass();
 
-        // Needed to find annotations through reader
+        // Needed to find annotations through the reader
         class_exists(Inject::class);
         class_exists(InjectParent::class);
         class_exists(InjectConfig::class);

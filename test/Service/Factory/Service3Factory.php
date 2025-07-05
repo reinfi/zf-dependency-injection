@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Test\Service\Factory;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Test\Service\Service3;
 
 /**

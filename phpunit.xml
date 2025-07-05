@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<phpunit xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
          colors="true"
          processIsolation="false"
          stopOnFailure="false"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/12.0/phpunit.xsd"
          cacheDirectory=".phpunit.cache"
          backupStaticProperties="false"
          requireCoverageMetadata="false"

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection\Test\Unit\Service\AutoWiring;
 
-use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 use Reinfi\DependencyInjection\Service\AutoWiring\LazyResolverService;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverService;
 use Reinfi\DependencyInjection\Service\AutoWiring\ResolverServiceInterface;
@@ -69,11 +69,10 @@ final class LazyResolverServiceTest extends TestCase
                 ++$calls;
                 if ($calls === 1) {
                     self::assertSame('test', $class);
-                    self::assertNull($options);
                 } else {
                     self::assertSame('test2', $class);
-                    self::assertNull($options);
                 }
+                self::assertNull($options);
 
                 return [];
             });
