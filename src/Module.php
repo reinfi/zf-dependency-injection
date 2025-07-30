@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Reinfi\DependencyInjection;
 
-use Laminas\ModuleManager\Feature\ConfigProviderInterface;
-
 /**
  * @package Reinfi\DependencyInjection
  */
-class Module implements ConfigProviderInterface
+class Module
 {
     public function getConfig(): array
     {
