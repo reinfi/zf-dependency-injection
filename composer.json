@@ -62,7 +62,7 @@
         "rector/rector": "^2.0"
     },
     "extra": {
-        "zf": {
+        "laminas": {
             "component": "Reinfi\\DependencyInjection",
             "config-provider": "Reinfi\\DependencyInjection\\ConfigProvider"
         },
