@@ -45,7 +45,7 @@
         "laminas/laminas-view": "^2.36",
         "laminas/laminas-serializer": "^2.18",
         "laminas/laminas-i18n": "^2.29",
-        "phpunit/phpunit": "^12.0",
+        "phpunit/phpunit": "^13.0",
         "doctrine/orm": "^3.0",
         "php-coveralls/php-coveralls": "^2.5",
         "symfony/yaml": "^6.0 | ^7.0",
