@@ -48,7 +48,7 @@
         "phpunit/phpunit": "^12.0",
         "doctrine/orm": "^3.0",
         "php-coveralls/php-coveralls": "^2.5",
-        "symfony/yaml": "^6.0 | ^7.0",
+        "symfony/yaml": "8.1.6",
         "phpstan/phpstan": "^2.0.1",
         "laminas/laminas-hydrator": "^4.16",
         "laminas/laminas-validator": "^2.63",
