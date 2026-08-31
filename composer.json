@@ -51,7 +51,7 @@
         "symfony/yaml": "^6.0 | ^7.0",
         "phpstan/phpstan": "^2.0.1",
         "laminas/laminas-hydrator": "^4.16",
-        "laminas/laminas-validator": "^2.63",
+        "laminas/laminas-validator": "^3.0",
         "laminas/laminas-filter": "^2.38",
         "laminas/laminas-form": "^3.21",
         "laminas/laminas-inputfilter": "^2.31",
