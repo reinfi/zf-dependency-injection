@@ -42,7 +42,7 @@
     "require-dev": {
         "laminas/laminas-config-aggregator": "^1.17",
         "laminas/laminas-mvc": "^3.8",
-        "laminas/laminas-view": "^2.36",
+        "laminas/laminas-view": "^3.0",
         "laminas/laminas-serializer": "^2.18",
         "laminas/laminas-i18n": "^2.29",
         "phpunit/phpunit": "^12.0",
